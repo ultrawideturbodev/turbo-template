@@ -6,7 +6,6 @@
     },
     "mounts": [
         "source=/Users/${localEnv:USER}/flutter,target=/Users/${localEnv:USER}/flutter,type=bind,consistency=cached",
-        "source=/Users/${localEnv:USER}/.vscode-server,target=/home/vscode/.vscode-server,type=bind,consistency=cached",
         "source=/Users/${localEnv:USER}/.npm,target=/home/vscode/.npm,type=bind,consistency=cached",
         "source=/Users/${localEnv:USER}/.config/configstore,target=/home/vscode/.config/configstore,type=bind,consistency=cached",
         "source=/Users/${localEnv:USER}/.config/firebase,target=/home/vscode/.config/firebase,type=bind,consistency=cached"
