@@ -1,14 +1,14 @@
 # 🐳 How We Set Up Local and Isolated Containers
 
 ## 📝 Introduction
-We sometimes use two different container configurations for development: a local sync container for immediate feedback in IDE, and an isolated container for clean environment testing. Both configurations share host Flutter SDK and support Firebase CLI commands while maintaining different workspace isolation levels.
+We sometimes use two different container configurations for development: a local sync container for immediate feedback in IDE, and a GitHub container for clean environment testing. Both configurations use a minimal Ubuntu base image, allowing you to install tools as needed.
 
 ## 🎯 Suggested Approach
-- [ ] Choose between local sync or isolated container setup
+- [ ] Choose between local sync or GitHub container setup
 - [ ] Create appropriate devcontainer configuration file
-- [ ] Configure container mounts and environment variables
-- [ ] Set up workspace mounting strategy
-- [ ] Test Flutter and Firebase CLI commands
+- [ ] Configure workspace mounting or GitHub cloning
+- [ ] Set up development tools in container as needed
+- [ ] Test your setup
 
 ## 👨‍🏫 Tutorial
 
@@ -17,8 +17,8 @@ We sometimes use two different container configurations for development: a local
 # Local Sync (immediate IDE feedback)
 .devcontainer.local.json
 
-# Isolated Environment (clean testing)
-.devcontainer.isolated.json
+# GitHub Environment (clean testing)
+.devcontainer.json
 ```
 
 ### 2. Create Configuration File
@@ -27,36 +27,17 @@ For local sync (.devcontainer.local.json):
 {
     "name": "Flutter Local Sync Container",
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-    "features": {
-        "ghcr.io/devcontainers/features/node:1": {}
-    },
     "mounts": [
-        "source=/Users/${localEnv:USER}/flutter,target=/Users/${localEnv:USER}/flutter,type=bind,consistency=cached",
-        "source=/Users/${localEnv:USER}/.vscode-server,target=/home/vscode/.vscode-server,type=bind,consistency=cached"
-    ],
-    "remoteEnv": {
-        "PATH": "${containerEnv:PATH}:/Users/${localEnv:USER}/flutter/bin",
-        "FLUTTER_ROOT": "/Users/${localEnv:USER}/flutter"
-    }
+        "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=cached"
+    ]
 }
 ```
 
-For isolated environment (.devcontainer.isolated.json):
+For GitHub environment (.devcontainer.json):
 ```json
 {
-    "name": "Flutter Isolated Container",
+    "name": "Flutter GitHub Container",
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-    "features": {
-        "ghcr.io/devcontainers/features/node:1": {}
-    },
-    "mounts": [
-        "source=/Users/${localEnv:USER}/flutter,target=/opt/flutter,type=bind,readonly,consistency=cached"
-    ],
-    "remoteEnv": {
-        "PATH": "${containerEnv:PATH}:/opt/flutter/bin",
-        "FLUTTER_ROOT": "/opt/flutter"
-    },
-    "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/app,type=bind",
     "workspaceFolder": "/workspaces/app"
 }
 ```
@@ -66,28 +47,5 @@ For isolated environment (.devcontainer.isolated.json):
 # For local sync (uses current directory)
 devpod up --devcontainer-path .devcontainer.local.json
 
-# For isolated environment (uses git repository)
-devpod up --devcontainer-path .devcontainer.isolated.json "YOUR_REPO_URL"
-```
-
-### 4. Verify Setup
-```bash
-# Test Flutter CLI
-flutter --version
-
-# Test Firebase CLI
-firebase --version
-```
-
-### 5. Use Workspace
-Local sync container:
-- Changes reflect immediately in local IDE
-- Direct file system access
-- Perfect for active development
-- VS Code server is cached between sessions
-
-Isolated container:
-- Clean environment for testing
-- Fresh clone from repository
-- Read-only SDK access
-- Prevents host system conflicts
+# For GitHub environment (uses git repository)
+devpod up --devcontainer-path .devcontainer.json "YOUR_REPO_URL"

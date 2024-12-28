@@ -1,14 +1,7 @@
 {
     "name": "Flutter Local Sync Container",
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-    "features": {
-        "ghcr.io/devcontainers/features/node:1": {}
-    },
     "mounts": [
-        "source=/Users/${localEnv:USER}/flutter,target=/Users/${localEnv:USER}/flutter,type=bind,consistency=cached"
-    ],
-    "remoteEnv": {
-        "PATH": "${containerEnv:PATH}:/Users/${localEnv:USER}/flutter/bin",
-        "FLUTTER_ROOT": "/Users/${localEnv:USER}/flutter"
-    }
+        "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=cached"
+    ]
 }

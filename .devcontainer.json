@@ -1,18 +1,5 @@
 {
-    "name": "Flutter Local Sync Container",
+    "name": "Flutter GitHub Container",
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-    "features": {
-        "ghcr.io/devcontainers/features/node:1": {}
-    },
-    "mounts": [
-        "source=/Users/${localEnv:USER}/flutter,target=/Users/${localEnv:USER}/flutter,type=bind,consistency=cached",
-        "source=/Users/${localEnv:USER}/.npm,target=/home/vscode/.npm,type=bind,consistency=cached",
-        "source=/Users/${localEnv:USER}/.config/configstore,target=/home/vscode/.config/configstore,type=bind,consistency=cached",
-        "source=/Users/${localEnv:USER}/.config/firebase,target=/home/vscode/.config/firebase,type=bind,consistency=cached"
-    ],
-    "remoteEnv": {
-        "PATH": "${containerEnv:PATH}:/Users/${localEnv:USER}/flutter/bin:/usr/local/bin",
-        "FLUTTER_ROOT": "/Users/${localEnv:USER}/flutter",
-        "NPM_CONFIG_PREFIX": "/home/vscode/.npm-global"
-    }
+    "workspaceFolder": "/workspaces/app"
 }
