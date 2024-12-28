@@ -1,0 +1,140 @@
+import 'package:flutter/widgets.dart';
+
+import '../constants/k_sizes.dart';
+import '../extensions/context_extension.dart';
+import 'hover_builder.dart';
+import 'leading_icon.dart';
+import 'opacity_button.dart';
+import 'trailing_icon.dart';
+
+enum TuButtonType {
+  primary,
+  secondary,
+  ;
+
+  static const okButtonDefault = TuButtonType.primary;
+  static const cancelButtonDefault = TuButtonType.secondary;
+}
+
+class TuButton extends StatelessWidget {
+  const TuButton({
+    Key? key,
+    required this.buttonType,
+    required this.onPressed,
+    required this.text,
+    this.focusNode,
+    this.leadingIcon,
+    this.trailingIcon,
+  }) : super(key: key);
+
+  factory TuButton.primary({
+    Key? key,
+    required String text,
+    required VoidCallback onPressed,
+    LeadingIcon Function(Color backgroundColor, Color textColor)? leadingIcon,
+    TrailingIcon Function(Color backgroundColor, Color textColor)? trailingIcon,
+    FocusNode? focusNode,
+  }) =>
+      TuButton(
+        key: key,
+        text: text,
+        onPressed: onPressed,
+        leadingIcon: leadingIcon,
+        trailingIcon: trailingIcon,
+        buttonType: TuButtonType.primary,
+        focusNode: focusNode,
+      );
+
+  factory TuButton.secondary({
+    Key? key,
+    required String text,
+    required VoidCallback onPressed,
+    LeadingIcon Function(Color backgroundColor, Color textColor)? leadingIcon,
+    TrailingIcon Function(Color backgroundColor, Color textColor)? trailingIcon,
+    FocusNode? focusNode,
+  }) =>
+      TuButton(
+        key: key,
+        text: text,
+        onPressed: onPressed,
+        leadingIcon: leadingIcon,
+        trailingIcon: trailingIcon,
+        buttonType: TuButtonType.secondary,
+        focusNode: focusNode,
+      );
+
+  final String text;
+  final VoidCallback onPressed;
+  final LeadingIcon Function(Color backgroundColor, Color textColor)? leadingIcon;
+  final TrailingIcon Function(Color backgroundColor, Color textColor)? trailingIcon;
+  final TuButtonType buttonType;
+  final FocusNode? focusNode;
+
+  @override
+  Widget build(BuildContext context) {
+    const buttonHeight = kSizesButtonHeight;
+    final borderRadius = BorderRadius.circular(context.sizes.buttonBorderRadius);
+    switch (buttonType) {
+      case TuButtonType.primary:
+        final backgroundColor = context.colors.primaryButtonBackground;
+        final textColor = context.colors.primaryButtonText;
+        return OpacityButton(
+          onPressed: onPressed,
+          focusNode: focusNode,
+          child: Container(
+            height: buttonHeight,
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              borderRadius: borderRadius,
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: kSizesHorizontalButtonPadding),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (leadingIcon != null) leadingIcon!(backgroundColor, textColor),
+                Text(
+                  text,
+                  style: context.texts.primaryButton,
+                ),
+                if (trailingIcon != null) trailingIcon!(backgroundColor, textColor),
+              ],
+            ),
+          ),
+        );
+      case TuButtonType.secondary:
+        final backgroundColor = context.colors.secondaryButtonBackground;
+        final textColor = context.colors.secondaryButtonText;
+        return OpacityButton(
+          onPressed: onPressed,
+          focusNode: focusNode,
+          child: HoverBuilder(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (leadingIcon != null) leadingIcon!(backgroundColor, textColor),
+                Text(
+                  text,
+                  style: context.texts.secondaryButton,
+                ),
+                if (trailingIcon != null) trailingIcon!(backgroundColor, textColor),
+              ],
+            ),
+            builder: (context, isHovered, child) => Container(
+              height: buttonHeight,
+              decoration: BoxDecoration(
+                color: switch (isHovered) {
+                  false => backgroundColor,
+                  true => context.colors.secondaryButtonHover,
+                },
+                borderRadius: borderRadius,
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: kSizesHorizontalButtonPadding),
+              child: child,
+            ),
+          ),
+        );
+    }
+  }
+}

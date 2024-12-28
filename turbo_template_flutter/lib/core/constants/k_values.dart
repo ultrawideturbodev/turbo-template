@@ -1,0 +1,7 @@
+const kValuesDeviceId = 'deviceId';
+const kValuesFontFamily = 'Nunito';
+const kValuesNull = 'null';
+const kValuesNoAuthId = 'no-auth-id';
+const kValuesRandom = 'random';
+const kValuesPrivacyPolicyUrl = 'https://www.example.com/privacy-policy';
+const kValuesTermsOfServiceUrl = 'https://www.example.com/terms-of-service';
