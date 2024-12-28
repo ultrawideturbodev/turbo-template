@@ -1,1 +1,17 @@
-{"image":"mcr.microsoft.com/devcontainers/javascript-node"}
+{
+    "name": "Flutter Development Container",
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "lts"
+        }
+    },
+    "mounts": [
+        "source=/Users/${localEnv:USER}/flutter,target=/opt/flutter,type=bind,readonly,consistency=cached"
+    ],
+    "remoteEnv": {
+        "PATH": "${containerEnv:PATH}:/opt/flutter/bin",
+        "FLUTTER_ROOT": "/opt/flutter"
+    },
+    "postCreateCommand": "npm install -g firebase-tools && flutter precache"
+}
