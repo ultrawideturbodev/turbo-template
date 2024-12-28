@@ -50,13 +50,13 @@ For isolated environment (.devcontainer.isolated.json):
         "ghcr.io/devcontainers/features/node:1": {}
     },
     "mounts": [
-        "source=/Users/${localEnv:USER}/flutter,target=/opt/flutter,type=bind,readonly,consistency=cached",
-        "source=/Users/${localEnv:USER}/.vscode-server,target=/home/vscode/.vscode-server,type=bind,consistency=cached"
+        "source=/Users/${localEnv:USER}/flutter,target=/opt/flutter,type=bind,readonly,consistency=cached"
     ],
     "remoteEnv": {
         "PATH": "${containerEnv:PATH}:/opt/flutter/bin",
         "FLUTTER_ROOT": "/opt/flutter"
-    }
+    },
+    "workspaceFolder": "/workspaces/app"
 }
 ```
 
@@ -90,4 +90,3 @@ Isolated container:
 - Fresh clone from repository
 - Read-only SDK access
 - Prevents host system conflicts
-- VS Code server is cached between sessions
