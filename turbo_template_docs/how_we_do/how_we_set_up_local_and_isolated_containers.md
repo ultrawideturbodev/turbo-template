@@ -56,6 +56,7 @@ For isolated environment (.devcontainer.isolated.json):
         "PATH": "${containerEnv:PATH}:/opt/flutter/bin",
         "FLUTTER_ROOT": "/opt/flutter"
     },
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/app,type=bind",
     "workspaceFolder": "/workspaces/app"
 }
 ```
