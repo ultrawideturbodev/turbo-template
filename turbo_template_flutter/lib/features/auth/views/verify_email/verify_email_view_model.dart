@@ -7,7 +7,6 @@ import 'package:informers/informers.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:turbo_template/core/enums/auth_step.dart';
 import 'package:turbo_template/core/globals/g_now.dart';
-import 'package:turbo_template/core/globals/g_strings.dart';
 import 'package:turbo_template/core/services/feedback_service.dart';
 import 'package:turbo_template/core/services/notification_service.dart';
 import 'package:turbo_template/features/auth/services/auth_service.dart';

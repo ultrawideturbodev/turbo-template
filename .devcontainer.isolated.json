@@ -1,0 +1,15 @@
+{
+    "name": "Flutter Isolated Container",
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+        "ghcr.io/devcontainers/features/node:1": {}
+    },
+    "mounts": [
+        "source=/Users/${localEnv:USER}/flutter,target=/opt/flutter,type=bind,readonly,consistency=cached",
+        "source=/Users/${localEnv:USER}/.vscode-server,target=/home/vscode/.vscode-server,type=bind,consistency=cached"
+    ],
+    "remoteEnv": {
+        "PATH": "${containerEnv:PATH}:/opt/flutter/bin",
+        "FLUTTER_ROOT": "/opt/flutter"
+    }
+} 
