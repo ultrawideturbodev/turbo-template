@@ -1,8 +1,8 @@
 {
-    "name": "Flutter Local Sync Container",
+    "name": "Flutter Isolated Container",
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
     "mounts": [
         "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=cached"
     ],
     "postCreateCommand": "bash -i -c './scripts/arm64-setup'"
-}
+} 
