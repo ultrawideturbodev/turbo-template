@@ -1,6 +1,14 @@
 #!/bin/bash
 # https://forum.cursor.com/t/codebase-indexing-no-longer-working-inside-dev-containers/17858/14
 
+# =============================================================================
+# Script Name: install_cursor_packages.sh
+# Description: Installs specific npm packages based on a detected or provided version.
+# Author: Your Name
+# Version: 1.2.0
+# Date: 2024-04-27
+# =============================================================================
+
 # Enable strict mode for better error handling
 set -euo pipefail
 
@@ -8,12 +16,14 @@ set -euo pipefail
 SILENT=""
 USER_VERSION=""
 DETECTED_VERSION=""
-INSTALL_VERSION="1.0.0"  # Default version if we can't detect one
+INSTALL_VERSION=""
 VERSION_DIR=""
 CURSOR_RETRIEVAL_DIR=""
 CURSOR_SERVER_DIR=""
 
+# =============================================================================
 # Function: Display usage information
+# =============================================================================
 usage() {
   cat <<EOF
 Usage: $(basename "$0") [OPTIONS]
@@ -42,7 +52,9 @@ EOF
   exit 0
 }
 
+# =============================================================================
 # Function: Parse command-line arguments
+# =============================================================================
 parse_args() {
   while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -74,14 +86,18 @@ parse_args() {
   done
 }
 
+# =============================================================================
 # Function: Enable debugging if not in silent mode
+# =============================================================================
 enable_debugging() {
   if [[ -z "$SILENT" ]]; then
     set -x
   fi
 }
 
+# =============================================================================
 # Function: Check for required dependencies
+# =============================================================================
 check_dependencies() {
   local dependencies=(npm grep awk ls)
   for cmd in "${dependencies[@]}"; do
@@ -92,39 +108,18 @@ check_dependencies() {
   done
 }
 
-# Function: Create necessary directories
-create_directories() {
-  # Create base directories
-  mkdir -p "${HOME}/.cursor-server/bin"
-  
-  # If VERSION_DIR is empty, create a temporary one
-  if [[ -z "$VERSION_DIR" ]]; then
-    VERSION_DIR="0000000000000000000000000000000000000000"
-    echo "Creating temporary version directory: $VERSION_DIR"
-  fi
-  
-  # Create cursor directories
-  CURSOR_RETRIEVAL_DIR="${HOME}/.cursor-server/bin/$VERSION_DIR/extensions/cursor-retrieval/"
-  CURSOR_SERVER_DIR="/vscode/cursor-server/bin/linux-arm64/$VERSION_DIR/extensions/cursor-retrieval/"
-  
-  mkdir -p "$CURSOR_RETRIEVAL_DIR"
-  mkdir -p "$CURSOR_SERVER_DIR"
-  
-  echo "Created directories:"
-  echo "Cursor Retrieval Directory: $CURSOR_RETRIEVAL_DIR"
-  echo "Cursor Server Directory: $CURSOR_SERVER_DIR"
-}
-
+# =============================================================================
 # Function: Detect the version from existing directories
+# =============================================================================
 detect_version() {
   local bin_dir="${HOME}/.cursor-server/bin/"
   
   # List directories matching a 40-character hexadecimal pattern
-  VERSION_DIR=$(ls "$bin_dir" 2>/dev/null | grep -E '^[0-9a-f]{40}$' | head -n 1 || true)
+  VERSION_DIR=$(ls "$bin_dir" 2>/dev/null | grep -E '^[0-9a-f]{40}$' | head -n 1)
 
   if [[ -z "$VERSION_DIR" ]]; then
-    echo "No existing version directory found, will create one."
-    return 0
+    echo "Error: No version directory found in ${bin_dir}" >&2
+    exit 1
   fi
 
   DETECTED_VERSION="$VERSION_DIR"
@@ -138,85 +133,91 @@ detect_version() {
   echo "Cursor Server Directory: $CURSOR_SERVER_DIR"
 }
 
+
+# =============================================================================
 # Function: Extract version from npm list
+# =============================================================================
 extract_version_from_npm() {
   local anysphere_dir="$CURSOR_SERVER_DIR/node_modules/@anysphere"
 
   if [[ ! -d "$anysphere_dir" ]]; then
-    echo "Directory $anysphere_dir does not exist, using default version."
-    return 0
+    echo "Error: Directory $anysphere_dir does not exist." >&2
+    exit 1
   fi
 
   # Change to the anysphere directory
-  cd "$anysphere_dir" || { 
-    echo "Failed to navigate to $anysphere_dir, using default version." >&2
-    return 0
-  }
+  cd "$anysphere_dir" || { echo "Failed to navigate to $anysphere_dir" >&2; exit 1; }
 
   # Run npm list and capture its output
   local npm_output
-  npm_output=$(npm list || true)
+  npm_output=$(npm list)
 
   # Extract the version after @anysphere/file-service-linux-x64-gnu@
   local extracted_version
-  extracted_version=$(echo "$npm_output" | grep -o '@anysphere/file-service-linux-.*-gnu@[^ ]*' | awk -F'@' '{print $3}' || true)
+  extracted_version=$(echo "$npm_output" | grep -o '@anysphere/file-service-linux-.*-gnu@[^ ]*' | awk -F'@' '{print $3}')
 
-  if [[ -n "$extracted_version" ]]; then
-    INSTALL_VERSION="$extracted_version"
-    echo "Detected install version from npm list: $INSTALL_VERSION"
-  else
-    echo "Could not detect version from npm list, using default version: $INSTALL_VERSION"
+  if [[ -z "$extracted_version" ]]; then
+    echo "Error: Could not detect version from npm list." >&2
+    exit 1
   fi
+
+  INSTALL_VERSION="$extracted_version"
+  echo "Detected install version from npm list: $INSTALL_VERSION"
 }
 
+# =============================================================================
 # Function: Determine the version to use for npm install
+# =============================================================================
 set_install_version() {
   if [[ -n "$USER_VERSION" ]]; then
     INSTALL_VERSION="$USER_VERSION"
     echo "Using user-provided version for npm install: $INSTALL_VERSION"
   else
     extract_version_from_npm
-    echo "Using version for npm install: $INSTALL_VERSION"
+    echo "Using detected version for npm install: $INSTALL_VERSION"
   fi
 }
 
+# =============================================================================
 # Function: Install required npm packages
+# =============================================================================
 install_packages() {
   local directories=("$CURSOR_SERVER_DIR" "$CURSOR_RETRIEVAL_DIR")
 
   for dir in "${directories[@]}"; do
     if [[ -d "$dir" ]]; then
       echo "Installing packages in $dir"
-      npm install --prefix "$dir" "@anysphere/file-service-linux-arm64-gnu@$INSTALL_VERSION" "$SILENT" || true
-      npm install --prefix "$dir" "@anysphere/file-service@$INSTALL_VERSION" "$SILENT" || true
+      npm install --prefix "$dir" "@anysphere/file-service-linux-arm64-gnu@$INSTALL_VERSION" "$SILENT"
+      npm install --prefix "$dir" "@anysphere/file-service@$INSTALL_VERSION" "$SILENT"
     else
-      echo "Warning: Directory $dir does not exist. Creating it..."
-      mkdir -p "$dir"
-      echo "Installing packages in newly created $dir"
-      npm install --prefix "$dir" "@anysphere/file-service-linux-arm64-gnu@$INSTALL_VERSION" "$SILENT" || true
-      npm install --prefix "$dir" "@anysphere/file-service@$INSTALL_VERSION" "$SILENT" || true
+      echo "Warning: Directory $dir does not exist. Skipping." >&2
     fi
   done
 }
 
+# =============================================================================
 # Function: Validate the install version format (optional)
+# =============================================================================
 validate_version() {
   if [[ ! "$INSTALL_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
     echo "Warning: Version '$INSTALL_VERSION' may not be in semantic versioning format (x.y.z)." >&2
+    # Optionally exit or proceed
+    # exit 1
   fi
 }
 
+# =============================================================================
 # Main function to orchestrate the script execution
+# =============================================================================
 main() {
   parse_args "$@"
   check_dependencies
   enable_debugging
   detect_version
-  create_directories
   set_install_version
   validate_version
   install_packages
 }
 
 # Execute the main function with all script arguments
-main "$@" 
+main "$@"
