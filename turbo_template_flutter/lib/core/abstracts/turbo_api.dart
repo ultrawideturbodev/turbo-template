@@ -7,8 +7,8 @@ import '../constants/k_keys.dart';
 import '../enums/firestore_collection.dart';
 import '../utils/api_logger.dart';
 
-abstract class TuApi<T extends Object> extends FirestoreApi<T> {
-  TuApi({
+abstract class TurboApi<T extends Object> extends FirestoreApi<T> {
+  TurboApi({
     required FirestoreCollection firestoreCollection,
     String Function(FirestoreCollection firestoreCollection)? path,
   }) : super(
@@ -28,4 +28,6 @@ abstract class TuApi<T extends Object> extends FirestoreApi<T> {
           tryAddLocalId: true,
           updatedFieldName: firestoreCollection.updatedFieldName,
         );
+
+  String get genId => doc.id;
 }

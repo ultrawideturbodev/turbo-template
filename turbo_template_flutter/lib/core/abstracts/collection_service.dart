@@ -6,13 +6,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:informers/informer.dart';
 import 'package:loglytics/loglytics.dart';
-import 'package:turbo_template/core/abstracts/tu_api.dart';
+import 'package:turbo_template/core/abstracts/turbo_api.dart';
 import 'package:turbo_template/core/abstracts/writeable_id.dart';
 import 'package:turbo_template/core/extensions/completer_extension.dart';
 import 'package:turbo_template/core/extensions/list_extension.dart';
 import 'package:turbo_template/features/auth/abstracts/auth_sync_service.dart';
 
-abstract class BeforeAndAfterCollectionService<T extends WriteableId<String>, API extends TuApi<T>>
+abstract class BeforeAndAfterCollectionService<T extends WriteableId<String>, API extends TurboApi<T>>
     extends CollectionService<T, API> {
   BeforeAndAfterCollectionService({required super.api});
 
@@ -38,7 +38,7 @@ abstract class BeforeAndAfterCollectionService<T extends WriteableId<String>, AP
   }
 }
 
-abstract class BeforeCollectionService<T extends WriteableId<String>, API extends TuApi<T>>
+abstract class BeforeCollectionService<T extends WriteableId<String>, API extends TurboApi<T>>
     extends CollectionService<T, API> {
   BeforeCollectionService({required super.api});
 
@@ -62,7 +62,7 @@ abstract class BeforeCollectionService<T extends WriteableId<String>, API extend
   }
 }
 
-abstract class AfterCollectionService<T extends WriteableId<String>, API extends TuApi<T>>
+abstract class AfterCollectionService<T extends WriteableId<String>, API extends TurboApi<T>>
     extends CollectionService<T, API> {
   AfterCollectionService({required super.api});
 
@@ -92,8 +92,8 @@ abstract class AfterCollectionService<T extends WriteableId<String>, API extends
 /// It provides methods for synchronizing and managing a collection of objects of type [T],
 /// where [T] is a type that extends [WriteableId].
 ///
-/// The service uses a [TuApi] to interact with [FirebaseFirestore].
-abstract class CollectionService<T extends WriteableId<String>, API extends TuApi<T>>
+/// The service uses a [TurboApi] to interact with [FirebaseFirestore].
+abstract class CollectionService<T extends WriteableId<String>, API extends TurboApi<T>>
     extends AuthSyncService<List<T>> with Loglytics {
   CollectionService({
     required this.api,

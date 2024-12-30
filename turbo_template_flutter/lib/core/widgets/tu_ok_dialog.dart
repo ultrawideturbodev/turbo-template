@@ -82,7 +82,7 @@ class _TuOkDialogState<T> extends State<TuOkDialog<T>> {
             Wrap(
               alignment: WrapAlignment.end,
               children: [
-                TuButton.primary(
+                TurboButton.primary(
                   text: widget.okButtonText,
                   onPressed: () => Navigator.of(context).pop(true),
                 ),

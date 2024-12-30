@@ -54,10 +54,10 @@ extension IntExtension on int {
 
   /// Converts 20240101 format
   DateTime get asDateTime => DateTime(
-        this ~/ 10000,
-        this ~/ 100 % 100,
-        this % 100,
-      );
+    this ~/ 10000,
+    this ~/ 100 % 100,
+    this % 100,
+  );
 
   bool get isNotFound => this == -1;
 

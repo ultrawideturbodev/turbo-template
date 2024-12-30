@@ -12,6 +12,7 @@ import 'package:turbo_template/core/enums/step_result.dart';
 import 'package:turbo_template/core/exceptions/unexpected_null_exception.dart';
 import 'package:turbo_template/core/extensions/string_extension.dart';
 import 'package:turbo_template/core/forms/form_field_config.dart';
+import 'package:turbo_template/core/globals/g_strings.dart';
 import 'package:turbo_template/core/globals/g_vibrate.dart';
 import 'package:turbo_template/core/services/feedback_service.dart';
 import 'package:turbo_template/core/utils/debouncer.dart';
@@ -31,13 +32,14 @@ class CreateUsernameViewModel extends BaseViewModel with Loglytics, BusyServiceM
   static void registerFactory() => GetIt.I.registerFactory(CreateUsernameViewModel.new);
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
+
+  final _homeRouter = HomeRouter.locate;
   final _authService = AuthService.locate;
   final _authStepsService = AuthStepService.locate;
   final _createUsernameForm = CreateUsernameForm.locate;
   final _feedbackService = FeedbackService.locate;
   final _profilesApi = UserProfilesApi.locate;
   final _usernamesApi = UsernamesApi.locate;
-  final _homeRouter = HomeRouter.locate;
 
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
 
@@ -45,7 +47,7 @@ class CreateUsernameViewModel extends BaseViewModel with Loglytics, BusyServiceM
   Future<void> initialise() async {
     super.initialise();
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
+          (_) {
         _createUsernameForm.username.requestFocus();
       },
     );
@@ -74,7 +76,7 @@ class CreateUsernameViewModel extends BaseViewModel with Loglytics, BusyServiceM
   // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
 
   FormFieldConfig<String> get usernameField => _createUsernameForm.username;
-  String get usernamePlaceholder => 'Stranger'; // TODO(brian): Translate | 28/12/2024
+  String get usernamePlaceholder => gStrings.stranger;
   ValueListenable<String> get username => _username;
   ValueListenable<bool?> get usernameIsAvailable => _usernameIsAvailable;
 
@@ -82,35 +84,35 @@ class CreateUsernameViewModel extends BaseViewModel with Loglytics, BusyServiceM
 
   void _tryUpdateUsernameAvailability({required String userId}) => _debouncer.run(
         () async {
-          final iUsernameIsAvailable = _usernameIsAvailable.value;
-          final username = _username.value;
-          if (username == usernamePlaceholder ||
-              username.isEmpty ||
-              username.length < 3 ||
-              username.length > 30) {
-            _usernameIsAvailable.update(null);
-          } else if (!username.isValidUsername) {
-            _usernameIsAvailable.update(false);
-          } else {
-            final usernameIsAvailable = await _usernamesApi.usernameIsAvailable(
-              username: username,
-              userId: userId,
-            );
-            _usernameIsAvailable.update(usernameIsAvailable);
-          }
-          if (iUsernameIsAvailable != _usernameIsAvailable.value) {
-            switch (_usernameIsAvailable.value) {
-              case null:
-                break;
-              case true:
-                gVibrateSuccess();
-              case false:
-                gVibrateError();
-                break;
-            }
-          }
-        },
-      );
+      final iUsernameIsAvailable = _usernameIsAvailable.value;
+      final username = _username.value;
+      if (username == usernamePlaceholder ||
+          username.isEmpty ||
+          username.length < 3 ||
+          username.length > 30) {
+        _usernameIsAvailable.update(null);
+      } else if (!username.isValidUsername) {
+        _usernameIsAvailable.update(false);
+      } else {
+        final usernameIsAvailable = await _usernamesApi.usernameIsAvailable(
+          username: username,
+          userId: userId,
+        );
+        _usernameIsAvailable.update(usernameIsAvailable);
+      }
+      if (iUsernameIsAvailable != _usernameIsAvailable.value) {
+        switch (_usernameIsAvailable.value) {
+          case null:
+            break;
+          case true:
+            gVibrateSuccess();
+          case false:
+            gVibrateError();
+            break;
+        }
+      }
+    },
+  );
 
   // 🪄 MUTATORS ------------------------------------------------------------------------------ \\
 
@@ -123,10 +125,8 @@ class CreateUsernameViewModel extends BaseViewModel with Loglytics, BusyServiceM
         unawaited(
           _feedbackService.showOkDialog(
             context: context,
-            title: (strings) =>
-                'gStrings.unavailable', // TODO(brian): Translate add to INTL | 28/12/2024
-            message: (strings) =>
-                'gStrings.usernameIsAlreadyTaken', // TODO(brian): Translate add to INTL | 28/12/2024
+            title: (strings) => gStrings.unavailable,
+            message: (strings) => gStrings.usernameIsAlreadyTaken,
           ),
         );
         return;
@@ -140,16 +140,16 @@ class CreateUsernameViewModel extends BaseViewModel with Loglytics, BusyServiceM
       if (_createUsernameForm.isValid) {
         final username = _username.value;
         final createUsernameResponse = await _usernamesApi.runTransaction<FeedbackResponse>(
-          (transaction) => transaction.get(_usernamesApi.findDocRef(id: username)).then(
-            (doc) async {
+              (transaction) => transaction.get(_usernamesApi.findDocRef(id: username)).then(
+                (doc) async {
               if (doc.exists &&
                   !(await _usernamesApi.isMe(
                     username: username,
                     userId: userId,
                   ))) {
                 return FeedbackResponse.error(
-                  title: 'gStrings.alreadyInUse',
-                  message: 'gStrings.usernameIsAlreadyInUsePleaseChooseADifferentOne',
+                  title: gStrings.alreadyInUse,
+                  message: gStrings.usernameIsAlreadyInUsePleaseChooseADifferentOne,
                 );
               } else {
                 return _usernamesApi
@@ -158,12 +158,11 @@ class CreateUsernameViewModel extends BaseViewModel with Loglytics, BusyServiceM
                   transaction: transaction,
                 )
                     .then(
-                  (response) {
+                      (response) {
                     if (!response.isSuccess) {
                       return FeedbackResponse.error(
-                        title: 'gStrings.deletingFailed',
-                        message:
-                            'gStrings.somethingWentWrongWhileDeletingOldUsernamesPleaseTryAgain',
+                        title: gStrings.deletingFailed,
+                        message: gStrings.somethingWentWrongWhileDeletingOldUsernamesPleaseTryAgain,
                       );
                     }
                     return _usernamesApi.createUsername(
@@ -182,12 +181,12 @@ class CreateUsernameViewModel extends BaseViewModel with Loglytics, BusyServiceM
             authStep: AuthStep.createUsernameDoc,
           );
           final createProfileResponse = await _profilesApi.runTransaction<FeedbackResponse>(
-            (transaction) => transaction.get(_usernamesApi.findDocRef(id: username)).then(
+                (transaction) => transaction.get(_usernamesApi.findDocRef(id: username)).then(
                   (doc) async => await _profilesApi.createProfile(
-                    userId: userId,
-                    username: doc.id,
-                  ),
-                ),
+                userId: userId,
+                username: doc.id,
+              ),
+            ),
           );
           if (createProfileResponse.isSuccess) {
             final result = await _authStepsService.updateStepHappenedAndHandleNextStep(
@@ -203,9 +202,9 @@ class CreateUsernameViewModel extends BaseViewModel with Loglytics, BusyServiceM
             unawaited(
               _feedbackService.showOkDialog(
                 context: context,
-                title: (strings) => 'gStrings.databaseFailure',
+                title: (strings) => gStrings.databaseFailure,
                 message: (strings) =>
-                    'gStrings.somethingWentWrongWhileTryingToCreateYourProfilePlease',
+                gStrings.somethingWentWrongWhileTryingToCreateYourProfilePlease,
               ),
             );
           }

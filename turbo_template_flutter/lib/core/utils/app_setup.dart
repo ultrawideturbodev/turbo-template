@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:turbo_template/core/enums/environment.dart';
 import '../config/emulator_config.dart';
-import 'environment.dart';
 
 class AppSetup {
   static Future<void> initialise() async {
@@ -8,6 +8,5 @@ class AppSetup {
       options: Environment.current.firebaseOptions,
     );
     EmulatorConfig.configureEmulators();
-    // ... rest of initialization
   }
 }

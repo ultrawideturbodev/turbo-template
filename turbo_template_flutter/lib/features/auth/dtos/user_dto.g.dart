@@ -66,3 +66,29 @@ Json? _$JsonConverterToJson<Json, Value>(
   Json? Function(Value value) toJson,
 ) =>
     value == null ? null : toJson(value);
+
+UpdateUserDtoRequest _$UpdateUserDtoRequestFromJson(
+        Map<String, dynamic> json) =>
+    UpdateUserDtoRequest(
+      acceptedPrivacyAndTermsAt: _$JsonConverterFromJson<Timestamp, DateTime>(
+          json['acceptedPrivacyAndTermsAt'],
+          const TimestampConverter().fromJson),
+    );
+
+Map<String, dynamic> _$UpdateUserDtoRequestToJson(
+    UpdateUserDtoRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(
+      'acceptedPrivacyAndTermsAt',
+      _$JsonConverterToJson<Timestamp, DateTime>(
+          instance.acceptedPrivacyAndTermsAt,
+          const TimestampConverter().toJson));
+  return val;
+}

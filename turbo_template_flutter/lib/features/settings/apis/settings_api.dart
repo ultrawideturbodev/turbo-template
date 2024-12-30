@@ -1,10 +1,10 @@
 import 'package:get_it/get_it.dart';
-import 'package:turbo_template/core/abstracts/tu_api.dart';
+import 'package:turbo_template/core/abstracts/turbo_api.dart';
 import 'package:turbo_template/core/enums/firestore_collection.dart';
 import 'package:turbo_template/core/globals/g_user_id.dart';
 import 'package:turbo_template/features/settings/dtos/settings_dto.dart';
 
-class SettingsApi extends TuApi<SettingsDto> {
+class SettingsApi extends TurboApi<SettingsDto> {
   SettingsApi()
       : super(
     firestoreCollection: FirestoreCollection.settings,

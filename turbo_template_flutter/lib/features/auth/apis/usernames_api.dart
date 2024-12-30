@@ -3,14 +3,14 @@ import 'package:feedback_response/feedback_response.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
 
-import '../../../core/abstracts/tu_api.dart';
+import '../../../core/abstracts/turbo_api.dart';
 import '../../../core/constants/k_keys.dart';
 import '../../../core/enums/firestore_collection.dart';
 import '../../../core/exceptions/unexpected_result_exception.dart';
 import '../dtos/username_dto.dart';
 import '../requests/create_username_request.dart';
 
-class UsernamesApi extends TuApi<UsernameDto> with Loglytics {
+class UsernamesApi extends TurboApi<UsernameDto> with Loglytics {
   UsernamesApi()
       : super(
           firestoreCollection: FirestoreCollection.usernames,

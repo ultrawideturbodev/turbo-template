@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:informers/informer.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:turbo_template/core/typedefs/lazy_locator.dart';
+import 'package:turbo_template/core/typedefs/update_current_def.dart';
 import 'package:turbo_template/features/auth/abstracts/auth_sync_service.dart';
 
 import '../extensions/completer_extension.dart';
@@ -143,18 +144,19 @@ abstract class DocumentService<T extends WriteableId<String>, API extends Firest
 
   @protected
   Future<FeedbackResponse<DocumentReference>> upsertDoc({
-    required T doc,
+    required UpdateCurrentDef<T?> doc,
     Writeable Function(T doc)? remoteUpdateRequestBuilder,
     bool doNotifyListeners = true,
     Transaction? transaction,
   }) async {
     try {
-      log.debug('Upserting doc with id: ${doc.id}');
-      upsertLocalDoc(doc: doc, doNotifyListeners: doNotifyListeners);
+      final nDoc = doc(this.doc.value);
+      log.debug('Upserting doc with id: ${nDoc?.id}');
+      upsertLocalDoc(doc: nDoc, doNotifyListeners: doNotifyListeners);
       final future = api.createDoc(
         merge: true,
-        writeable: doc.isLocalDefault ? doc : remoteUpdateRequestBuilder?.call(doc) ?? doc,
-        id: doc.id,
+        writeable: nDoc!.isLocalDefault ? nDoc : remoteUpdateRequestBuilder?.call(nDoc) ?? nDoc,
+        id: nDoc.id,
         transaction: transaction,
       );
       tempBlockStreamUpdates(future);
@@ -194,17 +196,18 @@ abstract class DocumentService<T extends WriteableId<String>, API extends Firest
 
   @protected
   Future<FeedbackResponse<DocumentReference>> updateDoc({
-    required T doc,
+    required UpdateCurrentDef<T?> doc,
     Writeable Function(T doc)? remoteUpdateRequestBuilder,
     bool doNotifyListeners = true,
     Transaction? transaction,
   }) async {
     try {
-      log.debug('Updating doc with id: ${doc.id}');
-      upsertLocalDoc(doc: doc, doNotifyListeners: doNotifyListeners);
+      final nDoc = doc(this.doc.value);
+      log.debug('Updating doc with id: ${nDoc?.id}');
+      upsertLocalDoc(doc: nDoc, doNotifyListeners: doNotifyListeners);
       final future = api.updateDoc(
-        writeable: remoteUpdateRequestBuilder?.call(doc) ?? doc,
-        id: doc.id,
+        writeable: remoteUpdateRequestBuilder?.call(nDoc!) ?? nDoc!,
+        id: nDoc!.id,
         transaction: transaction,
       );
       tempBlockStreamUpdates(future);

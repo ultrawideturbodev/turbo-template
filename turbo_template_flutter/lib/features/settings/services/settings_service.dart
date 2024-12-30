@@ -79,7 +79,7 @@ class SettingsService extends DocumentService<SettingsDto, SettingsApi> {
     required DateTime skippedVerifyEmailDate,
   }) =>
       updateDoc(
-        doc: settingsDto.copyWith(
+        doc: (current) => current!.copyWith(
           skippedVerifyEmailDate: skippedVerifyEmailDate,
         ),
         remoteUpdateRequestBuilder: (doc) => doc.asUpdateSkippedVerifyEmailDateRequest,

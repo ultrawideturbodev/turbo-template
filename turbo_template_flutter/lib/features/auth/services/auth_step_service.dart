@@ -289,7 +289,7 @@ class AuthStepService extends Initialisable with Loglytics {
             reason: 'email should not be null when creating user doc in startup step service',
           );
         }
-        final response = await _usersApi.createUser(
+        final response = await _userService.createUser(
           userId: userId,
           email: email,
           acceptedPrivacyAndTermsAt: acceptedPrivacyAndTermsAt,

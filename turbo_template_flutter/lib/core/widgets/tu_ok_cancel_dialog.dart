@@ -85,7 +85,7 @@ class _TuOkCancelDialogState<T> extends State<TuOkCancelDialog<T>> {
             Row(
               children: [
                 Expanded(
-                  child: TuButton(
+                  child: TurboButton(
                     buttonType: widget.cancelButtonType,
                     onPressed: () => Navigator.of(context).pop(false),
                     text: widget.cancelButtonText,
@@ -93,7 +93,7 @@ class _TuOkCancelDialogState<T> extends State<TuOkCancelDialog<T>> {
                 ),
                 const Gap(kSizesAppPadding / 2),
                 Expanded(
-                  child: TuButton(
+                  child: TurboButton(
                     buttonType: widget.okButtonType,
                     onPressed: () => Navigator.of(context).pop(true),
                     text: widget.okButtonText,

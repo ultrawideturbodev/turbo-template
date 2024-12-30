@@ -16,8 +16,8 @@ enum TuButtonType {
   static const cancelButtonDefault = TuButtonType.secondary;
 }
 
-class TuButton extends StatelessWidget {
-  const TuButton({
+class TurboButton extends StatelessWidget {
+  const TurboButton({
     Key? key,
     required this.buttonType,
     required this.onPressed,
@@ -27,7 +27,7 @@ class TuButton extends StatelessWidget {
     this.trailingIcon,
   }) : super(key: key);
 
-  factory TuButton.primary({
+  factory TurboButton.primary({
     Key? key,
     required String text,
     required VoidCallback onPressed,
@@ -35,7 +35,7 @@ class TuButton extends StatelessWidget {
     TrailingIcon Function(Color backgroundColor, Color textColor)? trailingIcon,
     FocusNode? focusNode,
   }) =>
-      TuButton(
+      TurboButton(
         key: key,
         text: text,
         onPressed: onPressed,
@@ -45,7 +45,7 @@ class TuButton extends StatelessWidget {
         focusNode: focusNode,
       );
 
-  factory TuButton.secondary({
+  factory TurboButton.secondary({
     Key? key,
     required String text,
     required VoidCallback onPressed,
@@ -53,7 +53,7 @@ class TuButton extends StatelessWidget {
     TrailingIcon Function(Color backgroundColor, Color textColor)? trailingIcon,
     FocusNode? focusNode,
   }) =>
-      TuButton(
+      TurboButton(
         key: key,
         text: text,
         onPressed: onPressed,

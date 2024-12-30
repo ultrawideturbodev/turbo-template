@@ -71,7 +71,7 @@ class VerifyEmailView extends StatelessWidget {
                                         textAlign: TextAlign.center,
                                       ),
                                       const Gap(16),
-                                      TuButton.primary(
+                                      TurboButton.primary(
                                         text: '''Send Email''',
                                         onPressed: () => model.onSendEmailPressed(context: context),
                                         trailingIcon: (backgroundColor, textColor) =>
@@ -84,7 +84,7 @@ class VerifyEmailView extends StatelessWidget {
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                              TuButton.secondary(
+                                              TurboButton.secondary(
                                                 text: '''Skip''',
                                                 onPressed: model.onSkipPressed,
                                                 trailingIcon: (backgroundColor, textColor) =>

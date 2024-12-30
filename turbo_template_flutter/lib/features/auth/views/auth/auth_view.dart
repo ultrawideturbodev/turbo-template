@@ -171,7 +171,7 @@ class AuthView extends StatelessWidget {
                                                         child: Row(
                                                           children: [
                                                             Expanded(
-                                                              child: TuButton.primary(
+                                                              child: TurboButton.primary(
                                                                 onPressed: () =>
                                                                     model.onLoginPressed(
                                                                   authViewMode: authViewMode,
@@ -185,7 +185,7 @@ class AuthView extends StatelessWidget {
                                                         ),
                                                       ),
                                                     ),
-                                                    TuButton.primary(
+                                                    TurboButton.primary(
                                                       text: '''Register''',
                                                       focusNode: model.registerButtonFocusNode,
                                                       onPressed: () => model.onRegisterPressed(
@@ -201,7 +201,7 @@ class AuthView extends StatelessWidget {
                                                         ),
                                                         mainAxisAlignment: MainAxisAlignment.center,
                                                         children: [
-                                                          TuButton.secondary(
+                                                          TurboButton.secondary(
                                                             text: authViewMode.isLogin
                                                                 ? '''Forgot password?'''
                                                                 : '''Click here to login''',

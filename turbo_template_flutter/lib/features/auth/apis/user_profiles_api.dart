@@ -2,14 +2,14 @@ import 'package:cloud_firestore_api/data/enums/search_term_type.dart';
 import 'package:feedback_response/feedback_response.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
-import 'package:turbo_template/core/abstracts/tu_api.dart';
+import 'package:turbo_template/core/abstracts/turbo_api.dart';
 
 import '../../../core/constants/k_keys.dart';
 import '../../../core/enums/firestore_collection.dart';
 import '../dtos/create_profile_request.dart';
 import '../dtos/user_profile_dto.dart';
 
-class UserProfilesApi extends TuApi<UserProfileDto> with Loglytics {
+class UserProfilesApi extends TurboApi<UserProfileDto> with Loglytics {
   UserProfilesApi()
       : super(
     firestoreCollection: FirestoreCollection.userProfiles,
