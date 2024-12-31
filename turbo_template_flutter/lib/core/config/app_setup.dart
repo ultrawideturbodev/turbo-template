@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:turbo_template/features/auth/routing/auth_step_router.dart';
 import 'package:turbo_template/features/auth/views/accept_privacy/accept_privacy_view_model.dart';
 import 'package:turbo_template/features/auth/views/create_username/create_username_view_model.dart';
+import 'package:turbo_template/features/auth/views/verify_email/verify_email_view_model.dart';
 import 'package:turbo_template/features/settings/services/settings_service.dart';
 import 'package:url_strategy/url_strategy.dart';
 

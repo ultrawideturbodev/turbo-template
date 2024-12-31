@@ -1,5 +1,0 @@
-{
-    "name": "Flutter GitHub Container",
-    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-    "workspaceFolder": "/workspaces/app"
-}

@@ -38,7 +38,6 @@ class Locator {
     ForgotPasswordViewModel.registerFactory();
     OopsViewModel.registerFactory();
     ShellViewModel.registerFactory();
-    ShoppingListViewModel.registerFactory();
     StartupViewModel.registerFactory();
     VerifyEmailViewModel.registerFactory();
   }
