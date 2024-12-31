@@ -28,7 +28,7 @@ Add to your `launch.json`:
 {
     "configurations": [
         {
-            "name": "Float Note (Emulators)",
+            "name": "Roomy (Emulators)",
             "request": "launch",
             "type": "dart",
             "args": [

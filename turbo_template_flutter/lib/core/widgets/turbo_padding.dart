@@ -1,13 +1,12 @@
 import 'package:flutter/widgets.dart';
-import 'package:turbo_template/core/constants/k_sizes.dart';
 
-class HoPadding extends StatelessWidget {
-  const HoPadding({
+class TurboPadding extends StatelessWidget {
+  const TurboPadding({
     Key? key,
     required this.child,
     this.bottom = 0,
-    this.left = kSizesAppPadding,
-    this.right = kSizesAppPadding,
+    this.left = 0,
+    this.right = 0,
     this.top = 0,
   }) : super(key: key);
 
