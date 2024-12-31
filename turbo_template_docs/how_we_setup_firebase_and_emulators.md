@@ -7,94 +7,107 @@ This guide explains how to set up Firebase in our project and configure Firebase
 ### Initial Confirmation
 Before proceeding, I will:
 1. **Confirm Implementation Goals**
-   2. Verify the exact Firebase services needed (Firestore, Auth, Storage, etc.)
-   3. Confirm target platforms (iOS, Android, Web)
-   4. Verify development environment requirements
-   5. Confirm emulator requirements (which services need emulation)
-   6. Verify port availability for emulators
+
+   - Verify the exact Firebase services needed (Firestore, Auth, Storage, etc.)
+   - Confirm target platforms (iOS, Android, Web)
+   - Verify development environment requirements
+   - Confirm emulator requirements (which services need emulation)
+   - Verify port availability for emulators
 
 2. **State Key Assumptions**
-   2. We will use a mono repo structure with separate Firebase and Flutter projects
-   3. We will use Firebase CLI and FlutterFire CLI for setup
-   4. We want to configure Firebase emulators for local development
-   5. We need environment switching between production and emulators
-   6. We will follow the standard project structure:´´
-	```
-	project_mono/
-	  ├── project_firebase/
-	  │   ├── firebase.json
-	  │   ├── firestore.rules
-	  │   ├── storage.rules
-	  │   ├── functions/
-	  │   └── scripts/
-	  │       ├── run_emulators.sh
-	  │       └── export_emulators_firebase_data.sh
-	  └── project_flutter/
-	      ├── lib/
-	      │   └── core/
-	      │       ├── config/
-	      │       │   └── emulator_config.dart
-	      │       └── utils/
-	      │           ├── app_setup.dart
-	      │           └── environment.dart
-	      └── scripts/
-	          └── run_emulators.sh
-	```
+
+   - We will use a mono repo structure with separate Firebase and Flutter projects
+   - We will use Firebase CLI and FlutterFire CLI for setup
+   - We want to configure Firebase emulators for local development
+   - We need environment switching between production and emulators
+   - We will follow the standard project structure:
+     ```
+     project_mono/
+     ├── project_firebase/
+     │   ├── firebase.json
+     │   ├── firestore.rules
+     │   ├── storage.rules
+     │   ├── functions/
+     │   └── scripts/
+     │       ├── run_emulators.sh
+     │       └── export_emulators_firebase_data.sh
+     └── project_flutter/
+         ├── lib/
+         │   └── core/
+         │       ├── config/
+         │       │   └── emulator_config.dart
+         │       └── utils/
+         │           ├── app_setup.dart
+         │           └── environment.dart
+         └── scripts/
+             └── run_emulators.sh
+     ```
 
 3. **Request Clarification**
-   2. Confirm if any assumptions don't match the project needs
-   3. Ask about any project-specific requirements
-   4. Verify if any services should be excluded or added
-   5. Confirm if any additional configuration is needed
-   6. Verify if any specific emulator ports are required
+
+   - Confirm if any assumptions don't match the project needs
+   - Ask about any project-specific requirements
+   - Verify if any services should be excluded or added
+   - Confirm if any additional configuration is needed
+   - Verify if any specific emulator ports are required
 
 ### Execution Guidelines
+
 1. **Progress Tracking**
-   2. Create a checklist of all tasks before starting
-   3. Mark each step as one of: 🔄 In Progress | ✅ Completed | ❌ Failed
-   4. If a step fails, immediately report the error and wait for user input
-   5. After each major section, request user confirmation before proceeding
+
+   - Create a checklist of all tasks before starting
+   - Mark each step as one of: 🔄 In Progress | ✅ Completed | ❌ Failed
+   - If a step fails, immediately report the error and wait for user input
+   - After each major section, request user confirmation before proceeding
 
 2. **Validation Steps**
-   2. After each configuration change, verify the file contents
-   3. For any file modifications, show the changes made
-   4. Confirm all required dependencies are at compatible versions
-   5. Test configurations in both emulator and production environments
-   6. Verify emulator connections for each service
+
+   - After each configuration change, verify the file contents
+   - For any file modifications, show the changes made
+   - Confirm all required dependencies are at compatible versions
+   - Test configurations in both emulator and production environments
+   - Verify emulator connections for each service
 
 3. **Error Handling**
-   2. Document any errors encountered
-   3. Provide the exact error message and context
-   4. Suggest possible solutions based on the error
-   5. Wait for user confirmation before applying fixes
+
+   - Document any errors encountered
+   - Provide the exact error message and context
+   - Suggest possible solutions based on the error
+   - Wait for user confirmation before applying fixes
 
 ### Execution Checklist
+
 Firebase Setup:
-[ ] Install Firebase CLI and FlutterFire CLI
-[ ] Create Firebase project in console
-[ ] Initialize Firebase project with CLI
-[ ] Configure FlutterFire in Flutter app
-[ ] Set up environment configuration
+
+- [ ] Install Firebase CLI and FlutterFire CLI
+- [ ] Create Firebase project in console
+- [ ] Initialize Firebase project with CLI
+- [ ] Configure FlutterFire in Flutter app
+- [ ] Set up environment configuration
 
 Emulator Setup:
-[ ] Configure emulator ports
-[ ] Create emulator scripts
-[ ] Set up emulator configuration class
-[ ] Configure environment switching
+
+- [ ] Configure emulator ports
+- [ ] Create emulator scripts
+- [ ] Set up emulator configuration class
+- [ ] Configure environment switching
 
 Flutter Configuration:
-[ ] Add Firebase dependencies
-[ ] Initialize Firebase in app
-[ ] Configure development environment
-[ ] Set up emulator connection
+
+- [ ] Add Firebase dependencies
+- [ ] Initialize Firebase in app
+- [ ] Configure development environment
+- [ ] Set up emulator connection
 
 Verification:
-[ ] Test Firebase connection
-[ ] Verify emulator setup
-[ ] Check all required services
-[ ] Test environment switching
+
+- [ ] Test Firebase connection
+- [ ] Verify emulator setup
+- [ ] Check all required services
+- [ ] Test environment switching
 
 ### Important Notes
+
 - DO NOT proceed to the next section until current section is verified
 - Always show the exact commands being run
 - For any file changes, show before and after states
@@ -105,24 +118,24 @@ Verification:
 
 ## 🎯 Suggested Approach
 1. Set up Firebase Project
-   2. [ ] Install required CLIs (Firebase, FlutterFire)
-   3. [ ] Create and initialize Firebase project
-   4. [ ] Configure basic Firebase services
+   - Install required CLIs (Firebase, FlutterFire)
+   - Create and initialize Firebase project
+   - Configure basic Firebase services
 
 2. Configure Emulators
-   2. [ ] Set up emulator ports
-   3. [ ] Create emulator scripts
-   4. [ ] Configure environment setup
+   - Set up emulator ports
+   - Create emulator scripts
+   - Configure environment setup
 
 3. Set up Flutter Integration
-   2. [ ] Configure FlutterFire
-   3. [ ] Set up environment configuration
-   4. [ ] Initialize Firebase with emulators
+   - Configure FlutterFire
+   - Set up environment configuration
+   - Initialize Firebase with emulators
 
 4. Testing and Verification
-   2. [ ] Test production setup
-   3. [ ] Test emulator setup
-   4. [ ] Verify environment switching
+   - Test production setup
+   - Test emulator setup
+   - Verify environment switching
 
 ## 👨‍🏫 Tutorial
 
@@ -348,18 +361,18 @@ Flutter Integration:
 
 ## 🔍 Common Issues
 1. **Emulator Connection Failed**
-   2. Verify ports are not in use
-   3. Check host configuration (localhost vs 127.0.0.1)
-   4. Ensure emulators are running before app launch
+   - Verify ports are not in use
+   - Check host configuration (localhost vs 127.0.0.1)
+   - Ensure emulators are running before app launch
 
 2. **Environment Switching Issues**
-   2. Verify dart-define parameter is correct
-   3. Check Environment class implementation
-   4. Ensure EmulatorConfig is called after Firebase initialization
+   - Verify dart-define parameter is correct
+   - Check Environment class implementation
+   - Ensure EmulatorConfig is called after Firebase initialization
 
 3. **Platform-Specific Issues**
-   2. iOS: Update minimum version in Podfile
-   3. Android: Check google-services.json
-   4. Web: Verify correct host for emulators 
+   - iOS: Update minimum version in Podfile
+   - Android: Check google-services.json
+   - Web: Verify correct host for emulators 
 
-[1]:	https://console.firebase.google.com
+[1]: https://console.firebase.google.com 
