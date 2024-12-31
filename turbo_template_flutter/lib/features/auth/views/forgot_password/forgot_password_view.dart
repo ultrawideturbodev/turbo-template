@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+import 'package:turbo_template/core/constants/k_sizes.dart';
+import 'package:turbo_template/core/constants/k_widgets.dart';
+import 'package:turbo_template/core/extensions/context_extension.dart';
+import 'package:turbo_template/core/globals/g_strings.dart';
+import 'package:turbo_template/core/widgets/form_field_text.dart';
+import 'package:turbo_template/core/widgets/gap.dart';
 import 'package:turbo_template/core/widgets/tu_button.dart';
+import 'package:turbo_template/core/widgets/turbo_card.dart';
+import 'package:turbo_template/features/auth/enums/forgot_password_origin.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
-import '../../../../core/constants/k_sizes.dart';
-import '../../../../core/constants/k_widgets.dart';
-import '../../../../core/extensions/context_extension.dart';
-import '../../../../core/globals/g_strings.dart';
-import '../../../../core/widgets/form_field_text.dart';
-import '../../../../core/widgets/gaps.dart';
-import '../../../../core/widgets/tu_card.dart';
-import '../../../../core/widgets/turbo_button.dart';
-import '../../enums/forgot_password_origin.dart';
 import 'forgot_password_view_model.dart';
 
 class ForgotPasswordView extends StatelessWidget {
@@ -34,15 +32,15 @@ class ForgotPasswordView extends StatelessWidget {
             return Scaffold(
               body: Container(
                 decoration: BoxDecoration(
-                  gradient: context.ui.gradientBackground,
+                  gradient: context.tUi.gradientBackground,
                 ),
                 child: Stack(
                   children: [
                     Center(
                       child: Container(
                         margin: EdgeInsets.only(
-                          top: context.sizes.topSafeArea,
-                          bottom: context.sizes.bottomSafeAreaWithMinimum,
+                          top: context.tSizes.topSafeArea,
+                          bottom: context.tSizes.bottomSafeAreaWithMinimum,
                         ),
                         constraints: const BoxConstraints(
                           maxWidth: kSizesDialogMaxWidth,
@@ -58,7 +56,7 @@ class ForgotPasswordView extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.stretch,
                                   children: [
-                                    TuCard(
+                                    TurboCard(
                                       padding: const EdgeInsets.all(kSizesAppPadding * 2),
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -66,23 +64,23 @@ class ForgotPasswordView extends StatelessWidget {
                                         children: [
                                           Text(
                                             origin.title,
-                                            style: context.texts.scaffoldHeader,
+                                            style: context.tTexts.scaffoldHeader,
                                             textAlign: TextAlign.center,
                                           ),
-                                          const Gap(8),
+                                          const Gap.element(),
                                           Text(
                                             gStrings.fillInYourEmailAddressAndWeWillSendYou,
-                                            style: context.texts.primaryText,
+                                            style: context.tTexts.primaryText,
                                             textAlign: TextAlign.center,
                                           ),
-                                          const GapSection(),
+                                          const Gap.section(),
                                           FormFieldText(
                                             formFieldConfig: model.emailField,
                                             label: gStrings.email,
                                             onSubmitted: (_) =>
                                                 model.onEmailSubmitted(context: context),
                                           ),
-                                          const GapSection(),
+                                          const Gap.section(),
                                           Row(
                                             children: [
                                               Expanded(
@@ -98,7 +96,7 @@ class ForgotPasswordView extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    const GapSection(),
+                                    const Gap.section(),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [

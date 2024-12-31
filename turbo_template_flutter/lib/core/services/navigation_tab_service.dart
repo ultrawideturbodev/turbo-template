@@ -37,13 +37,10 @@ class NavigationTabService with Loglytics {
   NavigationTab get currentNavigationTab => _navigationTab.value;
   ValueListenable<bool> get hasAuth => _authService.hasAuth;
   ValueListenable<NavigationTab> get navigationTab => _navigationTab;
-  String get initialLocation {
+  NavigationTab get initialTab {
     final initialTab = _localStorageService.navigationTab;
     onGo(navigationTab: initialTab);
-    switch (initialTab) {
-      case NavigationTab.home:
-        return HomeView.path.asRootPath;
-    }
+    return initialTab;
   }
 
   // 🪄 MUTATORS ------------------------------------------------------------------------------ \\

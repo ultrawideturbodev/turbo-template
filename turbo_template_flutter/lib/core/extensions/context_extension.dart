@@ -17,22 +17,25 @@ import '../widgets/responsive_tools_provider.dart';
 import '../widgets/tu_gradient.dart';
 import 'color_extension.dart';
 
-part 'colors.dart';
+part 'turbo_colors.dart';
 part 'sizes.dart';
-part 'texts.dart';
-part 'ui.dart';
+part 'turbo_texts.dart';
+part 'turbo_ui.dart';
 
 extension ContextExtension on BuildContext {
-  _Texts get texts => _Texts(colors, sizes);
-  _Ui get ui => _Ui(this);
-  _Colors get colors => _Colors(this);
-  _Sizes get sizes => _Sizes(this);
+  TurboTexts get tTexts => TurboTexts(tColors, tSizes);
+  TurboUi get tUi => TurboUi(this);
+  TurboColors get tColors => TurboColors(this);
+  TurboSizes get tSizes => TurboSizes(this);
 
   DeviceType get deviceType => rData.deviceType;
   Locale get locale => Localizations.localeOf(this);
   MediaQueryData get media => MediaQuery.of(this);
   OverlayState get overlayState => Overlay.of(this, rootOverlay: true);
-  RenderBox get renderBox => findRenderObject() as RenderBox;
+  RenderBox? get renderBox {
+    if (!mounted) return null;
+    return findRenderObject() as RenderBox?;
+  }
   ResponsiveData get rData => ResponsiveToolsProvider.of(this).rData;
   ResponsiveTools get rTools => ResponsiveToolsProvider.of(this).rTools;
   String? get appCountryCode => locale.countryCode;
@@ -63,7 +66,7 @@ extension ContextExtension on BuildContext {
     required double screenWidthInDesign,
     double speed = 1.0,
   }) {
-    final widthScale = sizes.width / screenWidthInDesign;
+    final widthScale = tSizes.width / screenWidthInDesign;
     final adjustedScale = pow(widthScale, speed);
     return value * adjustedScale;
   }
@@ -76,7 +79,7 @@ extension ContextExtension on BuildContext {
     required double screenHeightInDesign,
     double speed = 1.0,
   }) {
-    final heightScale = sizes.height / screenHeightInDesign;
+    final heightScale = tSizes.height / screenHeightInDesign;
     final adjustedScale = pow(heightScale, speed);
     return value * adjustedScale;
   }
@@ -92,8 +95,8 @@ extension ContextExtension on BuildContext {
     required double screenHeightInDesign,
     double speed = 1.0,
   }) {
-    final widthScale = sizes.width / screenWidthInDesign;
-    final heightScale = sizes.height / screenHeightInDesign;
+    final widthScale = tSizes.width / screenWidthInDesign;
+    final heightScale = tSizes.height / screenHeightInDesign;
     final scale = min(widthScale, heightScale);
     final adjustedScale = pow(scale, speed);
     return value * adjustedScale;
@@ -104,8 +107,8 @@ extension ContextExtension on BuildContext {
       print('''
 
 
-screenWidthInDesign: ${sizes.width},
-screenHeightInDesign: ${sizes.height},
+screenWidthInDesign: ${tSizes.width},
+screenHeightInDesign: ${tSizes.height},
 ''');
     }
   }

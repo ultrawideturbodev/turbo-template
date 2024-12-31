@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loglytics/loglytics.dart';
+import 'package:turbo_template/features/home/routing/home_router.dart';
 import 'package:veto/data/mixins/busy_service_management.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
 import '../../../features/auth/services/auth_service.dart';
 import '../../../features/auth/services/user_service.dart';
-import '../../../features/home/routing/home_router.dart';
 import '../../enums/navigation_tab.dart';
 import '../../services/navigation_tab_service.dart';
 
@@ -72,6 +72,8 @@ class ShellViewModel extends BaseViewModel with Loglytics, BusyServiceManagement
       case NavigationTab.home:
         _homeRouter.goHomeView();
         break;
+      case NavigationTab.settings:
+
     }
     log.info('Navigated to $navigationTab');
   }

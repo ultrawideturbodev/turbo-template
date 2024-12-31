@@ -59,7 +59,7 @@ class ShellView extends StatelessWidget {
                 ],
               );
               return Scaffold(
-                backgroundColor: context.colors.shellBackground,
+                backgroundColor: context.tColors.shellBackground,
                 bottomNavigationBar: ValueListenableBuilder<NavigationTab>(
                   valueListenable: model.currentNavigationTab,
                   builder: (context, currentNavigationTab, child) => Theme(
@@ -69,14 +69,14 @@ class ShellView extends StatelessWidget {
                     child: Theme(
                       data: context.theme.copyWith(
                         navigationBarTheme: context.theme.navigationBarTheme.copyWith(
-                          labelTextStyle: WidgetStatePropertyAll(context.texts.navigationTab),
+                          labelTextStyle: WidgetStatePropertyAll(context.tTexts.navigationTab),
                         ),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: NavigationBar(
                           elevation: 0,
-                          backgroundColor: context.colors.shellBackground,
+                          backgroundColor: context.tColors.shellBackground,
                           labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
                           onDestinationSelected: (int index) => model.onNavigationTap(
                             NavigationTab.values[index],
@@ -89,7 +89,7 @@ class ShellView extends StatelessWidget {
                                 (bottomNavigationTab) => NavigationDestination(
                                   icon: Icon(
                                     bottomNavigationTab.icon,
-                                    color: context.colors.background.onColor,
+                                    color: context.tColors.background.onColor,
                                     size: 20,
                                   ),
                                   label: bottomNavigationTab.label,
@@ -105,15 +105,15 @@ class ShellView extends StatelessWidget {
               );
             case SupportedPlatform.web:
               return Scaffold(
-                backgroundColor: context.colors.background,
+                backgroundColor: context.tColors.background,
                 body: isInitialised
                     ? ValueListenableBuilder<NavigationTab>(
                         valueListenable: model.currentNavigationTab,
                         builder: (context, currentNavigationTab, child) {
-                          final navBarWidth = context.sizes.navBarWidth;
+                          final navBarWidth = context.tSizes.navBarWidth;
                           return SizedBox(
-                            width: context.sizes.width,
-                            height: context.sizes.height,
+                            width: context.tSizes.width,
+                            height: context.tSizes.height,
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Row(
@@ -127,7 +127,7 @@ class ShellView extends StatelessWidget {
                                       children: [
                                         const Gap(kSizesAppPadding),
                                         SizedBox(
-                                          width: context.sizes.navBarWidth,
+                                          width: context.tSizes.navBarWidth,
                                           child: const Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
@@ -137,14 +137,14 @@ class ShellView extends StatelessWidget {
                                         ),
                                         ConstrainedBox(
                                           constraints: BoxConstraints(
-                                            maxWidth: context.sizes.navBarWidth,
+                                            maxWidth: context.tSizes.navBarWidth,
                                           ),
                                           child: Center(
                                             child: Padding(
                                               padding: const EdgeInsets.all(kSizesAppPadding),
                                               child: AutoSizeText(
                                                 'Placeholder',
-                                                style: context.texts.sectionHeader,
+                                                style: context.tTexts.sectionHeader,
                                                 maxLines: 1,
                                                 textScaleFactor: context.rTools.scaledPerWidth(1),
                                               ),
@@ -158,6 +158,7 @@ class ShellView extends StatelessWidget {
                                             currentNavigationTab: currentNavigationTab,
                                             badgeNumber: switch (navigationTab) {
                                               NavigationTab.home => null,
+                                              NavigationTab.settings => null,
                                             },
                                           ),
                                         const Spacer(),
@@ -173,10 +174,10 @@ class ShellView extends StatelessWidget {
                                   ),
                                   Container(
                                     width: 1,
-                                    color: context.colors.border,
+                                    color: context.tColors.border,
                                   ),
                                   SizedBox(
-                                    width: context.sizes.width - navBarWidth - 1,
+                                    width: context.tSizes.width - navBarWidth - 1,
                                     child: statefulNavigationShell,
                                   ),
                                 ],

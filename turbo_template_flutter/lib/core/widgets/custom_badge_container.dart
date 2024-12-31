@@ -28,8 +28,8 @@ class CustomBadgeContainer extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
           borderRadius: borderRadius,
-          border: Border.all(color: context.colors.background),
-          boxShadow: boxShadow ?? context.ui.cardShadow,
+          border: Border.all(color: context.tColors.background),
+          boxShadow: boxShadow ?? context.tUi.cardShadow,
           shape: shape,
           color: color,
         ),

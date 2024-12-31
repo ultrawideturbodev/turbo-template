@@ -43,9 +43,6 @@ class BaseRouter with Loglytics {
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
   // 🎩 STATE --------------------------------------------------------------------------------- \\
 
-  static const _defaultTransition = TransitionsBuilders.fadeIn;
-  static const _defaultDuration = kDurationsAnimation;
-
   static final GlobalKey<NavigatorState> rootNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'root');
 
@@ -157,10 +154,9 @@ class BaseRouter with Loglytics {
 
   static GoRoute get homeRouter => GoRoute(
         path: HomeView.path.asRootPath,
-        redirect: (context, state) => _onShellAccess(
+        redirect: (context, state) => _onHomeAccess(
           context: context,
           state: state,
-          navigationTab: NavigationTab.home,
         ),
         pageBuilder: (context, state) => _buildPage(
           child: const HomeView(),
@@ -168,14 +164,10 @@ class BaseRouter with Loglytics {
         routes: const [],
       );
 
-  static FutureOr<String?> _onShellAccess({
+  static FutureOr<String?> _onHomeAccess({
     required BuildContext context,
     required GoRouterState state,
-    required NavigationTab? navigationTab,
   }) async {
-    if (navigationTab != null) {
-      NavigationTabService.locate.onGo(navigationTab: navigationTab);
-    }
     final localStoreService = LocalStorageService.locate;
     // if logged in go to home, otherwise onboarding
     if (localStoreService.hasAuth || await AuthService.locate.hasReadyAuth) {
@@ -183,13 +175,9 @@ class BaseRouter with Loglytics {
 
       if (!BaseRouter.locate.didInitialLocation) {
         BaseRouter.locate.didInitialLocation = true;
-        if (kIsWeb) return null;
-
-        // show last bottom nav
-        return NavigationTabService.locate.initialLocation;
-      } else {
-        return null;
       }
+
+      return null;
     } else {
       return StartupView.path.asRootPath;
     }

@@ -101,8 +101,8 @@ class HijackedPopupMenuItemState<T, W extends HijackedPopupMenuItem<T>> extends 
         button: true,
         child: InkWell(
           borderRadius: widget.borderRadius,
-          splashColor: context.colors.dropdownHover,
-          hoverColor: context.colors.dropdownHover,
+          splashColor: context.tColors.dropdownHover,
+          hoverColor: context.tColors.dropdownHover,
           onTap: onTap,
           child: buildChild(),
         ),
@@ -478,9 +478,9 @@ class HijackedPopupMenuButtonState<T> extends State<HijackedPopupMenuButton<T>> 
         position: position,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(widget.itemBorderRadius),
-          side: BorderSide(color: context.colors.border),
+          side: BorderSide(color: context.tColors.border),
         ),
-        color: widget.backgroundColor ?? context.colors.background,
+        color: widget.backgroundColor ?? context.tColors.background,
         itemBorderRadius: widget.itemBorderRadius,
         useRootNavigator: true,
       ).then<void>((T? newValue) {

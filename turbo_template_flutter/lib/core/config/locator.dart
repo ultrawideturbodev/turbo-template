@@ -7,31 +7,21 @@ class Locator {
   }
 
   static void _registerAPIs() {
-    UsersApi.registerFactory();
-    UserProfilesApi.registerFactory();
-    UsernamesApi.registerFactory();
-    ForgotPasswordForm.registerFactory();
     UserProfilesApi.registerFactory();
     UsernamesApi.registerFactory();
     UsersApi.registerFactory();
+    SettingsApi.registerFactory();
   }
 
   static void _registerRouters() {
-    BaseRouter.registerLazySingleton();
-    CoreRouter.registerFactory();
-    HomeRouter.registerFactory();
     AuthStepRouter.registerFactory();
     BaseRouter.registerLazySingleton();
     CoreRouter.registerFactory();
+    HomeRouter.registerFactory();
   }
 
   static void _registerViewModels() {
-    AuthViewModel.registerFactory();
-    ShellViewModel.registerFactory();
-    StartupViewModel.registerFactory();
-    ForgotPasswordViewModel.registerFactory();
-    OopsViewModel.registerFactory();
-
+    SettingsViewModel.registerFactory();
     AcceptPrivacyViewModel.registerFactory();
     AuthViewModel.registerFactory();
     CreateUsernameViewModel.registerFactory();
@@ -43,30 +33,32 @@ class Locator {
   }
 
   static void _registerFactories() {
-    UrlLauncherService.registerFactory();
     AuthStepService.registerFactory();
-    SettingsService.registerLazySingleton();
     EmailService.registerFactory();
+    SettingsService.registerLazySingleton();
+    UrlLauncherService.registerFactory();
   }
 
   static void _registerLazySingletons() {
+    VibrateService.registerLazySingleton();
     AuthService.registerLazySingleton();
     ConnectionService.registerLazySingleton();
     FeedbackService.registerLazySingleton();
-    LocalStorageService.registerLazySingleton();
     LanguageService.registerLazySingleton();
+    LocalStorageService.registerLazySingleton();
     NavigationTabService.registerLazySingleton();
     NotificationService.registerLazySingleton();
+    PermissionsService.registerLazySingleton();
     ThemeService.registerLazySingleton();
     UserService.registerLazySingleton();
-    PermissionsService.registerLazySingleton();
   }
 
   static void _registerSingletons() {}
 
   static void _registerForms() {
+    ForgotPasswordForm.registerFactory();
     LoginForm.registerFactory();
     RegisterForm.registerFactory();
-    ForgotPasswordForm.registerFactory();
+    CreateUsernameForm.registerFactory();
   }
 }

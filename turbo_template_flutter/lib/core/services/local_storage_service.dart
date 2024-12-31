@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
@@ -10,21 +9,20 @@ import 'package:loglytics/loglytics.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:turbo_template/core/abstracts/initialisable.dart';
 import 'package:turbo_template/core/abstracts/json_values.dart';
+import 'package:turbo_template/core/annotations/called_by_mutex.dart';
+import 'package:turbo_template/core/constants/k_keys.dart';
+import 'package:turbo_template/core/dtos/local_storage_dto.dart';
+import 'package:turbo_template/core/enums/auth_step.dart';
+import 'package:turbo_template/core/enums/hive_adapters.dart';
+import 'package:turbo_template/core/enums/hive_box.dart';
+import 'package:turbo_template/core/enums/navigation_tab.dart';
+import 'package:turbo_template/core/enums/supported_language.dart';
+import 'package:turbo_template/core/enums/supported_theme_mode.dart';
 import 'package:turbo_template/core/extensions/future_extension.dart';
-
-import '../../features/auth/services/auth_service.dart';
-import '../annotations/called_by_mutex.dart';
-import '../constants/k_keys.dart';
-import '../dtos/local_storage_dto.dart';
-import '../enums/auth_step.dart';
-import '../enums/hive_adapters.dart';
-import '../enums/hive_box.dart';
-import '../enums/navigation_tab.dart';
-import '../enums/supported_language.dart';
-import '../enums/supported_theme_mode.dart';
-import '../globals/g_user_id.dart';
-import '../typedefs/current_value_updater.dart';
-import '../utils/mutex.dart';
+import 'package:turbo_template/core/globals/g_user_id.dart';
+import 'package:turbo_template/core/typedefs/current_value_updater.dart';
+import 'package:turbo_template/core/utils/mutex.dart';
+import 'package:turbo_template/features/auth/services/auth_service.dart';
 
 class LocalStorageService extends Initialisable with Loglytics {
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
@@ -153,7 +151,7 @@ class LocalStorageService extends Initialisable with Loglytics {
       if (localStorageDto == null) {
         log.debug('Local doc not found in box, creating new default');
         await _updateLocalStorage(
-              (current) => LocalStorageDto.defaultDto(userId: userId),
+          (current) => LocalStorageDto.defaultDto(userId: userId),
           userId: userId,
           doSanityCheck: false,
           doAssertInitialised: false,
@@ -299,11 +297,11 @@ class LocalStorageService extends Initialisable with Loglytics {
   }
 
   Future<void> _updateLocalStorage(
-      CurrentValueUpdater<LocalStorageDto> dtoUpdater, {
-        required String userId,
-        bool doSanityCheck = true,
-        bool doAssertInitialised = true,
-      }) async {
+    CurrentValueUpdater<LocalStorageDto> dtoUpdater, {
+    required String userId,
+    bool doSanityCheck = true,
+    bool doAssertInitialised = true,
+  }) async {
     if (doAssertInitialised) {
       assertInitialised();
     }
@@ -334,7 +332,7 @@ class LocalStorageService extends Initialisable with Loglytics {
     log.info('Updating auth step happened: $authStep : $didHappen');
     await _updateLocalStorage(
       userId: gUserId,
-          (current) => current.copyWith(
+      (current) => current.copyWith(
         didHappen: (current) => switch (didHappen) {
           true => current..add(authStep),
           false => current..remove(authStep),
@@ -350,7 +348,7 @@ class LocalStorageService extends Initialisable with Loglytics {
   }) async {
     log.info('Updating language: $language');
     await _updateLocalStorage(
-          (current) => current.copyWith(language: language),
+      (current) => current.copyWith(language: language),
       userId: gUserId,
     );
   }
@@ -360,7 +358,7 @@ class LocalStorageService extends Initialisable with Loglytics {
   }) async {
     log.info('Updating theme mode: $themeMode');
     await _updateLocalStorage(
-          (current) => current.copyWith(themeMode: themeMode),
+      (current) => current.copyWith(themeMode: themeMode),
       userId: gUserId,
     );
   }
@@ -371,7 +369,7 @@ class LocalStorageService extends Initialisable with Loglytics {
     await isReady;
     log.info('Updating has auth: $hasAuth');
     await _updateLocalStorage(
-          (current) => current.copyWith(hasAuth: hasAuth),
+      (current) => current.copyWith(hasAuth: hasAuth),
       userId: gUserId,
     );
   }
@@ -381,7 +379,7 @@ class LocalStorageService extends Initialisable with Loglytics {
   }) async {
     log.info('Updating navigation tab: $navigationTab');
     await _updateLocalStorage(
-          (current) => current.copyWith(navigationTab: navigationTab),
+      (current) => current.copyWith(navigationTab: navigationTab),
       userId: gUserId,
     );
   }

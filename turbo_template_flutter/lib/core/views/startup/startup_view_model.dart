@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
+import 'package:turbo_template/features/home/routing/home_router.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
 import '../../../features/auth/services/auth_step_service.dart';
-import '../../../features/home/routing/home_router.dart';
 import '../../enums/step_result.dart';
 import '../../globals/g_user_id.dart';
 import '../../routing/core_router.dart';

@@ -67,28 +67,28 @@ class ResponsiveTools {
           );
 
   Widget ifHeightLessThen(double height, Widget child) {
-    if (context.sizes.height < height) {
+    if (context.tSizes.height < height) {
       return child;
     }
     return kWidgetsNothing;
   }
 
   Widget ifWidthLessThen(double width, Widget child) {
-    if (context.sizes.width < width) {
+    if (context.tSizes.width < width) {
       return child;
     }
     return kWidgetsNothing;
   }
 
   Widget ifHeightMoreThen(double height, Widget child) {
-    if (context.sizes.height > height) {
+    if (context.tSizes.height > height) {
       return child;
     }
     return kWidgetsNothing;
   }
 
   Widget ifWidthMoreThen(double width, Widget child) {
-    if (context.sizes.width > width) {
+    if (context.tSizes.width > width) {
       return child;
     }
     return kWidgetsNothing;

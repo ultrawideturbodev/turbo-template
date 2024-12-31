@@ -6,7 +6,7 @@ import '../constants/k_sizes.dart';
 import '../extensions/context_extension.dart';
 import '../extensions/num_extension.dart';
 import 'tu_button.dart';
-import 'tu_card.dart';
+import 'turbo_card.dart';
 
 class TuOkCancelDialog<T> extends StatefulWidget {
   const TuOkCancelDialog({
@@ -50,11 +50,11 @@ class _TuOkCancelDialogState<T> extends State<TuOkCancelDialog<T>> {
   Widget build(BuildContext context) {
     const horizontalMargin = kSizesAppPadding * 1.5;
     return Center(
-      child: TuCard(
+      child: TurboCard(
         margin: EdgeInsets.only(
           left: horizontalMargin,
           right: horizontalMargin,
-          bottom: (context.sizes.bottomSafeAreaWithMinimum + horizontalMargin)
+          bottom: (context.tSizes.bottomSafeAreaWithMinimum + horizontalMargin)
               .minimum(horizontalMargin),
         ),
         child: Column(
@@ -71,7 +71,7 @@ class _TuOkCancelDialogState<T> extends State<TuOkCancelDialog<T>> {
                   Expanded(
                     child: Text(
                       widget.title!,
-                      style: context.texts.dialogHeader,
+                      style: context.tTexts.dialogHeader,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.start,
                     ),
@@ -79,7 +79,7 @@ class _TuOkCancelDialogState<T> extends State<TuOkCancelDialog<T>> {
                 ],
               ),
               const Gap(kSizesAppPadding / 2),
-              Text(widget.message!, style: context.texts.primaryText),
+              Text(widget.message!, style: context.tTexts.primaryText),
               const Gap(kSizesAppPadding / 1.5),
             ],
             Row(

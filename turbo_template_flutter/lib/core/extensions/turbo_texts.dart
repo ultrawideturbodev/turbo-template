@@ -1,10 +1,16 @@
 part of 'context_extension.dart';
 
-class _Texts {
-  _Texts(this.colors, this.sizes);
+class TurboTexts {
+  TurboTexts(this.colors, this.sizes);
 
-  final _Colors colors;
-  final _Sizes sizes;
+  final TurboColors colors;
+  final TurboSizes sizes;
+
+  TextStyle get svgMessage => TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: colors.svgMessageText,
+      );
 
   TextStyle get verifyEmailTitle => TextStyle(
         fontSize: 24,
@@ -121,6 +127,30 @@ class _Texts {
         fontSize: 30,
         height: 1,
         fontWeight: FontWeight.w800,
+        color: colors.scaffoldHeaderText,
+      );
+
+  TextStyle get h1 => TextStyle(
+        fontSize: 24,
+        height: 1,
+        fontWeight: FontWeight.w800,
+        letterSpacing: 1,
+        color: colors.scaffoldHeaderText,
+      );
+
+  TextStyle get h2 => TextStyle(
+        fontSize: 20,
+        height: 1,
+        fontWeight: FontWeight.w700,
+        letterSpacing: 1,
+        color: colors.scaffoldHeaderText,
+      );
+
+  TextStyle get h3 => TextStyle(
+        fontSize: 16,
+        height: 1,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 1,
         color: colors.scaffoldHeaderText,
       );
 

@@ -24,7 +24,8 @@ abstract class BaseNavigation with Loglytics {
     statefulNavigationShell.goBranch(
       navigationTab!.branchIndex,
       initialLocation: switch (navigationTab!) {
-        NavigationTab.home => initialLocation.isHome,
+        NavigationTab.home => initialLocation.isActors,
+        NavigationTab.settings => initialLocation.isActivities,
       },
     );
   }

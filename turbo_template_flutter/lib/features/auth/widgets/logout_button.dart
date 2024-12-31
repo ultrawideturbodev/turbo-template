@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../../core/typedefs/context_def.dart';
-import '../../../core/widgets/opacity_button.dart';
+import 'package:turbo_template/core/typedefs/context_def.dart';
+import 'package:turbo_template/core/widgets/opacity_button.dart';
 
 class LogoutButton extends StatelessWidget {
   const LogoutButton({Key? key, required this.onPressed}) : super(key: key);

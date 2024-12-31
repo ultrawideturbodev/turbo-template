@@ -1,13 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:turbo_template/core/extensions/context_extension.dart';
+import 'package:turbo_template/core/widgets/custom_back_button.dart';
 
-import '../extensions/context_extension.dart';
-
-import 'custom_back_button.dart';
-
-class TuAppBar extends AppBar {
-  TuAppBar({
+class TurboAppBar extends AppBar {
+  TurboAppBar({
     Color? backgroundColor,
     Widget? leading,
     required BuildContext context,
@@ -37,41 +35,11 @@ class TuAppBar extends AppBar {
                     )
                   : null),
           titleTextStyle: textStyle ?? context.tTexts.scaffoldHeader,
-          automaticallyImplyLeading: onBackPressed == null ? automaticallyImplyLeading : false,
+          automaticallyImplyLeading: onBackPressed == null && automaticallyImplyLeading,
           leading: onBackPressed == null
               ? (automaticallyImplyLeading
                   ? leading ?? (context.canPop() ? const CustomBackButton() : null)
                   : null)
               : CustomBackButton(onPressed: onBackPressed),
-        );
-}
-
-class CustomSliverAppBar extends SliverAppBar {
-  CustomSliverAppBar({
-    Color? backgroundColor,
-    Widget? leading,
-    required BuildContext context,
-    String? title,
-    TextStyle? textStyle,
-    Widget? emojiHeader,
-    super.actions,
-    super.pinned = false,
-    super.floating = true,
-    super.snap = true,
-    super.key,
-  }) : super(
-          scrolledUnderElevation: 0,
-          title: emojiHeader ??
-              (title != null
-                  ? AutoSizeText(
-                      title,
-                      style: textStyle ?? context.tTexts.scaffoldHeader,
-                    )
-                  : null),
-          shadowColor: Colors.black,
-          backgroundColor: backgroundColor ?? context.tColors.shellBackground,
-          centerTitle: true,
-          leading: leading ?? (context.canPop() ? const CustomBackButton() : null),
-          titleTextStyle: textStyle,
         );
 }

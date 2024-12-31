@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:turbo_template/core/constants/k_sizes.dart';
 import 'package:turbo_template/core/constants/k_widgets.dart';
 import 'package:turbo_template/core/extensions/context_extension.dart';
 import 'package:turbo_template/core/globals/g_strings.dart';
+import 'package:turbo_template/core/widgets/animated_enabled.dart';
 import 'package:turbo_template/core/widgets/bottom_position.dart';
 import 'package:turbo_template/core/widgets/fading_scrollable.dart';
+import 'package:turbo_template/core/widgets/form_field_text.dart';
+import 'package:turbo_template/core/widgets/gap.dart';
+import 'package:turbo_template/core/widgets/shrinks.dart';
+import 'package:turbo_template/core/widgets/trailing_icon.dart';
 import 'package:turbo_template/core/widgets/tu_button.dart';
 import 'package:turbo_template/core/widgets/turbo_scaffold.dart';
+import 'package:turbo_template/core/widgets/turbo_scroll_view.dart';
 import 'package:turbo_template/features/auth/views/create_username/create_username_view_model.dart';
 import 'package:veto/data/models/base_view_model.dart';
+import 'package:veto/data/models/busy_model.dart';
 class CreateUsernameView extends StatelessWidget {
   const CreateUsernameView({
     super.key,
@@ -21,14 +29,13 @@ class CreateUsernameView extends StatelessWidget {
     return ViewModelBuilder<CreateUsernameViewModel>(
       builder: (context, model, isInitialised, child) {
         if (!isInitialised) return kWidgetsNothing;
-        final textStyle = context.texts.createUserNameTitle;
+        final textStyle = context.tTexts.createUserNameTitle;
         return TurboScaffold(
           body: isInitialised
               ? FadingScrollable(
             foregroundContent: BottomPositioned(
               child: TurboButton.primary(
                 text: gStrings.save,
-                width: double.infinity,
                 onPressed: () => model.save(context: context),
                 trailingIcon: (backgroundColor, textColor) => TrailingIcon(
                   Icons.arrow_forward,
@@ -52,12 +59,12 @@ class CreateUsernameView extends StatelessWidget {
                           builder: (context, username, child) => Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const ItemGap(),
+                              const Gap.element(),
                               Text(
                                 gStrings.helloUsername(username),
                                 style: textStyle,
                               ),
-                              const ItemGap(),
+                              const Gap.element(),
                               VerticalShrink(
                                 show: username == model.usernamePlaceholder,
                                 alignment: Alignment.topCenter,
@@ -67,7 +74,7 @@ class CreateUsernameView extends StatelessWidget {
                                       padding: const EdgeInsets.only(bottom: 16),
                                       child: Text(
                                         gStrings.whatNameSuitsYouBest,
-                                        style: context.texts.formField,
+                                        style: context.tTexts.formField,
                                       ),
                                     ),
                                   ],

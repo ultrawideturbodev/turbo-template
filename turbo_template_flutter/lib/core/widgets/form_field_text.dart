@@ -68,18 +68,18 @@ class _FormFieldTextState extends State<FormFieldText> {
   @override
   Widget build(BuildContext context) {
     final formFieldConfig = widget.formFieldConfig;
-    final formFieldTextStyle = context.texts.formField;
-    final iconColor = context.colors.formFieldText;
-    final cursorColor = context.colors.formFieldText;
-    final formFieldLabelStyle = context.texts.formFieldLabel;
+    final formFieldTextStyle = context.tTexts.formField;
+    final iconColor = context.tColors.formFieldText;
+    final cursorColor = context.tColors.formFieldText;
+    final formFieldLabelStyle = context.tTexts.formFieldLabel;
     final isDisabled = formFieldConfig.isReadOnly || !formFieldConfig.isEnabled;
     final backgroundColor = switch (isDisabled) {
-      false => context.colors.activeFormFieldBackground,
-      true => context.colors.inactiveFormFieldBackground,
+      false => context.tColors.activeFormFieldBackground,
+      true => context.tColors.inactiveFormFieldBackground,
     };
     final label = widget.label;
-    final borderRadius = context.sizes.formFieldBorderRadius;
-    final borderColor = context.colors.formFieldBorder;
+    final borderRadius = context.tSizes.formFieldBorderRadius;
+    final borderColor = context.tColors.formFieldBorder;
     const minVerticalPadding = kSizesFormFieldHeight / 2;
     const leftPadding = 12.0;
     final hasIcon = widget.fadingFocusIcon != null;
@@ -112,7 +112,7 @@ class _FormFieldTextState extends State<FormFieldText> {
                           isDense: true,
                           fillColor: backgroundColor,
                           hintText: widget.hintText,
-                          hintStyle: context.texts.secondaryHint,
+                          hintStyle: context.tTexts.secondaryHint,
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(borderRadius),
                             borderSide: BorderSide(
@@ -123,7 +123,7 @@ class _FormFieldTextState extends State<FormFieldText> {
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(borderRadius),
                             borderSide: BorderSide(
-                              color: context.colors.activeFormFieldBorder,
+                              color: context.tColors.activeFormFieldBorder,
                               style: BorderStyle.solid,
                               strokeAlign: BorderSide.strokeAlignCenter,
                             ),

@@ -34,15 +34,15 @@ class _CustomDialogState<T> extends State<CustomDialog<T>> {
         child: Container(
           constraints: BoxConstraints(maxWidth: widget.maxWidth),
           decoration: BoxDecoration(
-            color: context.colors.dialogBackground,
+            color: context.tColors.dialogBackground,
             borderRadius: BorderRadius.circular(16),
-            boxShadow: context.ui.cardShadow,
+            boxShadow: context.tUi.cardShadow,
           ),
           padding: EdgeInsets.all(widget.padding),
           margin: EdgeInsets.only(
             left: 32,
             right: 32,
-            bottom: (context.sizes.bottomSafeAreaWithMinimum + 32).minimum(32),
+            bottom: (context.tSizes.bottomSafeAreaWithMinimum + 32).minimum(32),
           ),
           child: widget.builder(context),
         ),

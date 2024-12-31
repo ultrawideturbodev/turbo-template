@@ -1,4 +1,5 @@
 const kSizesAppPadding = 16.0;
+const kSizesElementGap = 8.0;
 const kSizesButtonHeight = 40.0;
 const kSizesCardPadding = kSizesAppPadding;
 const kSizesCardRadius = 24.0;

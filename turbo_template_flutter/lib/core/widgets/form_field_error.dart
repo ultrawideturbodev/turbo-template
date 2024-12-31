@@ -37,7 +37,7 @@ class FormFieldError extends StatelessWidget {
                 Flexible(
                   child: Text(
                     _errorText.value ?? '',
-                    style: context.texts.formFieldError,
+                    style: context.tTexts.formFieldError,
                   ),
                 ),
               ],

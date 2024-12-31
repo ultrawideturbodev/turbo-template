@@ -18,8 +18,8 @@ Future<void> main() async {
   final kebabName = snakeToKebab(snakeName);
 
   final featureDir = featureName == 'core'
-      ? Directory('lib/$featureName')
-      : Directory('lib/features/$featureName');
+      ? Directory('../lib/$featureName')
+      : Directory('../lib/features/$featureName');
 
   final viewsDir = Directory('${featureDir.path}/views/$snakeName');
   if (!await viewsDir.exists()) {
@@ -46,10 +46,18 @@ class ${pascalName}View extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<${pascalName}ViewModel>(
+      isReactive: false,
       argumentBuilder: () => OriginArguments(data: arguments, origin: origin),
       builder: (context, model, isInitialised, child) {
         if (!isInitialised) return kWidgetsNothing;
-                return const CustomScaffold(
+          return const TurboScaffold(
+            appBar: TurboAppBar(
+            context: context,
+            header: EmojiHeader(
+              emoji: Emoji.unicorn,
+              title: '$pascalName',
+            ),
+          ),
           body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -116,7 +124,7 @@ class ${pascalName}Arguments extends ViewArguments {
 
   @override
   Map<String, dynamic> toMap() => {
-      'id': id,
+      if (id != null) 'id': id,
     };
 
   factory ${pascalName}Arguments.fromMap(Map<String, dynamic> map) => ${pascalName}Arguments(

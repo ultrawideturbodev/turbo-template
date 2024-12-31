@@ -24,7 +24,7 @@ class SheetService with Loglytics {
       final localContext = context ?? _baseRouter.context;
       return showModalBottomSheet<T>(
         context: localContext,
-        backgroundColor: localContext.colors.background,
+        backgroundColor: localContext.tColors.background,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(32),

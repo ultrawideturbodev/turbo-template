@@ -5,7 +5,7 @@ enum SupportedThemeMode {
   light,
   ;
 
-  static const defaultValue = SupportedThemeMode.light;
+  static const defaultValue = SupportedThemeMode.dark;
 
   ThemeMode get toThemeMode {
     switch (this) {

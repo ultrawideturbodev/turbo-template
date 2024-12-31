@@ -73,11 +73,11 @@ class TurboButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const buttonHeight = kSizesButtonHeight;
-    final borderRadius = BorderRadius.circular(context.sizes.buttonBorderRadius);
+    final borderRadius = BorderRadius.circular(context.tSizes.buttonBorderRadius);
     switch (buttonType) {
       case TuButtonType.primary:
-        final backgroundColor = context.colors.primaryButtonBackground;
-        final textColor = context.colors.primaryButtonText;
+        final backgroundColor = context.tColors.primaryButtonBackground;
+        final textColor = context.tColors.primaryButtonText;
         return OpacityButton(
           onPressed: onPressed,
           focusNode: focusNode,
@@ -95,7 +95,7 @@ class TurboButton extends StatelessWidget {
                 if (leadingIcon != null) leadingIcon!(backgroundColor, textColor),
                 Text(
                   text,
-                  style: context.texts.primaryButton,
+                  style: context.tTexts.primaryButton,
                 ),
                 if (trailingIcon != null) trailingIcon!(backgroundColor, textColor),
               ],
@@ -103,8 +103,8 @@ class TurboButton extends StatelessWidget {
           ),
         );
       case TuButtonType.secondary:
-        final backgroundColor = context.colors.secondaryButtonBackground;
-        final textColor = context.colors.secondaryButtonText;
+        final backgroundColor = context.tColors.secondaryButtonBackground;
+        final textColor = context.tColors.secondaryButtonText;
         return OpacityButton(
           onPressed: onPressed,
           focusNode: focusNode,
@@ -116,7 +116,7 @@ class TurboButton extends StatelessWidget {
                 if (leadingIcon != null) leadingIcon!(backgroundColor, textColor),
                 Text(
                   text,
-                  style: context.texts.secondaryButton,
+                  style: context.tTexts.secondaryButton,
                 ),
                 if (trailingIcon != null) trailingIcon!(backgroundColor, textColor),
               ],
@@ -126,7 +126,7 @@ class TurboButton extends StatelessWidget {
               decoration: BoxDecoration(
                 color: switch (isHovered) {
                   false => backgroundColor,
-                  true => context.colors.secondaryButtonHover,
+                  true => context.tColors.secondaryButtonHover,
                 },
                 borderRadius: borderRadius,
               ),

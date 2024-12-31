@@ -1,23 +1,22 @@
 part of 'context_extension.dart';
 
-class _Sizes {
-  _Sizes(this.context);
+class TurboSizes {
+  TurboSizes(this.context);
   final BuildContext context;
 
   // 📍 THEME --------------------------------------------------------------------------------- \\
 
-  double get formFieldBorderRadius => 10.0;
-
-  double get labelFontSize => 14.0;
-  FontWeight get labelFontWeight => FontWeight.bold;
-
-  double get buttonFontSize => 14.0;
-  double get buttonBorderRadius => 10.0;
   FontWeight get buttonFontWeight => FontWeight.bold;
+  FontWeight get labelFontWeight => FontWeight.bold;
+  double get buttonBorderRadius => 10.0;
+  double get buttonFontSize => 14.0;
+  double get formFieldBorderRadius => 10.0;
+  double get labelFontSize => 14.0;
 
   // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
 
-  double get bottomSafeAreaWithMinimum => max(context.media.viewPadding.bottom, 16);
+  double get bottomSafeArea => context.media.viewPadding.bottom;
+  double get bottomSafeAreaWithMinimum => max(bottomSafeArea, 16);
   double get bottomViewInsets => context.media.viewInsets.bottom;
   double get height => context.media.size.height;
   double get topSafeArea => context.media.viewPadding.top;

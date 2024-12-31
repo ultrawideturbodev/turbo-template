@@ -96,14 +96,14 @@ class MyApp extends StatelessWidget {
                         final media = MediaQuery.of(context);
                         final themeData = context.theme;
                         return Material(
-                          color: context.colors.background,
+                          color: context.tColors.background,
                           child: MediaQuery(
                             data: media.copyWith(
                               textScaler: TextScaler.noScaling,
                             ),
                             child: Theme(
                               data: themeData.copyWith(
-                                scaffoldBackgroundColor: context.colors.background,
+                                scaffoldBackgroundColor: context.tColors.background,
                                 iconTheme: themeData.iconTheme.copyWith(
                                   size: 24,
                                 ),

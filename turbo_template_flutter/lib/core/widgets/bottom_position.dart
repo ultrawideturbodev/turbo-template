@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:turbo_template/core/constants/k_sizes.dart';
+import 'package:turbo_template/core/extensions/context_extension.dart';
 
 class BottomPositioned extends StatelessWidget {
   const BottomPositioned({
@@ -11,9 +12,9 @@ class BottomPositioned extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Positioned(
-    bottom: kSizesAppPadding,
-    left: kSizesAppPadding,
-    right: kSizesAppPadding,
-    child: child,
-  );
+        bottom: context.tSizes.bottomSafeAreaWithMinimum + kSizesAppPadding,
+        left: kSizesAppPadding,
+        right: kSizesAppPadding,
+        child: child,
+      );
 }

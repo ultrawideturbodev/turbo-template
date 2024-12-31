@@ -1,2 +1,2 @@
-const kSvgsCheck = 'svgs/check.svg';
-const kSvgsHyphen = 'svgs/hyphen.svg';
+const kSvgsCheck = 'assets/svgs/check.svg';
+const kSvgsHyphen = 'assets/svgs/hyphen.svg';

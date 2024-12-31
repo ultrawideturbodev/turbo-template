@@ -60,7 +60,7 @@ class CustomScaffold extends StatelessWidget {
       floatingActionButton: floatingActionButton,
       floatingActionButtonLocation: floatingActionButtonLocation,
       appBar: appBar,
-      backgroundColor: backgroundColor ?? context.colors.background,
+      backgroundColor: backgroundColor ?? context.tColors.background,
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -117,7 +117,7 @@ class CustomScaffold extends StatelessWidget {
                 if (hasPrimaryButton) primaryButtonBuilder!(context),
                 if (hasSecondaryButton)
                   Positioned(
-                    bottom: (addBottomSafeArea ? context.sizes.bottomSafeAreaWithMinimum : 0) +
+                    bottom: (addBottomSafeArea ? context.tSizes.bottomSafeAreaWithMinimum : 0) +
                         buttonHeight +
                         8,
                     left: 0,

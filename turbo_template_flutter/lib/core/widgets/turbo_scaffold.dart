@@ -5,14 +5,11 @@ class TurboScaffold extends StatelessWidget {
   const TurboScaffold({
     super.key,
     this.appBar,
-    this.backgroundColor,
     this.body,
-    this.bottomNavigationBar,
     this.drawer,
     this.floatingActionButton,
-    this.floatingActionButtonLocation = FloatingActionButtonLocation.centerFloat,
     this.resizeToAvoidBottomInset = false,
-    this.extendBodyBehindAppBar = true,
+    this.floatingActionButtonLocation = FloatingActionButtonLocation.centerFloat,
   });
 
   final PreferredSizeWidget? appBar;
@@ -21,23 +18,29 @@ class TurboScaffold extends StatelessWidget {
   final Widget? floatingActionButton;
   final bool? resizeToAvoidBottomInset;
   final FloatingActionButtonLocation floatingActionButtonLocation;
-  final Color? backgroundColor;
-  final Widget? bottomNavigationBar;
-  final bool extendBodyBehindAppBar;
 
   @override
   Widget build(BuildContext context) => Scaffold(
     drawer: drawer,
-    bottomNavigationBar: bottomNavigationBar,
     resizeToAvoidBottomInset: resizeToAvoidBottomInset,
     floatingActionButton: floatingActionButton,
     floatingActionButtonLocation: floatingActionButtonLocation,
     appBar: appBar,
-    backgroundColor: backgroundColor ?? context.colors.background,
-    extendBodyBehindAppBar: extendBodyBehindAppBar,
+    backgroundColor: context.tColors.background,
+    extendBodyBehindAppBar: true,
     body: Stack(
       children: [
-        if (body != null) SafeArea(child: body!),
+        Positioned.fill(
+          top: -100,
+          left: 0,
+          right: 0,
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: context.tUi.gradientBackground,
+            ),
+          ),
+        ),
+        if (body != null) SafeArea(child: body!, bottom: false),
       ],
     ),
   );

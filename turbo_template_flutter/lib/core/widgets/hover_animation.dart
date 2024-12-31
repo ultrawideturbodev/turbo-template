@@ -79,7 +79,7 @@ class _HoverAnimationState extends State<HoverAnimation> with SingleTickerProvid
             }
             return CustomPaint(
               painter: _SquarePainter(
-                color: widget.color ?? context.colors.buttonHover,
+                color: widget.color ?? context.tColors.buttonHover,
                 controllerValue: widget.overrideHover ? 1 : _controller.value,
                 borderRadius: widget.borderRadius,
                 padding: widget.padding,

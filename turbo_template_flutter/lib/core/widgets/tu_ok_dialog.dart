@@ -6,7 +6,7 @@ import '../constants/k_sizes.dart';
 import '../extensions/context_extension.dart';
 import '../extensions/num_extension.dart';
 import 'tu_button.dart';
-import 'tu_card.dart';
+import 'turbo_card.dart';
 
 class TuOkDialog<T> extends StatefulWidget {
   const TuOkDialog({
@@ -44,12 +44,12 @@ class _TuOkDialogState<T> extends State<TuOkDialog<T>> {
   Widget build(BuildContext context) {
     const horizontalPadding = kSizesAppPadding * 1.5;
     return Center(
-      child: TuCard(
+      child: TurboCard(
         padding: const EdgeInsets.all(kSizesAppPadding),
         margin: EdgeInsets.only(
           left: horizontalPadding,
           right: horizontalPadding,
-          bottom: (context.sizes.bottomSafeAreaWithMinimum + horizontalPadding)
+          bottom: (context.tSizes.bottomSafeAreaWithMinimum + horizontalPadding)
               .minimum(horizontalPadding),
         ),
         child: Column(
@@ -67,7 +67,7 @@ class _TuOkDialogState<T> extends State<TuOkDialog<T>> {
                   Expanded(
                     child: Text(
                       widget.title!,
-                      style: context.texts.dialogHeader,
+                      style: context.tTexts.dialogHeader,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.start,
@@ -76,7 +76,7 @@ class _TuOkDialogState<T> extends State<TuOkDialog<T>> {
                 ],
               ),
               const Gap(16),
-              Text(widget.message!, style: context.texts.primaryText),
+              Text(widget.message!, style: context.tTexts.primaryText),
               const Gap(16),
             ],
             Wrap(
