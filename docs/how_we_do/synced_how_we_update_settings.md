@@ -1,7 +1,7 @@
 # 🔄 How We Update Settings
 
 ## Introduction
-FloatNote uses a structured approach for updating settings to ensure consistency reliability and proper feedback to users. This pattern is designed to handle both local state updates and remote data persistence while providing clear feedback about the success or failure of each operation.
+We use a structured approach for updating settings to ensure consistency, reliability, and proper feedback to users. This pattern is designed to handle both local state updates and remote data persistence while providing clear feedback about the success or failure of each operation.
 
 ## Why This Pattern
 We chose this pattern because it:
@@ -20,7 +20,7 @@ We chose this pattern because it:
 
 ### 2. ViewModel Layer
 - ViewModel receives the update request
-- Handles any UI specific logic (dialogs pickers etc)
+- Handles any UI specific logic (dialogs, pickers, etc.)
 - Calls the appropriate update method on `settings_service.dart`
 
 ### 3. Service Layer
@@ -37,29 +37,58 @@ Each setting has its own update method in `settings_service.dart` that:
 ## 📝 Example
 ```dart
 // In settings_service.dart
-Future<FeedbackResponse> updateScheduleStart({required TimeOfDay value}) async {
+Future<FeedbackResponse> updateThemeMode({required ThemeMode value}) async {
   try {
-    updateSetting((settingsDto) => settingsDto..scheduleStart = value);
+    updateSetting((settingsDto) => settingsDto..themeMode = value);
     final response = await _settingsApi.updateSettings(
       updateSettingsRequest: UpdateSettingsRequest(
-        scheduleStart: value,
+        themeMode: value,
       ),
     );
     return response.copyWith(
-      ifSuccessTitle: 'Schedule start updated',
-      ifErrorTitle: 'Schedule start could not be updated',
+      ifSuccessTitle: gStrings.themeModeUpdated,
+      ifErrorTitle: gStrings.themeModeUpdateFailed,
     );
   } catch (error, stackTrace) {
     log.error(
-      '$error caught while updating schedule start',
+      'Error updating theme mode',
       error: error,
       stackTrace: stackTrace,
     );
     return FeedbackResponse.error(
-      title: 'Schedule start could not be updated',
+      title: gStrings.themeModeUpdateFailed,
     );
   }
 }
+
+// In settings_view_model.dart
+Future<void> onThemeModeChanged(ThemeMode value) async {
+  if (gIsBusy) return;
+
+  try {
+    gSetBusy();
+    final response = await _settingsService.updateThemeMode(value: value);
+    response.fold(
+      ifSuccess: (_) => gShowNotification(title: gStrings.themeModeUpdated),
+      orElse: (response) => gShowResponse(response: response),
+    );
+  } catch (error, stackTrace) {
+    log.error(
+      'Error handling theme mode change',
+      error: error,
+      stackTrace: stackTrace,
+    );
+  } finally {
+    gSetIdle();
+  }
+}
+
+// In settings_view.dart
+ListTile(
+  title: Text(gStrings.themeMode),
+  subtitle: Text(model.currentThemeMode.toString()),
+  onTap: () => model.onThemeModeChanged(ThemeMode.system),
+),
 ```
 
 ## 🎯 Summary
@@ -68,4 +97,6 @@ This pattern ensures that:
 2. Users get immediate feedback
 3. Data stays in sync between local and remote
 4. Errors are properly handled and logged
-5. Code remains maintainable and extendable 
+5. Code remains maintainable and extendable
+6. UI remains responsive during updates
+7. All strings are properly localized 

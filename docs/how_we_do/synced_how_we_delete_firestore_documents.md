@@ -68,18 +68,18 @@ If the agent decides to change approach due to errors, new insights or other rea
 First, implement the delete functionality in your service class:
 
 ```dart
-Future<FeedbackResponse<void>> deleteDocument(DocumentDto document) async {
+Future<FeedbackResponse<void>> deleteItem(ItemDto item) async {
   // Add validation logic
-  if (document.isProtected) {
-    log.debug('Cannot delete protected document');
+  if (item.isProtected) {
+    log.debug('Cannot delete protected item');
     return FeedbackResponse.error(
       title: gStrings.somethingWentWrong,
-      message: 'This document cannot be deleted.',
+      message: 'This item cannot be deleted.',
     );
   }
   
-  log.debug('Deleting document with id: ${document.id}');
-  return deleteDoc(doc: document);
+  log.debug('Deleting item with id: ${item.id}');
+  return deleteDoc(doc: item);
 }
 ```
 
@@ -88,16 +88,16 @@ Future<FeedbackResponse<void>> deleteDocument(DocumentDto document) async {
 Add a delete button to your view:
 
 ```dart
-RmyAppBar(
+BaseAppBar(
   context: context,
   header: EmojiHeader.scaffoldTitle(
     emoji: Emoji.yourEmoji,
     title: model.title,
   ),
   actions: [
-    if (document?.isProtected == false)
+    if (item?.isProtected == false)
       RightPadding(
-        child: RmyIconButton(
+        child: IconButton(
           iconData: Icons.delete_rounded,
           onPressed: () => model.onDeletePressed(context),
         ),
@@ -115,7 +115,7 @@ Future<void> onDeletePressed(BuildContext context) async {
   if (gIsBusy) return;
 
   final shouldDelete = await gShowOkCancelDialog(
-    title: (strings) => gStrings.deleteDocument,
+    title: (strings) => gStrings.deleteItem,
     message: (strings) => gStrings.areYouSureYouWantToDeleteThis,
   );
 
@@ -123,26 +123,26 @@ Future<void> onDeletePressed(BuildContext context) async {
 
   try {
     gSetBusy();
-    final document = _document.value;
-    if (document == null) {
-      throw const UnexpectedResultException(reason: 'Document not found');
+    final item = _item.value;
+    if (item == null) {
+      throw const UnexpectedResultException(reason: 'Item not found');
     }
     
     // Important: Block updates when listening to document changes
     // This prevents UI flicker and potential errors when the document is deleted
     _ignoreChanges = true;
     
-    final response = await _service.deleteDocument(document);
+    final response = await _service.deleteItem(item);
     response.fold(
       ifSuccess: (response) {
-        gShowNotification(title: gStrings.documentDeleted);
-        // Navigate away from the view since the document no longer exists
+        gShowNotification(title: gStrings.itemDeleted);
+        // Navigate away from the view since the item no longer exists
         gPop(context);
       },
       orElse: (response) {
         gShowOkDialog(
           title: (strings) => strings.somethingWentWrong,
-          message: (strings) => gStrings.failedToDeleteDocumentPleaseTryAgainLater,
+          message: (strings) => gStrings.failedToDeleteItemPleaseTryAgainLater,
         );
         // Re-enable updates since deletion failed
         _ignoreChanges = false;
@@ -150,7 +150,7 @@ Future<void> onDeletePressed(BuildContext context) async {
     );
   } catch (error, stackTrace) {
     log.error(
-      '$error caught while deleting document',
+      '$error caught while deleting item',
       error: error,
       stackTrace: stackTrace,
     );
@@ -163,25 +163,25 @@ Future<void> onDeletePressed(BuildContext context) async {
 
 ### 4. 🎭 Empty State Handling
 
-When showing lists or managing documents that can be deleted, always handle empty states:
+When showing lists or managing items that can be deleted, always handle empty states:
 
 ```dart
-ValueListenableBuilder<List<DocumentDto>>(
-  valueListenable: model.documents,
-  builder: (context, documents, child) {
-    if (documents.isEmpty) {
+ValueListenableBuilder<List<ItemDto>>(
+  valueListenable: model.items,
+  builder: (context, items, child) {
+    if (items.isEmpty) {
       return EmptyPlaceholder(
-        message: strings.noDocumentsFound,
+        message: strings.noItemsFound,
         ctaText: strings.goBack,
         onCtaPressed: () => model.onGoBackPressed(context),
       );
     }
     
     return ListView.builder(
-      itemCount: documents.length,
+      itemCount: items.length,
       itemBuilder: (context, index) {
-        final document = documents[index];
-        return DocumentListItem(document: document);
+        final item = items[index];
+        return ItemListTile(item: item);
       },
     );
   },

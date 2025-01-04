@@ -40,54 +40,54 @@ The `Informer` class extends `ValueNotifier` with additional features for state 
 We never expose the `Informer` directly to the UI. Instead, we expose it as a `ValueListenable`:
 
 ```dart
-class HouseholdInvitesService {
+class InvitesService {
   // Private Informer
-  final _householdInvites = Informer<List<HouseholdInviteModel>>(
+  final _invites = Informer<List<InviteModel>>(
     [],
     forceUpdate: true,
   );
 
   // Public ValueListenable
-  ValueListenable<List<HouseholdInviteModel>> get householdInvites => _householdInvites;
+  ValueListenable<List<InviteModel>> get invites => _invites;
 }
 ```
 
-### Real-World Example: Household Invites
+### Real-World Example: Team Invites
 
 ```dart
-class HouseholdInvitesService {
-  final _householdInvites = Informer<List<HouseholdInviteModel>>(
+class InvitesService {
+  final _sentInvites = Informer<List<InviteModel>>(
     [],
     forceUpdate: true,
   );
-  final _userInvites = Informer<List<HouseholdInviteModel>>(
+  final _receivedInvites = Informer<List<InviteModel>>(
     [],
     forceUpdate: true,
   );
 
-  ValueListenable<List<HouseholdInviteModel>> get householdInvites => _householdInvites;
-  ValueListenable<List<HouseholdInviteModel>> get userInvites => _userInvites;
+  ValueListenable<List<InviteModel>> get sentInvites => _sentInvites;
+  ValueListenable<List<InviteModel>> get receivedInvites => _receivedInvites;
 
   @override
-  Future<void> afterSyncNotifyUpdate(List<HouseholdInviteDto> docs) async {
-    final householdInviteModels = <HouseholdInviteModel>[];
+  Future<void> afterSyncNotifyUpdate(List<InviteDto> docs) async {
+    final inviteModels = <InviteModel>[];
     // Process docs...
 
     final currentUserId = gUserId;
-    final householdInvites = <HouseholdInviteModel>[];
-    final userInvites = <HouseholdInviteModel>[];
+    final sent = <InviteModel>[];
+    final received = <InviteModel>[];
 
-    for (final invite in householdInviteModels) {
+    for (final invite in inviteModels) {
       if (invite.dto.createdBy == currentUserId) {
-        householdInvites.add(invite);
+        sent.add(invite);
       }
       if (invite.dto.recipientId == currentUserId) {
-        userInvites.add(invite);
+        received.add(invite);
       }
     }
 
-    _householdInvites.update(householdInvites);
-    _userInvites.update(userInvites);
+    _sentInvites.update(sent);
+    _receivedInvites.update(received);
   }
 }
 ```

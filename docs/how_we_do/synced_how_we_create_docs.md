@@ -6,22 +6,15 @@ Our documentation is organized in strategic locations:
 
 ```
 your_project_mono/
-  ├── project_docs/           
+  ├── docs/           
   │   ├── how_we_do/           # Step-by-step guides and procedures
-  │   ├── why_we_do/           # Reasoning and context behind decisions
-  │   └── wiki_we_do/          # Knowledge base and reference materials
-  ├── project_flutter/           
-  │   └── docs/
-  │       ├── how_we_do/       # Flutter implementation guides
-  │       ├── why_we_do/       # Flutter architectural decisions
-  │       ├── wiki_we_do/      # Flutter reference materials
-  │       └── feature_breakdowns/  # Flutter feature implementations
-  └── project_firebase/
-      └── docs/
-          ├── how_we_do/       # Cloud function guides
-          ├── why_we_do/       # Firebase architectural decisions
-          ├── wiki_we_do/      # Firebase reference materials
-          └── feature_breakdowns/  # Firebase feature implementations
+  │   ├── wiki/                # Knowledge base and reference materials
+  │   ├── feature_examples/    # Detailed documentation of implemented features
+  │   ├── templates/           # Template files and boilerplates
+  │   ├── gpt_prompts/         # Instructions and prompts for AI agents
+  │   ├── requirements/        # Requirements for a feature, task or bug
+  │   ├── tickets/             # Tickets for a feature, task or bug
+  │   └── logs/                # Daily work logs and reflections
 ```
 
 ## ✍️ Common Style Guidelines
@@ -43,11 +36,17 @@ your_project_mono/
 - Link to related documentation when helpful
 - Document while the information is fresh
 
-## 📖 Document Types and Their Structures
+## 📖 Document Types and Their MANDATORY File Structures
 
 ### 1. How We Do Documents
 
 Step-by-step guides for procedures and implementations.
+
+#### Table of Contents
+
+- Title: "# 📝 Table of Contents"
+- Content: List of all sections in the document
+- Keep it concise but comprehensive
 
 #### Introduction Section
 
@@ -59,75 +58,163 @@ Step-by-step guides for procedures and implementations.
 
 - Title: "## 🤖 GPT Agent Instructions"
 - Content: Instructions for AI agents to execute the document's content
+- Include:
+
+     - Confirm implementation goals
+     - State key assumptions
+     - Request clarification
+     - Progress tracking with status emojis (🔄 In Progress | ✅ Completed | ❌ Failed)
+     - Validation steps for changes
+     - Error handling procedures
+     - Detailed checklist of all required steps
+     - Organized by major sections
+     - Each step should be trackable
+     - Critical instructions for execution
+     - Verification requirements
+     - Communication guidelines
+
+#### Suggested Approach Section
+
+- Title: "# 🎯 Suggested Approach"
+- Format: Checklist style with "- [ ]" prefix
+- Each step should be one sentence max
+- Steps should outline the implementation process
+
+#### Tutorial Section
+
+- Title: "# 👨‍🏫 Tutorial"
+- Important: Sub-sections should match each step from the Suggested Approach
+- Include code examples and explanations
+- Use numbered sub-headers with emoticons
+
+#### Checklist Section
+
+- Title: "# ✅ Checklist"
+- Format: Checklist style with "- [ ]" prefix
+- List verification points for correct implementation
+- Cover all critical aspects mentioned in tutorial
+
+### 2. Feature Example Documents
+
+Detailed documentation of implemented features.
+
+#### Introduction Section
+
+- Title: "# 📝 File Name In Pascal Case With Spaces"
+- Content: Explain what feature was implemented and why
+- Include any relevant context or dependencies
+
+#### Table of Contents
+
+- Title: "# 📝 Table of Contents"
+- Content: List of all sections in the document
+- Keep it concise but comprehensive
+
+#### The Plan Section
+
+- Title: "# 🎯 The Plan"
+- Format: Numbered list
+- Each step should reflect exactly what was done
+- Keep steps concise and clear
+
+#### Implementation Section
+
+- Title: "# 💻 Implementation"
+- Sub-sections matching The Plan steps
+- Include actual code snippets used
+- Explain patterns and important decisions
+- Document why certain approaches were chosen
+
+#### GPT Agent Instructions Section
+
+- Title: "## 🤖 GPT Agent Instructions"
+- Content: Instructions for AI agents to execute the document's content
 - Start with an introduction explaining:
 
   ```markdown
-  These instructions serve as a prompt for AI agents when this document is referenced.
-  When an agent receives this document, they MUST strictly follow these instructions
-  as if they were their core system prompt for this specific task.
+# 🤖 GPT Agent Instructions
 
-  The agent MUST:
+These instructions serve as a prompt for AI agents when this document is referenced.
+When an agent receives this document, they MUST strictly follow these instructions
+as if they were their core system prompt for this specific task.
 
-  1. First check docs folders in mono repos and main repo for relevant guides
+The agent MUST:
 
-  2. Gather all necessary information by:
+1. First check docs folders in mono repos and main repo for relevant guides
 
-     - Searching through the codebase
-     - Reading relevant files
-     - Asking clarifying questions if anything is unclear
+2. Gather all necessary information by:
 
-  3. Create and present a detailed step-by-step plan that includes:
+   - Searching through the codebase
+   - Reading relevant files
+   - Asking clarifying questions if anything is unclear
 
-     - What will be done in each step
-     - Which files will be modified or created
-     - What other changes will be made
-     - Wait for explicit approval before proceeding
+3. Create and present a detailed step-by-step plan that includes:
 
-  4. After plan approval:
+   - What will be done in each step
+   - Which files will be modified or created
+   - What other changes will be made
+   - Wait for explicit approval before proceeding
 
-     - Create a markdown file named `gpt_agent_todo_[TASK_NAME].md` with this structure:
+4. After plan approval:
 
-       # Goal
-       Clear description of what needs to be achieved
+   - Check if a todo file `gpt_agent_todo.md` already exists and check its contents.
+      - If it does, ask the user what to do with it.
+   
+   - If not already there, create a markdown file named `gpt_agent_todo.md` with this structure:
 
-       # Plan & Progress
-       - [ ] Step 1
-         - Notes/insights about this step
-         - Status updates
-       - [ ] Step 2
-         - Notes/insights about this step
-         - Status updates
-       - [ ] Step 3
-         - Notes/insights about this step
-         - Status updates
+     # Goal
+     Clear description of what needs to be achieved
 
-     - Execute ONLY the first step
-     - Present the changes
-     - Wait for feedback
-     - Address any feedback until step is approved
-     - Wait for explicit permission to proceed to next step
+     # Plan & Progress
+     - [ ] Step 1
+       - Notes/insights about this step
+       - Status updates
+     - [ ] Step 2
+       - Notes/insights about this step
+       - Status updates
+     - [ ] Step 3
+       - Notes/insights about this step
+       - Status updates
 
-  5. For each subsequent step:
+   - Execute ONLY the first step
+   - Present the changes
+   - Wait for feedback
+   - Address any feedback until step is approved
+   - Wait for explicit permission to proceed to next step
 
-     - Wait for permission to proceed
-     - Execute only that step
-     - Present the changes
-     - Wait for feedback
-     - Address any feedback until step is approved
-     - Repeat until all steps are complete
-     
-  6. Only mark task as complete when:
-     - All checkboxes in todo file are checked
-     - User confirms completion
-     - Ask user if they want to delete the todo file
+5. For each subsequent step:
 
-  If the agent decides to change approach due to errors, new insights or other reasons:
-  1. ALWAYS first ask whether the user agrees on the new approach
-  2. Present a new plan with steps
-  3. Explain and give arguments regarding why they want to step away from the current approach
-  4. Explain why the new approach is better (pros and cons)
-  5. Get feedback and continue based on the feedback
-  ```
+   - Wait for permission to proceed
+   - Execute only that step
+   - Present the changes
+   - Wait for feedback
+   - Address any feedback until step is approved
+   - Repeat until all steps are complete
+   
+6. Only mark task as complete when:
+   - All checkboxes in todo file are checked
+   - User confirms completion
+   - Ask user if they want to delete the todo file
+
+If the agent decides to change approach due to errors, new insights or other reasons:
+1. ALWAYS first ask whether the user agrees on the new approach
+2. Present a new plan with steps
+3. Explain and give arguments regarding why they want to step away from the current approach
+4. Explain why the new approach is better (pros and cons)
+5. Get feedback and continue based on the feedback
+6. Update the progress file with the change in approach and reasons
+
+CRITICAL: Progress Tracking and Context Maintenance
+   - Update the progress file CONSISTENTLY, no matter how small
+   - Add detailed notes about what was done, any issues encountered, and current status
+   - Mark steps as completed [x] as soon as they are done
+   - Before each new step, review and summarize the current progress
+   - If context is lost (e.g., due to conversation reset):
+     1. First thing to do is read the progress file
+     2. Understand the current state of the task
+     3. Confirm understanding with the user before proceeding
+   - Never assume previous context is available; always rely on the progress file
+```
 
 - Include the following subsections:
 
@@ -155,100 +242,7 @@ Step-by-step guides for procedures and implementations.
      - Verification requirements
      - Communication guidelines
 
-#### Suggested Approach Section
-
-- Title: "# 🎯 Suggested Approach"
-- Format: Checklist style with "- [ ]" prefix
-- Each step should be one sentence max
-- Steps should outline the implementation process
-
-#### Tutorial Section
-
-- Title: "# 👨‍🏫 Tutorial"
-- Important: Sub-sections should match each step from the Suggested Approach
-- Include code examples and explanations
-- Use numbered sub-headers with emoticons
-
-#### Checklist Section
-
-- Title: "# ✅ Checklist"
-- Format: Checklist style with "- [ ]" prefix
-- List verification points for correct implementation
-- Cover all critical aspects mentioned in tutorial
-
-### 2. Why We Do Documents
-
-Explanations and reasoning behind architectural decisions.
-
-#### Introduction Section
-
-- Title: "# 📝 File Name In Pascal Case With Spaces"
-- Content: Explain the concept and its importance
-- Outline the problem it solves
-
-#### Examples and Use Cases Section
-
-- Title: "# 🎯 Examples and Use Cases"
-- Real-world scenarios where this applies
-- Code examples demonstrating the concept
-- Benefits and trade-offs
-
-### 3. Feature Breakdown Documents
-
-Detailed documentation of implemented features.
-
-#### Introduction Section
-
-- Title: "# 📝 File Name In Pascal Case With Spaces"
-- Content: Explain what feature was implemented and why
-- Include any relevant context or dependencies
-
-#### GPT Agent Instructions Section
-
-- Title: "## 🤖 GPT Agent Instructions"
-- Content: Instructions for AI agents to understand the implementation
-- Include the following subsections:
-
-  1. **Initial Confirmation**
-
-     - Confirm understanding of the feature scope
-     - State assumptions about implementation
-     - Verify if explanation matches the actual implementation
-
-  2. **Understanding Guidelines**
-
-     - Feature architecture overview
-     - Key components
-     - Integration points
-
-  3. **Maintenance Guidelines**
-
-     - Common modification scenarios
-     - Testing requirements
-     - Update procedures
-
-  4. **Important Notes**
-
-     - Critical dependencies
-     - Performance considerations
-     - Security requirements
-
-#### The Plan Section
-
-- Title: "# 🎯 The Plan"
-- Format: Numbered list
-- Each step should reflect exactly what was done
-- Keep steps concise and clear
-
-#### Implementation Section
-
-- Title: "# 💻 Implementation"
-- Sub-sections matching The Plan steps
-- Include actual code snippets used
-- Explain patterns and important decisions
-- Document why certain approaches were chosen
-
-### 4. Wiki Documents
+### 3. Wiki Documents
 
 Knowledge base and reference materials.
 
@@ -257,6 +251,12 @@ Knowledge base and reference materials.
 - Title: "# 📝 Topic Name"
 - Overview of the topic
 - Relevance to the project
+
+#### Table of Contents
+
+- Title: "# 📝 Table of Contents"
+- Content: List of all sections in the document
+- Keep it concise but comprehensive
 
 #### Reference Content
 
@@ -270,209 +270,3 @@ Knowledge base and reference materials.
 - Links to external documentation
 - Related internal documents
 - Tools or libraries mentioned
-
-## 🎯 Perfect Example: Firebase Setup Documentation
-
-Here's a complete example of how a how_we_do document should be structured:
-
-```markdown
-# 📝 How We Set Up Firebase
-
-## Introduction
-
-This guide explains how to set up Firebase in our project, including both the Firebase project configuration and Flutter app integration. Firebase provides essential backend services for our Flutter applications, and proper setup is crucial for both development and production environments.
-
-## 🤖 GPT Agent Instructions
-
-### Initial Confirmation
-
-Before proceeding, I will:
-
-1. **Confirm Implementation Goals**
-
-   - Verify the exact Firebase services needed (Firestore, Auth, Storage, etc.)
-   - Confirm target platforms (iOS, Android, Web)
-   - Verify development environment requirements
-
-2. **State Key Assumptions**
-
-   - We will use a mono repo structure with separate Firebase and Flutter projects
-   - We will use Firebase CLI and FlutterFire CLI for setup
-   - We want to configure Firebase emulators for local development
-   - We need environment switching between production and emulators
-   - We will follow the standard project structure:
-     ```
-     project_mono/
-       ├── project_firebase/
-       └── project_flutter/
-     ```
-
-3. **Request Clarification**
-
-   - Confirm if any assumptions don't match the project needs
-   - Ask about any project-specific requirements
-   - Verify if any services should be excluded or added
-   - Confirm if any additional configuration is needed
-
-### Execution Guidelines
-
-1. **Progress Tracking**
-
-   - Create a checklist of all tasks before starting
-   - Mark each step as one of: 🔄 In Progress | ✅ Completed | ❌ Failed
-   - If a step fails, immediately report the error and wait for user input
-   - After each major section, request user confirmation before proceeding
-
-2. **Validation Steps**
-
-   - After each configuration change, verify the file contents
-   - For any file modifications, show the changes made
-   - Confirm all required dependencies are at compatible versions
-   - Test configurations in both emulator and production environments
-
-3. **Error Handling**
-
-   - Document any errors encountered
-   - Provide the exact error message and context
-   - Suggest possible solutions based on the error
-   - Wait for user confirmation before applying fixes
-
-### Execution Checklist
-
-Firebase Setup:
-
-[ ] Install Firebase CLI and FlutterFire CLI
-[ ] Create Firebase project in console
-[ ] Initialize Firebase project with CLI
-[ ] Configure FlutterFire in Flutter app
-[ ] Set up environment configuration
-
-Flutter Configuration:
-
-[ ] Add Firebase dependencies
-[ ] Initialize Firebase in app
-[ ] Configure development environment
-[ ] Set up emulator connection
-
-Verification:
-
-[ ] Test Firebase connection
-[ ] Verify emulator setup
-[ ] Check all required services
-
-### Important Notes
-
-- DO NOT proceed to the next section until current section is verified
-- Always show the exact commands being run
-- For any file changes, show before and after states
-- Request explicit user approval for any non-documented steps
-- If encountering an undocumented scenario, pause and ask for guidance
-
-## 🎯 Suggested Approach
-
-- [ ] Install required CLIs (Firebase, FlutterFire)
-- [ ] Create and initialize Firebase project
-- [ ] Configure Flutter app with FlutterFire
-- [ ] Set up environment configuration
-- [ ] Verify setup and connections
-
-## 👨‍🏫 Tutorial
-
-### 1. 🛠️ Installing Prerequisites
-
-First, we need to install the required CLIs:
-
-```bash
-# Install Firebase CLI
-npm install -g firebase-tools
-
-# Install FlutterFire CLI
-dart pub global activate flutterfire_cli
-
-# Log in to Firebase
-firebase login
-```
-
-### 2. 🎯 Firebase Project Setup
-
-1. Create a new project in the [Firebase Console](https://console.firebase.google.com)
-
-2. Initialize Firebase in your project:
-
-```bash
-# Navigate to Firebase directory
-cd your_project_firebase
-
-# Initialize Firebase
-firebase init
-
-# Select required features:
-# - Firestore
-# - Authentication
-# - Storage
-# - Emulators
-```
-
-### 3. 📱 Flutter Configuration
-
-1. Configure FlutterFire:
-
-```bash
-# Navigate to Flutter directory
-cd your_project_flutter
-
-# Run FlutterFire configure
-flutterfire configure --project=your-firebase-project
-```
-
-2. Add environment configuration (`lib/core/config/environment.dart`):
-
-```dart
-enum Environment {
-  production,
-  emulators;
-
-  static Environment get current => 
-    const String.fromEnvironment('env') == 'emulators' 
-      ? Environment.emulators 
-      : Environment.production;
-}
-```
-
-3. Initialize Firebase in your app (`lib/main.dart`):
-
-```dart
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  
-  if (Environment.isEmulators) {
-    await connectToEmulators();
-  }
-  
-  runApp(const MyApp());
-}
-```
-
-### 4. 🧪 Testing the Setup
-
-1. Run the app with emulators:
-```bash
-flutter run --dart-define=env=emulators
-```
-
-2. Verify Firebase connection in logs
-
-## ✅ Checklist
-
-- [ ] Firebase CLI and FlutterFire CLI are installed
-- [ ] Firebase project is created and initialized
-- [ ] FlutterFire is configured in Flutter app
-- [ ] Environment configuration is set up
-- [ ] Firebase initialization is working
-- [ ] App can connect to Firebase services
-- [ ] Emulator configuration is working
-```

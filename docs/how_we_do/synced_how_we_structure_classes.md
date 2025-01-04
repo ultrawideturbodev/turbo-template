@@ -72,46 +72,108 @@ We use a consistent class structure with clearly marked sections to make our cod
 
 ### Service Class Example
 ```dart
-class ExampleService extends BaseService {
+class DataService extends BaseService {
   // 📍 LOCATOR
-  static ExampleService get locate => GetIt.I.get();
-  static void registerLazySingleton() => GetIt.I.registerLazySingleton(ExampleService.new);
+  static DataService get locate => GetIt.I.get();
+  static void registerLazySingleton() => GetIt.I.registerLazySingleton(DataService.new);
 
   // 🧩 DEPENDENCIES
-  final _otherService = OtherService.locate;
+  final _parentService = ParentService.locate;
+  final _api = DataApi.locate;
+
+  // 🎬 INIT & DISPOSE
+  @override
+  Future<void> dispose() async {
+    _items.dispose();
+    await super.dispose();
+  }
 
   // 🎩 STATE
   final _items = Informer<List<ItemDto>>([]);
+  final _isProcessing = ValueNotifier<bool>(false);
 
   // 🧲 FETCHERS
   ValueListenable<List<ItemDto>> get items => _items;
-  String get genId => _generateId();
+  ValueListenable<bool> get isProcessing => _isProcessing;
+  String get genId => _api.genId;
+
+  // 🏗️ HELPERS
+  List<ItemDto> _processItems(List<ItemDto> items) {
+    return items..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+  }
 
   // 🪄 MUTATORS
-  Future<Response> createItem({required ItemDto item}) =>
-      createDoc(doc: item);
+  Future<FeedbackResponse<DocumentReference>> createItem({
+    required String name,
+    String? parentId,
+  }) async {
+    try {
+      _isProcessing.value = true;
+      
+      final item = ItemDto(
+        id: genId,
+        name: name,
+        parentId: parentId,
+        createdAt: gNow,
+        updatedAt: gNow,
+        createdBy: currentUser.id,
+      );
+      
+      return createDoc(doc: item);
+    } finally {
+      _isProcessing.value = false;
+    }
+  }
 }
 ```
 
 ### ViewModel Example
 ```dart
-class ExampleViewModel extends BaseViewModel {
+class ItemViewModel extends BaseViewModel {
   // 📍 LOCATOR
-  static ExampleViewModel get locate => GetIt.I.get();
+  static ItemViewModel get locate => GetIt.I.get();
+  static void registerFactory() => GetIt.I.registerFactory(ItemViewModel.new);
 
   // 🧩 DEPENDENCIES
-  final _service = ExampleService.locate;
+  final _service = DataService.locate;
   final _dialogService = DialogService.locate;
 
   // 🎩 STATE
-  late final _form = ExampleForm.locate;
+  late final _form = ItemForm();
+  final _isSaving = ValueNotifier<bool>(false);
 
   // 🧲 FETCHERS
   ValueListenable<List<ItemDto>> get items => _service.items;
+  ValueListenable<bool> get isSaving => _isSaving;
+  bool get isValid => _form.isValid;
 
   // 🪄 MUTATORS
-  Future<void> onActionPressed() {
-    _dialogService.showDialog(...);
+  Future<void> onSavePressed() async {
+    if (gIsBusy || !isValid) return;
+
+    try {
+      gSetBusy();
+      _isSaving.value = true;
+
+      final response = await _service.createItem(
+        name: _form.nameField.value!,
+        parentId: currentParent?.id,
+      );
+
+      response.fold(
+        ifSuccess: (_) => gShowNotification(title: gStrings.itemCreated),
+        orElse: (response) => gShowResponse(response: response),
+      );
+    } catch (error, stackTrace) {
+      log.error(
+        'Error creating item',
+        error: error,
+        stackTrace: stackTrace,
+      );
+    } finally {
+      _isSaving.value = false;
+      gSetIdle();
+    }
   }
 }
 ```
@@ -135,7 +197,7 @@ class ExampleViewModel extends BaseViewModel {
 
 4. 🤝 **Team Collaboration**
    - Everyone knows where to find things
-   - Consistent structure makes code more predictable
+   - Consistent structure makes more predictable code
    - Easier onboarding for new team members
 
 ## 💡 Pro Tip

@@ -1,6 +1,6 @@
 # 📝 How We Create Firestore Documents
 
-This guide explains our approach to creating Firestore documents in our applications, using the shopping lists implementation as a practical example.
+This guide explains our approach to creating Firestore documents in our applications, using a generic items collection as a practical example.
 
 ## 🤖 GPT Agent Instructions
 
@@ -60,7 +60,7 @@ Collection Setup:
 [ ] Create Firestore collection with proper structure
 [ ] Set up security rules for the collection
 [ ] Verify DTO implements `WriteableId<String>`
-[ ] Create API extending `RmyApi`
+[ ] Create API extending `BaseApi`
 [ ] Configure service dependencies
 
 UI Implementation:
@@ -101,7 +101,7 @@ First, set up your Firestore collection structure:
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /shopping_lists/{shoppingListId} {
+    match /items/{itemId} {
       allow read, write: if request.auth != null;
     }
   }
@@ -111,43 +111,43 @@ service cloud.firestore {
 Ensure your DTO matches the collection structure:
 
 ```dart
-class ShoppingListDto implements WriteableId<String> {
+class ItemDto implements WriteableId<String> {
   @override
   final String id;
-  final String title;
+  final String name;
   @TimestampConverter()
   final DateTime createdAt;
   @TimestampConverter()
   final DateTime updatedAt;
   final String createdBy;
-  final String householdId;
+  final String? parentId; // Optional, for hierarchical data
 
   @override
   bool get isLocalDefault => false;
 
-  ShoppingListDto({
+  ItemDto({
     required this.id,
-    required this.title,
+    required this.name,
     required this.createdAt,
     required this.updatedAt,
     required this.createdBy,
-    required this.householdId,
+    this.parentId,
   });
 
-  factory ShoppingListDto.defaultValue({
+  factory ItemDto.defaultValue({
     required String id,
     required String userId,
-    required String householdId,
-    required String title,
+    String? parentId,
+    required String name,
   }) {
     final now = gNow;
-    return ShoppingListDto(
+    return ItemDto(
       id: id,
-      title: title,
+      name: name,
       createdAt: now,
       updatedAt: now,
       createdBy: userId,
-      householdId: householdId,
+      parentId: parentId,
     );
   }
 }
@@ -161,7 +161,7 @@ Important notes about the `defaultValue` factory method:
      - User-based security rules
      - User-specific filtering
      - Creator tracking
-   - Parent IDs (e.g., `householdId`): Include when the document:
+   - Parent IDs: Include when the document:
      - Belongs to a parent entity
      - Needs parent-based security rules
      - Requires hierarchical data fetching
@@ -181,61 +181,63 @@ Note: The required parameters depend entirely on your document's needs. Not all 
 Then in your service:
 
 ```dart
-Future<FeedbackResponse<DocumentReference>> createShoppingList({
-  required String title,
+Future<FeedbackResponse<DocumentReference>> createItem({
+  required String name,
+  String? parentId,
 }) async {
-  log.debug('Creating shopping list with title: $title');
+  log.debug('Creating item with name: $name');
   
-  final shoppingList = ShoppingListDto.defaultValue(
+  final item = ItemDto.defaultValue(
     id: api.genId,
     userId: currentUser.id,
-    householdId: currentHousehold.id,
-    title: title,
+    parentId: parentId,
+    name: name,
   );
   
-  return createDoc(doc: shoppingList);
+  return createDoc(doc: item);
 }
 ```
 
 ### 2. 🛠️ Service Implementation
 
-First, create an API extending `RmyApi`:
+First, create an API extending `BaseApi`:
 
 ```dart
-class ShoppingListsApi extends RmyApi<ShoppingListDto> {
-  ShoppingListsApi()
+class ItemsApi extends BaseApi<ItemDto> {
+  ItemsApi()
       : super(
-          firestoreCollection: FirestoreCollection.shoppingLists,
+          firestoreCollection: FirestoreCollection.items,
         );
 }
 ```
 
 Then create a service extending either `CollectionService` or `DocumentService`:
 
-- Use `CollectionService` when working with multiple documents (e.g., a list of shopping lists)
+- Use `CollectionService` when working with multiple documents (e.g., a list of items)
 - Use `DocumentService` when working with a single document (e.g., user profile)
 
 Example with `CollectionService`:
 
 ```dart
-class ShoppingListsService extends CollectionService<ShoppingListDto, ShoppingListsApi> {
-  ShoppingListsService({
+class ItemsService extends CollectionService<ItemDto, ItemsApi> {
+  ItemsService({
     required super.api,
   });
 
-  Future<FeedbackResponse<DocumentReference>> createShoppingList({
-    required String title,
+  Future<FeedbackResponse<DocumentReference>> createItem({
+    required String name,
+    String? parentId,
   }) async {
-    log.debug('Creating shopping list with title: $title');
+    log.debug('Creating item with name: $name');
     
-    final shoppingList = ShoppingListDto.defaultValue(
+    final item = ItemDto.defaultValue(
       id: api.genId,
       userId: currentUser.id,
-      householdId: currentHousehold.id,
-      title: title,
+      parentId: parentId,
+      name: name,
     );
     
-    return createDoc(doc: shoppingList);
+    return createDoc(doc: item);
   }
 }
 ```

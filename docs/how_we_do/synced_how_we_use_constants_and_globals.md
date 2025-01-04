@@ -1,6 +1,6 @@
 # How We Use Constants and Globals
 
-This guide explains how we organize and use constants and globals in FloatNote. It's meant to help maintain consistency and make it easier for developers to find and use the right constants.
+This guide explains how we organize and use constants and globals. It's meant to help maintain consistency and make it easier for developers to find and use the right constants.
 
 ## Constants (`k_` prefix)
 
@@ -19,10 +19,10 @@ All constant files are prefixed with `k_` and live in the `constants` folders. W
 Example usage:
 ```dart
 // Bad
-map['isQuicky'] = value;
+map['parentId'] = value;
 
 // Good
-map[kKeysIsQuicky] = value;
+map[kKeysParentId] = value;
 ```
 
 This ensures consistency across the app and makes refactoring easier.
@@ -42,13 +42,13 @@ Example usage:
 final defaultDuration = 60;
 
 // Good
-final defaultDuration = kValuesDefaultTaskDurationInMinutes;
+final defaultDuration = kValuesDefaultDurationInMinutes;
 ```
 
 ### Asset Constants
-- `k_svgs.dart`: SVG asset paths (e.g., `kSvgWizard`)
+- `k_svgs.dart`: SVG asset paths (e.g., `kSvgLogo`)
 - `k_pngs.dart`: PNG asset paths
-- `k_lottie.dart`: Lottie animation paths (e.g., `kLottieConfetti`)
+- `k_lottie.dart`: Lottie animation paths (e.g., `kLottieSuccess`)
 - `k_mds.dart`: Markdown file paths (e.g., `kMdChangelog`)
 
 ### UI Constants

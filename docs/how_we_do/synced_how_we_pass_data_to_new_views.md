@@ -1,6 +1,6 @@
 # How We Pass Data to New Views
 
-This guide explains how we handle passing data between views in FloatNote using `ViewArguments` and the routing system.
+This guide explains how we handle passing data between views using `ViewArguments` and the routing system.
 
 ## Core Concepts
 
@@ -24,31 +24,31 @@ Example:
 ```dart
 class ViewArgumentsImpl extends ViewArguments {
   ViewArgumentsImpl({
-    this.noteId,
-    this.isQuicky,
-    this.inboxPopupTarget,
+    this.itemId,
+    this.isEditing,
+    this.displayMode,
     // ... other arguments
   });
 
-  final String? noteId;
-  final bool? isQuicky;
-  final InboxPopupTarget? inboxPopupTarget;
+  final String? itemId;
+  final bool? isEditing;
+  final DisplayMode? displayMode;
 }
 ```
 
 3. **Feature-Specific Arguments**
 Each view can have its own arguments class that extends `ViewArguments`:
 ```dart
-class InboxPopupViewArguments extends ViewArguments {
-  InboxPopupViewArguments({
-    required this.isQuicky,
-    this.initialStart,
-    this.inboxPopupTarget = InboxPopupTarget.defaultValue,
+class ItemDetailsViewArguments extends ViewArguments {
+  ItemDetailsViewArguments({
+    required this.isEditing,
+    this.initialDate,
+    this.displayMode = DisplayMode.defaultValue,
   });
 
-  final bool isQuicky;
-  final DateTime? initialStart;
-  final InboxPopupTarget inboxPopupTarget;
+  final bool isEditing;
+  final DateTime? initialDate;
+  final DisplayMode displayMode;
 }
 ```
 
@@ -58,14 +58,14 @@ class InboxPopupViewArguments extends ViewArguments {
 
 Routes are defined as static getters in `BaseRouter`:
 ```dart
-static GoRoute get inboxPopupView => GoRoute(
-  path: InboxPopupView.path.asRootPath,
+static GoRoute get itemDetailsView => GoRoute(
+  path: ItemDetailsView.path.asRootPath,
   pageBuilder: (context, state) => CustomTransitionPage(
-    child: InboxPopupView(
-      arguments: InboxPopupViewArguments(
-        isQuicky: state.isQuicky,
-        inboxPopupTarget: state.inboxPopupTarget,
-        initialStart: state.initialStart,
+    child: ItemDetailsView(
+      arguments: ItemDetailsViewArguments(
+        isEditing: state.isEditing,
+        displayMode: state.displayMode,
+        initialDate: state.initialDate,
       ),
     ),
   ),
@@ -80,12 +80,12 @@ extension on GoRouterState {
   ViewArgumentsImpl? arguments() => extra?.asType<ViewArgumentsImpl>();
   
   // Getters with default values
-  bool get isQuicky => arguments()?.isQuicky ?? false;
-  InboxPopupTarget get inboxPopupTarget => 
-    arguments()?.inboxPopupTarget ?? InboxPopupTarget.defaultValue;
+  bool get isEditing => arguments()?.isEditing ?? false;
+  DisplayMode get displayMode => 
+    arguments()?.displayMode ?? DisplayMode.defaultValue;
   
   // Nullable getters
-  DateTime? get initialStart => arguments()?.initialStart;
+  DateTime? get initialDate => arguments()?.initialDate;
 }
 ```
 
@@ -206,13 +206,13 @@ extension on GoRouterState {
 ### URL Parameters vs Arguments
 ```dart
 // URL parameter
-String? get noteId => 
-    pathParameters[kKeysNoteId] ?? 
-    uri.queryParameters[kKeysNoteId] ?? 
-    arguments()?.noteId;
+String? get itemId => 
+    pathParameters[kKeysItemId] ?? 
+    uri.queryParameters[kKeysItemId] ?? 
+    arguments()?.itemId;
 
 // Pure argument
-bool get isQuicky => arguments()?.isQuicky ?? false;
+bool get isEditing => arguments()?.isEditing ?? false;
 ```
 
 Remember: The goal is to make navigation and data passing type-safe, maintainable, and consistent across the app. 

@@ -28,7 +28,7 @@ Add to your `launch.json`:
 {
     "configurations": [
         {
-            "name": "Roomy (Emulators)",
+            "name": "App (Emulators)",
             "request": "launch",
             "type": "dart",
             "args": [

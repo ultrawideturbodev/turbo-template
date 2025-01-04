@@ -27,62 +27,38 @@ We use Flutter's built-in internationalization system with ARB (Application Reso
 
 4. 🔄 **Placeholders**
    - Use {variableName} for dynamic content
-   - Example: `"helloUsername": "👋 Hello @{username}"`
+   - Example: `"welcomeUser": "👋 Welcome, {username}!"`
 
 5. 💻 **Usage in Code**
    - Access translations through `gStrings`
-   - Example: `gStrings.welcomeMessage`
+   - Example: `gStrings.welcomeUser`
 
 ## 📋 Examples
 
 ```json
 // English (intl_en.arb)
 {
-  "member": "Member",
-  "pending": "Pending"
+  "welcomeUser": "👋 Welcome, {username}!",
+  "itemCreated": "Item created",
+  "itemUpdated": "Item updated",
+  "itemDeleted": "Item deleted",
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "pending": "Pending"
+  }
 }
 
 // Dutch (intl_nl.arb)
 {
-  "member": "Lid",
-  "pending": "In afwachting"
+  "welcomeUser": "👋 Welkom, {username}!",
+  "itemCreated": "Item aangemaakt",
+  "itemUpdated": "Item bijgewerkt",
+  "itemDeleted": "Item verwijderd",
+  "status": {
+    "active": "Actief",
+    "inactive": "Inactief",
+    "pending": "In afwachting"
+  }
 }
 ```
-
-## ✨ Best Practices
-
-1. 🎯 **Consistency**
-   - Use consistent terminology across the app
-   - Keep similar structures for similar messages
-
-2. 📌 **Context**
-   - Add comments in the ARB files when context is needed
-   - Example: `"pending": "In afwachting" // Used for invite status`
-
-3. 🔧 **Maintenance**
-   - Review both language files when adding new strings
-   - Keep files synchronized
-   - Remove unused strings
-
-4. 🧪 **Testing**
-   - Test the app in both languages
-   - Check for text overflow
-   - Verify placeholder replacements
-
-## ⚠️ Common Pitfalls
-
-1. 🚫 **Missing Translations**
-   - Always add strings to both files
-   - Check for typos in keys
-
-2. 📊 **Inconsistent Formatting**
-   - Keep the same format for dates, numbers, etc.
-   - Use platform-specific formatting when appropriate
-
-3. 🔒 **Hard-coded Strings**
-   - Never use hard-coded strings in the UI
-   - Always use `gStrings` for text
-
-4. 📏 **Long Translations**
-   - Consider text length differences between languages
-   - Design UI to accommodate varying text lengths

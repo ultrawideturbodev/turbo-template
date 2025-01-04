@@ -16,8 +16,8 @@ This guide explains how to configure Firebase emulators for local development in
 ### 1. Set up Firebase project structure
 Create the following structure in your mono repo:
 ```
-your_project_mono/
-  ├── your_project_firebase/        # Firebase project
+project_mono/
+  ├── project_firebase/        # Firebase project
   │   ├── firebase.json            # Firebase configuration
   │   ├── firestore.rules          # Firestore security rules
   │   ├── storage.rules            # Storage security rules
@@ -26,7 +26,7 @@ your_project_mono/
   │       ├── run_emulators.sh
   │       └── export_emulators_firebase_data.sh
   │
-  └── your_project_flutter/        # Flutter project
+  └── project_flutter/        # Flutter project
       ├── lib/
       │   └── core/
       │       ├── config/
@@ -39,7 +39,7 @@ your_project_mono/
 ```
 
 ### 2. Configure Firebase emulator ports
-In `your_project_firebase/firebase.json`, configure the emulator ports:
+In `project_firebase/firebase.json`, configure the emulator ports:
 ```json
 {
   "functions": [
@@ -78,20 +78,21 @@ In `your_project_firebase/firebase.json`, configure the emulator ports:
       "port": 9199
     },
     "ui": {
-      "enabled": true
+      "enabled": true,
+      "port": 4000
     }
   }
 }
 ```
 
 ### 3. Create emulator scripts
-1. In the Firebase project, create `your_project_firebase/scripts/run_emulators.sh`:
+1. In the Firebase project, create `project_firebase/scripts/run_emulators.sh`:
 ```bash
 #!/bin/bash
 
 # Kill any running firebase emulators
 echo "Killing any running firebase emulators..."
-lsof -t -i:9099 -i:5001 -i:8080 -i:9199 | while read -r pid; do
+lsof -t -i:9099 -i:5001 -i:8080 -i:9199 -i:4000 | while read -r pid; do
     if ps -p $pid -o command | grep -q "firebase"; then
         kill -9 $pid 2>/dev/null || true
     fi
@@ -113,7 +114,7 @@ else
 fi
 ```
 
-2. In the Firebase project, create `your_project_firebase/scripts/export_emulators_firebase_data.sh`:
+2. In the Firebase project, create `project_firebase/scripts/export_emulators_firebase_data.sh`:
 ```bash
 #!/bin/bash
 
@@ -123,24 +124,24 @@ echo "Exporting emulator data..."
 firebase emulators:export exports
 ```
 
-3. In the Flutter project, create `your_project_flutter/scripts/run_emulators.sh`:
+3. In the Flutter project, create `project_flutter/scripts/run_emulators.sh`:
 ```bash
 #!/bin/bash
 
 # Navigate to firebase scripts directory and run emulators
-cd ../../your_project_firebase/scripts && ./run_emulators.sh
+cd ../../project_firebase/scripts && ./run_emulators.sh
 ```
 
 Make the scripts executable:
 ```bash
 chmod +x scripts/run_emulators.sh
-cd ../../your_project_firebase/scripts
+cd ../../project_firebase/scripts
 chmod +x run_emulators.sh
 chmod +x export_emulators_firebase_data.sh
 ```
 
 ### 4. Configure Flutter environment setup
-Create `your_project_flutter/lib/core/utils/environment.dart`:
+Create `project_flutter/lib/core/utils/environment.dart`:
 ```dart
 abstract class Environment {
   static String? currentVersion;
@@ -167,6 +168,8 @@ abstract class Environment {
   }
 
   static bool get isEmulators => current == EnvironmentType.emulators;
+  static bool get isDev => current == EnvironmentType.dev;
+  static bool get isProd => current == EnvironmentType.prod;
 }
 
 enum EnvironmentType {
@@ -177,39 +180,52 @@ enum EnvironmentType {
 ```
 
 ### 5. Set up emulator configuration class
-Create `your_project_flutter/lib/core/config/emulator_config.dart`:
+Create `project_flutter/lib/core/config/emulator_config.dart`:
 ```dart
 class EmulatorConfig {
   static const _localhost = 'localhost';
   static const _host = '127.0.0.1';
 
+  static const _portAuth = 9099;
+  static const _portFirestore = 8080;
+  static const _portFunctions = 5001;
+  static const _portStorage = 9199;
+
   static void configureEmulators() {
     if (kDebugMode && Environment.isEmulators) {
-      const host = kIsWeb ? _localhost : _host;
-      FirebaseAuth.instance.useAuthEmulator(host, 9099);
-      FirebaseFirestore.instance.useFirestoreEmulator(host, 8080);
-      FirebaseFunctions.instance.useFunctionsEmulator(host, 5001);
-      FirebaseStorage.instance.useStorageEmulator(host, 9199);
+      final host = kIsWeb ? _localhost : _host;
+      log.debug('Configuring Firebase emulators on $host');
+
+      FirebaseAuth.instance.useAuthEmulator(host, _portAuth);
+      FirebaseFirestore.instance.useFirestoreEmulator(host, _portFirestore);
+      FirebaseFunctions.instance.useFunctionsEmulator(host, _portFunctions);
+      FirebaseStorage.instance.useStorageEmulator(host, _portStorage);
+
+      log.debug('Firebase emulators configured successfully');
     }
   }
 }
 ```
 
-In `your_project_flutter/lib/core/utils/app_setup.dart`, initialize Firebase with emulators:
+In `project_flutter/lib/core/utils/app_setup.dart`, initialize Firebase with emulators:
 ```dart
 static Future<void> initialise() async {
+  log.debug('Initializing Firebase with environment: ${Environment.current}');
+
   await Firebase.initializeApp(
     options: Environment.current.firebaseOptions,
   );
+
   EmulatorConfig.configureEmulators();
-  // ... rest of initialization
+
+  log.debug('Firebase initialization complete');
 }
 ```
 
 ### 6. Test emulator configuration
 1. Start the emulators:
 ```bash
-cd your_project_mono/your_project_flutter/scripts
+cd project_mono/project_flutter/scripts
 ./run_emulators.sh
 ```
 
@@ -218,13 +234,20 @@ cd your_project_mono/your_project_flutter/scripts
 flutter run --dart-define=env=emulators
 ```
 
-3. Verify in the logs that the app connects to emulators instead of production.
+3. Verify in the logs:
+   - "Configuring Firebase emulators" message appears
+   - App connects to emulators instead of production
+   - Emulator UI is accessible at `localhost:4000`
+   - Test operations work in the emulator environment
 
 ## ✅ Checklist
 - [ ] Firebase project structure is correctly set up
 - [ ] Emulator ports are configured in `firebase.json`
 - [ ] Emulator scripts are created and executable
-- [ ] Environment class is implemented
-- [ ] EmulatorConfig class is implemented
+- [ ] Environment class is implemented with all necessary types
+- [ ] EmulatorConfig class is implemented with proper port constants
 - [ ] Firebase initialization includes emulator configuration
 - [ ] All necessary Firebase services are configured for emulators
+- [ ] Proper logging is implemented for debugging
+- [ ] Web and native platforms are properly handled
+- [ ] Port conflicts are handled in the startup script
