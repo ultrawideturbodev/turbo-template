@@ -99,10 +99,10 @@ class ResponseService with Loglytics {
   }
 
   Future<bool?> showOkCancelDialog({
-    StringBuilder? message,
-    StringBuilder? okButtonText,
-    StringBuilder? cancelButtonText,
-    StringBuilder? title,
+    String? message,
+    String? okButtonText,
+    String? cancelButtonText,
+    String? title,
     WidgetBuilder? content,
     bool barrierDismissible = true,
     BuildContext? context,
