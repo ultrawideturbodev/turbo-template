@@ -1,20 +1,17 @@
 import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
-import 'package:turbo_template/core/constants/k_values.dart';
-import 'package:turbo_template/core/enums/auth_step.dart';
-import 'package:turbo_template/core/enums/step_result.dart';
-import 'package:turbo_template/core/exceptions/unexpected_null_exception.dart';
-import 'package:turbo_template/core/extensions/feedback_response_extension.dart';
-import 'package:turbo_template/core/globals/g_now.dart';
-import 'package:turbo_template/core/globals/g_strings.dart';
-import 'package:turbo_template/core/routing/core_router.dart';
-import 'package:turbo_template/core/services/feedback_service.dart';
-import 'package:turbo_template/core/services/url_launcher_service.dart';
 import 'package:turbo_template/auth/apis/users_api.dart';
 import 'package:turbo_template/auth/services/auth_service.dart';
 import 'package:turbo_template/auth/services/auth_step_service.dart';
 import 'package:turbo_template/auth/services/user_service.dart';
-import 'package:turbo_template/home/routing/home_router.dart';
+import 'package:turbo_template/core/constants/k_values.dart';
+import 'package:turbo_template/core/exceptions/unexpected_null_exception.dart';
+import 'package:turbo_template/core/globals/g_now.dart';
+import 'package:turbo_template/core/globals/g_strings.dart';
+import 'package:turbo_template/core/routing/core_router.dart';
+import 'package:turbo_template/core/services/url_launcher_service.dart';
+import 'package:turbo_template/feedback/globals/g_feedback.dart';
+import 'package:turbo_template/feedback/services/response_service.dart';
 import 'package:veto/data/enums/busy_type.dart';
 import 'package:veto/data/mixins/busy_service_management.dart';
 import 'package:veto/data/models/base_view_model.dart';
@@ -29,11 +26,10 @@ class AcceptPrivacyViewModel extends BaseViewModel with Loglytics, BusyServiceMa
 
   final _authService = AuthService.locate;
   final _authStepService = AuthStepService.locate;
-  final _userService = UserService.locate;
-  late final _feedbackService = FeedbackService.locate;
+  late final _feedbackService = ResponseService.locate;
   late final _urlLauncherService = UrlLauncherService.locate;
   late final _coreRouter = CoreRouter.locate;
-  final _homeRouter = HomeRouter.locate;
+  final _userService = UserService.locate;
 
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
   // 👂 LISTENERS ----------------------------------------------------------------------------- \\
@@ -47,32 +43,35 @@ class AcceptPrivacyViewModel extends BaseViewModel with Loglytics, BusyServiceMa
   Future<void> onAcceptPressed() async {
     try {
       setBusy(true);
+      final userId = _authService.userId;
+      if (userId == null) {
+        throw const UnexpectedNullException(
+          reason: 'userId should not be null when pressing accept in accept privacy view',
+        );
+      }
       final response = await _userService.updateAcceptedPrivacyAndTermsAt(
         acceptedPrivacyAndTermsAt: gNow,
       );
-      response.when(
-        success: (response) {
-          gShow
-        },
-        fail: (response) {},
-      );
 
-      response.showIf(
-        context: context,
-        ifSuccessTitle: gStrings.privacyPolicyAndTermsOfServiceAccepted,
-        ifErrorTitle: gStrings.unableToAcceptPleaseTryAgainLater,
+      await response.when(
+        success: (response) async {
+          gShowNotification(
+            title: gStrings.privacyPolicyAndTermsOfServiceAccepted,
+          );
+          final result = await _authStepService.handleAuthStep(
+            authStep: AuthStep.acceptPrivacy.next!,
+          );
+          switch (result) {
+            case StepResult.didNavigate:
+              break;
+            case StepResult.didNothing:
+              _homeRouter.goHouseholdView();
+          }
+        },
+        fail: (response) async => gShowNotification(
+          title: gStrings.unableToAcceptPleaseTryAgainLater,
+        ),
       );
-      if (response.isSuccess) {
-        final result = await _authStepService.handleAuthStep(
-          authStep: AuthStep.acceptPrivacy.next!,
-        );
-        switch (result) {
-          case StepResult.didNavigate:
-            break;
-          case StepResult.didNothing:
-            _homeRouter.goHomeView();
-        }
-      }
     } catch (error, stackTrace) {
       log.error(
         'Unexpected ${error.runtimeType} caught while accepting privacy',
@@ -117,20 +116,22 @@ class AcceptPrivacyViewModel extends BaseViewModel with Loglytics, BusyServiceMa
   Future<void> onBackPressed() async {
     try {
       final shouldLogout = await _feedbackService.showOkCancelDialog(
-        title: (strings) => strings.logout,
-        message: (strings) => strings.areYouSureYouWantToLogout,
+        title: gStrings.logout,
+        message: (strings) => gStrings.areYouSureYouWantToLogout,
       );
       if (shouldLogout ?? false) {
         setBusy(true);
         final response = await _authService.logout();
-        response.showIf(
-          context: context,
-          ifSuccessTitle: 'Logged out',
-          ifErrorTitle: 'Unable to log you out, please try again later.',
+
+        response.when(
+          success: (response) {
+            gShowNotification(title: 'Logged out');
+            _coreRouter.goAuthView();
+          },
+          fail: (response) {
+            gShowNotification(title: 'We were unable to log you out. Please try again later.');
+          },
         );
-        if (response.isSuccess) {
-          _coreRouter.goAuthView();
-        }
       }
     } catch (error, stackTrace) {
       log.error(

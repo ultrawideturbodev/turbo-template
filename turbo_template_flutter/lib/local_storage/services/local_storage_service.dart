@@ -12,6 +12,7 @@ import 'package:turbo_template/core/constants/k_keys.dart';
 import 'package:turbo_template/core/enums/auth_step.dart';
 import 'package:turbo_template/core/enums/hive_adapters.dart';
 import 'package:turbo_template/core/enums/navigation_tab.dart';
+import 'package:turbo_template/core/enums/supported_language.dart';
 import 'package:turbo_template/core/globals/g_user_id.dart';
 import 'package:turbo_template/core/typedefs/current_value_updater.dart';
 import 'package:turbo_template/core/utils/mutex.dart';
@@ -295,6 +296,16 @@ class LocalStorageService extends Initialisable with Loglytics {
     log.info('Updating navigation tab: $navigationTab');
     await _updateLocalStorage(
       (current) => current.copyWith(navigationTab: navigationTab),
+      userId: gUserId,
+    );
+  }
+
+  Future<void> updateLanguage({
+    required SupportedLanguage language,
+  }) async {
+    log.info('Updating language: $language');
+    await _updateLocalStorage(
+      (current) => current.copyWith(supportedLanguage: language),
       userId: gUserId,
     );
   }

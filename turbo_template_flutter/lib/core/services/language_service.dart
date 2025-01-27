@@ -4,7 +4,6 @@ import 'package:informers/informer.dart';
 import 'package:turbo_template/core/enums/supported_language.dart';
 import 'package:turbo_template/core/strings/gen/l10n.dart';
 import 'package:turbo_template/local_storage/services/local_storage_service.dart';
-import 'package:turbo_template/settings/services/settings_service.dart';
 
 class LanguageService {
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
@@ -14,7 +13,7 @@ class LanguageService {
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
 
-  late final _settingsService = SettingsService.locate;
+  final _localStorageService = LocalStorageService.locate;
 
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
   // 🎩 STATE --------------------------------------------------wind------------------------------- \\
