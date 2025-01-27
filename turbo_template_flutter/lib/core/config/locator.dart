@@ -36,6 +36,7 @@ class Locator {
   }
 
   static void _registerLazySingletons() {
+    DialogService.registerLazySingleton();
     VibrateService.registerLazySingleton();
     AuthService.registerLazySingleton();
     ConnectionService.registerLazySingleton();
