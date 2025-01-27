@@ -81,6 +81,8 @@
       <excludeFolder url="file://$MODULE_DIR$/turbo_template_flutter/ios/.symlinks/plugins/url_launcher_ios/example/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/turbo_template_flutter/ios/.symlinks/plugins/url_launcher_ios/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/turbo_template_flutter/ios/.symlinks/plugins/url_launcher_ios/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/bricks" />
+      <excludeFolder url="file://$MODULE_DIR$/bricks/flutter/turbo_view" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

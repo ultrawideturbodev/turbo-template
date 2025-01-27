@@ -3,11 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loglytics/loglytics.dart';
-
-import '../enums/navigation_tab.dart';
-import '../routing/base_router.dart';
-import '../services/navigation_tab_service.dart';
-import 'view_arguments.dart';
+import 'package:turbo_template/core/abstracts/view_arguments.dart';
+import 'package:turbo_template/core/enums/navigation_tab.dart';
+import 'package:turbo_template/core/routing/base_router.dart';
+import 'package:turbo_template/core/services/navigation_tab_service.dart';
 
 abstract class BaseNavigation with Loglytics {
   final _baseRouter = BaseRouter.locate;
@@ -21,11 +20,15 @@ abstract class BaseNavigation with Loglytics {
     required StatefulNavigationShell statefulNavigationShell,
   }) {
     final initialLocation = currentNavigationTab;
+    final cNavigationTab = navigationTab;
     statefulNavigationShell.goBranch(
-      navigationTab!.branchIndex,
-      initialLocation: switch (navigationTab!) {
-        NavigationTab.home => initialLocation.isActors,
-        NavigationTab.settings => initialLocation.isActivities,
+      cNavigationTab!.index,
+      initialLocation: switch (cNavigationTab) {
+        NavigationTab.home => initialLocation.isHome,
+        NavigationTab.theSecond => initialLocation.isTheSecond,
+        NavigationTab.theActionButton => initialLocation.isTheActionButton,
+        NavigationTab.theThird => initialLocation.isTheThird,
+        NavigationTab.theFourth => initialLocation.isTheFourth,
       },
     );
   }

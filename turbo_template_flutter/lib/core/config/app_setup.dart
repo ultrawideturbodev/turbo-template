@@ -4,42 +4,42 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:provider/provider.dart';
+import 'package:turbo_template/auth/forms/create_username_form.dart';
+import 'package:turbo_template/auth/routing/auth_step_router.dart';
+import 'package:turbo_template/auth/views/accept_privacy/accept_privacy_view_model.dart';
+import 'package:turbo_template/auth/views/create_username/create_username_view_model.dart';
+import 'package:turbo_template/auth/views/verify_email/verify_email_view_model.dart';
 import 'package:turbo_template/core/services/vibrate_service.dart';
-import 'package:turbo_template/features/auth/forms/create_username_form.dart';
-import 'package:turbo_template/features/auth/routing/auth_step_router.dart';
-import 'package:turbo_template/features/auth/views/accept_privacy/accept_privacy_view_model.dart';
-import 'package:turbo_template/features/auth/views/create_username/create_username_view_model.dart';
-import 'package:turbo_template/features/auth/views/verify_email/verify_email_view_model.dart';
-import 'package:turbo_template/features/home/routing/home_router.dart';
-import 'package:turbo_template/features/settings/apis/settings_api.dart';
-import 'package:turbo_template/features/settings/services/settings_service.dart';
-import 'package:turbo_template/features/settings/views/settings_view_model.dart';
+import 'package:turbo_template/home/routing/home_router.dart';
+import 'package:turbo_template/home/views/home/home_view_model.dart';
+import 'package:turbo_template/settings/apis/settings_api.dart';
+import 'package:turbo_template/settings/services/settings_service.dart';
+import 'package:turbo_template/settings/views/settings_view_model.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 import '../../../core/strings/gen/l10n.dart';
-import '../../features/auth/apis/user_profiles_api.dart';
-import '../../features/auth/apis/usernames_api.dart';
-import '../../features/auth/apis/users_api.dart';
-import '../../features/auth/forms/forgot_password.dart';
-import '../../features/auth/forms/login_form.dart';
-import '../../features/auth/forms/register_form.dart';
-import '../../features/auth/services/auth_service.dart';
-import '../../features/auth/services/auth_step_service.dart';
-import '../../features/auth/services/email_service.dart';
-import '../../features/auth/services/permissions_service.dart';
-import '../../features/auth/services/user_service.dart';
-import '../../features/auth/views/auth/auth_view_model.dart';
-import '../../features/auth/views/forgot_password/forgot_password_view_model.dart';
+import '../../auth/apis/user_profiles_api.dart';
+import '../../auth/apis/usernames_api.dart';
+import '../../auth/apis/users_api.dart';
+import '../../auth/forms/forgot_password.dart';
+import '../../auth/forms/login_form.dart';
+import '../../auth/forms/register_form.dart';
+import '../../auth/services/auth_service.dart';
+import '../../auth/services/auth_step_service.dart';
+import '../../auth/services/email_service.dart';
+import '../../auth/services/permissions_service.dart';
+import '../../auth/services/user_service.dart';
+import '../../auth/views/auth/auth_view_model.dart';
+import '../../auth/views/forgot_password/forgot_password_view_model.dart';
+import '../../local_storage/services/local_storage_service.dart';
 import '../enums/environment.dart';
 import '../routing/base_router.dart';
 import '../routing/core_router.dart';
 import '../services/connection_service.dart';
 import '../services/feedback_service.dart';
 import '../services/language_service.dart';
-import '../services/local_storage_service.dart';
 import '../services/navigation_tab_service.dart';
 import '../services/notification_service.dart';
 import '../services/package_info_service.dart';
@@ -130,13 +130,5 @@ abstract class AppSetup with Loglytics {
       }
     }
     return supportedLocales.first;
-  }
-
-  static Future<void> reset({required BuildContext context, GetIt? getIt}) async {
-    final log = Log(location: 'AppSetup');
-    log.info('Resetting app..');
-    getIt ??= GetIt.I;
-    await Locator._resetUserDataServices(getIt);
-    _isInitialised = false;
   }
 }

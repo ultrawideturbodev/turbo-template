@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
 
-import '../../features/auth/extensions/connectivity_result_extension.dart';
+import '../../auth/extensions/connectivity_result_extension.dart';
 import '../extensions/completer_extension.dart';
 import '../utils/debouncer.dart';
 

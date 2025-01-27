@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../features/auth/views/auth/auth_view.dart';
-import '../../features/auth/views/forgot_password/forgot_password_view.dart';
+import '../../auth/views/auth/auth_view.dart';
+import '../../auth/views/forgot_password/forgot_password_view.dart';
 import '../abstracts/base_navigation.dart';
 import '../enums/navigation_tab.dart';
 import '../extensions/string_extension.dart';

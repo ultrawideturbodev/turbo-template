@@ -2,13 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:informers/informer.dart';
 import 'package:loglytics/loglytics.dart';
-
-import '../../features/auth/services/auth_service.dart';
-import '../../features/home/views/home/home_view.dart';
-import '../enums/navigation_tab.dart';
-import '../extensions/string_extension.dart';
-import 'local_storage_service.dart';
-
+import 'package:turbo_template/core/enums/navigation_tab.dart';
+import 'package:turbo_template/auth/services/auth_service.dart';
+import 'package:turbo_template/local_storage/services/local_storage_service.dart';
 class NavigationTabService with Loglytics {
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
 
@@ -30,17 +26,33 @@ class NavigationTabService with Loglytics {
 
   // 🎩 STATE --------------------------------------------------------------------------------- \\
 
-  final _navigationTab = Informer(NavigationTab.home);
+  final _navigationTab = Informer(NavigationTab.defaultValue);
 
   // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
 
   NavigationTab get currentNavigationTab => _navigationTab.value;
   ValueListenable<bool> get hasAuth => _authService.hasAuth;
   ValueListenable<NavigationTab> get navigationTab => _navigationTab;
-  NavigationTab get initialTab {
+  String get initialLocation {
     final initialTab = _localStorageService.navigationTab;
     onGo(navigationTab: initialTab);
-    return initialTab;
+    switch (initialTab) {
+      case NavigationTab.home:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case NavigationTab.theSecond:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case NavigationTab.theActionButton:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case NavigationTab.theThird:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case NavigationTab.theFourth:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+    }
   }
 
   // 🪄 MUTATORS ------------------------------------------------------------------------------ \\

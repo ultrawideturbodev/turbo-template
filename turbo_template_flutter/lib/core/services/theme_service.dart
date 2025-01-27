@@ -4,7 +4,7 @@ import 'package:informers/informer.dart';
 import 'package:loglytics/loglytics.dart';
 
 import '../enums/supported_theme_mode.dart';
-import 'local_storage_service.dart';
+import '../../local_storage/services/local_storage_service.dart';
 
 class ThemeService with Loglytics {
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\

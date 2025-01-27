@@ -1,11 +1,6 @@
 part of 'app_setup.dart';
 
 class Locator {
-  static Future<void> _resetUserDataServices([GetIt? getIt]) async {
-    getIt ??= GetIt.I;
-    await getIt.allReady();
-  }
-
   static void _registerAPIs() {
     UserProfilesApi.registerFactory();
     UsernamesApi.registerFactory();
@@ -21,6 +16,7 @@ class Locator {
   }
 
   static void _registerViewModels() {
+    HomeViewModel.registerFactory();
     SettingsViewModel.registerFactory();
     AcceptPrivacyViewModel.registerFactory();
     AuthViewModel.registerFactory();

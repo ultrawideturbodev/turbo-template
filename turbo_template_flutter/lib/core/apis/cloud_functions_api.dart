@@ -1,8 +1,8 @@
-import 'package:cloud_firestore_api/abstracts/writeable.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:feedback_response/feedback_response.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
+import 'package:turbo_firestore_api/abstracts/turbo_writeable.dart';
 import 'package:turbo_template/core/dtos/cloud_response_dto.dart';
 import 'package:turbo_template/core/enums/cloud_functions_api.dart';
 
@@ -38,7 +38,7 @@ abstract class CloudFunctionsApiInterface with Loglytics {
 
   Future<FeedbackResponse<T>> callCloudFunction<T>({
     required CloudFunctionId cloudFunctionId,
-    required Writeable writeable,
+    required TurboWriteable writeable,
   }) async {
     try {
       log.info('Calling cloud function: $cloudFunctionId');

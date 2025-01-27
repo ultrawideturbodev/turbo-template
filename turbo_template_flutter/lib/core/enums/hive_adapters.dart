@@ -1,14 +1,13 @@
-import 'package:hive/hive.dart';
-
-import '../../features/auth/adapters/auth_step_adapter.dart';
-import '../adapters/date_format_adapter.dart';
-import '../adapters/date_time_adapter.dart';
-import '../adapters/emoji_adapter.dart';
-import '../adapters/local_storage_adapter.dart';
-import '../adapters/navigation_tab_adapter.dart';
-import '../adapters/supported_language_adapter.dart';
-import '../adapters/supported_theme_mode_adapter.dart';
-import '../annotations/do_not_change_order.dart';
+import 'package:hive_ce/hive.dart';
+import 'package:turbo_template/core/adapters/date_format_adapter.dart';
+import 'package:turbo_template/core/adapters/date_time_adapter.dart';
+import 'package:turbo_template/core/adapters/emoji_adapter.dart';
+import 'package:turbo_template/core/adapters/local_storage_adapter.dart';
+import 'package:turbo_template/core/adapters/navigation_tab_adapter.dart';
+import 'package:turbo_template/core/adapters/supported_language_adapter.dart';
+import 'package:turbo_template/core/adapters/supported_theme_mode_adapter.dart';
+import 'package:turbo_template/core/annotations/do_not_change_order.dart';
+import 'package:turbo_template/auth/adapters/auth_step_adapter.dart';
 
 @DoNotChangeOrder()
 enum HiveAdapters {
@@ -35,6 +34,7 @@ enum HiveAdapters {
         break;
       case HiveAdapters.supportedThemeMode:
         Hive.registerAdapter(SupportedThemeModeAdapter());
+        break;
       case HiveAdapters.authStep:
         Hive.registerAdapter(AuthStepAdapter());
         break;

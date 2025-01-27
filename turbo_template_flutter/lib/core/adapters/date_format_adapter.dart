@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 
 import '../enums/date_format.dart';
 import '../enums/hive_adapters.dart';

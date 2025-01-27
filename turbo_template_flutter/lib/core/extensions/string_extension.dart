@@ -1,3 +1,5 @@
+import 'package:turbo_template/core/constants/k_values.dart';
+
 extension StringExtension on String {
   String capitalize({bool forceLowercase = false}) {
     if (isEmpty) {
@@ -7,6 +9,10 @@ extension StringExtension on String {
         ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}'
         : '${this[0].toUpperCase()}${substring(1)}';
   }
+
+  String and(Object? other) => this + kValuesHyphen + (other?.toString() ?? kValuesNull);
+  String andAll(Iterable<Object?> others) =>
+      this + kValuesHyphen + others.map((e) => e?.toString() ?? kValuesNull).join(kValuesHyphen);
 
   String? get nullIfEmpty => trimIsEmpty ? null : this;
   String get asRootPath => '/$this';

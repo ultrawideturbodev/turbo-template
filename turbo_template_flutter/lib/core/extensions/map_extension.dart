@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 
-import '../../features/auth/enums/user_level.dart';
+import '../../auth/enums/user_level.dart';
 import '../constants/k_keys.dart';
 
 extension MapExtension on Map {

@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:informers/informer.dart';
-
-import '../../../core/strings/gen/l10n.dart';
-import '../enums/supported_language.dart';
-import 'local_storage_service.dart';
+import 'package:turbo_template/core/enums/supported_language.dart';
+import 'package:turbo_template/core/strings/gen/l10n.dart';
+import 'package:turbo_template/local_storage/services/local_storage_service.dart';
+import 'package:turbo_template/settings/services/settings_service.dart';
 
 class LanguageService {
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
@@ -14,13 +14,12 @@ class LanguageService {
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
 
-  late final _localStorageService = LocalStorageService.locate;
+  late final _settingsService = SettingsService.locate;
 
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
-  // 🎩 STATE --------------------------------------------------------------------------------- \\
+  // 🎩 STATE --------------------------------------------------wind------------------------------- \\
 
   late final _language = Informer<SupportedLanguage>(SupportedLanguage.en);
-  // late final _language = Informer<SupportedLanguage>(_hiveService.language);
 
   // 🛠 UTIL ---------------------------------------------------------------------------------- \\
   // 🧲 FETCHERS ------------------------------------------------------------------------------ \\

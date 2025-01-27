@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 
 import '../enums/hive_adapters.dart';
 import '../enums/navigation_tab.dart';
