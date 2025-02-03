@@ -5,7 +5,6 @@ abstract class Environment {
   static String? currentVersion;
 
   static const String _emulators = 'emulators';
-  static const String _dev = 'dev';
   static const String _prod = 'prod';
 
   static const argumentKey = 'env';
@@ -22,8 +21,6 @@ abstract class Environment {
       )) {
         case _emulators:
           return EnvironmentType.emulators;
-        case _dev:
-          return EnvironmentType.dev;
         case _prod:
         default:
           return EnvironmentType.prod;
@@ -33,21 +30,16 @@ abstract class Environment {
   }
 
   static bool get isEmulators => current == EnvironmentType.emulators;
-  static bool get isDev => current == EnvironmentType.dev;
   static bool get isProd => current == EnvironmentType.prod;
 }
 
 enum EnvironmentType {
   emulators,
-  testDev,
-  dev,
   prod;
 
   String get trailingCloudFunctionId {
     switch (this) {
       case EnvironmentType.emulators:
-      case EnvironmentType.dev:
-      case EnvironmentType.testDev:
         return '';
       case EnvironmentType.prod:
         return '';
@@ -57,8 +49,6 @@ enum EnvironmentType {
   FirebaseOptions get firebaseOptions {
     switch (this) {
       case EnvironmentType.emulators:
-      case EnvironmentType.dev:
-      case EnvironmentType.testDev:
       case EnvironmentType.prod:
         return const FirebaseOptions(
           apiKey: 'AIzaSyDhMDKVCB40EPENxi2xy7Bnd7ZGFoQkX4I',
