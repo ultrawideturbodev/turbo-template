@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:informers/informer.dart';
 
@@ -97,39 +97,30 @@ class _FormFieldCounterState extends State<FormFieldCounter> {
           ),
           const Gap(12),
           Expanded(
-            child: Theme(
-              data: context.theme.copyWith(
-                inputDecorationTheme: context.theme.inputDecorationTheme.copyWith(
-                  contentPadding: const EdgeInsets.only(left: 12, right: 12, bottom: 8),
-                  fillColor: backgroundColor,
-                ),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: height,
               ),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxHeight: height,
-                ),
-                child: IgnorePointer(
-                  child: TextField(
-                    textAlign: TextAlign.center,
-                    controller: formFieldConfig.textEditingController,
-                    onChanged: (value) {
-                      formFieldConfig.silentUpdateValue(value);
-                      if (formFieldConfig.shouldValidate.value) {
-                        formFieldConfig.isValid;
-                      }
-                      widget.onChanged?.call(value);
-                    },
-                    keyboardType: TextInputType.numberWithOptions(
-                      decimal: widget.allowDecimals,
-                    ),
-                    readOnly: formFieldConfig.isReadOnly,
-                    focusNode: formFieldConfig.focusNode,
-                    inputFormatters: formFieldConfig.inputFormatters,
-                    obscureText: formFieldConfig.obscureText,
-                    cursorColor: foregroundColor,
-                    style: context.t.texts.primaryButton,
-                    onSubmitted: widget.onSubmitted,
+              child: IgnorePointer(
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  controller: formFieldConfig.textEditingController,
+                  onChanged: (value) {
+                    formFieldConfig.silentUpdateValue(value);
+                    if (formFieldConfig.shouldValidate.value) {
+                      formFieldConfig.isValid;
+                    }
+                    widget.onChanged?.call(value);
+                  },
+                  keyboardType: TextInputType.numberWithOptions(
+                    decimal: widget.allowDecimals,
                   ),
+                  readOnly: formFieldConfig.isReadOnly,
+                  focusNode: formFieldConfig.focusNode,
+                  inputFormatters: formFieldConfig.inputFormatters,
+                  obscureText: formFieldConfig.obscureText,
+                  style: context.t.texts.button,
+                  onSubmitted: widget.onSubmitted,
                 ),
               ),
             ),

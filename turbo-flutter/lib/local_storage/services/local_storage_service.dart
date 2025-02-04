@@ -19,6 +19,7 @@ import 'package:turbo_template/turbo/enums/hive_adapters.dart';
 import 'package:turbo_template/turbo/enums/navigation_tab.dart';
 import 'package:turbo_template/turbo/enums/supported_language.dart';
 import 'package:turbo_template/turbo/enums/turbo_theme_mode.dart';
+import 'package:turbo_template/turbo/globals/g_meta_vars.dart';
 import 'package:turbo_template/turbo/globals/g_user_id.dart';
 import 'package:turbo_template/turbo/typedefs/current_value_updater.dart';
 import 'package:turbo_template/turbo/utils/mutex.dart';
@@ -74,38 +75,6 @@ class LocalStorageService extends Initialisable with Loglytics {
     }
   }
 
-  Future<void> resetBoxes() async {
-    log.info('Resetting boxes');
-    await _mutex.lockAndRun(
-      run: (unlock) async {
-        try {
-          for (final box in _boxes.values) {
-            try {
-              await box.clear();
-              log.debug('Cleared box: ${box.name}');
-            } catch (error, stackTrace) {
-              log.error(
-                '$error caught while clearing box',
-                error: error,
-                stackTrace: stackTrace,
-              );
-            }
-          }
-          _boxes.clear();
-          log.debug('All boxes cleared');
-        } catch (error, stackTrace) {
-          log.error(
-            'Exception caught while resetting boxes',
-            error: error,
-            stackTrace: stackTrace,
-          );
-        } finally {
-          unlock();
-        }
-      },
-    );
-  }
-
   // 🎩 STATE --------------------------------------------------------------------------------- \\
 
   final Map<String, Box> _boxes = {};
@@ -116,10 +85,12 @@ class LocalStorageService extends Initialisable with Loglytics {
 
   // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
 
-  LocalStorageDto get _localStorageDto => _getBoxContent(
+  LocalStorageDto get _localStorageDto =>
+      _getBoxContent(
         hiveBox: BoxType.localStorageDto,
         userId: gUserId,
-      );
+      ) ??
+      LocalStorageDto.create(vars: gMetaVars);
 
   NavigationTab get navigationTab => _localStorageDto.navigationTab;
 
@@ -127,8 +98,6 @@ class LocalStorageService extends Initialisable with Loglytics {
   bool didNotHappen({required AuthStep authStep}) => !didHappen(authStep: authStep);
 
   SupportedLanguage get language => _localStorageDto.supportedLanguage;
-
-  bool get hasAuth => _localStorageDto.hasAuth;
 
   // 🏗 HELPERS ------------------------------------------------------------------------------- \\
 
@@ -198,13 +167,13 @@ class LocalStorageService extends Initialisable with Loglytics {
     required String userId,
   }) {
     log.debug('Getting box content: ${hiveBox.id}, id: $userId');
-    final source = _forceGetBox(hiveBox: hiveBox).get(
-      hiveBox.documentId(id: userId),
-    );
-    if (source == null) {
+    if (!_hasBox(hiveBox: hiveBox)) {
       log.debug('Box content not found: ${hiveBox.id}, id: $userId');
       return null;
     }
+    final source = _forceGetBox(hiveBox: hiveBox).get(
+      hiveBox.documentId(id: userId),
+    );
     return source;
   }
 
@@ -266,26 +235,6 @@ class LocalStorageService extends Initialisable with Loglytics {
   }
 
 // 🪄 MUTATORS ------------------------------------------------------------------------------ \\
-
-  Future<TurboResponse> updateHasAuth({
-    required bool hasAuth,
-  }) async {
-    try {
-      log.debug('Updating has auth: $hasAuth');
-      await _updateLocalStorage(
-        (current) => current.copyWith(hasAuth: hasAuth),
-        userId: gUserId,
-      );
-      return const TurboResponse.successAsBool();
-    } catch (error, stackTrace) {
-      log.error(
-        '$error caught while updating has auth',
-        error: error,
-        stackTrace: stackTrace,
-      );
-      return const TurboResponse.failAsBool();
-    }
-  }
 
   Future<TurboResponse> updateAuthStepHappened({
     required AuthStep authStep,

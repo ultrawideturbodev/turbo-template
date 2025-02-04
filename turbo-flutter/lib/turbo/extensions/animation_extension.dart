@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 
 import '../constants/k_durations.dart';
 import 'duration_extension.dart';
@@ -8,7 +8,7 @@ extension ListAnimationExtension on List<Widget> {
   List<Widget> oneByOneList() {
     return animate(interval: 150.ms)
         .fadeIn(duration: 900.ms, delay: 300.ms)
-        .shimmer(blendMode: BlendMode.srcOver, color: Colors.white12)
+        .shimmer(blendMode: BlendMode.srcOver, color: Colors.white)
         .move(
           begin: const Offset(-16, 0),
           curve: Curves.easeOutQuad,

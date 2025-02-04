@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:flutter/widgets.dart';
 import 'package:turbo_template/turbo/enums/emoji.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';
@@ -53,21 +53,17 @@ class EmojiHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Transform.translate(
-    offset: const Offset(0, 2),
-    child: TurboAutoSizeText(
-      minFontSize: 18,
-      '${emoji.toString()}  $title',
-      style: switch (type) {
-        EmojiHeaderType.scaffoldTitle => context.t.texts
-            .scaffoldHeader(onBackgroundColor: color ?? context.t.colors.shellBackground),
-        EmojiHeaderType.h1 =>
-            context.t.texts.h1(onBackgroundColor: color ?? context.t.colors.shellBackground),
-        EmojiHeaderType.h2 =>
-            context.t.texts.h2(onBackgroundColor: color ?? context.t.colors.shellBackground),
-        EmojiHeaderType.h3 =>
-            context.t.texts.h3(onBackgroundColor: color ?? context.t.colors.shellBackground),
-      },
-      textAlign: textAlign,
-    ),
-  );
+        offset: const Offset(0, 2),
+        child: TurboAutoSizeText(
+          minFontSize: 18,
+          '${emoji.toString()}  $title',
+          style: switch (type) {
+            EmojiHeaderType.scaffoldTitle => context.t.texts.title,
+            EmojiHeaderType.h1 => context.t.texts.h1,
+            EmojiHeaderType.h2 => context.t.texts.h2,
+            EmojiHeaderType.h3 => context.t.texts.h3,
+          },
+          textAlign: textAlign,
+        ),
+      );
 }

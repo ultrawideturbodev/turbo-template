@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:informers/informer.dart';
 import '../constants/k_sizes.dart';
 import '../forms/form_field_config.dart';

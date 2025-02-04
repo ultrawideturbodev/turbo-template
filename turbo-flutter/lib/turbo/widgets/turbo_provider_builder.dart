@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:flutter/widgets.dart';
 import 'package:turbo_template/turbo/config/turbo_breakpoint_config.dart';
 import 'package:turbo_template/turbo/config/turbo_config.dart';
@@ -54,6 +54,7 @@ class TurboProviderBuilder extends StatelessWidget {
           );
           final decorations = TurboDecorations();
           final texts = TurboTexts(
+            context: context,
             config: pConfig,
             colors: colors,
           );

@@ -1,15 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:turbo_template/turbo/widgets/gap.dart';
-import 'package:veto/data/models/base_view_model.dart';
-
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/turbo/constants/k_sizes.dart';
 import 'package:turbo_template/turbo/constants/k_svgs.dart';
 import 'package:turbo_template/turbo/constants/k_widgets.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';
-import 'package:turbo_template/turbo/widgets/custom_scaffold.dart';
-import 'package:turbo_template/turbo/widgets/trailing_icon.dart';
-import 'package:turbo_template/turbo/widgets/turbo_button.dart';
+import 'package:turbo_template/turbo/widgets/t_gap.dart';
+import 'package:turbo_template/typography/widgets/button_text.dart';
+import 'package:veto/data/models/base_view_model.dart';
+
 import 'verify_email_view_model.dart';
 
 class VerifyEmailView extends StatelessWidget {
@@ -24,8 +22,8 @@ class VerifyEmailView extends StatelessWidget {
     return ViewModelBuilder<VerifyEmailViewModel>(
       builder: (context, model, isInitialised, child) {
         if (!isInitialised) return kWidgetsNothing;
-        return CustomScaffold(
-          body: isInitialised
+        return Scaffold(
+          child: isInitialised
               ? Stack(
                   children: [
                     Center(
@@ -60,7 +58,7 @@ class VerifyEmailView extends StatelessWidget {
                                     children: [
                                       Text(
                                         'Verify Email',
-                                        style: context.t.texts.verifyEmailTitle,
+                                        style: context.t.texts.title,
                                         textAlign: TextAlign.center,
                                       ),
                                       const SizedBox(height: 8),
@@ -69,29 +67,21 @@ class VerifyEmailView extends StatelessWidget {
                                         style: context.t.texts.paragraph,
                                         textAlign: TextAlign.center,
                                       ),
-                                      const Gap.appPadding(),
-                                      TurboButton.primary(
-                                        text: '''Send Email''',
+                                      const TGap.appPadding(),
+                                      PrimaryButton(
+                                        child: const ButtonText('''Send Email'''),
                                         onPressed: () => model.onSendEmailPressed(context: context),
-                                        trailingIcon: (backgroundColor, textColor) =>
-                                            TrailingIcon(Icons.arrow_forward, color: textColor),
                                       ),
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.stretch,
                                         children: [
-                                          const Gap.appPadding(),
+                                          const TGap.appPadding(),
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                              TurboButton.secondary(
-                                                text: '''Skip''',
+                                              SecondaryButton(
+                                                child: const ButtonText('''Skip'''),
                                                 onPressed: model.onSkipPressed,
-                                                trailingIcon: (backgroundColor, textColor) =>
-                                                    const TrailingIcon(
-                                                  Icons.arrow_forward,
-                                                  size: 16,
-                                                  color: Colors.white,
-                                                ),
                                               ),
                                             ],
                                           ),

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:turbo_template/turbo/abstracts/view_arguments.dart';

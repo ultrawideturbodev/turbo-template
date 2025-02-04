@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/auth/enums/auth_view_mode.dart';
 import 'package:turbo_template/auth/widgets/accept_privacy_text.dart';
 import 'package:turbo_template/turbo/constants/k_durations.dart';
@@ -10,12 +10,10 @@ import 'package:turbo_template/turbo/extensions/context_extension.dart';
 import 'package:turbo_template/turbo/globals/g_strings.dart';
 import 'package:turbo_template/turbo/widgets/form_field_checkbox.dart';
 import 'package:turbo_template/turbo/widgets/form_field_text.dart';
-import 'package:turbo_template/turbo/widgets/gap.dart';
 import 'package:turbo_template/turbo/widgets/ho_padding.dart';
 import 'package:turbo_template/turbo/widgets/shrinks.dart';
-import 'package:turbo_template/turbo/widgets/turbo_button.dart';
-import 'package:turbo_template/turbo/widgets/turbo_card.dart';
-import 'package:turbo_template/turbo/widgets/turbo_scaffold.dart';
+import 'package:turbo_template/turbo/widgets/t_gap.dart';
+import 'package:turbo_template/typography/widgets/button_text.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
 import 'auth_view_model.dart';
@@ -33,8 +31,8 @@ class AuthView extends StatelessWidget {
       builder: (context, model, isInitialised, child) {
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-          child: TurboScaffold(
-            body: isInitialised
+          child: Scaffold(
+            child: isInitialised
                 ? Center(
                     child: SafeArea(
                       child: Container(
@@ -55,7 +53,7 @@ class AuthView extends StatelessWidget {
                                     HoPadding(
                                       left: kSizesAppPadding * 1.5,
                                       right: kSizesAppPadding * 1.5,
-                                      child: TurboCard(
+                                      child: Card(
                                         padding: const EdgeInsets.all(kSizesAppPadding * 2),
                                         child: ValueListenableBuilder<AuthViewMode>(
                                           valueListenable: model.authViewMode,
@@ -67,21 +65,15 @@ class AuthView extends StatelessWidget {
                                                   Text(
                                                     '${Emoji.wavingHand} ${gStrings.welcome}',
                                                     textAlign: TextAlign.center,
-                                                    style: context.t.texts.scaffoldHeader(
-                                                      onBackgroundColor:
-                                                          context.t.colors.background.onColor,
-                                                    ),
+                                                    style: context.t.texts.title,
                                                   ),
                                                   const Gap(8),
                                                   Text(
                                                     'to Turboland',
-                                                    style: context.t.texts.scaffoldHeader(
-                                                      onBackgroundColor:
-                                                          context.t.colors.background.onColor,
-                                                    ),
+                                                    style: context.t.texts.title,
                                                     textAlign: TextAlign.center,
                                                   ),
-                                                  const Gap.section(),
+                                                  const TGap.section(),
                                                   FormFieldText(
                                                     key: ValueKey(authViewMode.name + 'email'),
                                                     formFieldConfig: model.emailField,
@@ -90,7 +82,7 @@ class AuthView extends StatelessWidget {
                                                     hintText: gStrings.emailHint,
                                                     onSubmitted: model.onEmailSubmitted,
                                                   ),
-                                                  const Gap.element(),
+                                                  const TGap.element(),
                                                   FormFieldText(
                                                     key: ValueKey(authViewMode.name + 'password'),
                                                     formFieldConfig: model.passwordField,
@@ -165,7 +157,7 @@ class AuthView extends StatelessWidget {
                                                       ),
                                                     ),
                                                   ),
-                                                  const Gap.section(),
+                                                  const TGap.section(),
                                                   VerticalShrink(
                                                     show: authViewMode.isLogin,
                                                     child: Padding(
@@ -176,11 +168,11 @@ class AuthView extends StatelessWidget {
                                                       child: Row(
                                                         children: [
                                                           Expanded(
-                                                            child: TurboButton.primary(
+                                                            child: PrimaryButton(
                                                               onPressed: () => model.onLoginPressed(
                                                                 authViewMode: authViewMode,
                                                               ),
-                                                              text: 'Login',
+                                                              child: Text('wtf'),
                                                               focusNode: model.loginButtonFocusNode,
                                                             ),
                                                           ),
@@ -188,14 +180,15 @@ class AuthView extends StatelessWidget {
                                                       ),
                                                     ),
                                                   ),
-                                                  TurboButton.primary(
-                                                    text: '''Register''',
-                                                    focusNode: model.registerButtonFocusNode,
-                                                    onPressed: () => model.onRegisterPressed(
-                                                      authViewMode: authViewMode,
+                                                  PrimaryButton(
+                                                    child: ButtonText(
+                                                      authViewMode.isLogin
+                                                          ? 'Don\'t have an account?'
+                                                          : 'Already have an account?',
                                                     ),
+                                                    onPressed: () {},
                                                   ),
-                                                  const Gap.section(),
+                                                  const TGap.section(),
                                                   AnimatedSwitcher(
                                                     duration: kDurationsAnimation,
                                                     child: Row(
@@ -204,10 +197,12 @@ class AuthView extends StatelessWidget {
                                                       ),
                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                       children: [
-                                                        TurboButton.secondary(
-                                                          text: authViewMode.isLogin
-                                                              ? '''Forgot password?'''
-                                                              : '''Click here to login''',
+                                                        PrimaryButton(
+                                                          child: ButtonText(
+                                                            authViewMode.isLogin
+                                                                ? '''Forgot password?'''
+                                                                : '''Click here to login''',
+                                                          ),
                                                           focusNode: model.registerButtonFocusNode,
                                                           onPressed: authViewMode.isLogin
                                                               ? model.onForgotPasswordPressed

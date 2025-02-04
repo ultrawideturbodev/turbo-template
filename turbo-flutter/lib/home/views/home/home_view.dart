@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
-import 'package:turbo_template/turbo/constants/k_sizes.dart';
 import 'package:turbo_template/turbo/constants/k_widgets.dart';
-import 'package:turbo_template/turbo/widgets/custom_scaffold.dart';
 import 'home_view_model.dart';
 
 class HomeView extends StatelessWidget {
@@ -18,9 +16,8 @@ class HomeView extends StatelessWidget {
     return ViewModelBuilder<HomeViewModel>(
       builder: (context, model, isInitialised, child) {
         if (!isInitialised) return kWidgetsNothing;
-        return const CustomScaffold(
-          buttonHeight: kSizesButtonHeight,
-          body: SingleChildScrollView(
+        return const Scaffold(
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [],

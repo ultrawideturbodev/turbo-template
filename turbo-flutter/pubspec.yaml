@@ -12,9 +12,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  shadcn_ui:
-    path: /Users/codaveto/Documents/ultrawideturbodev/forks/flutter-shadcn-ui
-
   email_validator: ^3.0.0
   url_launcher: ^6.3.1
   json_annotation: ^4.9.0
@@ -36,7 +33,6 @@ dependencies:
   go_router: ^14.7.1
   flutter_svg: ^2.0.17
   feedback_response: ^0.0.8
-  gap: ^3.0.1
   auto_size_text: ^3.0.0
   connectivity_plus: ^6.1.2
   flutter_secure_storage: ^9.2.4
@@ -46,6 +42,7 @@ dependencies:
   soft_edge_blur: ^0.1.3
   turbo_firestore_api: ^0.4.2
   get_it: ^8.0.3
+  shadcn_flutter: ^0.0.24
 
 dev_dependencies:
   flutter_test:
@@ -64,7 +61,54 @@ flutter:
     - assets/audio/
     - assets/jpg/
     - assets/md/
+
   fonts:
+    - family: BootstrapIcons
+      fonts:
+        - asset: "packages/shadcn_flutter/icons/BootstrapIcons.otf"
+    - family: RadixIcons
+      fonts:
+        - asset: "packages/shadcn_flutter/icons/RadixIcons.otf"
+    - family: "GeistSans"
+      fonts:
+        - asset: "packages/shadcn_flutter/fonts/Geist-Black.otf"
+          weight: 800
+        - asset: "packages/shadcn_flutter/fonts/Geist-Bold.otf"
+          weight: 700
+        - asset: "packages/shadcn_flutter/fonts/Geist-Light.otf"
+          weight: 300
+        - asset: "packages/shadcn_flutter/fonts/Geist-Medium.otf"
+          weight: 500
+        - asset: "packages/shadcn_flutter/fonts/Geist-SemiBold.otf"
+          weight: 600
+        - asset: "packages/shadcn_flutter/fonts/Geist-Thin.otf"
+          weight: 100
+        - asset: "packages/shadcn_flutter/fonts/Geist-UltraBlack.otf"
+          weight: 900
+        - asset: "packages/shadcn_flutter/fonts/Geist-UltraLight.otf"
+          weight: 200
+        - asset: "packages/shadcn_flutter/fonts/Geist-Regular.otf"
+          weight: 400
+    - family: "GeistMono"
+      fonts:
+        - asset: "packages/shadcn_flutter/fonts/GeistMono-Black.otf"
+          weight: 800
+        - asset: "packages/shadcn_flutter/fonts/GeistMono-Bold.otf"
+          weight: 700
+        - asset: "packages/shadcn_flutter/fonts/GeistMono-Light.otf"
+          weight: 300
+        - asset: "packages/shadcn_flutter/fonts/GeistMono-Medium.otf"
+          weight: 500
+        - asset: "packages/shadcn_flutter/fonts/GeistMono-Regular.otf"
+          weight: 400
+        - asset: "packages/shadcn_flutter/fonts/GeistMono-SemiBold.otf"
+          weight: 600
+        - asset: "packages/shadcn_flutter/fonts/GeistMono-Thin.otf"
+          weight: 100
+        - asset: "packages/shadcn_flutter/fonts/GeistMono-UltraBlack.otf"
+          weight: 900
+        - asset: "packages/shadcn_flutter/fonts/GeistMono-UltraLight.otf"
+          weight: 200
     - family: Nunito
       fonts:
         - asset: assets/fonts/Nunito-ExtraLight.ttf

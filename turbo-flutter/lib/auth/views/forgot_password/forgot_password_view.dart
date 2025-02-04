@@ -1,13 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/auth/enums/forgot_password_origin.dart';
 import 'package:turbo_template/turbo/constants/k_sizes.dart';
 import 'package:turbo_template/turbo/constants/k_widgets.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';
 import 'package:turbo_template/turbo/globals/g_strings.dart';
 import 'package:turbo_template/turbo/widgets/form_field_text.dart';
-import 'package:turbo_template/turbo/widgets/gap.dart';
-import 'package:turbo_template/turbo/widgets/turbo_button.dart';
-import 'package:turbo_template/turbo/widgets/turbo_card.dart';
-import 'package:turbo_template/auth/enums/forgot_password_origin.dart';
+import 'package:turbo_template/turbo/widgets/t_gap.dart';
+import 'package:turbo_template/typography/widgets/button_text.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
 import 'forgot_password_view_model.dart';
@@ -30,7 +29,7 @@ class ForgotPasswordView extends StatelessWidget {
         switch (origin) {
           case ForgotPasswordOrigin.core:
             return Scaffold(
-              body: Container(
+              child: Container(
                 decoration: BoxDecoration(
                   gradient: context.t.decorations.gradientBackground,
                 ),
@@ -56,7 +55,7 @@ class ForgotPasswordView extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.stretch,
                                   children: [
-                                    TurboCard(
+                                    Card(
                                       padding: const EdgeInsets.all(kSizesAppPadding * 2),
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -64,32 +63,30 @@ class ForgotPasswordView extends StatelessWidget {
                                         children: [
                                           Text(
                                             origin.title,
-                                            style: context.t.texts.scaffoldHeader(
-                                              onBackgroundColor: context.t.colors.background,
-                                            ),
+                                            style: context.t.texts.title,
                                             textAlign: TextAlign.center,
                                           ),
-                                          const Gap.element(),
+                                          const TGap.element(),
                                           Text(
                                             gStrings.fillInYourEmailAddressAndWeWillSendYou,
-                                            style: context.t.texts.primaryButton,
+                                            style: context.t.texts.button,
                                             textAlign: TextAlign.center,
                                           ),
-                                          const Gap.section(),
+                                          const TGap.section(),
                                           FormFieldText(
                                             formFieldConfig: model.emailField,
                                             label: gStrings.email,
                                             onSubmitted: (_) =>
                                                 model.onEmailSubmitted(context: context),
                                           ),
-                                          const Gap.section(),
+                                          const TGap.section(),
                                           Row(
                                             children: [
                                               Expanded(
-                                                child: TurboButton.primary(
+                                                child: PrimaryButton(
                                                   onPressed: () =>
                                                       model.onSendEmailPressed(context: context),
-                                                  text: gStrings.send,
+                                                  child: ButtonText(gStrings.send),
                                                   focusNode: model.sendEmailButtonFocusNode,
                                                 ),
                                               ),
@@ -98,13 +95,13 @@ class ForgotPasswordView extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    const Gap.section(),
+                                    const TGap.section(),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        TurboButton.secondary(
+                                        PrimaryButton(
                                           onPressed: () => model.onGoBackPressed(context: context),
-                                          text: gStrings.clickHereToLogin,
+                                          child:  ButtonText(gStrings.clickHereToLogin),
                                         ),
                                       ],
                                     ),

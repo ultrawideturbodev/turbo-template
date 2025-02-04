@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:flutter/widgets.dart';
 
 /// Used to control rebuilds based ´on any list of [Listenable]'s.

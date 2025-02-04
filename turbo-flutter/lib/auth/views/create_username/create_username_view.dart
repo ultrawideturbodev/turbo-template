@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/auth/views/create_username/create_username_view_model.dart';
 import 'package:turbo_template/turbo/constants/k_sizes.dart';
 import 'package:turbo_template/turbo/constants/k_widgets.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';
@@ -8,15 +9,13 @@ import 'package:turbo_template/turbo/widgets/animated_enabled.dart';
 import 'package:turbo_template/turbo/widgets/bottom_position.dart';
 import 'package:turbo_template/turbo/widgets/fading_scrollable.dart';
 import 'package:turbo_template/turbo/widgets/form_field_text.dart';
-import 'package:turbo_template/turbo/widgets/gap.dart';
 import 'package:turbo_template/turbo/widgets/shrinks.dart';
-import 'package:turbo_template/turbo/widgets/trailing_icon.dart';
-import 'package:turbo_template/turbo/widgets/turbo_button.dart';
-import 'package:turbo_template/turbo/widgets/turbo_scaffold.dart';
+import 'package:turbo_template/turbo/widgets/t_gap.dart';
 import 'package:turbo_template/turbo/widgets/turbo_scroll_view.dart';
-import 'package:turbo_template/auth/views/create_username/create_username_view_model.dart';
+import 'package:turbo_template/typography/widgets/button_text.dart';
 import 'package:veto/data/models/base_view_model.dart';
 import 'package:veto/data/models/busy_model.dart';
+
 class CreateUsernameView extends StatelessWidget {
   const CreateUsernameView({
     super.key,
@@ -29,18 +28,14 @@ class CreateUsernameView extends StatelessWidget {
     return ViewModelBuilder<CreateUsernameViewModel>(
       builder: (context, model, isInitialised, child) {
         if (!isInitialised) return kWidgetsNothing;
-        final textStyle = context.t.texts.createUserNameTitle;
-        return TurboScaffold(
-          body: isInitialised
+        final textStyle = context.t.texts.title;
+        return Scaffold(
+          child: isInitialised
               ? FadingScrollable(
             foregroundContent: BottomPositioned(
-              child: TurboButton.primary(
-                text: gStrings.save,
+              child: PrimaryButton(
+                child: ButtonText(gStrings.save),
                 onPressed: () => model.save(context: context),
-                trailingIcon: (backgroundColor, textColor) => TrailingIcon(
-                  Icons.arrow_forward,
-                  color: textColor,
-                ),
                 focusNode: model.saveButtonFocusNode,
               ),
             ),
@@ -59,12 +54,12 @@ class CreateUsernameView extends StatelessWidget {
                           builder: (context, username, child) => Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Gap.element(),
+                              const TGap.element(),
                               Text(
                                 gStrings.helloUsername(username),
                                 style: textStyle,
                               ),
-                              const Gap.element(),
+                              const TGap.element(),
                               VerticalShrink(
                                 show: username == model.usernamePlaceholder,
                                 alignment: Alignment.topCenter,

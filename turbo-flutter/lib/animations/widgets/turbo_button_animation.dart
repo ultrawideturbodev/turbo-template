@@ -1,20 +1,17 @@
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/turbo/constants/k_durations.dart';
 import 'package:turbo_template/turbo/globals/g_vibrate.dart';
 
-class OpacityScaleAnimator extends StatefulWidget {
-  const OpacityScaleAnimator({
+class TurboButtonAnimation extends StatefulWidget {
+  const TurboButtonAnimation({
     super.key,
     required this.child,
     this.duration = kDurationsHover,
     this.curve = Curves.fastOutSlowIn,
     this.reverseCurve = Curves.decelerate,
-    this.scaleEnd = 0.90,
+    this.scaleEnd = 0.95,
     this.opacityEnd = 0.8,
-    this.minSize = 0,
-    this.padding = EdgeInsets.zero,
-    this.hitTestBehavior = HitTestBehavior.deferToChild,
   });
 
   final Widget child;
@@ -23,15 +20,12 @@ class OpacityScaleAnimator extends StatefulWidget {
   final Curve reverseCurve;
   final double scaleEnd;
   final double opacityEnd;
-  final double minSize;
-  final EdgeInsetsGeometry padding;
-  final HitTestBehavior hitTestBehavior;
 
   @override
-  State<OpacityScaleAnimator> createState() => _OpacityScaleAnimatorState();
+  State<TurboButtonAnimation> createState() => _TurboButtonAnimationState();
 }
 
-class _OpacityScaleAnimatorState extends State<OpacityScaleAnimator>
+class _TurboButtonAnimationState extends State<TurboButtonAnimation>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _scaleAnimation;
@@ -88,34 +82,19 @@ class _OpacityScaleAnimatorState extends State<OpacityScaleAnimator>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: Listener(
-        behavior: widget.hitTestBehavior,
-        onPointerDown: (_) => _handleTapDown(TapDownDetails(kind: PointerDeviceKind.touch)),
-        onPointerUp: (_) => _handleTapUp(TapUpDetails(kind: PointerDeviceKind.touch)),
-        onPointerCancel: _handlePointerCancel,
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            minWidth: widget.minSize,
-            minHeight: widget.minSize,
-          ),
-          child: Padding(
-            padding: widget.padding,
-            child: AnimatedBuilder(
-              animation: _controller,
-              builder: (context, child) => Transform.scale(
-                scale: _scaleAnimation.value,
-                child: Opacity(
-                  opacity: _opacityAnimation.value,
-                  child: widget.child,
-                ),
-              ),
-            ),
+  Widget build(BuildContext context) => Listener(
+      onPointerDown: (_) => _handleTapDown(TapDownDetails(kind: PointerDeviceKind.touch)),
+      onPointerUp: (_) => _handleTapUp(TapUpDetails(kind: PointerDeviceKind.touch)),
+      onPointerCancel: _handlePointerCancel,
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) => Transform.scale(
+          scale: _scaleAnimation.value,
+          child: Opacity(
+            opacity: _opacityAnimation.value,
+            child: widget.child,
           ),
         ),
       ),
     );
-  }
 }

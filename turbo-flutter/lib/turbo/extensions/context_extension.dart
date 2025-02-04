@@ -1,16 +1,14 @@
-import 'dart:math';
-
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/turbo/widgets/providers/turbo_provider.dart';
 
 extension ContextExtension on BuildContext {
-
   RenderBox? get renderBox {
     if (!mounted) return null;
     return findRenderObject() as RenderBox?;
   }
 
+  ThemeData get themeData => Theme.of(this);
   TurboProvider get t => TurboProvider.of(this);
   MediaQueryData get media => MediaQuery.of(this);
   NavigatorState get navigation => Navigator.of(this);

@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gap/gap.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/turbo/constants/k_durations.dart';
 import 'package:turbo_template/turbo/extensions/animation_extension.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';
 import 'package:turbo_template/turbo/typedefs/context_def.dart';
-import 'package:turbo_template/turbo/widgets/turbo_button.dart';
+import 'package:turbo_template/typography/widgets/button_text.dart';
 
 class SvgMessage extends StatelessWidget {
   const SvgMessage({
@@ -46,8 +46,8 @@ class SvgMessage extends StatelessWidget {
         ),
         if (hasCta) ...[
           const Gap(16),
-          TurboButton.primary(
-            text: ctaText!,
+          PrimaryButton(
+            child: ButtonText(ctaText!),
             onPressed: () => onCtaPressed!(context),
           ).slideBottomUpWithFade(
             delay: kDurationsAnimationX2,

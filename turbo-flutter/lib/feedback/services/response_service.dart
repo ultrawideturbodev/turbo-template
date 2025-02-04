@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_response/turbo_response.dart';
 import 'package:turbo_template/turbo/constants/k_sizes.dart';
 import 'package:turbo_template/turbo/exceptions/unexpected_null_exception.dart';
@@ -21,7 +21,6 @@ class ResponseService with Loglytics {
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
   // 🎩 STATE --------------------------------------------------------------------------------- \\
 
-  final scaffoldKey = GlobalKey<ScaffoldMessengerState>();
   DisposableBuildContext? _innerDisposableContext;
 
   // 🛠 UTIL ---------------------------------------------------------------------------------- \\
@@ -118,7 +117,7 @@ class ResponseService with Loglytics {
       useSafeArea: false,
       builder: (context) => Scaffold(
         backgroundColor: Colors.transparent,
-        body: GestureDetector(
+        child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () => Navigator.of(context).pop(),
           child: Center(

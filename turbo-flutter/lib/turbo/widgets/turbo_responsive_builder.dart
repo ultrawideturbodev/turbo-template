@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:flutter/widgets.dart';
 import 'package:turbo_template/turbo/extensions/box_constraints_extension.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';

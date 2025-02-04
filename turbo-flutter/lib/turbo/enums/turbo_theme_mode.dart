@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:flutter/services.dart';
 
 enum TurboThemeMode {
@@ -16,13 +16,4 @@ enum TurboThemeMode {
   }
 
   static const TurboThemeMode defaultValue = TurboThemeMode.dark;
-
-  ThemeMode get toMaterialThemeMode {
-    switch (this) {
-      case TurboThemeMode.dark:
-        return ThemeMode.dark;
-      case TurboThemeMode.light:
-        return ThemeMode.light;
-    }
-  }
 }

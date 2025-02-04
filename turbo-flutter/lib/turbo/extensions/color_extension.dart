@@ -1,10 +1,13 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as material;
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 
 extension ColorExtension on Color {
   Color get onColor =>
-      ThemeData.estimateBrightnessForColor(this) == Brightness.light ? Colors.black : Colors.white;
+      material.ThemeData.estimateBrightnessForColor(this) == material.Brightness.light
+          ? Colors.black
+          : Colors.white;
 
   /// Brightens the color with the given integer percentage amount.
   /// Defaults to 5%.

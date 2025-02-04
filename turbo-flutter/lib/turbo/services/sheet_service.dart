@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
 
@@ -22,20 +22,9 @@ class SheetService with Loglytics {
   }) async {
     try {
       final localContext = context ?? _baseRouter.context;
-      return showModalBottomSheet<T>(
+      return openSheet<T>(
         context: localContext,
-        backgroundColor: localContext.t.colors.background,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(32),
-          ),
-        ),
-        useSafeArea: true,
-        elevation: 0,
-        isScrollControlled: true,
-        barrierColor: Colors.black87,
-        isDismissible: true,
-        constraints: const BoxConstraints(maxHeight: double.infinity),
+        position: OverlayPosition.bottom,
         builder: (context) => customBottomSheet,
       );
     } catch (error, stackTrace) {

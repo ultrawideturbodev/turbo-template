@@ -112,7 +112,7 @@ class _FormFieldTextState extends State<FormFieldText> {
                           isDense: true,
                           fillColor: backgroundColor,
                           hintText: widget.hintText,
-                          hintStyle: context.t.texts.secondaryHint,
+                          hintStyle: context.t.texts.shellMenuItem,
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(borderRadius),
                             borderSide: BorderSide(
@@ -130,16 +130,16 @@ class _FormFieldTextState extends State<FormFieldText> {
                           ),
                           prefixIcon: hasIcon
                               ? Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: leftPadding,
-                                    right: 7,
-                                  ),
-                                  child: FadingFocusIcon(
-                                    color: iconColor,
-                                    icon: widget.fadingFocusIcon!,
-                                    focusNode: formFieldConfig.focusNode,
-                                  ),
-                                )
+                            padding: const EdgeInsets.only(
+                              left: leftPadding,
+                              right: 7,
+                            ),
+                            child: FadingFocusIcon(
+                              color: iconColor,
+                              icon: widget.fadingFocusIcon!,
+                              focusNode: formFieldConfig.focusNode,
+                            ),
+                          )
                               : null,
                           contentPadding: EdgeInsets.only(
                             top: minVerticalPadding - 11,

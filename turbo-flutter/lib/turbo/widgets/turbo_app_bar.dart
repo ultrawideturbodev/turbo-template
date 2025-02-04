@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:turbo_template/turbo/extensions/color_extension.dart';
 
 import '../extensions/context_extension.dart';
 
@@ -35,13 +34,11 @@ class TurboAppBar extends AppBar {
                   ? AutoSizeText(
                       title,
                       style: textStyle ??
-                          context.t.texts.scaffoldHeader(
-                            onBackgroundColor: context.t.colors.background.onColor,
-                          ),
+                          context.t.texts.title,
                     )
                   : null),
           titleTextStyle: textStyle ??
-              context.t.texts.scaffoldHeader(onBackgroundColor: context.t.colors.shellBackground),
+              context.t.texts.title,
           automaticallyImplyLeading: onBackPressed == null ? automaticallyImplyLeading : false,
           leading: onBackPressed == null
               ? (automaticallyImplyLeading
@@ -71,9 +68,7 @@ class CustomSliverAppBar extends SliverAppBar {
                   ? AutoSizeText(
                       title,
                       style: textStyle ??
-                          context.t.texts.scaffoldHeader(
-                            onBackgroundColor: context.t.colors.background.onColor,
-                          ),
+                          context.t.texts.title,
                     )
                   : null),
           shadowColor: Colors.black,

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 
 class TuGradient extends LinearGradient {
   const TuGradient.topBottom({

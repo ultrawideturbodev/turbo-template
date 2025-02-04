@@ -10,12 +10,10 @@ enum CloudFunctionId {
         const host = 'localhost:5001';
         return switch (this) {
           CloudFunctionId.acceptHouseholdInvite =>
-          'http://$host/the-roomy-app/europe-west3/acceptHouseholdInvite',
+            'http://$host/the-roomy-app/europe-west3/acceptHouseholdInvite',
           CloudFunctionId.removeHouseholdMember =>
-          'http://$host/the-roomy-app/europe-west3/removeHouseholdMember',
+            'http://$host/the-roomy-app/europe-west3/removeHouseholdMember',
         };
-      case EnvironmentType.dev:
-      case EnvironmentType.testDev:
       case EnvironmentType.prod:
         const host = 'jtyrbpbxqa-ey.a.run.app';
         return switch (this) {
@@ -26,8 +24,8 @@ enum CloudFunctionId {
   }
 
   T? Function<T>(
-      Map<String, dynamic>? json,
-      ) get fromJsonResult {
+    Map<String, dynamic>? json,
+  ) get fromJsonResult {
     switch (this) {
       case CloudFunctionId.acceptHouseholdInvite:
       case CloudFunctionId.removeHouseholdMember:

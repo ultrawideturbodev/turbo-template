@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:veto/data/models/base_view_model.dart';
@@ -60,53 +60,15 @@ class ShellView extends StatelessWidget {
               );
               return Scaffold(
                 backgroundColor: context.t.colors.shellBackground,
-                bottomNavigationBar: ValueListenableBuilder<NavigationTab>(
-                  valueListenable: model.currentNavigationTab,
-                  builder: (context, currentNavigationTab, child) => Theme(
-                    data: context.theme.copyWith(
-                      splashColor: Colors.transparent,
-                    ),
-                    child: Theme(
-                      data: context.theme.copyWith(
-                        navigationBarTheme: context.theme.navigationBarTheme.copyWith(
-                          labelTextStyle: WidgetStatePropertyAll(context.t.texts.navigationTab),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: NavigationBar(
-                          elevation: 0,
-                          backgroundColor: context.t.colors.shellBackground,
-                          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-                          onDestinationSelected: (int index) => model.onNavigationTap(
-                            NavigationTab.values[index],
-                            statefulNavigationShell: statefulNavigationShell,
-                            context: context,
-                          ),
-                          selectedIndex: currentNavigationTab.index,
-                          destinations: NavigationTab.values
-                              .map(
-                                (bottomNavigationTab) => NavigationDestination(
-                                  icon: Icon(
-                                    bottomNavigationTab.icon,
-                                    color: context.t.colors.background.onColor,
-                                    size: 20,
-                                  ),
-                                  label: bottomNavigationTab.label,
-                                ),
-                              )
-                              .toList(),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                body: isInitialised ? body : kWidgetsNothing,
+                footers: const [
+                  Text('wtf'),
+                ],
+                child: isInitialised ? body : kWidgetsNothing,
               );
             case SupportedPlatform.web:
               return Scaffold(
                 backgroundColor: context.t.colors.background,
-                body: isInitialised
+                child: isInitialised
                     ? ValueListenableBuilder<NavigationTab>(
                         valueListenable: model.currentNavigationTab,
                         builder: (context, currentNavigationTab, child) {

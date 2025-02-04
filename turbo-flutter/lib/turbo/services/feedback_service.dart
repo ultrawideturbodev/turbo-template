@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:feedback_response/feedback_response.dart';
-import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 
 import '../constants/k_sizes.dart';
 import '../exceptions/unexpected_null_exception.dart';
@@ -25,7 +25,6 @@ class FeedbackService with Loglytics {
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
   // 🎩 STATE --------------------------------------------------------------------------------- \\
 
-  final scaffoldKey = GlobalKey<ScaffoldMessengerState>();
   DisposableBuildContext? _innerDisposableContext;
 
   // 🛠 UTIL ---------------------------------------------------------------------------------- \\
@@ -113,10 +112,22 @@ class FeedbackService with Loglytics {
                 log.warning('Message was null. Assuming this is intended behaviour, returning!');
                 return;
               }
-              await showSnackbar(
-                title: title,
-                message: message,
-                feedbackLevel: response.feedbackLevel,
+              await showToast(
+                context: localContext,
+                location: ToastLocation.topCenter,
+                builder: (context, overlay) => SurfaceCard(
+                  child: Basic(
+                    title: const Text('Event has been created'),
+                    subtitle: const Text('Sunday, July 07, 2024 at 12:00 PM'),
+                    trailing: PrimaryButton(
+                        size: ButtonSize.small,
+                        onPressed: () {
+                          overlay.close();
+                        },
+                        child: const Text('Undo')),
+                    trailingAlignment: Alignment.center,
+                  ),
+                ),
               );
               break;
             case FeedbackType.bottomSheet:
@@ -146,15 +157,6 @@ class FeedbackService with Loglytics {
     );
   }
 
-  Future<SnackBarClosedReason?> showSnackbar({
-    required String title,
-    required String message,
-    FeedbackLevel feedbackLevel = FeedbackLevel.info,
-  }) async {
-// TODO(codaveto): Implement | 18/04/2024
-    throw UnimplementedError();
-  }
-
   Future<bool?> showOkCancelDialog({
     FeedbackLevel feedbackLevel = FeedbackLevel.info,
     StringBuilder? message,
@@ -173,7 +175,7 @@ class FeedbackService with Loglytics {
       useSafeArea: false,
       builder: (context) => Scaffold(
         backgroundColor: Colors.transparent,
-        body: GestureDetector(
+        child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () => Navigator.of(context).pop(),
           child: Center(

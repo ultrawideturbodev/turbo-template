@@ -25,9 +25,8 @@ class LocalStorageDtoAdapter extends TypeAdapter<LocalStorageDto> {
       updatedAt: fields[1] as DateTime,
       navigationTab: fields[2] as NavigationTab,
       didHappen: didHappen,
-      hasAuth: fields[4] as bool,
-      supportedLanguage: fields[5] as SupportedLanguage,
-      turboThemeMode: fields[6] as TurboThemeMode,
+      supportedLanguage: fields[4] as SupportedLanguage,
+      turboThemeMode: fields[5] as TurboThemeMode,
     );
   }
 
@@ -44,10 +43,8 @@ class LocalStorageDtoAdapter extends TypeAdapter<LocalStorageDto> {
       ..writeByte(3)
       ..write(obj.didHappen)
       ..writeByte(4)
-      ..write(obj.hasAuth)
-      ..writeByte(5)
       ..write(obj.supportedLanguage)
-      ..writeByte(6)
+      ..writeByte(5)
       ..write(obj.turboThemeMode);
   }
 

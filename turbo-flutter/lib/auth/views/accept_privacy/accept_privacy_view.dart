@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/turbo/constants/k_widgets.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
-import 'package:turbo_template/turbo/constants/k_widgets.dart';
-import 'package:turbo_template/turbo/widgets/custom_scaffold.dart';
 import 'accept_privacy_view_model.dart';
 
 class AcceptPrivacyView extends StatelessWidget {
@@ -17,8 +16,8 @@ class AcceptPrivacyView extends StatelessWidget {
     return ViewModelBuilder<AcceptPrivacyViewModel>(
       builder: (context, model, isInitialised, child) {
         if (!isInitialised) return kWidgetsNothing;
-        return const CustomScaffold(
-          body: SingleChildScrollView(
+        return const Scaffold(
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [],

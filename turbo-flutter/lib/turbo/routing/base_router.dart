@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loglytics/loglytics.dart';
@@ -168,11 +168,8 @@ class BaseRouter with Loglytics {
     required BuildContext context,
     required GoRouterState state,
   }) async {
-    final localStoreService = LocalStorageService.locate;
     // if logged in go to home, otherwise onboarding
-    if (localStoreService.hasAuth || await AuthService.locate.hasReadyAuth) {
-      await localStoreService.updateHasAuth(hasAuth: true);
-
+    if (await AuthService.locate.hasReadyAuth) {
       if (!BaseRouter.locate.didInitialLocation) {
         BaseRouter.locate.didInitialLocation = true;
       }

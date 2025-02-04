@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:veto/data/enums/busy_type.dart';
 import 'package:veto/data/models/busy_model.dart';
 

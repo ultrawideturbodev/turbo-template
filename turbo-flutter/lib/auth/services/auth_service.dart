@@ -20,7 +20,6 @@ import 'package:turbo_template/turbo/extensions/map_extension.dart';
 import 'package:turbo_template/turbo/extensions/string_extension.dart';
 import 'package:turbo_template/turbo/utils/debouncer.dart';
 import 'package:turbo_template/turbo/utils/mutex.dart';
-import 'package:turbo_template/local_storage/services/local_storage_service.dart';
 
 // Local imports
 import '../enums/user_level.dart';
@@ -35,7 +34,6 @@ class AuthService extends SyncService<User?> with Loglytics, FirebaseAuthExcepti
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
 
   final _firebaseAuth = FirebaseAuth.instance;
-  late final _localStorageService = LocalStorageService.locate;
 
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
   // 👂 LISTENERS ----------------------------------------------------------------------------- \\
@@ -53,13 +51,11 @@ class AuthService extends SyncService<User?> with Loglytics, FirebaseAuthExcepti
             _currentUser.add(user);
             if (user != null) {
               _hasAuth.update(true);
-              unawaited(_localStorageService.updateHasAuth(hasAuth: _hasAuth.value));
               _tryManageUserLevel(user);
               _hasLoggedOut = false;
               return;
             } else {
               _hasAuth.update(false);
-              unawaited(_localStorageService.updateHasAuth(hasAuth: _hasAuth.value));
               _claimsUserLevel.update(UserLevel.unknown);
               if (_hasLoggedOut) {
                 _hasLoggedOut = false;
@@ -238,7 +234,7 @@ class AuthService extends SyncService<User?> with Loglytics, FirebaseAuthExcepti
   }
 
   Future<void> _onLogout() async {
-    await LocalStorageService.locate.dispose();
+    // TODO(brian): Restart app properly using phoenix package | 03/02/2025
   }
 
   Future<TurboResponse> logout() async {
