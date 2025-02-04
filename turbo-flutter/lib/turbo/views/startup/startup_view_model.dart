@@ -1,14 +1,12 @@
-import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/auth/services/auth_step_service.dart';
 import 'package:turbo_template/home/routing/home_router.dart';
+import 'package:turbo_template/turbo/enums/step_result.dart';
+import 'package:turbo_template/turbo/globals/g_user_id.dart';
+import 'package:turbo_template/turbo/routing/core_router.dart';
 import 'package:veto/data/models/base_view_model.dart';
-
-import '../../../auth/services/auth_step_service.dart';
-import '../../enums/step_result.dart';
-import '../../globals/g_user_id.dart';
-import '../../routing/core_router.dart';
-import '../../../local_storage/services/local_storage_service.dart';
 
 class StartupViewModel extends BaseViewModel with Loglytics {
   StartupViewModel();
@@ -20,7 +18,6 @@ class StartupViewModel extends BaseViewModel with Loglytics {
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
 
-  final _localStorageService = LocalStorageService.locate;
   final _authStepService = AuthStepService.locate;
   final _homeRouter = HomeRouter.locate;
   final _coreRouter = CoreRouter.locate;
@@ -29,7 +26,6 @@ class StartupViewModel extends BaseViewModel with Loglytics {
 
   @override
   Future<void> initialise() async {
-    super.initialise();
     super.initialise();
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {

@@ -6,6 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:turbo_template/home/routing/home_router.dart';
+import 'package:turbo_template/turbo/routing/core_router.dart';
 import 'package:veto/data/mixins/busy_service_management.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
@@ -90,6 +91,14 @@ class ShellViewModel extends BaseViewModel with Loglytics, BusyServiceManagement
         break;
     }
     log.info('Navigated to $navigationTab');
+  }
+
+  Future<void> onLogoutPressed() async {
+    log.info('Logging out..');
+    final authService = AuthService.locate;
+    await authService.logout();
+    CoreRouter.locate.goAuthView();
+    log.info('Logged out!');
   }
 
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\

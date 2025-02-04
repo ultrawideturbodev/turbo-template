@@ -128,6 +128,25 @@ class ShellView extends StatelessWidget {
                                             },
                                           ),
                                         const Spacer(),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: kSizesAppPadding),
+                                          child: Button.primary(
+                                            onPressed: model.onLogoutPressed,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                const Icon(Icons.logout),
+                                                const Gap(8),
+                                                Text(
+                                                  'Logout',
+                                                  style: context.t.texts.button,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        const Gap(16),
                                         const Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
