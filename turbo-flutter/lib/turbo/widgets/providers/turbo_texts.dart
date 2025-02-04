@@ -5,11 +5,15 @@ class TurboTexts {
     required this.colors,
     required this.config,
     required this.context,
+    required this.themeMode,
+    required this.deviceType,
   });
 
   final TurboColors colors;
   final TurboConfig config;
   final BuildContext context;
+  final TurboThemeMode themeMode;
+  final TurboDeviceType deviceType;
 
   Typography get typography => context.themeData.typography;
 
@@ -40,4 +44,10 @@ class TurboTexts {
   TextStyle get shellMenuItem => _small;
   TextStyle get navigationTab => _small;
   TextStyle get sectionHeader => h1;
+
+  TextStyle get cardTitle => typography.x2Large.copyWith(
+        fontWeight: FontWeight.w600,
+      );
+
+
 }

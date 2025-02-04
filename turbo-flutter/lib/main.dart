@@ -6,6 +6,7 @@ import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/turbo/config/app_setup.dart';
 import 'package:turbo_template/turbo/constants/k_durations.dart';
 import 'package:turbo_template/turbo/constants/k_sizes.dart';
+import 'package:turbo_template/turbo/enums/turbo_theme.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';
 import 'package:turbo_template/turbo/routing/base_router.dart';
 import 'package:turbo_template/turbo/services/connection_service.dart';
@@ -47,17 +48,13 @@ class MyApp extends StatelessWidget {
     return ValueListenableBuilderX2(
       valueListenable: themeService.themeMode,
       valueListenable2: languageService.language,
-      builder: (context, themeMode, language, _) {
+      builder: (context, turboThemeMode, language, _) {
         return AnnotatedRegion(
-          value: themeMode.systemUiOverlayStyle(context),
+          value: turboThemeMode.systemUiOverlayStyle,
           child: ShadcnApp.router(
-            theme: ThemeData(
-              colorScheme: ColorSchemes.darkBlue(),
-              radius: 0.8,
-              surfaceOpacity: 0.25,
-              surfaceBlur: 9,
-            ),
-            scaling: const AdaptiveScaling(0.9),
+            theme: TurboTheme.lightViolet.themeData,
+            darkTheme: TurboTheme.darkViolet.themeData,
+            themeMode: turboThemeMode.themeMode,
             routerConfig: BaseRouter.locate.coreRouter,
             scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),
             title: 'Placeholder',
@@ -73,7 +70,7 @@ class MyApp extends StatelessWidget {
                     typography: context.theme.typography.copyWith(),
                   ),
                   child: TurboProviderBuilder(
-                    turboThemeMode: themeMode,
+                    turboThemeMode: turboThemeMode,
                     builder:
                         (config, themeMode, tools, data, texts, colors, decorations, context) =>
                             Overlay(

@@ -8,6 +8,7 @@ import 'package:turbo_template/turbo/extensions/animation_extension.dart';
 import 'package:turbo_template/turbo/extensions/color_extension.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';
 import 'package:turbo_template/turbo/globals/g_strings.dart';
+import 'package:turbo_template/turbo/widgets/cards/turbo_card.dart';
 import 'package:turbo_template/turbo/widgets/form_field_checkbox.dart';
 import 'package:turbo_template/turbo/widgets/form_field_text.dart';
 import 'package:turbo_template/turbo/widgets/ho_padding.dart';
@@ -53,171 +54,176 @@ class AuthView extends StatelessWidget {
                                     HoPadding(
                                       left: kSizesAppPadding * 1.5,
                                       right: kSizesAppPadding * 1.5,
-                                      child: Card(
+                                      child: Padding(
                                         padding: const EdgeInsets.all(kSizesAppPadding * 2),
-                                        child: ValueListenableBuilder<AuthViewMode>(
-                                          valueListenable: model.authViewMode,
-                                          builder: (context, authViewMode, child) {
-                                            return FocusTraversalGroup(
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                                children: [
-                                                  Text(
-                                                    '${Emoji.wavingHand} ${gStrings.welcome}',
-                                                    textAlign: TextAlign.center,
-                                                    style: context.t.texts.title,
-                                                  ),
-                                                  const Gap(8),
-                                                  Text(
-                                                    'to Turboland',
-                                                    style: context.t.texts.title,
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                  const TGap.section(),
-                                                  FormFieldText(
-                                                    key: ValueKey(authViewMode.name + 'email'),
-                                                    formFieldConfig: model.emailField,
-                                                    fadingFocusIcon: Icons.email_rounded,
-                                                    label: gStrings.email,
-                                                    hintText: gStrings.emailHint,
-                                                    onSubmitted: model.onEmailSubmitted,
-                                                  ),
-                                                  const TGap.element(),
-                                                  FormFieldText(
-                                                    key: ValueKey(authViewMode.name + 'password'),
-                                                    formFieldConfig: model.passwordField,
-                                                    fadingFocusIcon: Icons.lock_open_rounded,
-                                                    hintText: '••••••••',
-                                                    label: gStrings.password,
-                                                    onSubmitted: (value) =>
-                                                        model.onPasswordSubmitted(
-                                                      value: value,
-                                                      context: context,
+                                        child: TurboCard(
+                                          child: ValueListenableBuilder<AuthViewMode>(
+                                            valueListenable: model.authViewMode,
+                                            builder: (context, authViewMode, child) {
+                                              return FocusTraversalGroup(
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                  children: [
+                                                    Text(
+                                                      'Welcome back',
+                                                      textAlign: TextAlign.center,
+                                                      style: context.t.texts.cardTitle,
                                                     ),
-                                                  ),
-                                                  VerticalShrink(
-                                                    show: authViewMode.isRegister,
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.only(
-                                                        top: kSizesFormFieldGap,
-                                                        bottom: kSizesFormFieldGap,
+                                                    const Gap(8),
+                                                    const Text(
+                                                      'Login to your Roomy acount',
+                                                    ).small().muted(),
+                                                    const TGap.section(),
+                                                    FormFieldText(
+                                                      key: ValueKey(authViewMode.name + 'email'),
+                                                      formFieldConfig: model.emailField,
+                                                      fadingFocusIcon: Icons.email_rounded,
+                                                      label: gStrings.email,
+                                                      hintText: gStrings.emailHint,
+                                                      onSubmitted: model.onEmailSubmitted,
+                                                    ),
+                                                    const TGap.element(),
+                                                    FormFieldText(
+                                                      key: ValueKey(authViewMode.name + 'password'),
+                                                      formFieldConfig: model.passwordField,
+                                                      fadingFocusIcon: Icons.lock_open_rounded,
+                                                      hintText: '••••••••',
+                                                      label: gStrings.password,
+                                                      onSubmitted: (value) =>
+                                                          model.onPasswordSubmitted(
+                                                        value: value,
+                                                        context: context,
                                                       ),
-                                                      child: Column(
-                                                        children: [
-                                                          FormFieldText(
-                                                            formFieldConfig:
-                                                                model.confirmPasswordField,
-                                                            fadingFocusIcon: Icons.lock_rounded,
-                                                            label: 'Confirm Password',
-                                                            onChanged:
-                                                                model.onConfirmPasswordChanged,
-                                                            onSubmitted:
-                                                                model.onConfirmPasswordSubmitted,
-                                                          ),
-                                                          ValueListenableBuilder<bool>(
-                                                            valueListenable:
-                                                                model.showAgreeToPrivacyCheckBox,
-                                                            builder: (
-                                                              context,
-                                                              showAgreeToPrivacyCheckBox,
-                                                              child,
-                                                            ) =>
-                                                                VerticalShrink(
-                                                              alignment: Alignment.bottomCenter,
-                                                              show: showAgreeToPrivacyCheckBox,
-                                                              child: Padding(
-                                                                padding: const EdgeInsets.only(
-                                                                  left: 8,
-                                                                  top: 8,
-                                                                ),
-                                                                child: FormFieldCheckbox(
-                                                                  formFieldConfig:
-                                                                      model.agreePrivacyField,
-                                                                  color: Colors.white,
-                                                                  label: Padding(
-                                                                    padding: const EdgeInsets.only(
-                                                                      left: 16,
-                                                                    ),
-                                                                    child: MouseRegion(
-                                                                      cursor:
-                                                                          SystemMouseCursors.click,
-                                                                      child: AcceptPrivacyText(
-                                                                        onPrivacyPolicyTap: model
-                                                                            .onPrivacyPolicyPressed,
-                                                                        onTermsOfServiceTap: model
-                                                                            .onTermsOfServicePressed,
+                                                    ),
+                                                    VerticalShrink(
+                                                      show: authViewMode.isRegister,
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.only(
+                                                          top: kSizesFormFieldGap,
+                                                          bottom: kSizesFormFieldGap,
+                                                        ),
+                                                        child: Column(
+                                                          children: [
+                                                            FormFieldText(
+                                                              formFieldConfig:
+                                                                  model.confirmPasswordField,
+                                                              fadingFocusIcon: Icons.lock_rounded,
+                                                              label: 'Confirm Password',
+                                                              onChanged:
+                                                                  model.onConfirmPasswordChanged,
+                                                              onSubmitted:
+                                                                  model.onConfirmPasswordSubmitted,
+                                                            ),
+                                                            ValueListenableBuilder<bool>(
+                                                              valueListenable:
+                                                                  model.showAgreeToPrivacyCheckBox,
+                                                              builder: (
+                                                                context,
+                                                                showAgreeToPrivacyCheckBox,
+                                                                child,
+                                                              ) =>
+                                                                  VerticalShrink(
+                                                                alignment: Alignment.bottomCenter,
+                                                                show: showAgreeToPrivacyCheckBox,
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets.only(
+                                                                    left: 8,
+                                                                    top: 8,
+                                                                  ),
+                                                                  child: FormFieldCheckbox(
+                                                                    formFieldConfig:
+                                                                        model.agreePrivacyField,
+                                                                    color: Colors.white,
+                                                                    label: Padding(
+                                                                      padding:
+                                                                          const EdgeInsets.only(
+                                                                        left: 16,
+                                                                      ),
+                                                                      child: MouseRegion(
+                                                                        cursor: SystemMouseCursors
+                                                                            .click,
+                                                                        child: AcceptPrivacyText(
+                                                                          onPrivacyPolicyTap: model
+                                                                              .onPrivacyPolicyPressed,
+                                                                          onTermsOfServiceTap: model
+                                                                              .onTermsOfServicePressed,
+                                                                        ),
                                                                       ),
                                                                     ),
                                                                   ),
                                                                 ),
                                                               ),
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  const TGap.section(),
-                                                  VerticalShrink(
-                                                    show: authViewMode.isLogin,
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.only(
-                                                        top: kSizesFormFieldGap,
-                                                        bottom: kSizesFormFieldGap,
-                                                      ),
-                                                      child: Row(
-                                                        children: [
-                                                          Expanded(
-                                                            child: PrimaryButton(
-                                                              onPressed: () => model.onLoginPressed(
-                                                                authViewMode: authViewMode,
-                                                              ),
-                                                              child: Text('wtf'),
-                                                              focusNode: model.loginButtonFocusNode,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  PrimaryButton(
-                                                    child: ButtonText(
-                                                      authViewMode.isLogin
-                                                          ? 'Don\'t have an account?'
-                                                          : 'Already have an account?',
-                                                    ),
-                                                    onPressed: () {},
-                                                  ),
-                                                  const TGap.section(),
-                                                  AnimatedSwitcher(
-                                                    duration: kDurationsAnimation,
-                                                    child: Row(
-                                                      key: ValueKey(
-                                                        authViewMode.name + 'forgotPassword',
-                                                      ),
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      children: [
-                                                        PrimaryButton(
-                                                          child: ButtonText(
-                                                            authViewMode.isLogin
-                                                                ? '''Forgot password?'''
-                                                                : '''Click here to login''',
-                                                          ),
-                                                          focusNode: model.registerButtonFocusNode,
-                                                          onPressed: authViewMode.isLogin
-                                                              ? model.onForgotPasswordPressed
-                                                              : () => model.onLoginPressed(
-                                                                    authViewMode: authViewMode,
-                                                                  ),
+                                                          ],
                                                         ),
-                                                      ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                                mainAxisSize: MainAxisSize.min,
-                                              ),
-                                            );
-                                          },
+                                                    const TGap.section(),
+                                                    VerticalShrink(
+                                                      show: authViewMode.isLogin,
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.only(
+                                                          top: kSizesFormFieldGap,
+                                                          bottom: kSizesFormFieldGap,
+                                                        ),
+                                                        child: Row(
+                                                          children: [
+                                                            Expanded(
+                                                              child: Button.primary(
+                                                                onPressed: () =>
+                                                                    model.onLoginPressed(
+                                                                  authViewMode: authViewMode,
+                                                                ),
+                                                                child: Text('wtf'),
+                                                                focusNode:
+                                                                    model.loginButtonFocusNode,
+                                                                enableFeedback: false,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    PrimaryButton(
+                                                      child: ButtonText(
+                                                        authViewMode.isLogin
+                                                            ? 'Don\'t have an account?'
+                                                            : 'Already have an account?',
+                                                      ),
+                                                      onPressed: () {},
+                                                    ),
+                                                    const TGap.section(),
+                                                    AnimatedSwitcher(
+                                                      duration: kDurationsAnimation,
+                                                      child: Row(
+                                                        key: ValueKey(
+                                                          authViewMode.name + 'forgotPassword',
+                                                        ),
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          PrimaryButton(
+                                                            child: ButtonText(
+                                                              authViewMode.isLogin
+                                                                  ? '''Forgot password?'''
+                                                                  : '''Click here to login''',
+                                                            ),
+                                                            focusNode:
+                                                                model.registerButtonFocusNode,
+                                                            onPressed: authViewMode.isLogin
+                                                                ? model.onForgotPasswordPressed
+                                                                : () => model.onLoginPressed(
+                                                                      authViewMode: authViewMode,
+                                                                    ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                  mainAxisSize: MainAxisSize.min,
+                                                ),
+                                              );
+                                            },
+                                          ),
                                         ),
                                       ),
                                     ),

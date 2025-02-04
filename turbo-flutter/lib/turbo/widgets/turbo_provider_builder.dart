@@ -52,11 +52,16 @@ class TurboProviderBuilder extends StatelessWidget {
           final colors = TurboColors(
             themeMode: turboThemeMode,
           );
-          final decorations = TurboDecorations();
+          final decorations = TurboDecorations(
+            themeMode: turboThemeMode,
+            deviceType: deviceType,
+          );
           final texts = TurboTexts(
             context: context,
             config: pConfig,
             colors: colors,
+            deviceType: deviceType,
+            themeMode: turboThemeMode,
           );
           final tools = TurboTools(
             currentWidth: constraints.maxWidth,

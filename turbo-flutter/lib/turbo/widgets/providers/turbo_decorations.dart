@@ -1,6 +1,33 @@
 part of 'turbo_provider.dart';
 
 class TurboDecorations {
+  const TurboDecorations({
+    required this.deviceType,
+    required this.themeMode,
+  });
+
+  final TurboDeviceType deviceType;
+  final TurboThemeMode themeMode;
+
+  EdgeInsets get cardPadding => const EdgeInsets.all(kSizesCardPadding);
+
+  List<BoxShadow> get cardShadow {
+    return [
+      const BoxShadow(
+        color: Color(0x0F000000),
+        blurRadius: 2,
+        offset: Offset(0, 1),
+        spreadRadius: 0,
+      ),
+      const BoxShadow(
+        color: Color(0x19000000),
+        blurRadius: 3,
+        offset: Offset(0, 1),
+        spreadRadius: 0,
+      ),
+    ];
+  }
+
   LinearGradient get gradientBackground {
     return const LinearGradient(
       begin: Alignment.bottomLeft,
@@ -17,3 +44,5 @@ class TurboDecorations {
     );
   }
 }
+
+class _CardDecorations {}

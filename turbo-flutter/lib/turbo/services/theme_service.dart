@@ -31,7 +31,7 @@ class ThemeService with Loglytics {
 
   void switchTheme() {
     log.info('Switching theme..');
-    if (_themeMode.value == TurboThemeMode.light) {// TODO(AGENT):  qzz
+    if (_themeMode.value == TurboThemeMode.light) {
       _localStorageService.updateThemeMode(themeMode: TurboThemeMode.dark);
       _themeMode.update(TurboThemeMode.dark);
     } else {
