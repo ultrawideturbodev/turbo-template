@@ -9,19 +9,14 @@ class TurboDecorations {
   final TurboDeviceType deviceType;
   final TurboThemeMode themeMode;
 
+  BlurStyle get blurStyle => BlurStyle.solid;
   EdgeInsets get cardPadding => const EdgeInsets.all(kSizesCardPadding);
 
   List<BoxShadow> get cardShadow {
     return [
       const BoxShadow(
-        color: Color(0x0F000000),
+        color: Color(0x0C000000),
         blurRadius: 2,
-        offset: Offset(0, 1),
-        spreadRadius: 0,
-      ),
-      const BoxShadow(
-        color: Color(0x19000000),
-        blurRadius: 3,
         offset: Offset(0, 1),
         spreadRadius: 0,
       ),

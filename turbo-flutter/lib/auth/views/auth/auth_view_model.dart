@@ -109,16 +109,20 @@ class AuthViewModel extends BaseViewModel with Loglytics, BusyServiceManagement 
       _registerForm.agreePrivacy.focusNode.skipTraversal = !_showAgreeToPrivacyCheckBox.value;
 
   void _onAuthViewModeChanged() {
-    switch (_authViewMode.value) {
-      case AuthViewMode.login:
-        loginButtonFocusNode.skipTraversal = false;
-        _registerForm.confirmPassword.focusNode.skipTraversal = true;
-        break;
-      case AuthViewMode.register:
-        loginButtonFocusNode.skipTraversal = true;
-        _registerForm.confirmPassword.focusNode.skipTraversal = false;
-        break;
-    }
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        switch (_authViewMode.value) {
+          case AuthViewMode.login:
+            loginButtonFocusNode.skipTraversal = false;
+            _registerForm.confirmPassword.focusNode.skipTraversal = true;
+            break;
+          case AuthViewMode.register:
+            loginButtonFocusNode.skipTraversal = true;
+            _registerForm.confirmPassword.focusNode.skipTraversal = false;
+            break;
+        }
+      },
+    );
   }
 
   void onPrivacyPolicyPressed() {

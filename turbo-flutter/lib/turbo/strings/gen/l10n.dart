@@ -260,10 +260,10 @@ class Strings {
     );
   }
 
-  /// `Forgot Password`
+  /// `Forgot password`
   String get forgotPassword {
     return Intl.message(
-      'Forgot Password',
+      'Forgot password',
       name: 'forgotPassword',
       desc: '',
       args: [],

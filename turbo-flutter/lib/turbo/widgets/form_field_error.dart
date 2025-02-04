@@ -10,7 +10,7 @@ class FormFieldError extends StatelessWidget {
   const FormFieldError({
     required ValueListenable<String?> errorText,
     required ValueListenable<bool> shouldValidate,
-    this.leftPadding = 10,
+    this.leftPadding = 8,
     this.topPadding = 8,
     super.key,
   })  : _errorText = errorText,
@@ -30,7 +30,10 @@ class FormFieldError extends StatelessWidget {
           sizeDuration: kDurationsAnimationX0p5,
           show: _shouldValidate.value && (_errorText.value?.isNotEmpty ?? false),
           child: Padding(
-            padding: EdgeInsets.only(top: topPadding),
+            padding: EdgeInsets.only(
+              top: topPadding,
+              bottom: 4,
+            ),
             child: Row(
               children: [
                 SizedBox(width: leftPadding),

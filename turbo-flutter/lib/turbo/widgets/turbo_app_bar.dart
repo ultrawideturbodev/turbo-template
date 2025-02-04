@@ -34,11 +34,11 @@ class TurboAppBar extends AppBar {
                   ? AutoSizeText(
                       title,
                       style: textStyle ??
-                          context.t.texts.title,
+                          context.t.texts.viewTitle,
                     )
                   : null),
           titleTextStyle: textStyle ??
-              context.t.texts.title,
+              context.t.texts.viewTitle,
           automaticallyImplyLeading: onBackPressed == null ? automaticallyImplyLeading : false,
           leading: onBackPressed == null
               ? (automaticallyImplyLeading
@@ -68,7 +68,7 @@ class CustomSliverAppBar extends SliverAppBar {
                   ? AutoSizeText(
                       title,
                       style: textStyle ??
-                          context.t.texts.title,
+                          context.t.texts.viewTitle,
                     )
                   : null),
           shadowColor: Colors.black,

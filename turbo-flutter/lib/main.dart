@@ -52,12 +52,11 @@ class MyApp extends StatelessWidget {
         return AnnotatedRegion(
           value: turboThemeMode.systemUiOverlayStyle,
           child: ShadcnApp.router(
-            theme: TurboTheme.lightViolet.themeData,
-            darkTheme: TurboTheme.darkViolet.themeData,
+            theme: TurboTheme.lightZinc.themeData,
+            darkTheme: TurboTheme.darkZinc.themeData,
             themeMode: turboThemeMode.themeMode,
             routerConfig: BaseRouter.locate.coreRouter,
             scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),
-            title: 'Placeholder',
             debugShowCheckedModeBanner: false,
             builder: (context, child) {
               final media = MediaQuery.of(context);

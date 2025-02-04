@@ -12,7 +12,6 @@ import 'package:turbo_template/turbo/widgets/form_field_text.dart';
 import 'package:turbo_template/turbo/widgets/shrinks.dart';
 import 'package:turbo_template/turbo/widgets/t_gap.dart';
 import 'package:turbo_template/turbo/widgets/turbo_scroll_view.dart';
-import 'package:turbo_template/typography/widgets/button_text.dart';
 import 'package:veto/data/models/base_view_model.dart';
 import 'package:veto/data/models/busy_model.dart';
 
@@ -28,13 +27,13 @@ class CreateUsernameView extends StatelessWidget {
     return ViewModelBuilder<CreateUsernameViewModel>(
       builder: (context, model, isInitialised, child) {
         if (!isInitialised) return kWidgetsNothing;
-        final textStyle = context.t.texts.title;
+        final textStyle = context.t.texts.viewTitle;
         return Scaffold(
           child: isInitialised
               ? FadingScrollable(
             foregroundContent: BottomPositioned(
               child: PrimaryButton(
-                child: ButtonText(gStrings.save),
+                child: Text(gStrings.save),
                 onPressed: () => model.save(context: context),
                 focusNode: model.saveButtonFocusNode,
               ),
@@ -69,7 +68,6 @@ class CreateUsernameView extends StatelessWidget {
                                       padding: const EdgeInsets.only(bottom: 16),
                                       child: Text(
                                         gStrings.whatNameSuitsYouBest,
-                                        style: context.t.texts.formField,
                                       ),
                                     ),
                                   ],

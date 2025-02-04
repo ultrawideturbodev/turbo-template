@@ -7,8 +7,8 @@ import '../typedefs/string_builder.dart';
 Future<bool?> gShowOkCancelDialog({
   FeedbackLevel feedbackLevel = FeedbackLevel.info,
   StringBuilder? message,
-  StringBuilder? okButtonText,
-  StringBuilder? cancelButtonText,
+  StringBuilder? okText,
+  StringBuilder? cancelText,
   StringBuilder? title,
   WidgetBuilder? content,
   bool barrierDismissible = true,
@@ -19,8 +19,8 @@ Future<bool?> gShowOkCancelDialog({
       title: title,
       content: content,
       message: message,
-      okButtonText: okButtonText,
-      cancelButtonText: cancelButtonText,
+      okText: okText,
+      cancelText: cancelText,
       feedbackLevel: feedbackLevel,
       barrierDismissible: barrierDismissible,
     );

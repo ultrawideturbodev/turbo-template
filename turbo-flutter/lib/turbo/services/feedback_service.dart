@@ -160,8 +160,8 @@ class FeedbackService with Loglytics {
   Future<bool?> showOkCancelDialog({
     FeedbackLevel feedbackLevel = FeedbackLevel.info,
     StringBuilder? message,
-    StringBuilder? okButtonText,
-    StringBuilder? cancelButtonText,
+    StringBuilder? okText,
+    StringBuilder? cancelText,
     StringBuilder? title,
     WidgetBuilder? content,
     bool barrierDismissible = true,
@@ -198,7 +198,7 @@ class FeedbackService with Loglytics {
   Future<bool?> showOkDialog({
     FeedbackLevel feedbackLevel = FeedbackLevel.info,
     StringBuilder? message,
-    StringBuilder? okButtonText,
+    StringBuilder? okText,
     StringBuilder? title,
     WidgetBuilder? content,
     bool barrierDismissible = true,

@@ -15,7 +15,24 @@ class TurboTexts {
   final TurboThemeMode themeMode;
   final TurboDeviceType deviceType;
 
-  Typography get typography => context.themeData.typography;
+  // helpers
+
+  ThemeData get _themeData => context.themeData;
+  Typography get typography => _themeData.typography;
+  ColorScheme get _colorScheme => _themeData.colorScheme;
+
+  // font weights
+  static const FontWeight fwThin = FontWeight.w100;
+  static const FontWeight fwExtraLight = FontWeight.w200;
+  static const FontWeight fwLight = FontWeight.w300;
+  static const FontWeight fwRegular = FontWeight.w400;
+  static const FontWeight fwMedium = FontWeight.w500;
+  static const FontWeight fwSemiBold = FontWeight.w600;
+  static const FontWeight fwBold = FontWeight.w700;
+  static const FontWeight fwExtraBold = FontWeight.w800;
+  static const FontWeight fwBlack = FontWeight.w900;
+
+  // core
 
   TextStyle get _h1 => typography.h1;
   TextStyle get _h2 => typography.h2;
@@ -24,30 +41,55 @@ class TurboTexts {
   TextStyle get _blockquote => typography.blockQuote;
   TextStyle get _lead => typography.lead;
   TextStyle get _large => typography.large;
+  TextStyle get _xLarge => typography.xLarge;
+  TextStyle get _x2Large => typography.x2Large;
   TextStyle get _small => typography.small;
+  TextStyle get _xSmall => typography.xSmall;
+  TextStyle get _muted => _small.copyWith(
+        color: _colorScheme.mutedForeground,
+      );
+  TextStyle get _xMuted => _xSmall.copyWith(
+        color: _colorScheme.mutedForeground,
+      );
+
   TextStyle get _p => typography.p;
 
-  TextStyle get button => _small.copyWith(color: context.themeData.colorScheme.primary.onColor);
-  TextStyle get title => _h1;
+  // use cases
+
+  TextStyle get button => _small.copyWith(
+        color: _themeData.colorScheme.primary.onColor,
+      );
+
+  TextStyle get viewTitle => _h1;
   TextStyle get h1 => _h2;
   TextStyle get h2 => _h3;
   TextStyle get h3 => _h4;
-  TextStyle get formFieldError => _small.copyWith(color: colors.error);
-  TextStyle get formFieldLabel => _small.copyWith(color: colors.background.onColor);
-  TextStyle get formField => _small;
-  TextStyle get svgMessage => _p;
-  TextStyle get dialogHeader => _h3;
-  TextStyle get dialogBody => _p;
-  TextStyle get paragraph => _p;
-  TextStyle get acceptPrivacy => _small;
-  TextStyle get badge => _small;
-  TextStyle get shellMenuItem => _small;
-  TextStyle get navigationTab => _small;
-  TextStyle get sectionHeader => h1;
 
-  TextStyle get cardTitle => typography.x2Large.copyWith(
-        fontWeight: FontWeight.w600,
+  TextStyle get formField => _small;
+  TextStyle get formFieldError => _xSmall.copyWith(
+        color: colors.error,
+        fontWeight: fwSemiBold,
+      );
+  TextStyle get formFieldHint => formField.copyWith(
+        color: _colorScheme.input,
+        fontWeight: fwRegular,
+      );
+  TextStyle get formFieldLabel => _xSmall.copyWith(
+        color: colors.background.onColor,
+    fontWeight: fwMedium,
       );
 
+  TextStyle get trailingFormFieldLabel => _xMuted.copyWithCurrent(
+    fontSize: (cValue) => cValue * 0.9,
+  );
+  TextStyle get paragraph => _p;
+  TextStyle get acceptPrivacy => _muted;
 
+  TextStyle get cardTitle => _x2Large.copyWith(
+        fontWeight: fwSemiBold,
+      );
+
+  TextStyle get cardSubtitle => _muted.copyWith(
+        fontWeight: fwRegular,
+      );
 }

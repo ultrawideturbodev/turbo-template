@@ -33,7 +33,7 @@ void gTryShowFutureResponse({
 
 void gShowOkDialog({
   String? message,
-  String? okButtonText,
+  String? okText,
   String? title,
   WidgetBuilder? content,
   bool barrierDismissible = true,
@@ -42,7 +42,7 @@ void gShowOkDialog({
     ResponseService.locate.showOkDialog(
       context: context,
       message: message,
-      okButtonText: okButtonText,
+      okText: okText,
       title: title,
       content: content,
       barrierDismissible: barrierDismissible,
@@ -50,8 +50,8 @@ void gShowOkDialog({
 
 Future<bool?> gShowOkCancelDialog({
   String? message,
-  String? okButtonText,
-  String? cancelButtonText,
+  String? okText,
+  String? cancelText,
   String? title,
   WidgetBuilder? content,
   bool barrierDismissible = true,
@@ -60,8 +60,8 @@ Future<bool?> gShowOkCancelDialog({
     ResponseService.locate.showOkCancelDialog(
       context: context,
       message: message,
-      okButtonText: okButtonText,
-      cancelButtonText: cancelButtonText,
+      okText: okText,
+      cancelText: cancelText,
       title: title,
       content: content,
       barrierDismissible: barrierDismissible,

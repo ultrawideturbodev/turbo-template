@@ -5,7 +5,6 @@ import 'package:turbo_template/turbo/constants/k_svgs.dart';
 import 'package:turbo_template/turbo/constants/k_widgets.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';
 import 'package:turbo_template/turbo/widgets/t_gap.dart';
-import 'package:turbo_template/typography/widgets/button_text.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
 import 'verify_email_view_model.dart';
@@ -58,7 +57,7 @@ class VerifyEmailView extends StatelessWidget {
                                     children: [
                                       Text(
                                         'Verify Email',
-                                        style: context.t.texts.title,
+                                        style: context.t.texts.viewTitle,
                                         textAlign: TextAlign.center,
                                       ),
                                       const SizedBox(height: 8),
@@ -69,7 +68,7 @@ class VerifyEmailView extends StatelessWidget {
                                       ),
                                       const TGap.appPadding(),
                                       PrimaryButton(
-                                        child: const ButtonText('''Send Email'''),
+                                        child: const Text('''Send Email'''),
                                         onPressed: () => model.onSendEmailPressed(context: context),
                                       ),
                                       Column(
@@ -80,7 +79,7 @@ class VerifyEmailView extends StatelessWidget {
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               SecondaryButton(
-                                                child: const ButtonText('''Skip'''),
+                                                child: const Text('''Skip'''),
                                                 onPressed: model.onSkipPressed,
                                               ),
                                             ],

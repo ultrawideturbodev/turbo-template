@@ -6,7 +6,6 @@ import 'package:turbo_template/turbo/extensions/context_extension.dart';
 import 'package:turbo_template/turbo/globals/g_strings.dart';
 import 'package:turbo_template/turbo/widgets/form_field_text.dart';
 import 'package:turbo_template/turbo/widgets/t_gap.dart';
-import 'package:turbo_template/typography/widgets/button_text.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
 import 'forgot_password_view_model.dart';
@@ -63,7 +62,7 @@ class ForgotPasswordView extends StatelessWidget {
                                         children: [
                                           Text(
                                             origin.title,
-                                            style: context.t.texts.title,
+                                            style: context.t.texts.viewTitle,
                                             textAlign: TextAlign.center,
                                           ),
                                           const TGap.element(),
@@ -86,7 +85,7 @@ class ForgotPasswordView extends StatelessWidget {
                                                 child: PrimaryButton(
                                                   onPressed: () =>
                                                       model.onSendEmailPressed(context: context),
-                                                  child: ButtonText(gStrings.send),
+                                                  child: Text(gStrings.send),
                                                   focusNode: model.sendEmailButtonFocusNode,
                                                 ),
                                               ),
@@ -101,7 +100,7 @@ class ForgotPasswordView extends StatelessWidget {
                                       children: [
                                         PrimaryButton(
                                           onPressed: () => model.onGoBackPressed(context: context),
-                                          child:  ButtonText(gStrings.clickHereToLogin),
+                                          child:  Text(gStrings.clickHereToLogin),
                                         ),
                                       ],
                                     ),

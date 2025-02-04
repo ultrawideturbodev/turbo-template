@@ -10,6 +10,7 @@ import 'package:turbo_template/turbo/extensions/color_extension.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';
 import 'package:turbo_template/turbo/models/turbo_data.dart';
 import 'package:turbo_template/turbo/models/turbo_tools.dart';
+import 'package:turbo_template/typography/extensions/text_style_extension.dart';
 
 export 'turbo_provider.dart';
 

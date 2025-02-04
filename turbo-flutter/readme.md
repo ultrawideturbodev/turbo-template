@@ -5,7 +5,7 @@ This repository provides a comprehensive Flutter template with essential feature
 ## 🌟 Features
 
 - 🔐 Firebase Authentication
-    - Login, Create Account, Forgot Password, Verify Email, Username Creation
+    - Login, Create Account, Forgot password, Verify Email, Username Creation
     - Privacy Policy Acceptance
 - 🎨 UI Components
     - Responsive Design, Theme Support, Multi-language Support

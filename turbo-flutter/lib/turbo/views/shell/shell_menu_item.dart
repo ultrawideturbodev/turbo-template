@@ -54,7 +54,6 @@ class _ShellMenuItem extends ViewModelWidget<ShellViewModel> {
                               child: AutoSizeText(
                                 badgeNumber!.toString(),
                                 minFontSize: 0,
-                                style: context.t.texts.badge,
                               ),
                             ),
                           ),
@@ -65,7 +64,6 @@ class _ShellMenuItem extends ViewModelWidget<ShellViewModel> {
                 const Gap(8),
                 Text(
                   navigationTab.label,
-                  style: context.t.texts.shellMenuItem,
                   textScaler: context.textScaler,
                 ),
               ],

@@ -107,7 +107,6 @@ class ShellView extends StatelessWidget {
                                               padding: const EdgeInsets.all(kSizesAppPadding),
                                               child: AutoSizeText(
                                                 'Placeholder',
-                                                style: context.t.texts.sectionHeader,
                                                 maxLines: 1,
                                                 textScaleFactor: context.t.tools.scaledPerWidth(1),
                                               ),

@@ -11,6 +11,7 @@ class TurboCard extends StatelessWidget {
         padding: context.t.decorations.cardPadding,
         child: child,
         borderWidth: 1,
+        borderColor: context.t.colors.cardBorder,
         boxShadow: context.t.decorations.cardShadow,
       );
 }
