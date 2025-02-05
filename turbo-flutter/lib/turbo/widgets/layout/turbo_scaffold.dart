@@ -15,17 +15,22 @@ class TurboScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final safeChild = SafeArea(child: child);
-    final pBackground =
-        background ?? context.decorations.scaffoldBackground;
+    final pBackground = background ?? context.decorations.scaffoldBackground;
     return Scaffold(
       child: switch (pBackground) {
         TurboColorBackground() => safeChild,
-        TurboGradientBackground() => Container(
-          decoration: BoxDecoration(
-            gradient: pBackground.pLinearGradient,
+        TurboLinearGradient() => Container(
+            decoration: BoxDecoration(
+              gradient: pBackground.pLinearGradient,
+            ),
+            child: safeChild,
           ),
-          child: safeChild,
-        ),
+        TurboRadialGradient() => Container(
+            decoration: BoxDecoration(
+              gradient: pBackground.pRadialGradient,
+            ),
+            child: safeChild,
+          ),
       },
       backgroundColor: pBackground.pBackgroundColor ?? context.colors.background,
     );

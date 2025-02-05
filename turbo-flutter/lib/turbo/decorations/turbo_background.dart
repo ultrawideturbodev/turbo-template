@@ -5,7 +5,8 @@ extension TurboBackgroundExtension on TurboBackground {
     switch (this) {
       case TurboColorBackground():
         return (this as TurboColorBackground).backgroundColor;
-      case TurboGradientBackground():
+      case TurboLinearGradient():
+      case TurboRadialGradient():
         return null;
     }
   }
@@ -13,20 +14,22 @@ extension TurboBackgroundExtension on TurboBackground {
   LinearGradient? get pLinearGradient {
     switch (this) {
       case TurboColorBackground():
+      case TurboRadialGradient():
         return null;
-      case TurboGradientBackground():
-        final bg = this as TurboGradientBackground;
-        return bg.gradient as LinearGradient;
+      case TurboLinearGradient():
+        final bg = this as TurboLinearGradient;
+        return bg.linearGradient as LinearGradient;
     }
   }
 
   RadialGradient? get pRadialGradient {
     switch (this) {
       case TurboColorBackground():
+      case TurboLinearGradient():
         return null;
-      case TurboGradientBackground():
-        final bg = this as TurboGradientBackground;
-        return bg.gradient as RadialGradient;
+      case TurboRadialGradient():
+        final bg = this as TurboRadialGradient;
+        return bg.radialGradient as RadialGradient;
     }
   }
 }
@@ -39,10 +42,18 @@ class TurboColorBackground extends TurboBackground {
   final Color backgroundColor;
 }
 
-class TurboGradientBackground extends TurboBackground {
-  TurboGradientBackground({
-    this.gradient,
+class TurboLinearGradient extends TurboBackground {
+  TurboLinearGradient({
+    this.linearGradient,
   });
 
-  final Gradient? gradient;
+  final LinearGradient? linearGradient;
+}
+
+class TurboRadialGradient extends TurboBackground {
+  TurboRadialGradient({
+    this.radialGradient,
+  });
+
+  final RadialGradient? radialGradient;
 }

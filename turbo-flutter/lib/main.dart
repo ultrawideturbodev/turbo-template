@@ -86,48 +86,49 @@ class MyApp extends StatelessWidget {
                       context,
                     ) =>
                         Overlay(
-                      initialEntries: [
-                        OverlayEntry(
-                          builder: (_) {
-                            final busyService = BusyService.instance();
-                            final connectionService = ConnectionService.locate;
-                            return ValueListenableBuilderX2<BusyModel, bool>(
-                              valueListenable: busyService.isBusyListenable,
-                              valueListenable2: connectionService.hasInternetConnection,
-                              builder: (context, busyModel, hasInternetConnection, _) {
-                                return Column(
-                                  children: [
-                                    Expanded(
-                                      child: Stack(
-                                        fit: StackFit.expand,
-                                        alignment: AlignmentDirectional.center,
-                                        children: [
-                                          Positioned.fill(
-                                            child: AnimatedOpacity(
-                                              duration: kDurationsAnimation,
-                                              opacity: busyModel.isBusy ? kSizesOpacityDisabled : 1,
-                                              child: IgnorePointer(
-                                                ignoring:
+                          initialEntries: [
+                            OverlayEntry(
+                              builder: (_) {
+                                final busyService = BusyService.instance();
+                                final connectionService = ConnectionService.locate;
+                                return ValueListenableBuilderX2<BusyModel, bool>(
+                                  valueListenable: busyService.isBusyListenable,
+                                  valueListenable2: connectionService.hasInternetConnection,
+                                  builder: (context, busyModel, hasInternetConnection, _) {
+                                    return Column(
+                                      children: [
+                                        Expanded(
+                                          child: Stack(
+                                            fit: StackFit.expand,
+                                            alignment: AlignmentDirectional.center,
+                                            children: [
+                                              Positioned.fill(
+                                                child: AnimatedOpacity(
+                                                  duration: kDurationsAnimation,
+                                                  opacity:
+                                                  busyModel.isBusy ? kSizesOpacityDisabled : 1,
+                                                  child: IgnorePointer(
+                                                    ignoring:
                                                     busyModel.isBusy || !hasInternetConnection,
-                                                child: child!,
+                                                    child: child!,
+                                                  ),
+                                                ),
                                               ),
-                                            ),
+                                              IsBusyIcon(
+                                                busyModel: busyModel,
+                                                height: 112,
+                                              ),
+                                            ],
                                           ),
-                                          IsBusyIcon(
-                                            busyModel: busyModel,
-                                            height: 112,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
+                                        ),
+                                      ],
+                                    );
+                                  },
                                 );
                               },
-                            );
-                          },
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
                   ),
                 ),
               );

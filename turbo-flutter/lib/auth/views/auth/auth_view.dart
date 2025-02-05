@@ -118,25 +118,16 @@ class AuthView extends StatelessWidget {
                                         alignment: Alignment.bottomCenter,
                                         show: showAgreeToPrivacyCheckBox,
                                         child: Padding(
-                                          padding: const EdgeInsets.only(
-                                            left: 8,
-                                            top: 8,
-                                          ),
+                                          padding: const EdgeInsets.only(top: kSizesElementGap),
                                           child: FormFieldCheckbox(
                                             formFieldConfig: model.agreePrivacyField,
-                                            color: Colors.white,
-                                            label: Padding(
-                                              padding: const EdgeInsets.only(
-                                                left: 16,
-                                              ),
-                                              child: MouseRegion(
-                                                cursor: SystemMouseCursors.click,
-                                                child: AcceptPrivacyText(
-                                                  onPrivacyPolicyTap:
-                                                  model.onPrivacyPolicyPressed,
-                                                  onTermsOfServiceTap:
-                                                  model.onTermsOfServicePressed,
-                                                ),
+                                            label: MouseRegion(
+                                              cursor: SystemMouseCursors.click,
+                                              child: AcceptPrivacyText(
+                                                onPrivacyPolicyTap:
+                                                model.onPrivacyPolicyPressed,
+                                                onTermsOfServiceTap:
+                                                model.onTermsOfServicePressed,
                                               ),
                                             ),
                                           ),

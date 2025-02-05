@@ -76,7 +76,7 @@ class AuthViewModel extends BaseViewModel with Loglytics, BusyServiceManagement 
 
   final FocusNode loginButtonFocusNode = FocusNode();
   final FocusNode registerButtonFocusNode = FocusNode();
-  final _authViewMode = Informer<AuthViewMode>(AuthViewMode.login);
+  final _authViewMode = Informer<AuthViewMode>(AuthViewMode.register);
   final _showAgreeToPrivacyCheckBox = Informer<bool>(false);
   final _loginForm = LoginForm.locate;
   final _registerForm = RegisterForm.locate;

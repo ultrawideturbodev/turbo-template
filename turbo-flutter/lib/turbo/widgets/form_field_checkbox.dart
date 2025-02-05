@@ -1,5 +1,8 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:flutter/services.dart';
+import 'package:turbo_template/turbo/extensions/bool_extension.dart';
+import 'package:turbo_template/turbo/extensions/checkbox_state_extension.dart';
+import 'package:turbo_template/turbo/widgets/buttons/turbo_button.dart';
 
 import '../forms/form_field_config.dart';
 import 'animated_enabled.dart';
@@ -11,12 +14,10 @@ class FormFieldCheckbox extends StatefulWidget {
     super.key,
     required this.formFieldConfig,
     required this.label,
-    this.color,
   });
 
   final FormFieldConfig<bool> formFieldConfig;
   final Widget label;
-  final Color? color;
 
   @override
   State<FormFieldCheckbox> createState() => _FormFieldCheckboxState();
@@ -41,6 +42,7 @@ class _FormFieldCheckboxState extends State<FormFieldCheckbox> {
   Widget build(BuildContext context) {
     final formFieldConfig = widget.formFieldConfig;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         AnimatedEnabled(
           isEnabled: formFieldConfig.isEnabled,
@@ -58,27 +60,25 @@ class _FormFieldCheckboxState extends State<FormFieldCheckbox> {
                     }
                   }
                 },
-                child: TuCheckbox.check(
-                  borderRadius: BorderRadius.circular(6),
-                  initialValue: formFieldConfig.value ?? false,
+                child: Checkbox(
+                  state: (formFieldConfig.value == true).checkboxState,
                   onChanged: (value) {
-                    formFieldConfig.value = value;
+                    formFieldConfig.value = value.toBool;
                     if (formFieldConfig.shouldValidate.value) {
                       formFieldConfig.isValid;
                     }
                   },
                 ),
               ),
-              Flexible(
-                child: GestureDetector(
-                  child: widget.label,
-                  onTap: () {
-                    formFieldConfig.value = !(formFieldConfig.value ?? false);
-                    if (formFieldConfig.shouldValidate.value) {
-                      formFieldConfig.isValid;
-                    }
-                  },
-                ),
+              TurboButton(
+                child: widget.label,
+                scaleEnd: 1,
+                onPressed: () {
+                  formFieldConfig.value = !(formFieldConfig.value ?? false);
+                  if (formFieldConfig.shouldValidate.value) {
+                    formFieldConfig.isValid;
+                  }
+                },
               ),
             ],
           ),

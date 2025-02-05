@@ -7,13 +7,19 @@ class TurboButton extends StatelessWidget {
     Key? key,
     required this.child,
     required this.onPressed,
+    this.scaleEnd = 0.95,
+    this.opacityEnd = 0.8,
   }) : super(key: key);
 
   final Widget child;
   final VoidCallback onPressed;
+  final double scaleEnd;
+  final double opacityEnd;
 
   @override
   Widget build(BuildContext context) => TurboButtonAnimation(
+        scaleEnd: scaleEnd,
+        opacityEnd: opacityEnd,
         child: MouseRegion(
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
