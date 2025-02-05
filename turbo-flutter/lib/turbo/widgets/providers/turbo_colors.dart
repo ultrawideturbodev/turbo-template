@@ -95,10 +95,7 @@ class TurboColors {
         TurboThemeMode.dark => const Color(0xFFEDEBEB),
       };
 
-  Color get background => switch (themeMode) {
-        TurboThemeMode.light => const Color(0xFFFAFAFA),
-        TurboThemeMode.dark => const Color(0xFF8447FF),
-      };
+  Color get background => _colorScheme.background;
 
   Color get badge => switch (themeMode) {
         TurboThemeMode.light => const Color(0xFFE5E7EB),

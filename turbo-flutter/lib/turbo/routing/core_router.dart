@@ -1,5 +1,5 @@
-import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 
 import '../../auth/views/auth/auth_view.dart';
 import '../../auth/views/forgot_password/forgot_password_view.dart';
@@ -15,7 +15,7 @@ class CoreRouter extends BaseNavigation {
   NavigationTab? get navigationTab => null;
 
   @override
-  String get root => '';
+  String get root => AuthView.path;
 
   // 🪄 MUTATORS ------------------------------------------------------------------------------ \\
 
@@ -23,15 +23,14 @@ class CoreRouter extends BaseNavigation {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
         go(
-          location: '$root'
-              '${OopsView.path}',
+          location: OopsView.path.asRootPath,
         );
       },
     );
   }
 
   void goAuthView() => go(
-        location: AuthView.path.asRootPath,
+        location: root,
         extra: [],
       );
 

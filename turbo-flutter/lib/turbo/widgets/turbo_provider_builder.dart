@@ -2,6 +2,7 @@ import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:flutter/widgets.dart';
 import 'package:turbo_template/turbo/config/turbo_breakpoint_config.dart';
 import 'package:turbo_template/turbo/config/turbo_config.dart';
+import 'package:turbo_template/turbo/enums/supported_language.dart';
 import 'package:turbo_template/turbo/enums/turbo_device_type.dart';
 import 'package:turbo_template/turbo/enums/turbo_theme_mode.dart';
 import 'package:turbo_template/turbo/extensions/box_constraints_extension.dart';
@@ -17,6 +18,7 @@ class TurboProviderBuilder extends StatelessWidget {
     super.key,
     required this.builder,
     required this.turboThemeMode,
+    required this.supportedLanguage,
     this.turboBreakpointConfig = const TurboBreakpointConfig(),
     this.config,
   });
@@ -24,9 +26,11 @@ class TurboProviderBuilder extends StatelessWidget {
   final TurboConfig Function(
     TurboThemeMode themeMode,
     TurboDeviceType deviceType,
+    SupportedLanguage language,
   )? config;
   final TurboBreakpointConfig turboBreakpointConfig;
   final TurboThemeMode turboThemeMode;
+  final SupportedLanguage supportedLanguage;
   final Widget Function(
     TurboConfig config,
     TurboThemeMode themeMode,
@@ -44,10 +48,11 @@ class TurboProviderBuilder extends StatelessWidget {
           final deviceType = constraints.turboDeviceType(
             breakpointConfig: turboBreakpointConfig,
           );
-          final pConfig = config?.call(turboThemeMode, deviceType) ??
+          final pConfig = config?.call(turboThemeMode, deviceType, supportedLanguage) ??
               TurboConfig.defaultValues(
                 turboThemeMode,
                 deviceType,
+                supportedLanguage,
               );
           final colors = TurboColors(
             context: context,

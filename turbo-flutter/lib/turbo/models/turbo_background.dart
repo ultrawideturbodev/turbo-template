@@ -4,9 +4,9 @@ extension TurboBackgroundExtension on TurboBackground {
   Color? get backgroundColor {
     switch (this) {
       case TurboColorBackground():
-        return (this as TurboColorBackground).color;
+        return (this as TurboColorBackground).backgroundColor;
       case TurboGradientBackground():
-        return null;
+        return (this as TurboGradientBackground).backgroundColor;
     }
   }
 
@@ -42,9 +42,9 @@ extension TurboBackgroundExtension on TurboBackground {
 sealed class TurboBackground {}
 
 class TurboColorBackground extends TurboBackground {
-  TurboColorBackground({required this.color});
+  TurboColorBackground({required this.backgroundColor});
 
-  final Color color;
+  final Color backgroundColor;
 }
 
 class TurboGradientBackground extends TurboBackground {
@@ -54,8 +54,10 @@ class TurboGradientBackground extends TurboBackground {
     this.end = Alignment.bottomCenter,
     this.center = Alignment.center,
     this.radius = 0.8,
+    this.backgroundColor,
   });
 
+  final Color? backgroundColor;
   final List<Color> colors;
   final AlignmentGeometry begin;
   final AlignmentGeometry end;

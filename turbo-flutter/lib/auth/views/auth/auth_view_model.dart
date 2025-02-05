@@ -6,6 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:informers/informers.dart';
 import 'package:loglytics/loglytics.dart';
+import 'package:turbo_template/turbo/globals/g_user_id.dart';
 import 'package:veto/veto.dart';
 
 import 'package:turbo_template/turbo/constants/k_durations.dart';
@@ -35,13 +36,26 @@ class AuthViewModel extends BaseViewModel with Loglytics, BusyServiceManagement 
   final _authService = AuthService.locate;
   final _localStorageService = LocalStorageService.locate;
   final _authStepService = AuthStepService.locate;
-  final homeRouter = HomeRouter.locate;
+  final _homeRouter = HomeRouter.locate;
   final _coreRouter = CoreRouter.locate;
 
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
 
   @override
   Future<void> initialise() async {
+    await _authService.isReady;
+    if (_authService.hasAuth.value) {
+      await _authStepService.isReady;
+      final result = await _authStepService.handleAuthStep();
+      switch (result) {
+        case StepResult.didNavigate:
+          break;
+        case StepResult.didNothing:
+          _homeRouter.goHomeView();
+          return;
+      }
+      log.info('Startup step handled!');
+    }
     _authViewMode.addListener(_onAuthViewModeChanged);
     _showAgreeToPrivacyCheckBox.addListener(_onShowAgreePrivacyCheckbox);
     _onAuthViewModeChanged();
@@ -314,7 +328,7 @@ class AuthViewModel extends BaseViewModel with Loglytics, BusyServiceManagement 
       case StepResult.didNavigate:
         break;
       case StepResult.didNothing:
-        homeRouter.goHomeView();
+        _homeRouter.goHomeView();
         break;
     }
   }
@@ -400,10 +414,7 @@ class AuthViewModel extends BaseViewModel with Loglytics, BusyServiceManagement 
   static AuthViewModel get locate => GetIt.I.get();
   static void registerFactory() => GetIt.I.registerFactory(AuthViewModel.new);
 
-  void onAppleAuthPressed() {
+  void onAppleAuthPressed() {}
 
-  }
-
-  void onGoogleAuthPressed() {
-  }
+  void onGoogleAuthPressed() {}
 }

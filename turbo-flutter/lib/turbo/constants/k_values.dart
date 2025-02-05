@@ -1,5 +1,6 @@
 const kValuesDeviceId = 'deviceId';
 const kValuesFontFamily = 'Nunito';
+const kValuesHeaderFontFamily = 'Nunito';
 const kValuesNull = 'null';
 const kValuesHyphen = '-';
 const kValuesNoAuthId = 'no-auth-id';

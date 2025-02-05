@@ -69,10 +69,19 @@ class MyApp extends StatelessWidget {
                     typography: context.theme.typography.copyWith(),
                   ),
                   child: TurboProviderBuilder(
+                    supportedLanguage: language,
                     turboThemeMode: turboThemeMode,
-                    builder:
-                        (config, themeMode, tools, data, texts, colors, decorations, context) =>
-                            Overlay(
+                    builder: (
+                      config,
+                      themeMode,
+                      tools,
+                      data,
+                      texts,
+                      colors,
+                      decorations,
+                      context,
+                    ) =>
+                        Overlay(
                       initialEntries: [
                         OverlayEntry(
                           builder: (_) {

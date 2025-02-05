@@ -2,22 +2,22 @@ import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:provider/provider.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/auth/forms/create_username_form.dart';
 import 'package:turbo_template/auth/routing/auth_step_router.dart';
 import 'package:turbo_template/auth/views/accept_privacy/accept_privacy_view_model.dart';
 import 'package:turbo_template/auth/views/create_username/create_username_view_model.dart';
 import 'package:turbo_template/auth/views/verify_email/verify_email_view_model.dart';
-import 'package:turbo_template/turbo/services/dialog_service.dart';
-import 'package:turbo_template/turbo/services/vibrate_service.dart';
 import 'package:turbo_template/home/routing/home_router.dart';
 import 'package:turbo_template/home/views/home/home_view_model.dart';
 import 'package:turbo_template/settings/apis/settings_api.dart';
 import 'package:turbo_template/settings/services/settings_service.dart';
 import 'package:turbo_template/settings/views/settings_view_model.dart';
+import 'package:turbo_template/turbo/services/dialog_service.dart';
+import 'package:turbo_template/turbo/services/vibrate_service.dart';
 import 'package:turbo_template/turbo/strings/gen/l10n.dart';
 import 'package:url_strategy/url_strategy.dart';
 
@@ -48,7 +48,6 @@ import '../services/theme_service.dart';
 import '../services/url_launcher_service.dart';
 import '../views/oops/oops_view_model.dart';
 import '../views/shell/shell_view_model.dart';
-import '../views/startup/startup_view_model.dart';
 
 part 'locator.dart';
 

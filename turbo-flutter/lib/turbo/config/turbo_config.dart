@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
+import 'package:turbo_template/turbo/constants/k_values.dart';
+import 'package:turbo_template/turbo/enums/supported_language.dart';
 import 'package:turbo_template/turbo/enums/turbo_device_type.dart';
 import 'package:turbo_template/turbo/enums/turbo_theme_mode.dart';
 import 'package:turbo_template/turbo/extensions/turbo_target_platform_extension.dart';
@@ -26,6 +28,7 @@ class TurboConfig {
     required this.timeOutDuration,
     required this.widthInDesign,
     required this.buttonBorderRadius,
+    required this.appName,
   })  : animationDurationX0p25 = animationDuration * 0.25,
         animationDurationX0p5 = animationDuration * 0.5,
         animationDurationX0p75 = animationDuration * 0.75,
@@ -60,28 +63,31 @@ class TurboConfig {
   factory TurboConfig.defaultValues(
     TurboThemeMode themeMode,
     TurboDeviceType deviceType,
+    SupportedLanguage language,
   ) =>
       TurboConfig(
-        formFieldBorderRadius: 16,
-        widthInDesign: defaultTargetPlatform.defaultHeightInDesign,
-        heightInDesign: defaultTargetPlatform.defaultWidthInDesign,
-        disabledOpacity: 0.5,
-        appPadding: 16,
-        cardPadding: 16,
-        animationDuration: const Duration(milliseconds: 225),
-        hoverDuration: const Duration(milliseconds: 50),
-        timeOutDuration: const Duration(seconds: 10),
-        onPressedOpacity: 0.6,
-        fontFamily: 'Nunito',
-        headerFontFamily: 'Nunito',
-        bottomSafeAreaMinimum: 16,
-        buttonFontSize: 14,
-        buttonFontWeight: FontWeight.bold,
-        labelFontSize: 14,
-        labelFontWeight: FontWeight.bold,
-        sideNavBarWidth: 258,
-        buttonBorderRadius: 16,
-      );
+          formFieldBorderRadius: 16,
+          widthInDesign: defaultTargetPlatform.defaultHeightInDesign,
+          heightInDesign: defaultTargetPlatform.defaultWidthInDesign,
+          disabledOpacity: 0.5,
+          appPadding: 16,
+          cardPadding: 16,
+          animationDuration: const Duration(milliseconds: 225),
+          hoverDuration: const Duration(milliseconds: 50),
+          timeOutDuration: const Duration(seconds: 10),
+          onPressedOpacity: 0.6,
+          fontFamily: kValuesFontFamily,
+          headerFontFamily: kValuesHeaderFontFamily,
+          bottomSafeAreaMinimum: 16,
+          buttonFontSize: 14,
+          buttonFontWeight: FontWeight.bold,
+          labelFontSize: 14,
+          labelFontWeight: FontWeight.bold,
+          sideNavBarWidth: 258,
+          buttonBorderRadius: 16,
+          appName: 'Turbo');
+
+  final String appName;
 
   final double formFieldBorderRadius;
   final double buttonBorderRadius;

@@ -15,16 +15,15 @@ class TurboScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final safeChild = SafeArea(child: child);
-    final pBackground = background ?? TurboColorBackground(color: context.t.colors.background);
+    final pBackground =
+        background ?? TurboColorBackground(backgroundColor: context.t.colors.background);
     return Scaffold(
       child: switch (pBackground) {
         TurboColorBackground() => safeChild,
         TurboGradientBackground() => Stack(
+            fit: StackFit.expand,
             children: [
-              Positioned.fill(
-                top: -100,
-                left: 0,
-                right: 0,
+              Center(
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: pBackground.radialGradient,
@@ -35,10 +34,7 @@ class TurboScaffold extends StatelessWidget {
             ],
           ),
       },
-      backgroundColor: switch (pBackground) {
-        TurboColorBackground(color: final c) => c,
-        TurboGradientBackground() => null,
-      },
+      backgroundColor: pBackground.backgroundColor ?? context.t.colors.background,
     );
   }
 }

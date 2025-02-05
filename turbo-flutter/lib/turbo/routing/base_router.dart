@@ -3,10 +3,12 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loglytics/loglytics.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/turbo/constants/k_durations.dart';
+import 'package:turbo_template/turbo/utils/transition_builders.dart';
 
 import '../../auth/enums/forgot_password_origin.dart';
 import '../../auth/services/auth_service.dart';
@@ -16,17 +18,11 @@ import '../../auth/views/create_username/create_username_view.dart';
 import '../../auth/views/forgot_password/forgot_password_view.dart';
 import '../../auth/views/verify_email/verify_email_view.dart';
 import '../../home/views/home/home_view.dart';
-import '../constants/k_durations.dart';
 import '../dtos/extra_arguments.dart';
-import '../enums/navigation_tab.dart';
 import '../extensions/object_extension.dart';
 import '../extensions/string_extension.dart';
-import '../../local_storage/services/local_storage_service.dart';
-import '../services/navigation_tab_service.dart';
-import '../utils/transition_builders.dart';
 import '../views/oops/oops_view.dart';
 import '../views/shell/shell_view.dart';
-import '../views/startup/startup_view.dart';
 
 /// Origins should be routers to determine which router to use for navigation
 /// Types should be used to determine logic
@@ -53,7 +49,7 @@ class BaseRouter with Loglytics {
   /// [CoreRouter]
   final coreRouter = GoRouter(
     navigatorKey: rootNavigatorKey,
-    initialLocation: StartupView.path.asRootPath,
+    initialLocation: AuthView.path,
     routes: [
       acceptPrivacyView,
       authView,
@@ -61,16 +57,33 @@ class BaseRouter with Loglytics {
       createUsernameView,
       verifyEmailView,
       forgotPasswordView(origin: ForgotPasswordOrigin.core),
-      startupView,
       shellView,
     ],
   );
 
-  static Page<dynamic> _buildPage({required Widget child}) {
-    if (kIsWeb || Platform.isAndroid) {
-      return MaterialPage(child: child);
-    } else {
-      return CupertinoPage(child: child);
+  static Page<dynamic> _buildPage({required Widget child, bool fullscreenDialog = false}) {
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        return MaterialPage(
+          child: child,
+          fullscreenDialog: fullscreenDialog,
+        );
+      case TargetPlatform.iOS:
+        return CupertinoPage(
+          child: child,
+          fullscreenDialog: fullscreenDialog,
+        );
+      case TargetPlatform.macOS:
+      case TargetPlatform.linux:
+      case TargetPlatform.windows:
+      case TargetPlatform.fuchsia:
+        return CustomTransitionPage(
+          child: child,
+          transitionsBuilder: TransitionsBuilders.fadeIn,
+          fullscreenDialog: fullscreenDialog,
+          transitionDuration: kDurationsAnimationX0p5,
+          reverseTransitionDuration: Duration.zero,
+        );
     }
   }
 
@@ -176,16 +189,9 @@ class BaseRouter with Loglytics {
 
       return null;
     } else {
-      return StartupView.path.asRootPath;
+      return AuthView.path.asRootPath;
     }
   }
-
-  static GoRoute get startupView => GoRoute(
-        path: StartupView.path.asRootPath,
-        pageBuilder: (context, state) => _buildPage(
-          child: const StartupView(),
-        ),
-      );
 
   // 🛠 UTIL ---------------------------------------------------------------------------------- \\
   // 🧲 FETCHERS ------------------------------------------------------------------------------ \\

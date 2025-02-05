@@ -24,7 +24,6 @@ class Locator {
     ForgotPasswordViewModel.registerFactory();
     OopsViewModel.registerFactory();
     ShellViewModel.registerFactory();
-    StartupViewModel.registerFactory();
     VerifyEmailViewModel.registerFactory();
   }
 
