@@ -81,7 +81,7 @@ class AuthView extends StatelessWidget {
                                                   FormFieldText(
                                                     key: ValueKey(authViewMode.name + 'email'),
                                                     formFieldConfig: model.emailField,
-                                                    fadingFocusIcon: Icons.email_rounded,
+                                                    leadingIcon: Icons.email_rounded,
                                                     label: gStrings.email,
                                                     hintText: gStrings.emailHint,
                                                     onSubmitted: model.onEmailSubmitted,
@@ -90,7 +90,7 @@ class AuthView extends StatelessWidget {
                                                   FormFieldText(
                                                     key: ValueKey(authViewMode.name + 'password'),
                                                     formFieldConfig: model.passwordField,
-                                                    fadingFocusIcon: Icons.lock_open_rounded,
+                                                    leadingIcon: Icons.lock_open_rounded,
                                                     hintText: '••••••••',
                                                     label: gStrings.password,
                                                     onSubmitted: (value) =>
@@ -98,17 +98,19 @@ class AuthView extends StatelessWidget {
                                                       value: value,
                                                       context: context,
                                                     ),
-                                                    trailingLabel: HorizontalShrink(
-                                                      alignment: Alignment.centerRight,
-                                                      show: authViewMode.isLogin,
-                                                      child: TurboButton(
-                                                        onPressed: model.onForgotPasswordPressed,
-                                                        child: Text(
-                                                          gStrings.forgotPassword + '?',
-                                                          style: context
-                                                              .t.texts.trailingFormFieldLabel,
-                                                        ),
-                                                      ),
+                                                    trailingLabel: AnimatedSwitcher(
+                                                      duration: kDurationsAnimation,
+                                                      child: authViewMode.isLogin
+                                                          ? TurboButton(
+                                                              onPressed:
+                                                                  model.onForgotPasswordPressed,
+                                                              child: Text(
+                                                                gStrings.forgotPassword + '?',
+                                                                style: context
+                                                                    .t.texts.trailingFormFieldLabel,
+                                                              ),
+                                                            )
+                                                          : const SizedBox.shrink(),
                                                     ),
                                                   ),
                                                   VerticalShrink(
@@ -123,7 +125,7 @@ class AuthView extends StatelessWidget {
                                                           FormFieldText(
                                                             formFieldConfig:
                                                                 model.confirmPasswordField,
-                                                            fadingFocusIcon: Icons.lock_rounded,
+                                                            leadingIcon: Icons.lock_rounded,
                                                             label: 'Confirm Password',
                                                             hintText: '••••••••',
                                                             onChanged:
@@ -231,8 +233,11 @@ class AuthView extends StatelessWidget {
                                                     children: [
                                                       const Expanded(child: Divider()),
                                                       Padding(
-                                                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                                                        child: const Text('Or continue with').muted().small(),
+                                                        padding: const EdgeInsets.symmetric(
+                                                            horizontal: 16),
+                                                        child: const Text('Or continue with')
+                                                            .muted()
+                                                            .small(),
                                                       ),
                                                       const Expanded(child: Divider()),
                                                     ],

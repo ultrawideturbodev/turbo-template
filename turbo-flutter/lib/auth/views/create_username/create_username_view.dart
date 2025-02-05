@@ -79,7 +79,7 @@ class CreateUsernameView extends StatelessWidget {
                                   Expanded(
                                     child: FormFieldText(
                                       formFieldConfig: model.usernameField,
-                                      fadingFocusIcon: Icons.badge_rounded,
+                                      leadingIcon: Icons.badge_rounded,
                                       hintText: gStrings.username,
                                       onSubmitted: (_) => model.save(context: context),
                                       onChanged: model.onUserNameChanged,

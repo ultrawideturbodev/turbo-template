@@ -4,20 +4,20 @@ class TurboTexts {
   const TurboTexts({
     required this.colors,
     required this.config,
-    required this.context,
+    required BuildContext context,
     required this.themeMode,
     required this.deviceType,
-  });
+  }) : _context = context;
 
   final TurboColors colors;
   final TurboConfig config;
-  final BuildContext context;
+  final BuildContext _context;
   final TurboThemeMode themeMode;
   final TurboDeviceType deviceType;
 
   // helpers
 
-  ThemeData get _themeData => context.themeData;
+  ThemeData get _themeData => _context.themeData;
   Typography get typography => _themeData.typography;
   ColorScheme get _colorScheme => _themeData.colorScheme;
 

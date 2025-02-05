@@ -38,7 +38,7 @@ class _FormFieldSearchState extends State<FormFieldSearch> {
   Widget build(BuildContext context) => FormFieldText(
         formFieldConfig: widget.formFieldConfig,
         crossAxisAlignment: CrossAxisAlignment.center,
-        fadingFocusIcon: Icons.search_rounded,
+        leadingIcon: Icons.search_rounded,
         onChanged: (value) {
           _showCloseButton.update(value.isNotEmpty);
           widget.onChanged?.call(value);

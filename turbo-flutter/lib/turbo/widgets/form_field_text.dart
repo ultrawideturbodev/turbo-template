@@ -1,42 +1,41 @@
 import 'package:gap/gap.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
-
-import '../constants/k_durations.dart';
-import '../constants/k_sizes.dart';
-import '../extensions/context_extension.dart';
-import '../forms/form_field_config.dart';
-import 'form_field_error.dart';
+import 'package:turbo_template/turbo/constants/k_durations.dart';
+import 'package:turbo_template/turbo/constants/k_sizes.dart';
+import 'package:turbo_template/turbo/extensions/context_extension.dart';
+import 'package:turbo_template/turbo/forms/form_field_config.dart';
+import 'package:turbo_template/turbo/widgets/form_field_error.dart';
 
 class FormFieldText extends StatefulWidget {
   const FormFieldText({
     required this.formFieldConfig,
+    this.crossAxisAlignment = CrossAxisAlignment.start,
     this.hintText,
+    this.keyboardType,
     this.label,
     this.leading,
-    this.trailing,
-    this.onSubmitted,
-    this.fadingFocusIcon,
-    this.onTap,
-    this.crossAxisAlignment = CrossAxisAlignment.start,
+    this.leadingIcon,
     this.onChanged,
-    this.keyboardType,
     this.onFocusChanged,
+    this.onSubmitted,
+    this.onTap,
+    this.trailing,
     this.trailingLabel,
     super.key,
   });
 
+  final CrossAxisAlignment crossAxisAlignment;
   final FormFieldConfig<String> formFieldConfig;
+  final IconData? leadingIcon;
   final String? hintText;
   final String? label;
+  final TextInputType? keyboardType;
+  final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onSubmitted;
+  final ValueChanged<bool>? onFocusChanged;
+  final VoidCallback? onTap;
   final Widget? leading;
   final Widget? trailing;
-  final ValueChanged<String>? onSubmitted;
-  final IconData? fadingFocusIcon;
-  final VoidCallback? onTap;
-  final CrossAxisAlignment crossAxisAlignment;
-  final ValueChanged<String>? onChanged;
-  final ValueChanged<bool>? onFocusChanged;
-  final TextInputType? keyboardType;
   final Widget? trailingLabel;
 
   @override
@@ -108,6 +107,16 @@ class _FormFieldTextState extends State<FormFieldText> {
                   child: Column(
                     children: [
                       TextField(
+                        leading: widget.leading ?? StatedWidget.builder(
+                          builder: (context, states) {
+                            if (states.focused) {
+                              return Icon(widget.leadingIcon);
+                            } else {
+                              return Icon(widget.leadingIcon, color: context.t.colors.input);
+                            }
+                          },
+                        ),
+                        trailing: widget.trailing,
                         hintText: hintText,
                         keyboardType: widget.keyboardType,
                         onTap: widget.onTap,
@@ -129,7 +138,6 @@ class _FormFieldTextState extends State<FormFieldText> {
                     ],
                   ),
                 ),
-                if (widget.trailing != null) widget.trailing!,
               ],
             ),
             FormFieldError(

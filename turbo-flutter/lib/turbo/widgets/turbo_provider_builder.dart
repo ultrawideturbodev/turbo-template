@@ -50,6 +50,7 @@ class TurboProviderBuilder extends StatelessWidget {
                 deviceType,
               );
           final colors = TurboColors(
+            context: context,
             themeMode: turboThemeMode,
           );
           final decorations = TurboDecorations(
