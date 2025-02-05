@@ -399,4 +399,11 @@ class AuthViewModel extends BaseViewModel with Loglytics, BusyServiceManagement 
 
   static AuthViewModel get locate => GetIt.I.get();
   static void registerFactory() => GetIt.I.registerFactory(AuthViewModel.new);
+
+  void onAppleAuthPressed() {
+
+  }
+
+  void onGoogleAuthPressed() {
+  }
 }

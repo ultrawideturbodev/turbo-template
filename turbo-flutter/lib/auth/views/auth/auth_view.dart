@@ -9,11 +9,13 @@ import 'package:turbo_template/turbo/extensions/animation_extension.dart';
 import 'package:turbo_template/turbo/extensions/color_extension.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';
 import 'package:turbo_template/turbo/globals/g_strings.dart';
+import 'package:turbo_template/turbo/models/turbo_background.dart';
 import 'package:turbo_template/turbo/widgets/buttons/turbo_button.dart';
 import 'package:turbo_template/turbo/widgets/cards/turbo_card.dart';
 import 'package:turbo_template/turbo/widgets/form_field_checkbox.dart';
 import 'package:turbo_template/turbo/widgets/form_field_text.dart';
 import 'package:turbo_template/turbo/widgets/ho_padding.dart';
+import 'package:turbo_template/turbo/widgets/layout/turbo_scaffold.dart';
 import 'package:turbo_template/turbo/widgets/opacity_button.dart';
 import 'package:turbo_template/turbo/widgets/shrinks.dart';
 import 'package:turbo_template/turbo/widgets/t_gap.dart';
@@ -34,8 +36,8 @@ class AuthView extends StatelessWidget {
       builder: (context, model, isInitialised, child) {
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-          child: Scaffold(
-            backgroundColor: context.t.colors.background,
+          child: TurboScaffold(
+            background: TurboGradientBackground(colors: context.t.colors.transparantCardGradient),
             child: isInitialised
                 ? Center(
                     child: SafeArea(
@@ -200,32 +202,15 @@ class AuthView extends StatelessWidget {
                                                       ),
                                                     ),
                                                   ),
-                                                  Button.outline(
+                                                  Button(
                                                     child: const Text('''Register'''),
+                                                    style: switch(authViewMode) {
+                                                      AuthViewMode.login => ButtonVariance.outline,
+                                                      AuthViewMode.register => ButtonVariance.primary,
+                                                    },
                                                     focusNode: model.registerButtonFocusNode,
                                                     onPressed: () => model.onRegisterPressed(
                                                       authViewMode: authViewMode,
-                                                    ),
-                                                  ),
-                                                  VerticalShrink(
-                                                    alignment: Alignment.bottomCenter,
-                                                    show: authViewMode.isRegister,
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.only(
-                                                        top: kSizesItemGap,
-                                                      ),
-                                                      child: Row(
-                                                        children: [
-                                                          Expanded(
-                                                            child: Button.ghost(
-                                                              child: const Text('Login'),
-                                                              onPressed: () => model.onLoginPressed(
-                                                                authViewMode: authViewMode,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
                                                     ),
                                                   ),
                                                   const TGap.section(multiplier: 0.75),
@@ -234,7 +219,8 @@ class AuthView extends StatelessWidget {
                                                       const Expanded(child: Divider()),
                                                       Padding(
                                                         padding: const EdgeInsets.symmetric(
-                                                            horizontal: 16),
+                                                          horizontal: 16,
+                                                        ),
                                                         child: const Text('Or continue with')
                                                             .muted()
                                                             .small(),
@@ -248,18 +234,39 @@ class AuthView extends StatelessWidget {
                                                     children: [
                                                       Expanded(
                                                         child: Button.outline(
-                                                          onPressed: () {},
+                                                          onPressed: model.onGoogleAuthPressed,
                                                           child: const Icon(BootstrapIcons.google),
                                                         ),
                                                       ),
                                                       const SizedBox(width: kSizesItemGap),
                                                       Expanded(
                                                         child: Button.outline(
-                                                          onPressed: () {},
+                                                          onPressed: model.onAppleAuthPressed,
                                                           child: const Icon(BootstrapIcons.apple),
                                                         ),
                                                       ),
                                                     ],
+                                                  ),
+                                                  VerticalShrink(
+                                                    alignment: Alignment.bottomCenter,
+                                                    show: authViewMode.isRegister,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.only(
+                                                        top: kSizesItemGap,
+                                                      ),
+                                                      child: Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child: Button.outline(
+                                                              child: const Text('Login'),
+                                                              onPressed: () => model.onLoginPressed(
+                                                                authViewMode: authViewMode,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
                                                   ),
                                                 ],
                                                 mainAxisSize: MainAxisSize.min,
