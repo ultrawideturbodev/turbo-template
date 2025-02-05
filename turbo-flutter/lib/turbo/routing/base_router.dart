@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -7,22 +6,21 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/auth/services/auth_service.dart';
+import 'package:turbo_template/auth/views/accept_privacy/accept_privacy_view.dart';
+import 'package:turbo_template/auth/views/auth/auth_view.dart';
+import 'package:turbo_template/auth/views/create_username/create_username_view.dart';
+import 'package:turbo_template/auth/views/forgot_password/forgot_password_view.dart';
+import 'package:turbo_template/auth/views/verify_email/verify_email_view.dart';
+import 'package:turbo_template/home/views/home/home_view.dart';
 import 'package:turbo_template/turbo/constants/k_durations.dart';
+import 'package:turbo_template/turbo/constants/k_keys.dart';
+import 'package:turbo_template/turbo/dtos/extra_arguments.dart';
+import 'package:turbo_template/turbo/extensions/object_extension.dart';
+import 'package:turbo_template/turbo/extensions/string_extension.dart';
 import 'package:turbo_template/turbo/utils/transition_builders.dart';
-
-import '../../auth/enums/forgot_password_origin.dart';
-import '../../auth/services/auth_service.dart';
-import '../../auth/views/accept_privacy/accept_privacy_view.dart';
-import '../../auth/views/auth/auth_view.dart';
-import '../../auth/views/create_username/create_username_view.dart';
-import '../../auth/views/forgot_password/forgot_password_view.dart';
-import '../../auth/views/verify_email/verify_email_view.dart';
-import '../../home/views/home/home_view.dart';
-import '../dtos/extra_arguments.dart';
-import '../extensions/object_extension.dart';
-import '../extensions/string_extension.dart';
-import '../views/oops/oops_view.dart';
-import '../views/shell/shell_view.dart';
+import 'package:turbo_template/turbo/views/oops/oops_view.dart';
+import 'package:turbo_template/turbo/views/shell/shell_view.dart';
 
 /// Origins should be routers to determine which router to use for navigation
 /// Types should be used to determine logic
@@ -56,7 +54,7 @@ class BaseRouter with Loglytics {
       oopsView,
       createUsernameView,
       verifyEmailView,
-      forgotPasswordView(origin: ForgotPasswordOrigin.core),
+      forgotPasswordView,
       shellView,
     ],
   );
@@ -94,12 +92,10 @@ class BaseRouter with Loglytics {
         ),
       );
 
-  static GoRoute forgotPasswordView({required ForgotPasswordOrigin origin}) => GoRoute(
+  static GoRoute get forgotPasswordView => GoRoute(
         path: ForgotPasswordView.path.asRootPath,
         pageBuilder: (context, state) => _buildPage(
-          child: ForgotPasswordView(
-            origin: origin,
-          ),
+          child: const ForgotPasswordView(),
         ),
       );
 
@@ -232,4 +228,5 @@ class BaseRouter with Loglytics {
 
 extension on GoRouterState {
   ExtraArguments? arguments() => extra?.asType<ExtraArguments>();
+  String? get id => pathParameters[kKeysId] ?? uri.queryParameters[kKeysId] ?? arguments()?.id;
 }

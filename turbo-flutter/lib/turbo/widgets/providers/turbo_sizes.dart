@@ -1,10 +1,24 @@
 part of 'turbo_provider.dart';
 
 class TurboSizes {
-  TurboSizes(this.context);
+  TurboSizes(this.context, this.deviceType);
   final BuildContext context;
+  final TurboDeviceType deviceType;
 
   // 📍 THEME --------------------------------------------------------------------------------- \\
+
+  double get sideNavBarWidth {
+    switch(deviceType) {
+      case TurboDeviceType.mobile:
+        return width * 0.8;
+      case TurboDeviceType.tablet:
+        return width * 0.6;
+      case TurboDeviceType.desktop:
+        return 400;
+    }
+  }
+
+  EdgeInsets get cardPadding => const EdgeInsets.all(kSizesCardPadding);
 
   double get formFieldBorderRadius => 10.0;
 

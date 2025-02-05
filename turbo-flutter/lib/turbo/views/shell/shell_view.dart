@@ -59,7 +59,7 @@ class ShellView extends StatelessWidget {
                 ],
               );
               return Scaffold(
-                backgroundColor: context.t.colors.shellBackground,
+                backgroundColor: context.colors.shellBackground,
                 footers: const [
                   Text('wtf'),
                 ],
@@ -67,13 +67,13 @@ class ShellView extends StatelessWidget {
               );
             case SupportedPlatform.web:
               return Scaffold(
-                backgroundColor: context.t.colors.background,
+                backgroundColor: context.colors.background,
                 child: isInitialised
                     ? ValueListenableBuilder<NavigationTab>(
                         valueListenable: model.currentNavigationTab,
                         builder: (context, currentNavigationTab, child) {
-                          final sideNavBarWidth = context.t.config.sideNavBarWidth;
-                          final sizes = context.t.sizes;
+                          final sideNavBarWidth = context.sizes.sideNavBarWidth;
+                          final sizes = context.sizes;
                           return SizedBox(
                             width: sizes.width,
                             height: sizes.height,
@@ -90,7 +90,7 @@ class ShellView extends StatelessWidget {
                                       children: [
                                         const Gap(kSizesAppPadding),
                                         SizedBox(
-                                          width: context.t.config.sideNavBarWidth,
+                                          width: context.sizes.sideNavBarWidth,
                                           child: const Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
@@ -100,7 +100,7 @@ class ShellView extends StatelessWidget {
                                         ),
                                         ConstrainedBox(
                                           constraints: BoxConstraints(
-                                            maxWidth: context.t.config.sideNavBarWidth,
+                                            maxWidth: context.sizes.sideNavBarWidth,
                                           ),
                                           child: Center(
                                             child: Padding(
@@ -108,7 +108,7 @@ class ShellView extends StatelessWidget {
                                               child: AutoSizeText(
                                                 'Placeholder',
                                                 maxLines: 1,
-                                                textScaleFactor: context.t.tools.scaledPerWidth(1),
+                                                textScaleFactor: context.tools.scaledPerWidth(1),
                                               ),
                                             ),
                                           ),
@@ -129,7 +129,8 @@ class ShellView extends StatelessWidget {
                                         const Spacer(),
                                         Padding(
                                           padding: const EdgeInsets.symmetric(
-                                              horizontal: kSizesAppPadding),
+                                            horizontal: kSizesAppPadding,
+                                          ),
                                           child: Button.primary(
                                             onPressed: model.onLogoutPressed,
                                             child: Row(
@@ -139,7 +140,7 @@ class ShellView extends StatelessWidget {
                                                 const Gap(8),
                                                 Text(
                                                   'Logout',
-                                                  style: context.t.texts.button,
+                                                  style: context.texts.button,
                                                 ),
                                               ],
                                             ),
@@ -158,7 +159,7 @@ class ShellView extends StatelessWidget {
                                   ),
                                   Container(
                                     width: 1,
-                                    color: context.t.colors.border,
+                                    color: context.colors.border,
                                   ),
                                   SizedBox(
                                     width: sizes.width - sideNavBarWidth - 1,

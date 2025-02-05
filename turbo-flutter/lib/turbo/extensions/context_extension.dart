@@ -1,5 +1,9 @@
 import 'package:go_router/go_router.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/turbo/config/turbo_breakpoint_config.dart';
+import 'package:turbo_template/turbo/enums/turbo_theme_mode.dart';
+import 'package:turbo_template/turbo/models/turbo_data.dart';
+import 'package:turbo_template/turbo/models/turbo_tools.dart';
 import 'package:turbo_template/turbo/widgets/providers/turbo_provider.dart';
 
 extension ContextExtension on BuildContext {
@@ -8,13 +12,22 @@ extension ContextExtension on BuildContext {
     return findRenderObject() as RenderBox?;
   }
 
+  TurboTexts get texts => turboProvider.texts;
+  TurboTools get tools => turboProvider.tools;
+  TurboColors get colors => turboProvider.colors;
+  TurboSizes get sizes => turboProvider.sizes;
+  TurboDecorations get decorations => turboProvider.decorations;
+  TurboData get data => turboProvider.data;
+  TurboThemeMode get themeMode => turboProvider.themeMode;
+  TurboBreakpointConfig get breakpointConfig => turboProvider.breakpointConfig;
+
   ThemeData get themeData => Theme.of(this);
-  TurboProvider get t => TurboProvider.of(this);
+  TurboProvider get turboProvider => TurboProvider.of(this);
   MediaQueryData get media => MediaQuery.of(this);
   NavigatorState get navigation => Navigator.of(this);
   OverlayState get overlay => Overlay.of(this, rootOverlay: true);
   TickerProviderStateMixin get vsync => navigation;
-  TextScaler get textScaler => TextScaler.linear(t.tools.scaledPerWidth(1));
+  TextScaler get textScaler => TextScaler.linear(turboProvider.tools.scaledPerWidth(1));
   ThemeData get theme => Theme.of(this);
   NavigatorState get navigator => Navigator.of(this);
   StatefulNavigationShell? get shell => StatefulNavigationShell.maybeOf(this)?.widget;

@@ -12,7 +12,7 @@ class BottomPositioned extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Positioned(
-        bottom: context.t.sizes.bottomSafeAreaWithMinimum + kSizesAppPadding,
+        bottom: context.sizes.bottomSafeAreaWithMinimum + kSizesAppPadding,
         left: kSizesAppPadding,
         right: kSizesAppPadding,
         child: child,

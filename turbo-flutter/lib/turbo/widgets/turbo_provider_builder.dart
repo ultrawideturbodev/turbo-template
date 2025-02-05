@@ -1,12 +1,12 @@
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/turbo/config/turbo_breakpoint_config.dart';
-import 'package:turbo_template/turbo/config/turbo_config.dart';
 import 'package:turbo_template/turbo/enums/supported_language.dart';
-import 'package:turbo_template/turbo/enums/turbo_device_type.dart';
 import 'package:turbo_template/turbo/enums/turbo_theme_mode.dart';
 import 'package:turbo_template/turbo/extensions/box_constraints_extension.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';
+import 'package:turbo_template/turbo/extensions/turbo_target_platform_extension.dart';
 import 'package:turbo_template/turbo/models/turbo_data.dart';
 import 'package:turbo_template/turbo/models/turbo_tools.dart';
 import 'package:turbo_template/turbo/widgets/providers/turbo_provider.dart';
@@ -20,24 +20,18 @@ class TurboProviderBuilder extends StatelessWidget {
     required this.turboThemeMode,
     required this.supportedLanguage,
     this.turboBreakpointConfig = const TurboBreakpointConfig(),
-    this.config,
   });
 
-  final TurboConfig Function(
-    TurboThemeMode themeMode,
-    TurboDeviceType deviceType,
-    SupportedLanguage language,
-  )? config;
   final TurboBreakpointConfig turboBreakpointConfig;
   final TurboThemeMode turboThemeMode;
   final SupportedLanguage supportedLanguage;
   final Widget Function(
-    TurboConfig config,
     TurboThemeMode themeMode,
     TurboTools tools,
     TurboData data,
     TurboTexts texts,
     TurboColors colors,
+    TurboSizes sizes,
     TurboDecorations decorations,
     BuildContext context,
   ) builder;
@@ -48,12 +42,7 @@ class TurboProviderBuilder extends StatelessWidget {
           final deviceType = constraints.turboDeviceType(
             breakpointConfig: turboBreakpointConfig,
           );
-          final pConfig = config?.call(turboThemeMode, deviceType, supportedLanguage) ??
-              TurboConfig.defaultValues(
-                turboThemeMode,
-                deviceType,
-                supportedLanguage,
-              );
+          final sizes = TurboSizes(context, deviceType);
           final colors = TurboColors(
             context: context,
             themeMode: turboThemeMode,
@@ -64,7 +53,6 @@ class TurboProviderBuilder extends StatelessWidget {
           );
           final texts = TurboTexts(
             context: context,
-            config: pConfig,
             colors: colors,
             deviceType: deviceType,
             themeMode: turboThemeMode,
@@ -72,8 +60,8 @@ class TurboProviderBuilder extends StatelessWidget {
           final tools = TurboTools(
             currentWidth: constraints.maxWidth,
             currentHeight: constraints.maxHeight,
-            widthInDesign: pConfig.widthInDesign,
-            heightInDesign: pConfig.heightInDesign,
+            widthInDesign: defaultTargetPlatform.defaultHeightInDesign,
+            heightInDesign: defaultTargetPlatform.defaultWidthInDesign,
           );
           final data = TurboData(
             currentWidth: constraints.maxWidth,
@@ -85,7 +73,6 @@ class TurboProviderBuilder extends StatelessWidget {
           return TurboProvider(
             data: data,
             themeMode: turboThemeMode,
-            config: pConfig,
             tools: tools,
             texts: texts,
             colors: colors,
@@ -93,17 +80,17 @@ class TurboProviderBuilder extends StatelessWidget {
             breakpointConfig: turboBreakpointConfig,
             child: Builder(
               builder: (context) => builder(
-                pConfig,
                 turboThemeMode,
                 tools,
                 data,
                 texts,
                 colors,
+                sizes,
                 decorations,
                 context,
               ),
             ),
-            sizes: TurboSizes(context),
+            sizes: sizes,
           );
         },
       );

@@ -65,7 +65,7 @@ class _FadingScrollableState extends State<FadingScrollable> {
 
   late double topPercentage = _fetchTopPercentage(0);
 
-  late final color = widget.color ?? context.t.colors.background;
+  late final color = widget.color ?? context.colors.background;
 
   @override
   void initState() {

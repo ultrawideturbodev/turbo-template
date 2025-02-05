@@ -1,40 +1,32 @@
 import 'package:flutter/painting.dart';
 
 extension TurboBackgroundExtension on TurboBackground {
-  Color? get backgroundColor {
+  Color? get pBackgroundColor {
     switch (this) {
       case TurboColorBackground():
         return (this as TurboColorBackground).backgroundColor;
       case TurboGradientBackground():
-        return (this as TurboGradientBackground).backgroundColor;
+        return null;
     }
   }
 
-  LinearGradient? get linearGradient {
+  LinearGradient? get pLinearGradient {
     switch (this) {
       case TurboColorBackground():
         return null;
       case TurboGradientBackground():
         final bg = this as TurboGradientBackground;
-        return LinearGradient(
-          colors: bg.colors,
-          begin: bg.begin,
-          end: bg.end,
-        );
+        return bg.gradient as LinearGradient;
     }
   }
 
-  RadialGradient? get radialGradient {
+  RadialGradient? get pRadialGradient {
     switch (this) {
       case TurboColorBackground():
         return null;
       case TurboGradientBackground():
         final bg = this as TurboGradientBackground;
-        return RadialGradient(
-          colors: bg.colors,
-          center: bg.center,
-          radius: bg.radius,
-        );
+        return bg.gradient as RadialGradient;
     }
   }
 }
@@ -49,18 +41,8 @@ class TurboColorBackground extends TurboBackground {
 
 class TurboGradientBackground extends TurboBackground {
   TurboGradientBackground({
-    required this.colors,
-    this.begin = Alignment.topCenter,
-    this.end = Alignment.bottomCenter,
-    this.center = Alignment.center,
-    this.radius = 0.8,
-    this.backgroundColor,
+    this.gradient,
   });
 
-  final Color? backgroundColor;
-  final List<Color> colors;
-  final AlignmentGeometry begin;
-  final AlignmentGeometry end;
-  final AlignmentGeometry center;
-  final double radius;
+  final Gradient? gradient;
 }

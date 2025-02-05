@@ -23,12 +23,12 @@ class _ShellMenuItem extends ViewModelWidget<ShellViewModel> {
       ),
       child: HoverBuilder(
         builder: (context, isHovered, child) {
-          final backgroundColor = context.t.colors.background;
+          final backgroundColor = context.colors.background;
           final color =
               currentNavigationTab == navigationTab ? backgroundColor.darken() : backgroundColor;
           return Container(
-            height: context.t.tools.scaledPerWidth(56),
-            color: isHovered ? context.t.colors.shellHover : color,
+            height: context.tools.scaledPerWidth(56),
+            color: isHovered ? context.colors.shellHover : color,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -47,7 +47,7 @@ class _ShellMenuItem extends ViewModelWidget<ShellViewModel> {
                         child: CustomBadgeContainer(
                           height: 16,
                           width: 16,
-                          color: context.t.colors.badge,
+                          color: context.colors.badge,
                           child: Padding(
                             padding: const EdgeInsets.all(3.0),
                             child: Center(

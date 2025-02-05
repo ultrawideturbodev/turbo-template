@@ -40,7 +40,7 @@ class FormFieldError extends StatelessWidget {
                 Flexible(
                   child: Text(
                     _errorText.value ?? '',
-                    style: context.t.texts.formFieldError,
+                    style: context.texts.formFieldError,
                   ),
                 ),
               ],

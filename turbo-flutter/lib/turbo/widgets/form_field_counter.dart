@@ -56,7 +56,7 @@ class _FormFieldCounterState extends State<FormFieldCounter> {
   @override
   Widget build(BuildContext context) {
     final formFieldConfig = widget.formFieldConfig;
-    final backgroundColor = context.t.colors.background;
+    final backgroundColor = context.colors.background;
     final foregroundColor = widget.foregroundColor ?? backgroundColor.onColor;
     final height = widget.height;
     final iconHeight = height - 4;
@@ -119,7 +119,7 @@ class _FormFieldCounterState extends State<FormFieldCounter> {
                   focusNode: formFieldConfig.focusNode,
                   inputFormatters: formFieldConfig.inputFormatters,
                   obscureText: formFieldConfig.obscureText,
-                  style: context.t.texts.button,
+                  style: context.texts.button,
                   onSubmitted: widget.onSubmitted,
                 ),
               ),

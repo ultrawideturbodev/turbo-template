@@ -30,9 +30,9 @@ class CustomNotification extends StatelessWidget {
           child: Container(
             constraints: const BoxConstraints(maxWidth: 600),
             decoration: BoxDecoration(
-              color: context.t.colors.dialogBackground,
+              color: context.colors.dialogBackground,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: context.t.colors.border, width: 1),
+              border: Border.all(color: context.colors.border, width: 1),
             ),
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
             child: Column(

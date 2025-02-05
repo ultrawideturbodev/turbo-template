@@ -109,7 +109,7 @@ class CustomBottomSheet extends StatelessWidget {
                 ),
               ),
             ] else
-              SizedBox(height: context.t.sizes.bottomSafeAreaWithMinimum),
+              SizedBox(height: context.sizes.bottomSafeAreaWithMinimum),
           ],
         ),
       );

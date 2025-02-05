@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/turbo/config/turbo_breakpoint_config.dart';
-import 'package:turbo_template/turbo/config/turbo_config.dart';
 import 'package:turbo_template/turbo/constants/k_sizes.dart';
 import 'package:turbo_template/turbo/enums/turbo_device_type.dart';
 import 'package:turbo_template/turbo/enums/turbo_theme_mode.dart';
@@ -24,7 +23,6 @@ class TurboProvider extends InheritedWidget {
     super.key,
     required super.child,
     required this.colors,
-    required this.config,
     required this.data,
     required this.decorations,
     required this.texts,
@@ -36,7 +34,6 @@ class TurboProvider extends InheritedWidget {
 
   final TurboColors colors;
   final TurboSizes sizes;
-  final TurboConfig config;
   final TurboDecorations decorations;
   final TurboTexts texts;
   final TurboData data;

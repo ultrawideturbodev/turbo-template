@@ -68,8 +68,8 @@ class _FormFieldTextState extends State<FormFieldText> {
   @override
   Widget build(BuildContext context) {
     final formFieldConfig = widget.formFieldConfig;
-    final formFieldTextStyle = context.t.texts.formField;
-    final formFieldLabelStyle = context.t.texts.formFieldLabel;
+    final formFieldTextStyle = context.texts.formField;
+    final formFieldLabelStyle = context.texts.formFieldLabel;
     final isDisabled = formFieldConfig.isReadOnly || !formFieldConfig.isEnabled;
     final label = widget.label;
     final hintText = widget.hintText;
@@ -112,7 +112,7 @@ class _FormFieldTextState extends State<FormFieldText> {
                             if (states.focused) {
                               return Icon(widget.leadingIcon);
                             } else {
-                              return Icon(widget.leadingIcon, color: context.t.colors.input);
+                              return Icon(widget.leadingIcon, color: context.colors.input);
                             }
                           },
                         ),

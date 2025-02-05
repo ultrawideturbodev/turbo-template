@@ -28,15 +28,15 @@ class TurboResponsiveBuilder extends StatelessWidget {
           context,
           child,
           constraints,
-          context.t.tools.copyWith(
+          context.tools.copyWith(
             currentWidth: constraints.maxWidth,
             currentHeight: constraints.maxHeight,
           ),
-          context.t.data.copyWith(
+          context.data.copyWith(
             currentWidth: constraints.maxWidth,
             currentHeight: constraints.maxHeight,
             deviceType: constraints.turboDeviceType(
-              breakpointConfig: context.t.breakpointConfig,
+              breakpointConfig: context.breakpointConfig,
             ),
             orientation: constraints.turboOrientation,
           ),

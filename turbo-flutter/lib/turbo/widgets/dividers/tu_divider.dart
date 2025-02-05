@@ -20,7 +20,7 @@ class TuDivider extends StatelessWidget {
             height: 0.5,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              color: context.t.colors.border,
+              color: context.colors.border,
             ),
             width: double.infinity,
           ),

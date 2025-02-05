@@ -1,6 +1,6 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';
-import 'package:turbo_template/turbo/models/turbo_background.dart';
+import 'package:turbo_template/turbo/decorations/turbo_background.dart';
 
 class TurboScaffold extends StatelessWidget {
   const TurboScaffold({
@@ -16,25 +16,18 @@ class TurboScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     final safeChild = SafeArea(child: child);
     final pBackground =
-        background ?? TurboColorBackground(backgroundColor: context.t.colors.background);
+        background ?? TurboColorBackground(backgroundColor: context.colors.background);
     return Scaffold(
       child: switch (pBackground) {
         TurboColorBackground() => safeChild,
-        TurboGradientBackground() => Stack(
-            fit: StackFit.expand,
-            children: [
-              Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: pBackground.radialGradient,
-                  ),
-                ),
-              ),
-              safeChild,
-            ],
+        TurboGradientBackground() => Container(
+          decoration: BoxDecoration(
+            gradient: pBackground.pLinearGradient,
           ),
+          child: safeChild,
+        ),
       },
-      backgroundColor: pBackground.backgroundColor ?? context.t.colors.background,
+      backgroundColor: pBackground.pBackgroundColor ?? context.colors.background,
     );
   }
 }

@@ -17,7 +17,7 @@ class AcceptPrivacyText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = context.t.texts.acceptPrivacy;
+    final textStyle = context.texts.acceptPrivacy;
     return Text.rich(
       TextSpan(
         style: textStyle,

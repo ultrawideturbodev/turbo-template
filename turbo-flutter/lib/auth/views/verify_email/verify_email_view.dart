@@ -28,8 +28,8 @@ class VerifyEmailView extends StatelessWidget {
                     Center(
                       child: Container(
                         margin: EdgeInsets.only(
-                          top: context.t.sizes.topSafeArea,
-                          bottom: context.t.sizes.bottomSafeAreaWithMinimum,
+                          top: context.sizes.topSafeArea,
+                          bottom: context.sizes.bottomSafeAreaWithMinimum,
                         ),
                         constraints: const BoxConstraints(
                           maxWidth: kSizesDialogMaxWidth,
@@ -57,13 +57,13 @@ class VerifyEmailView extends StatelessWidget {
                                     children: [
                                       Text(
                                         'Verify Email',
-                                        style: context.t.texts.viewTitle,
+                                        style: context.texts.viewTitle,
                                         textAlign: TextAlign.center,
                                       ),
                                       const SizedBox(height: 8),
                                       Text(
                                         '''We noticed you have not verified your email address yet, please check your inbox and follow the instructions to verify your email address.''',
-                                        style: context.t.texts.paragraph,
+                                        style: context.texts.paragraph,
                                         textAlign: TextAlign.center,
                                       ),
                                       const TGap.appPadding(),

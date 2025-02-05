@@ -9,8 +9,6 @@ class TurboDecorations {
   final TurboDeviceType deviceType;
   final TurboThemeMode themeMode;
 
-  BlurStyle get blurStyle => BlurStyle.solid;
-  EdgeInsets get cardPadding => const EdgeInsets.all(kSizesCardPadding);
 
   List<BoxShadow> get cardShadow {
     return [
@@ -23,7 +21,7 @@ class TurboDecorations {
     ];
   }
 
-  LinearGradient get gradientBackground {
+  LinearGradient get scaffoldBackground {
     return const LinearGradient(
       begin: Alignment.bottomLeft,
       end: Alignment.topRight,
@@ -39,5 +37,3 @@ class TurboDecorations {
     );
   }
 }
-
-class _CardDecorations {}

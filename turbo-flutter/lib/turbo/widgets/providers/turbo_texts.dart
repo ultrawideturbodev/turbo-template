@@ -3,14 +3,12 @@ part of 'turbo_provider.dart';
 class TurboTexts {
   const TurboTexts({
     required this.colors,
-    required this.config,
     required BuildContext context,
     required this.themeMode,
     required this.deviceType,
   }) : _context = context;
 
   final TurboColors colors;
-  final TurboConfig config;
   final BuildContext _context;
   final TurboThemeMode themeMode;
   final TurboDeviceType deviceType;

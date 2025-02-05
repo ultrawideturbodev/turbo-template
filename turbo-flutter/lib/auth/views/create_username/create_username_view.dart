@@ -27,7 +27,7 @@ class CreateUsernameView extends StatelessWidget {
     return ViewModelBuilder<CreateUsernameViewModel>(
       builder: (context, model, isInitialised, child) {
         if (!isInitialised) return kWidgetsNothing;
-        final textStyle = context.t.texts.viewTitle;
+        final textStyle = context.texts.viewTitle;
         return Scaffold(
           child: isInitialised
               ? FadingScrollable(

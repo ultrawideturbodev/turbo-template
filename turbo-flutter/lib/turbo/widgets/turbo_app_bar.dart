@@ -23,7 +23,7 @@ class TurboAppBar extends AppBar {
   }) : super(
           scrolledUnderElevation: 0,
           shadowColor: Colors.black,
-          backgroundColor: backgroundColor ?? context.t.colors.shellBackground,
+          backgroundColor: backgroundColor ?? context.colors.shellBackground,
           centerTitle: centerTitle,
           titleSpacing: switch (header != null) {
             true => 0,
@@ -34,11 +34,11 @@ class TurboAppBar extends AppBar {
                   ? AutoSizeText(
                       title,
                       style: textStyle ??
-                          context.t.texts.viewTitle,
+                          context.texts.viewTitle,
                     )
                   : null),
           titleTextStyle: textStyle ??
-              context.t.texts.viewTitle,
+              context.texts.viewTitle,
           automaticallyImplyLeading: onBackPressed == null ? automaticallyImplyLeading : false,
           leading: onBackPressed == null
               ? (automaticallyImplyLeading
@@ -68,11 +68,11 @@ class CustomSliverAppBar extends SliverAppBar {
                   ? AutoSizeText(
                       title,
                       style: textStyle ??
-                          context.t.texts.viewTitle,
+                          context.texts.viewTitle,
                     )
                   : null),
           shadowColor: Colors.black,
-          backgroundColor: backgroundColor ?? context.t.colors.shellBackground,
+          backgroundColor: backgroundColor ?? context.colors.shellBackground,
           centerTitle: true,
           leading: leading ?? (context.canPop() ? const CustomBackButton() : null),
           titleTextStyle: textStyle,

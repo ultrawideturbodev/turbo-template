@@ -120,7 +120,7 @@ class TuCheckbox extends StatelessWidget {
             border: isChecked
                 ? null
                 : Border.all(
-                    color: context.t.colors.border,
+                    color: context.colors.border,
                     width: 1,
                   ),
             borderRadius: borderRadius ?? BorderRadius.circular(10),

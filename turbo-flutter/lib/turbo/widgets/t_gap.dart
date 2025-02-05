@@ -19,9 +19,9 @@ class TGap extends gap_package.Gap {
   const TGap.scaffoldTitle({super.key, double multiplier = 1}) : super(kSizesTitleGap * multiplier);
   const TGap.section({super.key, double multiplier = 1}) : super(kSizesSectionGap * multiplier);
   factory TGap.bottomSafeArea(BuildContext context, {double multiplier = 1}) =>
-      TGap(context.t.sizes.bottomSafeAreaWithMinimum * multiplier);
+      TGap(context.sizes.bottomSafeAreaWithMinimum * multiplier);
   factory TGap.topSafeArea(BuildContext context, {double multiplier = 1}) =>
-      TGap(context.t.sizes.topSafeArea * multiplier);
+      TGap(context.sizes.topSafeArea * multiplier);
 }
 
 class TSliverGap extends gap_package.SliverGap {
@@ -37,9 +37,9 @@ class TSliverGap extends gap_package.SliverGap {
       : super(kSizesItemGap * multiplier);
   const TSliverGap.label({super.key, double multiplier = 1}) : super(kSizesLabelGap * multiplier);
   factory TSliverGap.bottomSafeArea(BuildContext context, {double multiplier = 1}) =>
-      TSliverGap._(context.t.sizes.bottomSafeArea * multiplier);
+      TSliverGap._(context.sizes.bottomSafeArea * multiplier);
   factory TSliverGap.topSafeArea(BuildContext context, {double multiplier = 1}) =>
-      TSliverGap._(context.t.sizes.topSafeArea * multiplier);
+      TSliverGap._(context.sizes.topSafeArea * multiplier);
   const TSliverGap.scaffoldTitle({super.key, double multiplier = 1})
       : super(kSizesTitleGap * multiplier);
   const TSliverGap.headerTitle({super.key, double multiplier = 1})

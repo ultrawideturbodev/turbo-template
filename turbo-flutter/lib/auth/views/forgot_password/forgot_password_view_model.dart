@@ -3,26 +3,20 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:informers/informers.dart';
 import 'package:loglytics/loglytics.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/turbo/extensions/context_extension.dart';
+import 'package:turbo_template/turbo/forms/form_field_config.dart';
+import 'package:turbo_template/turbo/services/feedback_service.dart';
 import 'package:veto/data/mixins/busy_service_management.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
-import 'package:turbo_template/turbo/extensions/context_extension.dart';
-import 'package:turbo_template/turbo/forms/form_field_config.dart';
-import 'package:turbo_template/turbo/globals/g_strings.dart';
-import 'package:turbo_template/turbo/models/bread_crumb_model.dart';
-import 'package:turbo_template/turbo/routing/core_router.dart';
-import 'package:turbo_template/turbo/services/feedback_service.dart';
-import '../../enums/forgot_password_origin.dart';
 import '../../forms/forgot_password.dart';
-import '../../services/user_service.dart';
 
-class ForgotPasswordViewModel extends BaseViewModel<ForgotPasswordOrigin>
-    with Loglytics, BusyServiceManagement {
+class ForgotPasswordViewModel extends BaseViewModel with Loglytics, BusyServiceManagement {
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
 
   static ForgotPasswordViewModel get locate => GetIt.I.get();
@@ -33,8 +27,6 @@ class ForgotPasswordViewModel extends BaseViewModel<ForgotPasswordOrigin>
   final _feedbackService = FeedbackService.locate;
   final _firebaseAuth = FirebaseAuth.instance;
   final _forgotPasswordForm = ForgotPasswordForm.locate;
-  late final _userService = UserService.locate;
-  final _coreRouter = CoreRouter.locate;
 
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
 
@@ -43,16 +35,7 @@ class ForgotPasswordViewModel extends BaseViewModel<ForgotPasswordOrigin>
     try {
       log.info('Initialising ForgotPasswordViewModel.');
       setBusy(true);
-      switch (origin) {
-        case ForgotPasswordOrigin.core:
-          _forgotPasswordForm.email.requestFocus();
-          break;
-        case ForgotPasswordOrigin.account:
-          await _userService.isReady;
-          _forgotPasswordForm.email.value = _userService.email;
-          onEmailChanged('');
-          break;
-      }
+      _forgotPasswordForm.email.requestFocus();
     } catch (error, stackTrace) {
       log.error(
         '$error caught while initialising ForgotPasswordViewModel.',
@@ -84,35 +67,8 @@ class ForgotPasswordViewModel extends BaseViewModel<ForgotPasswordOrigin>
   // 🛠 UTIL ---------------------------------------------------------------------------------- \\
   // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
 
-  ForgotPasswordOrigin get origin => arguments;
   ValueListenable<bool> get canSendEmail => _canSendEmail;
   FormFieldConfig<String> get emailField => _forgotPasswordForm.email;
-  List<BreadCrumbModel> get breadCrumbModels => [
-        BreadCrumbModel(
-          label: switch (origin) {
-            ForgotPasswordOrigin.account => gStrings.account,
-            ForgotPasswordOrigin.core => gStrings.login,
-          },
-          onPressed: () {
-            switch (origin) {
-              case ForgotPasswordOrigin.core:
-                _coreRouter.goAuthView();
-                // TODO(codaveto): Implement account router | 05/10/2024
-                break;
-              case ForgotPasswordOrigin.account:
-                _coreRouter.goAuthView();
-                break;
-            }
-          },
-        ),
-        BreadCrumbModel(
-          label: switch (origin) {
-            ForgotPasswordOrigin.account => gStrings.resetPassword,
-            ForgotPasswordOrigin.core => gStrings.forgotPassword,
-          },
-          onPressed: () {},
-        ),
-      ];
 
   // 🏗 HELPERS ------------------------------------------------------------------------------- \\
   // 🪄 MUTATORS ------------------------------------------------------------------------------ \\
