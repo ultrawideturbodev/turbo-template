@@ -94,8 +94,8 @@ class AuthView extends StatelessWidget {
                           show: authViewMode.isRegister,
                           child: Padding(
                             padding: const EdgeInsets.only(
-                              top: kSizesItemGap,
-                              bottom: kSizesItemGap,
+                              top: kSizesElementGap,
+                              bottom: kSizesElementGap,
                             ),
                             child: Column(
                               children: [
@@ -153,8 +153,8 @@ class AuthView extends StatelessWidget {
                           show: authViewMode.isLogin,
                           child: Padding(
                             padding: const EdgeInsets.only(
-                              top: kSizesItemGap,
-                              bottom: kSizesItemGap,
+                              top: kSizesElementGap,
+                              bottom: kSizesElementGap,
                             ),
                             child: Row(
                               children: [
@@ -205,7 +205,7 @@ class AuthView extends StatelessWidget {
                                 child: const Icon(BootstrapIcons.google),
                               ),
                             ),
-                            const SizedBox(width: kSizesItemGap),
+                            const SizedBox(width: kSizesElementGap),
                             Expanded(
                               child: Button.outline(
                                 onPressed: model.onAppleAuthPressed,
@@ -219,7 +219,7 @@ class AuthView extends StatelessWidget {
                           show: authViewMode.isRegister,
                           child: Padding(
                             padding: const EdgeInsets.only(
-                              top: kSizesItemGap,
+                              top: kSizesElementGap,
                             ),
                             child: Row(
                               children: [

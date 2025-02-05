@@ -1,8 +1,10 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/turbo/constants/k_sizes.dart';
 import 'package:turbo_template/turbo/constants/k_widgets.dart';
+import 'package:turbo_template/turbo/extensions/animation_extension.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';
 import 'package:turbo_template/turbo/globals/g_strings.dart';
+import 'package:turbo_template/turbo/widgets/cards/turbo_card.dart';
 import 'package:turbo_template/turbo/widgets/form_field_text.dart';
 import 'package:turbo_template/turbo/widgets/layout/turbo_scaffold.dart';
 import 'package:turbo_template/turbo/widgets/t_gap.dart';
@@ -25,76 +27,61 @@ class ForgotPasswordView extends StatelessWidget {
         return TurboScaffold(
           child: Center(
             child: Container(
-              margin: EdgeInsets.only(
-                top: context.sizes.topSafeArea,
-                bottom: context.sizes.bottomSafeAreaWithMinimum,
-              ),
               constraints: const BoxConstraints(
                 maxWidth: kSizesDialogMaxWidth,
               ),
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Flexible(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                child: TurboCard(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        gStrings.forgotPassword,
+                        textAlign: TextAlign.left,
+                        style: context.texts.cardTitle,
+                      ),
+                      const Gap(6),
+                      Text(
+                        gStrings.fillInYourEmailAddressAndWeWillSendYou,
+                        style: context.texts.cardSubtitle,
+                        textAlign: TextAlign.left,
+                      ),
+                      const TGap.section(),
+                      FormFieldText(
+                        formFieldConfig: model.emailField,
+                        leadingIcon: Icons.email_rounded,
+                        label: gStrings.email,
+                        hintText: gStrings.emailHint,
+                        onSubmitted: (_) => model.onEmailSubmitted(context: context),
+                      ),
+                      const TGap.section(),
+                      Row(
                         children: [
-                          Card(
-                            padding: const EdgeInsets.all(kSizesAppPadding * 2),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  gStrings.forgotPassword,
-                                  style: context.texts.viewTitle,
-                                  textAlign: TextAlign.center,
-                                ),
-                                const TGap.element(),
-                                Text(
-                                  gStrings.fillInYourEmailAddressAndWeWillSendYou,
-                                  style: context.texts.button,
-                                  textAlign: TextAlign.center,
-                                ),
-                                const TGap.section(),
-                                FormFieldText(
-                                  formFieldConfig: model.emailField,
-                                  label: gStrings.email,
-                                  onSubmitted: (_) => model.onEmailSubmitted(context: context),
-                                ),
-                                const TGap.section(),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: PrimaryButton(
-                                        onPressed: () => model.onSendEmailPressed(context: context),
-                                        child: Text(gStrings.send),
-                                        focusNode: model.sendEmailButtonFocusNode,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          const TGap.section(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              PrimaryButton(
-                                onPressed: () => model.onGoBackPressed(context: context),
-                                child: Text(gStrings.clickHereToLogin),
+                          Expanded(
+                            child: Button.primary(
+                              child: const Text('Send'),
+                              onPressed: () => model.onSendEmailPressed(
+                                context: context,
                               ),
-                            ],
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                  ],
+                      const TGap.element(),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Button.ghost(
+                              child: const Text('Back to login'),
+                              onPressed: () => model.onGoBackPressed(context: context),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                    mainAxisSize: MainAxisSize.min,
+                  ),
                 ),
               ),
             ),

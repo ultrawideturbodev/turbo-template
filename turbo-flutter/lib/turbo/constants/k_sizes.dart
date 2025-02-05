@@ -1,5 +1,4 @@
 const kSizesAppPadding = 16.0;
-const kSizesElementGap = 12.0;
 const kSizesButtonHeight = 40.0;
 const kSizesCardPadding = 24.0;
 const kSizesCardRadius = 12.0;
@@ -16,7 +15,7 @@ const kSizesSectionGap = 24.0;
 const kSizesSectionPadding = 10.0;
 const kSizesAppPaddingX0p5 = kSizesAppPadding / 2;
 const kSizesListItemMinHeight = 88.0;
-const kSizesItemGap = 16.0;
+const kSizesElementGap = 16.0;
 const kSizesLabelGap = 12.0;
 const kSizesTitleGap = 16.0;
 const kSizesListItemTitleCaption = 6.0;

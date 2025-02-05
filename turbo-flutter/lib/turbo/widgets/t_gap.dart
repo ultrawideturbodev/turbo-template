@@ -23,28 +23,3 @@ class TGap extends gap_package.Gap {
   factory TGap.topSafeArea(BuildContext context, {double multiplier = 1}) =>
       TGap(context.sizes.topSafeArea * multiplier);
 }
-
-class TSliverGap extends gap_package.SliverGap {
-  const TSliverGap._(super.mainAxisExtent);
-
-  const TSliverGap.listItem({super.key, double multiplier = 1})
-      : super(kSizesListItemGap * multiplier);
-  const TSliverGap.inlineText({super.key, double multiplier = 1})
-      : super(kSizesTextGap * multiplier);
-  const TSliverGap.bottomButton({super.key, double multiplier = 1})
-      : super(kSizesHeightButtonBottomFade * multiplier);
-  const TSliverGap.appPadding({super.key, double multiplier = 1})
-      : super(kSizesItemGap * multiplier);
-  const TSliverGap.label({super.key, double multiplier = 1}) : super(kSizesLabelGap * multiplier);
-  factory TSliverGap.bottomSafeArea(BuildContext context, {double multiplier = 1}) =>
-      TSliverGap._(context.sizes.bottomSafeArea * multiplier);
-  factory TSliverGap.topSafeArea(BuildContext context, {double multiplier = 1}) =>
-      TSliverGap._(context.sizes.topSafeArea * multiplier);
-  const TSliverGap.scaffoldTitle({super.key, double multiplier = 1})
-      : super(kSizesTitleGap * multiplier);
-  const TSliverGap.headerTitle({super.key, double multiplier = 1})
-      : super(kSizesHeaderTitleGap * multiplier);
-
-  const TSliverGap.section({super.key, double multiplier = 1})
-      : super(kSizesSectionGap * multiplier);
-}
