@@ -16,7 +16,7 @@ class TurboScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     final safeChild = SafeArea(child: child);
     final pBackground =
-        background ?? TurboColorBackground(backgroundColor: context.colors.background);
+        background ?? context.decorations.scaffoldBackground;
     return Scaffold(
       child: switch (pBackground) {
         TurboColorBackground() => safeChild,

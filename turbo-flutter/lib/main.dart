@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/turbo/config/app_setup.dart';
+import 'package:turbo_template/turbo/config/turbo_breakpoint_config.dart';
 import 'package:turbo_template/turbo/constants/k_durations.dart';
 import 'package:turbo_template/turbo/constants/k_sizes.dart';
 import 'package:turbo_template/turbo/enums/turbo_theme.dart';
@@ -46,14 +47,14 @@ class MyApp extends StatelessWidget {
     final themeService = ThemeService.locate;
     final languageService = LanguageService.locate;
     return ValueListenableBuilderX2(
-      valueListenable: themeService.themeMode,
+      valueListenable: themeService.themeModeListenable,
       valueListenable2: languageService.language,
       builder: (context, turboThemeMode, language, _) {
         return AnnotatedRegion(
           value: turboThemeMode.systemUiOverlayStyle,
           child: ShadcnApp.router(
-            theme: TurboTheme.lightZinc.themeData,
-            darkTheme: TurboTheme.darkZinc.themeData,
+            theme: themeService.lightTheme,
+            darkTheme: themeService.darkTheme,
             themeMode: turboThemeMode.themeMode,
             routerConfig: BaseRouter.locate.coreRouter,
             scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),
@@ -69,15 +70,18 @@ class MyApp extends StatelessWidget {
                     typography: context.theme.typography.copyWith(),
                   ),
                   child: TurboProviderBuilder(
+                    turboTheme: themeService.theme,
+                    turboBreakpointConfig: const TurboBreakpointConfig(),
                     supportedLanguage: language,
                     turboThemeMode: turboThemeMode,
                     builder: (
-                      config,
                       themeMode,
+                      theme,
                       tools,
                       data,
                       texts,
                       colors,
+                      sizes,
                       decorations,
                       context,
                     ) =>

@@ -1,9 +1,10 @@
 import 'package:hive_ce/hive.dart';
+import 'package:turbo_template/local_storage/dtos/local_storage_dto.dart';
 import 'package:turbo_template/turbo/enums/auth_step.dart';
 import 'package:turbo_template/turbo/enums/hive_adapters.dart';
 import 'package:turbo_template/turbo/enums/navigation_tab.dart';
 import 'package:turbo_template/turbo/enums/supported_language.dart';
-import 'package:turbo_template/local_storage/dtos/local_storage_dto.dart';
+import 'package:turbo_template/turbo/enums/turbo_theme.dart';
 import 'package:turbo_template/turbo/enums/turbo_theme_mode.dart';
 
 class LocalStorageDtoAdapter extends TypeAdapter<LocalStorageDto> {
@@ -27,6 +28,7 @@ class LocalStorageDtoAdapter extends TypeAdapter<LocalStorageDto> {
       didHappen: didHappen,
       supportedLanguage: fields[4] as SupportedLanguage,
       turboThemeMode: fields[5] as TurboThemeMode,
+      turboTheme: fields[6] as TurboTheme,
     );
   }
 
@@ -45,9 +47,10 @@ class LocalStorageDtoAdapter extends TypeAdapter<LocalStorageDto> {
       ..writeByte(4)
       ..write(obj.supportedLanguage)
       ..writeByte(5)
-      ..write(obj.turboThemeMode);
+      ..write(obj.turboThemeMode)
+      ..writeByte(6)
+      ..write(obj.turboTheme);
   }
-
   @override
   int get hashCode => typeId.hashCode;
 

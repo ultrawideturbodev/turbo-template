@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/turbo/config/turbo_breakpoint_config.dart';
 import 'package:turbo_template/turbo/enums/supported_language.dart';
+import 'package:turbo_template/turbo/enums/turbo_theme.dart';
 import 'package:turbo_template/turbo/enums/turbo_theme_mode.dart';
 import 'package:turbo_template/turbo/extensions/box_constraints_extension.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';
@@ -18,15 +19,18 @@ class TurboProviderBuilder extends StatelessWidget {
     super.key,
     required this.builder,
     required this.turboThemeMode,
+    required this.turboTheme,
     required this.supportedLanguage,
     this.turboBreakpointConfig = const TurboBreakpointConfig(),
   });
 
   final TurboBreakpointConfig turboBreakpointConfig;
   final TurboThemeMode turboThemeMode;
+  final TurboTheme turboTheme;
   final SupportedLanguage supportedLanguage;
   final Widget Function(
     TurboThemeMode themeMode,
+    TurboTheme theme,
     TurboTools tools,
     TurboData data,
     TurboTexts texts,
@@ -50,6 +54,7 @@ class TurboProviderBuilder extends StatelessWidget {
           final decorations = TurboDecorations(
             themeMode: turboThemeMode,
             deviceType: deviceType,
+            theme: turboTheme,
           );
           final texts = TurboTexts(
             context: context,
@@ -81,6 +86,7 @@ class TurboProviderBuilder extends StatelessWidget {
             child: Builder(
               builder: (context) => builder(
                 turboThemeMode,
+                turboTheme,
                 tools,
                 data,
                 texts,

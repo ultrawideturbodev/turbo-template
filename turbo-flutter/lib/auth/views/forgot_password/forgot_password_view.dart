@@ -23,86 +23,81 @@ class ForgotPasswordView extends StatelessWidget {
       builder: (context, model, isInitialised, child) {
         if (!isInitialised) return kWidgetsNothing;
         return TurboScaffold(
-          child: Stack(
-            children: [
-              Center(
-                child: Container(
-                  margin: EdgeInsets.only(
-                    top: context.sizes.topSafeArea,
-                    bottom: context.sizes.bottomSafeAreaWithMinimum,
-                  ),
-                  constraints: const BoxConstraints(
-                    maxWidth: kSizesDialogMaxWidth,
-                  ),
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Flexible(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Card(
-                                padding: const EdgeInsets.all(kSizesAppPadding * 2),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                                  mainAxisSize: MainAxisSize.min,
+          child: Center(
+            child: Container(
+              margin: EdgeInsets.only(
+                top: context.sizes.topSafeArea,
+                bottom: context.sizes.bottomSafeAreaWithMinimum,
+              ),
+              constraints: const BoxConstraints(
+                maxWidth: kSizesDialogMaxWidth,
+              ),
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Card(
+                            padding: const EdgeInsets.all(kSizesAppPadding * 2),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  gStrings.forgotPassword,
+                                  style: context.texts.viewTitle,
+                                  textAlign: TextAlign.center,
+                                ),
+                                const TGap.element(),
+                                Text(
+                                  gStrings.fillInYourEmailAddressAndWeWillSendYou,
+                                  style: context.texts.button,
+                                  textAlign: TextAlign.center,
+                                ),
+                                const TGap.section(),
+                                FormFieldText(
+                                  formFieldConfig: model.emailField,
+                                  label: gStrings.email,
+                                  onSubmitted: (_) => model.onEmailSubmitted(context: context),
+                                ),
+                                const TGap.section(),
+                                Row(
                                   children: [
-                                    Text(
-                                      gStrings.forgotPassword,
-                                      style: context.texts.viewTitle,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const TGap.element(),
-                                    Text(
-                                      gStrings.fillInYourEmailAddressAndWeWillSendYou,
-                                      style: context.texts.button,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const TGap.section(),
-                                    FormFieldText(
-                                      formFieldConfig: model.emailField,
-                                      label: gStrings.email,
-                                      onSubmitted: (_) => model.onEmailSubmitted(context: context),
-                                    ),
-                                    const TGap.section(),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: PrimaryButton(
-                                            onPressed: () =>
-                                                model.onSendEmailPressed(context: context),
-                                            child: Text(gStrings.send),
-                                            focusNode: model.sendEmailButtonFocusNode,
-                                          ),
-                                        ),
-                                      ],
+                                    Expanded(
+                                      child: PrimaryButton(
+                                        onPressed: () => model.onSendEmailPressed(context: context),
+                                        child: Text(gStrings.send),
+                                        focusNode: model.sendEmailButtonFocusNode,
+                                      ),
                                     ),
                                   ],
                                 ),
-                              ),
-                              const TGap.section(),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  PrimaryButton(
-                                    onPressed: () => model.onGoBackPressed(context: context),
-                                    child: Text(gStrings.clickHereToLogin),
-                                  ),
-                                ],
+                              ],
+                            ),
+                          ),
+                          const TGap.section(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              PrimaryButton(
+                                onPressed: () => model.onGoBackPressed(context: context),
+                                child: Text(gStrings.clickHereToLogin),
                               ),
                             ],
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
         );
       },

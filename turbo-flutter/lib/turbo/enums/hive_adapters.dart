@@ -6,6 +6,7 @@ import 'package:turbo_template/turbo/adapters/emoji_adapter.dart';
 import 'package:turbo_template/turbo/adapters/local_storage_adapter.dart';
 import 'package:turbo_template/turbo/adapters/navigation_tab_adapter.dart';
 import 'package:turbo_template/turbo/adapters/supported_language_adapter.dart';
+import 'package:turbo_template/turbo/adapters/turbo_theme_adapter.dart';
 import 'package:turbo_template/turbo/adapters/turbo_theme_mode_adapter.dart';
 import 'package:turbo_template/turbo/annotations/do_not_change_order.dart';
 
@@ -19,6 +20,7 @@ enum HiveAdapters {
   emoji,
   dateFormat,
   localStorageDto,
+  turboTheme,
   ;
 
   void registerAdapter() {
@@ -46,6 +48,9 @@ enum HiveAdapters {
         break;
       case HiveAdapters.localStorageDto:
         Hive.registerAdapter(LocalStorageDtoAdapter());
+        break;
+      case HiveAdapters.turboTheme:
+        Hive.registerAdapter(TurboThemeAdapter());
         break;
     }
   }

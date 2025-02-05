@@ -18,6 +18,7 @@ import 'package:turbo_template/turbo/enums/auth_step.dart';
 import 'package:turbo_template/turbo/enums/hive_adapters.dart';
 import 'package:turbo_template/turbo/enums/navigation_tab.dart';
 import 'package:turbo_template/turbo/enums/supported_language.dart';
+import 'package:turbo_template/turbo/enums/turbo_theme.dart';
 import 'package:turbo_template/turbo/enums/turbo_theme_mode.dart';
 import 'package:turbo_template/turbo/globals/g_meta_vars.dart';
 import 'package:turbo_template/turbo/globals/g_user_id.dart';
@@ -297,6 +298,26 @@ class LocalStorageService extends Initialisable with Loglytics {
     } catch (error, stackTrace) {
       log.error(
         '$error caught while updating language',
+        error: error,
+        stackTrace: stackTrace,
+      );
+      return const TurboResponse.failAsBool();
+    }
+  }
+
+  Future<TurboResponse> updateTheme({
+    required TurboTheme theme,
+  }) async {
+    try {
+      log.info('Updating theme: $theme');
+      await _updateLocalStorage(
+            (current) => current.copyWith(turboTheme: theme),
+        userId: gUserId,
+      );
+      return const TurboResponse.successAsBool();
+    } catch (error, stackTrace) {
+      log.error(
+        '$error caught while updating theme',
         error: error,
         stackTrace: stackTrace,
       );
