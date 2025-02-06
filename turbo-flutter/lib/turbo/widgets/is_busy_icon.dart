@@ -47,7 +47,9 @@ class IsBusyIcon extends StatelessWidget {
             switch (busyType) {
               BusyType.none => kWidgetsNothing,
               (_) => const Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    size: 32,
+                  ),
                 ),
             },
           ],

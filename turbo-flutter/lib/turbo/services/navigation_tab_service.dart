@@ -13,7 +13,9 @@ class NavigationTabService with Loglytics {
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
 
   static NavigationTabService get locate => GetIt.I.get();
-  static void registerLazySingleton() => GetIt.I.registerLazySingleton(NavigationTabService.new);
+  static void registerLazySingleton() => GetIt.I.registerLazySingleton(
+        NavigationTabService.new,
+      );
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
 

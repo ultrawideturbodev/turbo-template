@@ -12,7 +12,9 @@ class ThemeService with Loglytics {
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
 
   static ThemeService get locate => GetIt.I.get();
-  static void registerLazySingleton() => GetIt.I.registerLazySingleton(ThemeService.new);
+  static void registerLazySingleton() => GetIt.I.registerLazySingleton(
+        ThemeService.new,
+      );
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
 

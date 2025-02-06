@@ -1,6 +1,12 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/turbo/config/turbo_button_config.dart';
 import 'package:turbo_template/turbo/constants/k_widgets.dart';
+import 'package:turbo_template/turbo/widgets/ho_padding.dart';
+import 'package:turbo_template/turbo/widgets/layout/turbo_app_bar.dart';
+import 'package:turbo_template/turbo/widgets/layout/turbo_bread_crumb.dart';
+import 'package:turbo_template/turbo/widgets/layout/turbo_bread_crumps.dart';
 import 'package:turbo_template/turbo/widgets/layout/turbo_scaffold.dart';
+import 'package:turbo_template/turbo/widgets/t_gap.dart';
 import 'package:turbo_template/turbo/widgets/turbo_scroll_view.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
@@ -20,53 +26,30 @@ class HomeView extends StatelessWidget {
         if (!isInitialised) return kWidgetsNothing;
         return TurboScaffold(
           headers: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  clipBehavior: Clip.none,
-                  child: AppBar(
-                    header: const Text('This is Header'),
-                    subtitle: const Text('This is Subtitle'),
-                    leading: [
-                      OutlineButton(
-                        density: ButtonDensity.icon,
-                        onPressed: () {},
-                        child: const Icon(Icons.arrow_back),
-                      ),
-                    ],
-                    trailing: [
-                      OutlineButton(
-                        density: ButtonDensity.icon,
-                        onPressed: () {},
-                        child: const Icon(Icons.search),
-                      ),
-                      OutlineButton(
-                        density: ButtonDensity.icon,
-                        onPressed: () {},
-                        child: const Icon(Icons.more_vert),
-                      ),
-                    ],
-                  ),
+            TurboAppBar(
+              leading: [
+                TurboIconButtonConfig.goBack(
+                  context: context,
+                  onFail: null,
                 ),
-                const Divider(),
-                Breadcrumb(
-                  separator: Breadcrumb.arrowSeparator,
-                  children: [
-                    TextButton(
-                      onPressed: () {},
-                      density: ButtonDensity.compact,
-                      child: const Text('Home'),
-                    ),
-                    const MoreDots(),
-                    TextButton(
-                      onPressed: () => model.onLogoutPressed(context: context),
-                      density: ButtonDensity.compact,
-                      child: const Text('Components'),
-                    ),
-                    const Text('Breadcrumb'),
-                  ],
+              ],
+              title: model.title,
+              subtitle: 'wow',
+              trailing: [
+                TurboIconButtonConfig.logout(onPressed: model.onLogoutPressed),
+              ],
+            ),
+            TurboBreadCrumbs(
+              turboBreadCrumbs: [
+                TurboTextCrumb(
+                  text: 'Home',
+                  onPressed: () {
+                    print('wtf');
+                  },
                 ),
+                const TurboMoreDotsCrumb(),
+                const TurboTextCrumb(text: 'wtf'),
+                const TurboTextCrumb(text: 'wtf'),
               ],
             ),
           ],

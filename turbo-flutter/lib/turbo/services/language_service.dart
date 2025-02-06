@@ -8,11 +8,12 @@ import 'package:turbo_template/turbo/strings/gen/l10n.dart';
 import 'package:turbo_template/local_storage/services/local_storage_service.dart';
 
 class LanguageService with Loglytics {
-
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
 
   static LanguageService get locate => GetIt.I.get();
-  static void registerLazySingleton() => GetIt.I.registerLazySingleton(LanguageService.new);
+  static void registerLazySingleton() => GetIt.I.registerLazySingleton(
+        LanguageService.new,
+      );
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
 
@@ -35,7 +36,6 @@ class LanguageService with Loglytics {
         stackTrace: stackTrace,
       );
     }
-
   }
 
   // 🎩 STATE ------------------------------------------------------------------------------- \\
@@ -69,5 +69,4 @@ class LanguageService with Loglytics {
       return const TurboResponse.failAsBool();
     }
   }
-
 }

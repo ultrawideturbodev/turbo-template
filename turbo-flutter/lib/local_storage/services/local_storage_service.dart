@@ -33,7 +33,10 @@ class LocalStorageService with Loglytics {
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
 
   static LocalStorageService get locate => GetIt.I.get();
-  static void registerLazySingleton() => GetIt.I.registerLazySingleton(LocalStorageService.new);
+  static void registerLazySingleton() => GetIt.I.registerLazySingleton(
+        LocalStorageService.new,
+        dispose: (param) async => await param.dispose(),
+      );
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
 

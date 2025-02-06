@@ -8,8 +8,11 @@ import 'package:turbo_template/turbo/globals/g_strings.dart';
 class ToastService with Loglytics {
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
 
+  static ToastService Function() get lazyLocate => () => GetIt.I.get();
   static ToastService get locate => GetIt.I.get();
-  static void registerLazySingleton() => GetIt.I.registerLazySingleton(ToastService.new);
+  static void registerLazySingleton() => GetIt.I.registerLazySingleton(
+        ToastService.new,
+      );
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
@@ -19,7 +22,6 @@ class ToastService with Loglytics {
   // 🛠 UTIL ---------------------------------------------------------------------------------- \\
   // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
   // 🏗️ HELPERS ------------------------------------------------------------------------------- \\
-
 
   Future<void> showSomethingWentWrongToast({
     required shad.BuildContext context,
@@ -45,7 +47,7 @@ class ToastService with Loglytics {
     required shad.BuildContext? context,
     required String title,
     String? subtitle,
-    TurboButtonConfig? config,
+    TurboTextButtonConfig? config,
   }) {
     final pContext = context ?? gContext;
     if (pContext == null) {
@@ -53,21 +55,21 @@ class ToastService with Loglytics {
       return;
     }
     shad.showToast(
-        context: pContext,
-        location: shad.ToastLocation.bottomLeft,
-        builder: (context, overlay) => shad.SurfaceCard(
-          child: shad.Basic(
-            title: shad.Text(title),
-            subtitle: subtitle != null ? shad.Text(subtitle) : null,
-            trailing: config != null
-                ? shad.Button.primary(
-                    onPressed: config.onPressed,
-                    child: shad.Text(config.text),
-                  )
-                : null,
-            trailingAlignment: shad.Alignment.center,
-          ),
+      context: pContext,
+      location: shad.ToastLocation.bottomLeft,
+      builder: (context, overlay) => shad.SurfaceCard(
+        child: shad.Basic(
+          title: shad.Text(title),
+          subtitle: subtitle != null ? shad.Text(subtitle) : null,
+          trailing: config != null
+              ? shad.Button.primary(
+                  onPressed: config.onPressed,
+                  child: shad.Text(config.text),
+                )
+              : null,
+          trailingAlignment: shad.Alignment.center,
         ),
-      );
+      ),
+    );
   }
 }

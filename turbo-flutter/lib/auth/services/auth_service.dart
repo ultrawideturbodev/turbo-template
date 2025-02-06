@@ -25,7 +25,12 @@ class AuthService extends SyncService<User?> with Loglytics, FirebaseAuthExcepti
 
   static AuthService get locate => GetIt.I.get();
   static AuthService Function() get lazyLocate => () => GetIt.I.get<AuthService>();
-  static void registerLazySingleton() => GetIt.I.registerLazySingleton(AuthService.new);
+  static void registerLazySingleton() => GetIt.I.registerLazySingleton(
+        AuthService.new,
+        dispose: (param) async {
+          await param.dispose();
+        },
+      );
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
 

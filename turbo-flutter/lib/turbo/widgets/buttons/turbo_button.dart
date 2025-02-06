@@ -12,7 +12,7 @@ class TurboButton extends StatelessWidget {
   }) : super(key: key);
 
   final Widget child;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final double scaleEnd;
   final double opacityEnd;
 
@@ -25,7 +25,7 @@ class TurboButton extends StatelessWidget {
           child: GestureDetector(
             child: child,
             onTapDown: (_) => gVibrateSelection(),
-            onTapUp: (_) => onPressed(),
+            onTapUp: (_) => onPressed?.call(),
           ),
         ),
       );

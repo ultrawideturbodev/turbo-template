@@ -44,6 +44,7 @@ dependencies:
 #  shadcn_flutter: ^0.0.24
   shadcn_flutter:
     path: /Users/codaveto/Documents/ultrawideturbodev/forks/shadcn_flutter
+  flutter_phoenix: ^1.1.1
 
 dev_dependencies:
   flutter_test:

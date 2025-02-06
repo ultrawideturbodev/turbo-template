@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/turbo/config/app_setup.dart';
@@ -26,7 +27,7 @@ void main() {
   runZonedGuarded(
     () async {
       await AppSetup.initialise();
-      runApp(const MyApp());
+      runApp(Phoenix(child: const MyApp()));
     },
     (error, stack) {
       Log(location: 'Zoned').error(

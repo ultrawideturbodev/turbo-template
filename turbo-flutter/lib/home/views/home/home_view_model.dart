@@ -1,12 +1,13 @@
 import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/auth/mixins/logout_management.dart';
 import 'package:turbo_template/auth/services/auth_service.dart';
 import 'package:turbo_template/turbo/routing/core_router.dart';
 import 'package:turbo_template/turbo/services/dialog_service.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
-class HomeViewModel extends BaseViewModel with Loglytics {
+class HomeViewModel extends BaseViewModel with Loglytics, LogoutManagement {
   HomeViewModel();
 
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
@@ -19,6 +20,7 @@ class HomeViewModel extends BaseViewModel with Loglytics {
   final _dialogService = DialogService.lazyLocate;
   final _authService = AuthService.lazyLocate;
   final _coreRouter = CoreRouter.lazyLocate;
+
 
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
 
@@ -35,20 +37,10 @@ class HomeViewModel extends BaseViewModel with Loglytics {
   // 🎩 STATE --------------------------------------------------------------------------------- \\
   // 🛠 UTIL ---------------------------------------------------------------------------------- \\
   // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
+
+  String get title => 'Home';
+
   // 🏗 HELPERS ------------------------------------------------------------------------------- \\
   // 🪄 MUTATORS ------------------------------------------------------------------------------ \\
 
-  Future<void> onLogoutPressed({required BuildContext context}) async {
-    final shouldLogout = await _dialogService().showOkCancelDialog(
-      title: 'Logout',
-      message: 'Are you sure you want to logout?',
-      context: context,
-    );
-    if (shouldLogout == true) {
-      log.info('Logging out..');
-      await _authService().logout();
-      _coreRouter().goAuthView();
-      log.info('Logged out!');
-    }
-  }
 }

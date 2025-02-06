@@ -16,7 +16,10 @@ class ConnectionService with Loglytics {
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
 
   static ConnectionService get locate => GetIt.I.get();
-  static void registerLazySingleton() => GetIt.I.registerLazySingleton(ConnectionService.new);
+  static void registerLazySingleton() => GetIt.I.registerLazySingleton(
+        ConnectionService.new,
+        dispose: (param) async => await param.dispose(),
+      );
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
 

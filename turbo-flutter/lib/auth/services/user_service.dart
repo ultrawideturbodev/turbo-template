@@ -21,7 +21,10 @@ class UserService extends TurboDocumentService<UserDto, UsersApi> with Loglytics
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
 
   static UserService get locate => GetIt.I.get();
-  static void registerLazySingleton() => GetIt.I.registerLazySingleton(UserService.new);
+  static void registerLazySingleton() => GetIt.I.registerLazySingleton(
+        UserService.new,
+        dispose: (param) async => await param.dispose(),
+      );
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
@@ -45,9 +48,10 @@ class UserService extends TurboDocumentService<UserDto, UsersApi> with Loglytics
 
   Future<TurboResponse> createUser({
     required CreateDocDef<UserDto> doc,
-  }) async => createDoc(
-      doc: doc,
-    );
+  }) async =>
+      createDoc(
+        doc: doc,
+      );
 
   Future<TurboResponse> updateAcceptedPrivacyAndTermsAt({
     required DateTime acceptedPrivacyAndTermsAt,
