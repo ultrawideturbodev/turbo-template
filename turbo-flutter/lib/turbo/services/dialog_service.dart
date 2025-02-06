@@ -71,8 +71,8 @@ class DialogService with Loglytics {
     String? cancelText,
     String? okText,
     required BuildContext? context,
-    required String message,
     required String title,
+    required String message,
   }) async {
     final pContext = context ?? gContext;
     if (pContext == null) {
@@ -82,6 +82,7 @@ class DialogService with Loglytics {
     return showDialog<bool?>(
       context: pContext,
       builder: (context) => AlertDialog(
+        barrierColor: const Color(0x42000000),
         title: Text(title),
         content: Text(message),
         actions: [
@@ -89,12 +90,13 @@ class DialogService with Loglytics {
             onPressed: () => context.pop(false),
             child: Text(cancelText ?? gStrings.cancel),
           ),
+          const Spacer(),
           Button.primary(
             onPressed: () => context.pop(true),
             child: Text(okText ?? gStrings.ok),
           ),
         ],
-      ),
+      ).intrinsic(),
     );
   }
 }

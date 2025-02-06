@@ -4,8 +4,10 @@ import 'package:turbo_template/turbo/constants/k_sizes.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';
 
 class TGap extends gap_package.Gap {
-  const TGap(super.mainAxisExtent, {super.key});
+  const TGap._(super.mainAxisExtent, {super.key});
+
   const TGap.element({super.key, double multiplier = 1}) : super(kSizesElementGap * multiplier);
+  const TGap.subtitle({super.key, double multiplier = 1}) : super(kSizesSubtitleGap * multiplier);
   const TGap.appPadding({super.key, double multiplier = 1}) : super(kSizesAppPadding * multiplier);
   const TGap.cardPadding({super.key, double multiplier = 1}) : super(kSizesCardPadding * multiplier);
   const TGap.bottomFade({super.key, double multiplier = 1})
@@ -19,7 +21,7 @@ class TGap extends gap_package.Gap {
   const TGap.scaffoldTitle({super.key, double multiplier = 1}) : super(kSizesTitleGap * multiplier);
   const TGap.section({super.key, double multiplier = 1}) : super(kSizesSectionGap * multiplier);
   factory TGap.bottomSafeArea(BuildContext context, {double multiplier = 1}) =>
-      TGap(context.sizes.bottomSafeAreaWithMinimum * multiplier);
+      TGap._(context.sizes.bottomSafeAreaWithMinimum * multiplier);
   factory TGap.topSafeArea(BuildContext context, {double multiplier = 1}) =>
-      TGap(context.sizes.topSafeArea * multiplier);
+      TGap._(context.sizes.topSafeArea * multiplier);
 }

@@ -8,8 +8,16 @@ import 'package:turbo_template/turbo/extensions/string_extension.dart';
 import '../views/home/home_view.dart';
 
 class HomeRouter extends BaseNavigation {
+  // 📍 LOCATOR ------------------------------------------------------------------------------- \\
+
+  static HomeRouter Function() get lazyLocate => () => GetIt.I.get();
+  static HomeRouter get locate => GetIt.I.get();
+  static void registerFactory() => GetIt.I.registerFactory(HomeRouter.new);
+
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
-  // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
+  // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
+  // 👂 LISTENERS ----------------------------------------------------------------------------- \\
+  // ⚡️ OVERRIDES ----------------------------------------------------------------------------- \\
 
   @override
   NavigationTab? get navigationTab => NavigationTab.home;
@@ -17,6 +25,10 @@ class HomeRouter extends BaseNavigation {
   @override
   String get root => HomeView.path.asRootPath;
 
+  // 🎩 STATE --------------------------------------------------------------------------------- \\
+  // 🛠 UTIL ---------------------------------------------------------------------------------- \\
+  // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
+  // 🏗️ HELPERS ------------------------------------------------------------------------------- \\
   // 🪄 MUTATORS ------------------------------------------------------------------------------ \\
 
   void goHomeView({
@@ -40,7 +52,4 @@ class HomeRouter extends BaseNavigation {
       );
     }
   }
-
-  static HomeRouter get locate => GetIt.I.get();
-  static void registerFactory() => GetIt.I.registerFactory(HomeRouter.new);
 }

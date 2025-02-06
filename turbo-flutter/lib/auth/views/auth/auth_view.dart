@@ -14,6 +14,7 @@ import 'package:turbo_template/turbo/widgets/form_field_text.dart';
 import 'package:turbo_template/turbo/widgets/layout/turbo_scaffold.dart';
 import 'package:turbo_template/turbo/widgets/shrinks.dart';
 import 'package:turbo_template/turbo/widgets/t_gap.dart';
+import 'package:turbo_template/turbo/widgets/turbo_scroll_view.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
 import 'auth_view_model.dart';
@@ -33,12 +34,11 @@ class AuthView extends StatelessWidget {
         if (!isInitialised) return kWidgetsNothing;
         return TurboScaffold(
           child: Center(
-            child: Container(
+            child: ConstrainedBox(
               constraints: const BoxConstraints(
                 maxWidth: kSizesDialogMaxWidth,
               ),
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
+              child: TurboScrollView(
                 child: TurboCard(
                   child: ValueListenableBuilder<AuthViewMode>(
                     valueListenable: model.authViewMode,
@@ -50,7 +50,7 @@ class AuthView extends StatelessWidget {
                           textAlign: TextAlign.left,
                           style: context.texts.cardTitle,
                         ),
-                        const Gap(6),
+                        const TGap.subtitle(),
                         Text(
                           'Login to your Turbo account',
                           style: context.texts.cardSubtitle,
@@ -138,7 +138,7 @@ class AuthView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const TGap(8),
+                        const Gap(8),
                         VerticalShrink(
                           alignment: Alignment.topCenter,
                           show: authViewMode.isLogin,

@@ -4,12 +4,13 @@ import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:informers/informers.dart';
 import 'package:loglytics/loglytics.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/auth/services/auth_service.dart';
 import 'package:turbo_template/auth/services/auth_step_service.dart';
+import 'package:turbo_template/busy/globals/g_busy.dart';
 import 'package:turbo_template/home/routing/home_router.dart';
 import 'package:turbo_template/settings/services/settings_service.dart';
 import 'package:turbo_template/turbo/enums/auth_step.dart';
+import 'package:turbo_template/turbo/enums/step_result.dart';
 import 'package:turbo_template/turbo/globals/g_now.dart';
 import 'package:turbo_template/turbo/globals/g_strings.dart';
 import 'package:turbo_template/turbo/services/dialog_service.dart';
@@ -25,12 +26,13 @@ class VerifyEmailViewModel extends BaseViewModel with Loglytics, BusyServiceMana
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
 
+  late final _homeRouter = HomeRouter.lazyLocate;
+
   final _dialogService = DialogService.locate;
   final _authService = AuthService.locate;
   final _authStepService = AuthStepService.locate;
   final _toastService = ToastService.locate;
   final _settingsService = SettingsService.locate;
-  final _homeRouter = HomeRouter.locate;
 
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
 
@@ -82,54 +84,68 @@ class VerifyEmailViewModel extends BaseViewModel with Loglytics, BusyServiceMana
 
   // 🪄 MUTATORS ------------------------------------------------------------------------------ \\
 
-  Future<void> onSendEmailPressed({required BuildContext context}) async {
-    try {
-      if (_canCheckStatus.value) {
-        setBusy(true);
-        _startCanLogicAndTimer();
-        log.info('Checking verified email status..');
-        final hasVerifiedEmail = _authService.hasVerifiedEmail;
-        if (await hasVerifiedEmail) {
-          log.info('Email verified');
-          _toastService.showToast(
-            context: context,
-            title: 'Email verified',
-          );
-          log.info('Updating startup step..');
-          unawaited(
-            _authStepService.updateStepHappenedAndHandleNextStep(
-              authStep: AuthStep.verifyEmail,
-            ),
-          );
-        } else {
-          log.info('Email not yet verified');
-          _resend();
-          unawaited(
-            _dialogService.showOkDialog(
-              context: context,
-              title: gStrings.emailNotYetVerified,
-              message: gStrings.weHaveResentTheVerificationEmailPleaseCheckYourInbox,
-            ),
-          );
-        }
-      }
-    } catch (error, stackTrace) {
-      log.error(
-        'Unexpected ${error.runtimeType} caught while checking verified email status.',
-        error: error,
-        stackTrace: stackTrace,
-      );
-    } finally {
-      setBusy(false);
-    }
-  }
-
   Future<void> onSkipPressed() async {
     unawaited(
       _settingsService.updateSkippedVerifyEmailDate(
         skippedVerifyEmailDate: gNow,
       ),
     );
-    _homeRouter.goHomeView();
+    _toastService.showToast(
+      context: context,
+      title: 'Skipped',
+      subtitle: 'Postponed email verification until next time.',
+    );
+    _homeRouter().goHomeView();
+  }
+
+  Future<void> onCheckStatusPressed() async {
+    if (gIsBusy) return;
+    try {
+      gSetBusy();
+      log.info('Checking verified email status..');
+      final hasVerifiedEmail = _authService.hasVerifiedEmail;
+      if (await hasVerifiedEmail) {
+        log.info('Email verified');
+        _toastService.showToast(
+          context: context,
+          title: 'Email verified',
+        );
+        log.info('Updating startup step..');
+        final stepResult = await _authStepService.updateStepHappenedAndHandleNextStep(
+          authStep: AuthStep.verifyEmail,
+        );
+        switch (stepResult) {
+          case StepResult.didNavigate:
+            break;
+          case StepResult.didNothing:
+            _homeRouter().goHomeView();
+            break;
+        }
+      } else {
+        log.info('Email not yet verified');
+        gSetIdle();
+        final shouldResend = await _dialogService.showOkCancelDialog(
+          context: context,
+          title: 'Not verified',
+          message: 'Would you like to resend the verification email?',
+          okText: 'Resend',
+          cancelText: 'Skip',
+        );
+        if (shouldResend == null) return;
+        if (shouldResend) {
+          _resend();
+        } else {
+          await onSkipPressed();
+        }
+      }
+    } catch (error, stackTrace) {
+      log.error(
+        '$error caught while checking verified email status',
+        error: error,
+        stackTrace: stackTrace,
+      );
+    } finally {
+      gSetIdle();
+    }
   }
 }

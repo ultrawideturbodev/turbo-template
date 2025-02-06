@@ -56,7 +56,7 @@ class ToastService with Loglytics {
     }
     shad.showToast(
       context: pContext,
-      location: shad.ToastLocation.bottomLeft,
+      location: shad.ToastLocation.topLeft,
       builder: (context, overlay) => shad.SurfaceCard(
         child: shad.Basic(
           title: shad.Text(title),

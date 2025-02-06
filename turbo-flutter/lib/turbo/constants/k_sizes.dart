@@ -16,6 +16,7 @@ const kSizesSectionPadding = 10.0;
 const kSizesAppPaddingX0p5 = kSizesAppPadding / 2;
 const kSizesListItemMinHeight = 88.0;
 const kSizesElementGap = 16.0;
+const kSizesSubtitleGap = 6.0;
 const kSizesLabelGap = 12.0;
 const kSizesTitleGap = 16.0;
 const kSizesListItemTitleCaption = 6.0;

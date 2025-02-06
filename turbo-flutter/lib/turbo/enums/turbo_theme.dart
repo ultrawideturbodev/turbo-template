@@ -17,15 +17,11 @@ enum TurboTheme {
             return ThemeData(
               colorScheme: ColorSchemes.darkBlue(),
               radius: 0.8,
-              surfaceOpacity: 0.5,
-              surfaceBlur: 5,
             );
           case TurboThemeMode.light:
             return ThemeData(
               colorScheme: ColorSchemes.lightBlue(),
               radius: 0.8,
-              surfaceOpacity: 0.5,
-              surfaceBlur: 5,
             );
         }
       case TurboTheme.violet:
@@ -34,15 +30,11 @@ enum TurboTheme {
             return ThemeData(
               colorScheme: ColorSchemes.darkViolet(),
               radius: 0.8,
-              surfaceOpacity: 0.5,
-              surfaceBlur: 5,
             );
           case TurboThemeMode.light:
             return ThemeData(
               colorScheme: ColorSchemes.lightViolet(),
               radius: 0.8,
-              surfaceOpacity: 0.5,
-              surfaceBlur: 5,
             );
         }
       case TurboTheme.zinc:
@@ -51,15 +43,11 @@ enum TurboTheme {
             return ThemeData(
               colorScheme: ColorSchemes.darkZinc(),
               radius: 0.8,
-              surfaceOpacity: 0.5,
-              surfaceBlur: 5,
             );
           case TurboThemeMode.light:
             return ThemeData(
               colorScheme: ColorSchemes.lightZinc(),
               radius: 0.8,
-              surfaceOpacity: 0.5,
-              surfaceBlur: 5,
             );
         }
     }
