@@ -25,32 +25,33 @@ class TurboDecorations {
   }
 
   TurboBackground get scaffoldBackground {
-    switch (themeMode) {
-      case TurboThemeMode.dark:
-        return TurboRadialGradient(
-          radialGradient: const RadialGradient(
-            colors: [
-              Color(0xff1e1d1d),
-              Color(0xff000000),
-            ],
-            stops: [0, 1],
-            center: Alignment(0.0, -0.2),
-          ),
-        );
-      case TurboThemeMode.light:
-        return TurboLinearGradient(
-          linearGradient: const LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [
-              Color(0xFFB4B4ED),
-              Color(0xFFE5E6F8),
-              Color(0xFFFFFFFF),
-              Color(0xFFD5D5F5),
-            ],
-            stops: [0.0, 0.3, 0.6, 1.0],
-          ),
-        );
-    }
+    return TurboColorBackground(backgroundColor: colors.background);
+    // switch (themeMode) {
+    //   case TurboThemeMode.dark:
+    //     return TurboRadialGradient(
+    //       radialGradient: const RadialGradient(
+    //         colors: [
+    //           Color(0xff1e1d1d),
+    //           Color(0xff000000),
+    //         ],
+    //         stops: [0, 1],
+    //         center: Alignment(0.0, -0.2),
+    //       ),
+    //     );
+    //   case TurboThemeMode.light:
+    //     return TurboLinearGradient(
+    //       linearGradient: const LinearGradient(
+    //         begin: Alignment.bottomLeft,
+    //         end: Alignment.topRight,
+    //         colors: [
+    //           Color(0xFFB4B4ED),
+    //           Color(0xFFE5E6F8),
+    //           Color(0xFFFFFFFF),
+    //           Color(0xFFD5D5F5),
+    //         ],
+    //         stops: [0.0, 0.3, 0.6, 1.0],
+    //       ),
+    //     );
+    // }
   }
 }

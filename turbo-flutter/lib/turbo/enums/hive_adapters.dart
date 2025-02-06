@@ -1,18 +1,27 @@
 import 'package:hive_ce/hive.dart';
-import 'package:turbo_template/auth/adapters/auth_step_adapter.dart';
-import 'package:turbo_template/turbo/adapters/date_format_adapter.dart';
-import 'package:turbo_template/turbo/adapters/date_time_adapter.dart';
-import 'package:turbo_template/turbo/adapters/emoji_adapter.dart';
-import 'package:turbo_template/turbo/adapters/local_storage_adapter.dart';
-import 'package:turbo_template/turbo/adapters/navigation_tab_adapter.dart';
-import 'package:turbo_template/turbo/adapters/supported_language_adapter.dart';
-import 'package:turbo_template/turbo/adapters/turbo_theme_adapter.dart';
-import 'package:turbo_template/turbo/adapters/turbo_theme_mode_adapter.dart';
-import 'package:turbo_template/turbo/annotations/do_not_change_order.dart';
+import 'package:turbo_template/local_storage/dtos/local_storage_dto.dart';
+import 'package:turbo_template/turbo/enums/auth_step.dart';
+import 'package:turbo_template/turbo/enums/date_format.dart';
+import 'package:turbo_template/turbo/enums/emoji.dart';
+import 'package:turbo_template/turbo/enums/navigation_tab.dart';
+import 'package:turbo_template/turbo/enums/supported_language.dart';
+import 'package:turbo_template/turbo/enums/turbo_theme.dart';
+import 'package:turbo_template/turbo/enums/turbo_theme_mode.dart';
 
-@DoNotChangeOrder()
+part 'hive_adapters.g.dart';
+
+@GenerateAdapters([
+  AdapterSpec<DateTime>(),
+  AdapterSpec<NavigationTab>(),
+  AdapterSpec<SupportedLanguage>(),
+  AdapterSpec<TurboThemeMode>(),
+  AdapterSpec<AuthStep>(),
+  AdapterSpec<Emoji>(),
+  AdapterSpec<DateFormat>(),
+  AdapterSpec<LocalStorageDto>(),
+  AdapterSpec<TurboTheme>(),
+])
 enum HiveAdapters {
-  dateTime,
   navigationTab,
   supportedLanguage,
   turboThemeMode,
@@ -25,9 +34,6 @@ enum HiveAdapters {
 
   void registerAdapter() {
     switch (this) {
-      case HiveAdapters.dateTime:
-        Hive.registerAdapter(DateTimeAdapter());
-        break;
       case HiveAdapters.navigationTab:
         Hive.registerAdapter(NavigationTabAdapter());
         break;

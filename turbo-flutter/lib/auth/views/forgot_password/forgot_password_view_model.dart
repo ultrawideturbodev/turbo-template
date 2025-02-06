@@ -10,7 +10,8 @@ import 'package:loglytics/loglytics.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';
 import 'package:turbo_template/turbo/forms/form_field_config.dart';
-import 'package:turbo_template/turbo/services/feedback_service.dart';
+import 'package:turbo_template/turbo/globals/g_strings.dart';
+import 'package:turbo_template/turbo/services/dialog_service.dart';
 import 'package:veto/data/mixins/busy_service_management.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
@@ -24,7 +25,7 @@ class ForgotPasswordViewModel extends BaseViewModel with Loglytics, BusyServiceM
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
 
-  final _feedbackService = FeedbackService.locate;
+  final _dialogService = DialogService.locate;
   final _firebaseAuth = FirebaseAuth.instance;
   final _forgotPasswordForm = ForgotPasswordForm.locate;
 
@@ -82,10 +83,10 @@ class ForgotPasswordViewModel extends BaseViewModel with Loglytics, BusyServiceM
       if (_forgotPasswordForm.isValid) {
         log.info('Sending password reset email.');
         unawaited(_firebaseAuth.sendPasswordResetEmail(email: _forgotPasswordForm.email.value!));
-        await _feedbackService.showOkDialog(
+        await _dialogService.showOkDialog(
           context: context,
-          title: (strings) => strings.resetPassword,
-          message: (strings) => strings.ifRegisteredWeSend(_forgotPasswordForm.email.value!),
+          title: gStrings.resetPassword,
+          message: gStrings.ifRegisteredWeSend(_forgotPasswordForm.email.value!),
         );
         if (context.mounted) {
           context.pop();

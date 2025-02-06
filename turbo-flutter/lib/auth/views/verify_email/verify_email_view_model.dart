@@ -1,18 +1,19 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:informers/informers.dart';
 import 'package:loglytics/loglytics.dart';
-import 'package:turbo_template/turbo/enums/auth_step.dart';
-import 'package:turbo_template/turbo/globals/g_now.dart';
-import 'package:turbo_template/turbo/services/feedback_service.dart';
-import 'package:turbo_template/turbo/services/notification_service.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/auth/services/auth_service.dart';
 import 'package:turbo_template/auth/services/auth_step_service.dart';
 import 'package:turbo_template/home/routing/home_router.dart';
 import 'package:turbo_template/settings/services/settings_service.dart';
+import 'package:turbo_template/turbo/enums/auth_step.dart';
+import 'package:turbo_template/turbo/globals/g_now.dart';
+import 'package:turbo_template/turbo/globals/g_strings.dart';
+import 'package:turbo_template/turbo/services/dialog_service.dart';
+import 'package:turbo_template/turbo/services/toast_service.dart';
 import 'package:veto/data/mixins/busy_service_management.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
@@ -24,10 +25,10 @@ class VerifyEmailViewModel extends BaseViewModel with Loglytics, BusyServiceMana
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
 
+  final _dialogService = DialogService.locate;
   final _authService = AuthService.locate;
   final _authStepService = AuthStepService.locate;
-  final _feedbackService = FeedbackService.locate;
-  final _notificationService = NotificationService.locate;
+  final _toastService = ToastService.locate;
   final _settingsService = SettingsService.locate;
   final _homeRouter = HomeRouter.locate;
 
@@ -90,12 +91,9 @@ class VerifyEmailViewModel extends BaseViewModel with Loglytics, BusyServiceMana
         final hasVerifiedEmail = _authService.hasVerifiedEmail;
         if (await hasVerifiedEmail) {
           log.info('Email verified');
-          unawaited(
-            _notificationService.showNotification(
-              context: null,
-              title: 'gStrings.emailVerified', // TODO(brian): Translate add to INTL | 28/12/2024
-              message: 'gStrings.thankYouAndWelcomeToRoomy',
-            ),
+          _toastService.showToast(
+            context: context,
+            title: 'Email verified',
           );
           log.info('Updating startup step..');
           unawaited(
@@ -107,10 +105,10 @@ class VerifyEmailViewModel extends BaseViewModel with Loglytics, BusyServiceMana
           log.info('Email not yet verified');
           _resend();
           unawaited(
-            _feedbackService.showOkDialog(
+            _dialogService.showOkDialog(
               context: context,
-              title: (strings) => 'gStrings.emailNotYetVerified',
-              message: (strings) => 'gStrings.weHaveResentTheVerificationEmailPleaseCheckYourInbox',
+              title: gStrings.emailNotYetVerified,
+              message: gStrings.weHaveResentTheVerificationEmailPleaseCheckYourInbox,
             ),
           );
         }

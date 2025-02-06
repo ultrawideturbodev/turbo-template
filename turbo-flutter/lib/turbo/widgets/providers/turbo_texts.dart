@@ -74,12 +74,12 @@ class TurboTexts {
       );
   TextStyle get formFieldLabel => _xSmall.copyWith(
         color: colors.background.onColor,
-    fontWeight: fwMedium,
+        fontWeight: fwMedium,
       );
 
   TextStyle get trailingFormFieldLabel => _xMuted.copyWithCurrent(
-    fontSize: (cValue) => cValue * 0.9,
-  );
+        fontSize: (cValue) => cValue * 0.9,
+      );
   TextStyle get paragraph => _p;
   TextStyle get acceptPrivacy => _xMuted;
 
@@ -89,5 +89,9 @@ class TurboTexts {
 
   TextStyle get cardSubtitle => _muted.copyWith(
         fontWeight: fwRegular,
+      );
+
+  TextStyle get navigationLabel => _xMuted.copyWith(
+        fontWeight: fwSemiBold,
       );
 }

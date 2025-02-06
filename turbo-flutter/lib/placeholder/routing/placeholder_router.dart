@@ -1,18 +1,16 @@
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:turbo_template/auth/views/auth/auth_view.dart';
-import 'package:turbo_template/auth/views/forgot_password/forgot_password_view.dart';
+import 'package:go_router/go_router.dart';
 import 'package:turbo_template/turbo/abstracts/base_navigation.dart';
 import 'package:turbo_template/turbo/enums/navigation_tab.dart';
 import 'package:turbo_template/turbo/extensions/string_extension.dart';
-import 'package:turbo_template/turbo/views/oops/oops_view.dart';
+import 'package:turbo_template/turbo/views/placeholder/placeholder_view.dart';
 
-class CoreRouter extends BaseNavigation {
+class PlaceholderRouter extends BaseNavigation {
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
 
-  static CoreRouter Function() get lazyLocate => () => GetIt.I.get<CoreRouter>();
-  static CoreRouter get locate => GetIt.I.get();
-  static void registerFactory() => GetIt.I.registerFactory(CoreRouter.new);
+  static PlaceholderRouter get locate => GetIt.I.get();
+  static void registerFactory() => GetIt.I.registerFactory(PlaceholderRouter.new);
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
@@ -20,10 +18,10 @@ class CoreRouter extends BaseNavigation {
   // ⚡️ OVERRIDES ----------------------------------------------------------------------------- \\
 
   @override
-  NavigationTab? get navigationTab => null;
+  NavigationTab? get navigationTab => NavigationTab.placeholder;
 
   @override
-  String get root => AuthView.path;
+  String get root => PlaceholderView.path.asRootPath;
 
   // 🎩 STATE --------------------------------------------------------------------------------- \\
   // 🛠 UTIL ---------------------------------------------------------------------------------- \\
@@ -31,22 +29,24 @@ class CoreRouter extends BaseNavigation {
   // 🏗️ HELPERS ------------------------------------------------------------------------------- \\
   // 🪄 MUTATORS ------------------------------------------------------------------------------ \\
 
-  void goOopsView() {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        go(
-          location: OopsView.path.asRootPath,
+  void goPlaceholderView({
+    StatefulNavigationShell? statefulNavigationShell,
+  }) {
+    if (statefulNavigationShell != null) {
+      goBranch(
+        statefulNavigationShell: statefulNavigationShell,
+      );
+      if (kIsWeb) {
+        // bug
+        goBranch(
+          statefulNavigationShell: statefulNavigationShell,
         );
-      },
-    );
-  }
-
-  void goAuthView() => go(
+      }
+    } else {
+      go(
         location: root,
-        extra: [],
+        extra: const [],
       );
-
-  Future<void> pushForgotPasswordView() async => push(
-        location: ForgotPasswordView.path.asRootPath,
-      );
+    }
+  }
 }

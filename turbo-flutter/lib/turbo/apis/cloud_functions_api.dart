@@ -1,29 +1,14 @@
+import 'dart:async';
+
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:feedback_response/feedback_response.dart';
-import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:turbo_firestore_api/abstracts/turbo_writeable.dart';
+import 'package:turbo_response/turbo_response.dart';
 import 'package:turbo_template/turbo/dtos/cloud_response_dto.dart';
 import 'package:turbo_template/turbo/enums/cloud_functions_api.dart';
+import 'package:turbo_template/turbo/globals/g_strings.dart';
 
-class CloudFunctionsApi extends CloudFunctionsApiInterface {
-  // 📍 LOCATOR ------------------------------------------------------------------------------- \\
-
-  static CloudFunctionsApi get locate => GetIt.I.get();
-  static void registerFactory() => GetIt.I.registerFactory(CloudFunctionsApi.new);
-
-  // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
-  // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
-  // 👂 LISTENERS ----------------------------------------------------------------------------- \\
-  // ⚡️ OVERRIDES ----------------------------------------------------------------------------- \\
-  // 🎩 STATE --------------------------------------------------------------------------------- \\
-  // 🛠 UTIL ---------------------------------------------------------------------------------- \\
-  // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
-  // 🏗️ HELPERS ------------------------------------------------------------------------------- \\
-  // 🪄 MUTATORS ------------------------------------------------------------------------------ \\
-}
-
-abstract class CloudFunctionsApiInterface with Loglytics {
+abstract class CloudFunctionsApi with Loglytics {
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
 
@@ -36,7 +21,7 @@ abstract class CloudFunctionsApiInterface with Loglytics {
   // 🏗️ HELPERS ------------------------------------------------------------------------------- \\
   // 🪄 MUTATORS ------------------------------------------------------------------------------ \\
 
-  Future<FeedbackResponse<T>> callCloudFunction<T>({
+  Future<TurboResponse<T?>> callCloudFunction<T>({
     required CloudFunctionId cloudFunctionId,
     required TurboWriteable writeable,
   }) async {
@@ -51,9 +36,14 @@ abstract class CloudFunctionsApiInterface with Loglytics {
       final result = cloudFunctionId.fromJsonResult<T>(cloudResponse.result);
       log.info('Result: $result');
       if (cloudResponse.isSuccess) {
-        return FeedbackResponse.successNone(result: result);
+        return TurboResponse.success(
+          result: result,
+          message: cloudResponse.message,
+          title: 'Success',
+        );
       } else {
-        return FeedbackResponse.errorNone(
+        return TurboResponse.failAsBool(
+          title: 'Failed',
           message: cloudResponse.message,
         );
       }
@@ -64,7 +54,10 @@ abstract class CloudFunctionsApiInterface with Loglytics {
         error: error,
         stackTrace: trace,
       );
-      return FeedbackResponse.errorNone();
+      return TurboResponse.failAsBool(
+        title: 'Failed',
+        message: gStrings.somethingWentWrong,
+      );
     }
   }
 }

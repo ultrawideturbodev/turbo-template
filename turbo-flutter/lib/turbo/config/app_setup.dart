@@ -13,12 +13,14 @@ import 'package:turbo_template/auth/views/create_username/create_username_view_m
 import 'package:turbo_template/auth/views/verify_email/verify_email_view_model.dart';
 import 'package:turbo_template/home/routing/home_router.dart';
 import 'package:turbo_template/home/views/home/home_view_model.dart';
+import 'package:turbo_template/placeholder/routing/placeholder_router.dart';
 import 'package:turbo_template/settings/apis/settings_api.dart';
 import 'package:turbo_template/settings/services/settings_service.dart';
 import 'package:turbo_template/settings/views/settings_view_model.dart';
 import 'package:turbo_template/turbo/services/dialog_service.dart';
 import 'package:turbo_template/turbo/services/vibrate_service.dart';
 import 'package:turbo_template/turbo/strings/gen/l10n.dart';
+import 'package:turbo_template/turbo/views/placeholder/placeholder_view_model.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 import '../../auth/apis/user_profiles_api.dart';
@@ -39,12 +41,11 @@ import '../enums/environment.dart';
 import '../routing/base_router.dart';
 import '../routing/core_router.dart';
 import '../services/connection_service.dart';
-import '../services/feedback_service.dart';
 import '../services/language_service.dart';
 import '../services/navigation_tab_service.dart';
-import '../services/notification_service.dart';
 import '../services/package_info_service.dart';
 import '../services/theme_service.dart';
+import '../services/toast_service.dart';
 import '../services/url_launcher_service.dart';
 import '../views/oops/oops_view_model.dart';
 import '../views/shell/shell_view_model.dart';
@@ -78,7 +79,7 @@ abstract class AppSetup with Loglytics {
     Animate.restartOnHotReload = true;
     Provider.debugCheckInvalidValueType = null;
     final _localStorageService = LocalStorageService.locate;
-    await _localStorageService.initialise();
+    await _localStorageService.isReady;
     await LanguageService.locate.initialise();
     log.info('App initialised!');
     _isInitialised = true;

@@ -2,9 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:informers/informer.dart';
 import 'package:loglytics/loglytics.dart';
+import 'package:turbo_template/home/views/home/home_view.dart';
 import 'package:turbo_template/turbo/enums/navigation_tab.dart';
 import 'package:turbo_template/auth/services/auth_service.dart';
 import 'package:turbo_template/local_storage/services/local_storage_service.dart';
+import 'package:turbo_template/turbo/extensions/string_extension.dart';
+import 'package:turbo_template/turbo/views/placeholder/placeholder_view.dart';
+
 class NavigationTabService with Loglytics {
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
 
@@ -38,20 +42,9 @@ class NavigationTabService with Loglytics {
     onGo(navigationTab: initialTab);
     switch (initialTab) {
       case NavigationTab.home:
-        // TODO: Handle this case.
-        throw UnimplementedError();
-      case NavigationTab.theSecond:
-        // TODO: Handle this case.
-        throw UnimplementedError();
-      case NavigationTab.theActionButton:
-        // TODO: Handle this case.
-        throw UnimplementedError();
-      case NavigationTab.theThird:
-        // TODO: Handle this case.
-        throw UnimplementedError();
-      case NavigationTab.theFourth:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        return HomeView.path.asRootPath;
+      case NavigationTab.placeholder:
+        return PlaceholderView.path.asRootPath;
     }
   }
 

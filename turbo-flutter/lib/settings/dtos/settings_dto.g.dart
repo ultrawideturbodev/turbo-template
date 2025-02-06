@@ -46,18 +46,11 @@ UpdateSettingsDtoRequest _$UpdateSettingsDtoRequestFromJson(
     );
 
 Map<String, dynamic> _$UpdateSettingsDtoRequestToJson(
-    UpdateSettingsDtoRequest instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull(
-      'skippedVerifyEmailDate',
-      _$JsonConverterToJson<Timestamp, DateTime>(
-          instance.skippedVerifyEmailDate, const TimestampConverter().toJson));
-  return val;
-}
+        UpdateSettingsDtoRequest instance) =>
+    <String, dynamic>{
+      if (_$JsonConverterToJson<Timestamp, DateTime>(
+              instance.skippedVerifyEmailDate,
+              const TimestampConverter().toJson)
+          case final value?)
+        'skippedVerifyEmailDate': value,
+    };

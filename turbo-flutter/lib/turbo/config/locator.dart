@@ -13,6 +13,7 @@ class Locator {
     BaseRouter.registerLazySingleton();
     CoreRouter.registerFactory();
     HomeRouter.registerFactory();
+    PlaceholderRouter.registerFactory();
   }
 
   static void _registerViewModels() {
@@ -25,6 +26,7 @@ class Locator {
     OopsViewModel.registerFactory();
     ShellViewModel.registerFactory();
     VerifyEmailViewModel.registerFactory();
+    PlaceholderViewModel.registerFactory();
   }
 
   static void _registerFactories() {
@@ -39,11 +41,10 @@ class Locator {
     VibrateService.registerLazySingleton();
     AuthService.registerLazySingleton();
     ConnectionService.registerLazySingleton();
-    FeedbackService.registerLazySingleton();
     LanguageService.registerLazySingleton();
     LocalStorageService.registerLazySingleton();
     NavigationTabService.registerLazySingleton();
-    NotificationService.registerLazySingleton();
+    ToastService.registerLazySingleton();
     PermissionsService.registerLazySingleton();
     ThemeService.registerLazySingleton();
     UserService.registerLazySingleton();

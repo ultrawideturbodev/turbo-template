@@ -7,16 +7,20 @@ class TurboScaffold extends StatelessWidget {
     Key? key,
     this.background,
     required this.child,
+    this.headers = const [],
   }) : super(key: key);
 
   final TurboBackground? background;
   final Widget child;
+  final List<Widget> headers;
 
   @override
   Widget build(BuildContext context) {
     final safeChild = SafeArea(child: child);
     final pBackground = background ?? context.decorations.scaffoldBackground;
     return Scaffold(
+
+      headers: headers,
       child: switch (pBackground) {
         TurboColorBackground() => safeChild,
         TurboLinearGradient() => Container(

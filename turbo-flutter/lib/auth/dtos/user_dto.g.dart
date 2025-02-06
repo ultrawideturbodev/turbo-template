@@ -76,19 +76,11 @@ UpdateUserDtoRequest _$UpdateUserDtoRequestFromJson(
     );
 
 Map<String, dynamic> _$UpdateUserDtoRequestToJson(
-    UpdateUserDtoRequest instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull(
-      'acceptedPrivacyAndTermsAt',
-      _$JsonConverterToJson<Timestamp, DateTime>(
-          instance.acceptedPrivacyAndTermsAt,
-          const TimestampConverter().toJson));
-  return val;
-}
+        UpdateUserDtoRequest instance) =>
+    <String, dynamic>{
+      if (_$JsonConverterToJson<Timestamp, DateTime>(
+              instance.acceptedPrivacyAndTermsAt,
+              const TimestampConverter().toJson)
+          case final value?)
+        'acceptedPrivacyAndTermsAt': value,
+    };

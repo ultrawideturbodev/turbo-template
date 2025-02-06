@@ -5,6 +5,7 @@ enum AuthStep {
   createUserDoc,
   acceptPrivacy,
   createSettingsDoc,
+  // TODO(brian): Create default username, ask for display name instead | 06/02/2025
   createUsernameDoc,
   createProfileDoc,
   verifyEmail,

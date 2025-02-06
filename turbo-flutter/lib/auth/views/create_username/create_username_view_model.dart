@@ -20,8 +20,8 @@ import 'package:turbo_template/turbo/extensions/string_extension.dart';
 import 'package:turbo_template/turbo/forms/form_field_config.dart';
 import 'package:turbo_template/turbo/globals/g_strings.dart';
 import 'package:turbo_template/turbo/globals/g_vibrate.dart';
+import 'package:turbo_template/turbo/services/dialog_service.dart';
 import 'package:turbo_template/turbo/utils/debouncer.dart';
-import 'package:turbo_template/feedback/services/response_service.dart';
 import 'package:turbo_template/home/routing/home_router.dart';
 import 'package:veto/data/mixins/busy_service_management.dart';
 import 'package:veto/data/models/base_view_model.dart';
@@ -50,10 +50,10 @@ class CreateUsernameViewModel extends BaseViewModel with Loglytics, BusyServiceM
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
 
+  late final _dialogService = DialogService.locate;
   final _authService = AuthService.locate;
   final _authStepsService = AuthStepService.locate;
   final _createUsernameForm = CreateUsernameForm.locate;
-  final _feedbackService = ResponseService.locate;
   final _profilesApi = UserProfilesApi.locate;
   final _usernamesApi = UsernamesApi.locate;
   final _homeRouter = HomeRouter.locate;
@@ -173,7 +173,7 @@ class CreateUsernameViewModel extends BaseViewModel with Loglytics, BusyServiceM
       final usernameIsAvailable = _usernameIsAvailable.value;
       if (usernameIsAvailable != null && !usernameIsAvailable) {
         unawaited(
-          _feedbackService.showOkDialog(
+          _dialogService.showOkDialog(
             context: context,
             title: gStrings.unavailable,
             message: gStrings.usernameIsAlreadyTaken,
@@ -245,7 +245,7 @@ class CreateUsernameViewModel extends BaseViewModel with Loglytics, BusyServiceM
             }
           } else {
             unawaited(
-              _feedbackService.showOkDialog(
+              _dialogService.showOkDialog(
                 context: context,
                 title: gStrings.databaseFailure,
                 message: gStrings.somethingWentWrongWhileTryingToCreateYourProfilePlease,
@@ -254,7 +254,7 @@ class CreateUsernameViewModel extends BaseViewModel with Loglytics, BusyServiceM
           }
         } else {
           unawaited(
-            _feedbackService.showResponse(response: createUsernameResponse, context: context),
+            _dialogService.showSomethingWentWrongDialog(context: context),
           );
         }
       }

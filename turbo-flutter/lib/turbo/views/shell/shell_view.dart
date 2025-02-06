@@ -1,25 +1,12 @@
-import 'dart:math';
-
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:veto/data/models/base_view_model.dart';
-import 'package:veto/widgets/view_model_widget.dart';
-
-import '../../constants/k_sizes.dart';
-import '../../constants/k_widgets.dart';
-import '../../enums/navigation_tab.dart';
-import '../../enums/supported_platform.dart';
-import '../../extensions/color_extension.dart';
-import '../../extensions/context_extension.dart';
-import '../../globals/g_env.dart';
-import '../../widgets/custom_badge_container.dart';
-import '../../widgets/hover_builder.dart';
-import '../../widgets/opacity_button.dart';
-import 'shell_view_model.dart';
-
-part 'shell_menu_item.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/turbo/constants/k_widgets.dart';
+import 'package:turbo_template/turbo/enums/navigation_tab.dart';
+import 'package:turbo_template/turbo/enums/turbo_device_type.dart';
+import 'package:turbo_template/turbo/extensions/context_extension.dart';
+import 'package:turbo_template/turbo/views/shell/shell_view_model.dart';
+import 'package:turbo_template/turbo/widgets/layout/turbo_scaffold.dart';
+import  'package:veto/data/models/base_view_model.dart';
 
 class ShellView extends StatelessWidget {
   const ShellView({
@@ -34,144 +21,64 @@ class ShellView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ViewModelBuilder<ShellViewModel>(
         builder: (context, model, isInitialised, child) {
-          switch (gPlatform) {
-            case SupportedPlatform.mobile:
-              final body = Column(
-                children: [
-                  Expanded(
-                    child: Builder(
-                      builder: (context) {
-                        final media = context.media;
-                        return MediaQuery(
-                          data: media.copyWith(
-                            viewInsets: media.viewInsets.copyWith(
-                              bottom: max(
-                                0,
-                                media.viewInsets.bottom - kSizesHeightTabBarBottom,
-                              ),
+          if (!isInitialised) {
+            return kWidgetsNothing;
+          }
+          switch (context.data.deviceType) {
+            case TurboDeviceType.mobile:
+            case TurboDeviceType.tablet:
+            case TurboDeviceType.desktop:
+              return TurboScaffold(
+                child: ValueListenableBuilder<NavigationTab>(
+                  valueListenable: model.currentNavigationTab,
+                  builder: (context, currentNavigationTab, child) {
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        ValueListenableBuilder<bool>(
+                          valueListenable: model.menuIsExpanded,
+                          builder: (context, menuIsExpanded, child) => NavigationRail(
+                            backgroundColor: context.colors.scheme.card,
+                            labelType: NavigationLabelType.expanded,
+                            labelPosition: NavigationLabelPosition.end,
+                            alignment: NavigationRailAlignment.start,
+                            expanded: menuIsExpanded,
+                            index: currentNavigationTab.index,
+                            onSelected: (index) => model.onNavigationTap(
+                              NavigationTab.values[index],
+                              context: context,
+                              statefulNavigationShell: statefulNavigationShell,
                             ),
+                            children: [
+                              NavigationButton(
+                                child: const Icon(Icons.menu),
+                                alignment: Alignment.centerLeft,
+                                label: const Text('Menu'),
+                                onPressed: model.onHamburgerIconPressed,
+                              ),
+                              const NavigationDivider(),
+                              NavigationLabel(
+                                child: Text('Core', style: context.texts.navigationLabel),
+                                alignment: Alignment.centerLeft,
+                                padding: const EdgeInsets.only(bottom: 6),
+                              ),
+                              for (final tab in NavigationTab.values)
+                                NavigationItem(
+                                  child: Icon(tab.icon),
+                                  alignment: Alignment.centerLeft,
+                                  label: Text(tab.label),
+                                  selectedStyle: const ButtonStyle.primaryIcon(),
+                                ),
+                              const NavigationDivider(),
+                            ],
                           ),
-                          child: statefulNavigationShell,
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              );
-              return Scaffold(
-                backgroundColor: context.colors.shellBackground,
-                footers: const [
-                  Text('wtf'),
-                ],
-                child: isInitialised ? body : kWidgetsNothing,
-              );
-            case SupportedPlatform.web:
-              return Scaffold(
-                backgroundColor: context.colors.background,
-                child: isInitialised
-                    ? ValueListenableBuilder<NavigationTab>(
-                        valueListenable: model.currentNavigationTab,
-                        builder: (context, currentNavigationTab, child) {
-                          final sideNavBarWidth = context.sizes.sideNavBarWidth;
-                          final sizes = context.sizes;
-                          return SizedBox(
-                            width: sizes.width,
-                            height: sizes.height,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                children: [
-                                  ConstrainedBox(
-                                    constraints: BoxConstraints(
-                                      maxWidth: sideNavBarWidth,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        const Gap(kSizesAppPadding),
-                                        SizedBox(
-                                          width: context.sizes.sideNavBarWidth,
-                                          child: const Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Text('Placeholder'),
-                                            ],
-                                          ),
-                                        ),
-                                        ConstrainedBox(
-                                          constraints: BoxConstraints(
-                                            maxWidth: context.sizes.sideNavBarWidth,
-                                          ),
-                                          child: Center(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(kSizesAppPadding),
-                                              child: AutoSizeText(
-                                                'Placeholder',
-                                                maxLines: 1,
-                                                textScaleFactor: context.tools.scaledPerWidth(1),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        for (final navigationTab in model.navigationTabs)
-                                          _ShellMenuItem(
-                                            navigationTab: navigationTab,
-                                            statefulNavigationShell: statefulNavigationShell,
-                                            currentNavigationTab: currentNavigationTab,
-                                            badgeNumber: switch (navigationTab) {
-                                              NavigationTab.home => null,
-                                              NavigationTab.theSecond => null,
-                                              NavigationTab.theActionButton => null,
-                                              NavigationTab.theThird => null,
-                                              NavigationTab.theFourth => null,
-                                            },
-                                          ),
-                                        const Spacer(),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: kSizesAppPadding,
-                                          ),
-                                          child: Button.primary(
-                                            onPressed: model.onLogoutPressed,
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                const Icon(Icons.logout),
-                                                const Gap(8),
-                                                Text(
-                                                  'Logout',
-                                                  style: context.texts.button,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        const Gap(16),
-                                        const Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text('Logo Placeholder'),
-                                          ],
-                                        ),
-                                        const Gap(80),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 1,
-                                    color: context.colors.border,
-                                  ),
-                                  SizedBox(
-                                    width: sizes.width - sideNavBarWidth - 1,
-                                    child: statefulNavigationShell,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      )
-                    : kWidgetsNothing,
+                        ),
+                        const VerticalDivider(),
+                        Expanded(child: statefulNavigationShell),
+                      ],
+                    );
+                  },
+                ),
               );
           }
         },

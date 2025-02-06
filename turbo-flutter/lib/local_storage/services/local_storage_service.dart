@@ -7,11 +7,11 @@ import 'package:get_it/get_it.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:turbo_firestore_api/extensions/completer_extension.dart';
 import 'package:turbo_response/turbo_response.dart';
 import 'package:turbo_template/auth/services/auth_service.dart';
 import 'package:turbo_template/local_storage/dtos/local_storage_dto.dart';
 import 'package:turbo_template/local_storage/enums/box_type.dart';
-import 'package:turbo_template/turbo/abstracts/initialisable.dart';
 import 'package:turbo_template/turbo/annotations/called_by_mutex.dart';
 import 'package:turbo_template/turbo/constants/k_keys.dart';
 import 'package:turbo_template/turbo/enums/auth_step.dart';
@@ -25,7 +25,11 @@ import 'package:turbo_template/turbo/globals/g_user_id.dart';
 import 'package:turbo_template/turbo/typedefs/current_value_updater.dart';
 import 'package:turbo_template/turbo/utils/mutex.dart';
 
-class LocalStorageService extends Initialisable with Loglytics {
+class LocalStorageService with Loglytics {
+  LocalStorageService() {
+    _initialise();
+  }
+
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
 
   static LocalStorageService get locate => GetIt.I.get();
@@ -37,9 +41,7 @@ class LocalStorageService extends Initialisable with Loglytics {
 
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
 
-  @override
-  Future<void> initialise() async {
-    log.info('Initializing LocalStorageService');
+  Future<void> _initialise() async {
     await _mutex.lockAndRun(
       run: (unlock) async {
         try {
@@ -54,30 +56,21 @@ class LocalStorageService extends Initialisable with Loglytics {
             stackTrace: stackTrace,
           );
         } finally {
-          super.initialise();
+          _isReady.completeIfNotComplete();
           unlock();
         }
       },
     );
   }
 
-  @override
   Future<void> dispose() async {
-    try {
-      log.info('Disposing LocalStorageService');
-    } catch (error, stackTrace) {
-      log.error(
-        '$error caught while disposing LocalStorageService',
-        error: error,
-        stackTrace: stackTrace,
-      );
-    } finally {
-      super.dispose();
-    }
+    _isReady.completeIfNotComplete();
+    _isReady = Completer();
   }
 
   // 🎩 STATE --------------------------------------------------------------------------------- \\
 
+  var _isReady = Completer();
   final Map<String, Box> _boxes = {};
 
   // 🛠 UTIL ---------------------------------------------------------------------------------- \\
@@ -86,6 +79,7 @@ class LocalStorageService extends Initialisable with Loglytics {
 
   // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
 
+  Future get isReady => _isReady.future;
   LocalStorageDto get _localStorageDto =>
       _getBoxContent(
         hiveBox: BoxType.localStorageDto,
@@ -195,7 +189,9 @@ class LocalStorageService extends Initialisable with Loglytics {
   Future<void> _tryInitDirAndAdapters() async {
     try {
       log.debug('Initializing Hive directory and adapters');
-      Hive.init(kIsWeb ? null : (await getApplicationDocumentsDirectory()).path);
+      if (!kIsWeb) {
+        Hive.init((await getApplicationDocumentsDirectory()).path);
+      }
       _registerAdapters();
     } catch (error, stackTrace) {
       log.error(
@@ -210,10 +206,7 @@ class LocalStorageService extends Initialisable with Loglytics {
   void _registerAdapters() {
     log.debug('Registering Hive adapters');
     for (final hiveAdapter in HiveAdapters.values) {
-      if (!Hive.isAdapterRegistered(hiveAdapter.index)) {
-        log.debug('Registering adapter: ${hiveAdapter.name}');
-        hiveAdapter.registerAdapter();
-      }
+      hiveAdapter.registerAdapter();
     }
   }
 
@@ -311,7 +304,7 @@ class LocalStorageService extends Initialisable with Loglytics {
     try {
       log.info('Updating theme: $theme');
       await _updateLocalStorage(
-            (current) => current.copyWith(turboTheme: theme),
+        (current) => current.copyWith(turboTheme: theme),
         userId: gUserId,
       );
       return const TurboResponse.successAsBool();

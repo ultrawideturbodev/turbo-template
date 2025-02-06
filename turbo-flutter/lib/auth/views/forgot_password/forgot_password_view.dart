@@ -1,7 +1,6 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/turbo/constants/k_sizes.dart';
 import 'package:turbo_template/turbo/constants/k_widgets.dart';
-import 'package:turbo_template/turbo/extensions/animation_extension.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';
 import 'package:turbo_template/turbo/globals/g_strings.dart';
 import 'package:turbo_template/turbo/widgets/cards/turbo_card.dart';

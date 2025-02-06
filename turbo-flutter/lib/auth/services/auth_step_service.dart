@@ -10,6 +10,11 @@ import 'package:turbo_template/auth/dtos/user_dto.dart';
 import 'package:turbo_template/auth/routing/auth_step_router.dart';
 import 'package:turbo_template/auth/services/auth_service.dart';
 import 'package:turbo_template/auth/services/user_service.dart';
+import 'package:turbo_template/firestore/enums/firestore_collection.dart';
+import 'package:turbo_template/local_storage/services/local_storage_service.dart';
+import 'package:turbo_template/settings/apis/settings_api.dart';
+import 'package:turbo_template/settings/dtos/settings_dto.dart';
+import 'package:turbo_template/settings/services/settings_service.dart';
 import 'package:turbo_template/turbo/abstracts/initialisable.dart';
 import 'package:turbo_template/turbo/enums/auth_step.dart';
 import 'package:turbo_template/turbo/enums/step_result.dart';
@@ -17,12 +22,6 @@ import 'package:turbo_template/turbo/exceptions/unexpected_null_exception.dart';
 import 'package:turbo_template/turbo/exceptions/unexpected_state_exception.dart';
 import 'package:turbo_template/turbo/extensions/date_time_extension.dart';
 import 'package:turbo_template/turbo/globals/g_user_id.dart';
-import 'package:turbo_template/turbo/services/feedback_service.dart';
-import 'package:turbo_template/firestore/enums/firestore_collection.dart';
-import 'package:turbo_template/local_storage/services/local_storage_service.dart';
-import 'package:turbo_template/settings/apis/settings_api.dart';
-import 'package:turbo_template/settings/dtos/settings_dto.dart';
-import 'package:turbo_template/settings/services/settings_service.dart';
 
 class AuthStepService extends Initialisable with Loglytics {
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
@@ -37,7 +36,6 @@ class AuthStepService extends Initialisable with Loglytics {
   final _userService = UserService.locate;
   final _usersApi = UsersApi.locate;
   late final _authStepRouter = AuthStepRouter.locate;
-  late final _feedbackService = FeedbackService.locate;
   late final _profilesApi = UserProfilesApi.locate;
   late final _settingsApi = SettingsApi.locate;
   late final _usernamesApi = UsernamesApi.locate;
@@ -109,7 +107,6 @@ class AuthStepService extends Initialisable with Loglytics {
         error: error,
         stackTrace: stackTrace,
       );
-      _feedbackService.showOkSomethingWentWrongDialog();
       return StepResult.didNothing;
     }
   }

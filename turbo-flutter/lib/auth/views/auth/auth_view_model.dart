@@ -6,21 +6,21 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:informers/informers.dart';
 import 'package:loglytics/loglytics.dart';
-import 'package:turbo_template/turbo/globals/g_user_id.dart';
-import 'package:veto/veto.dart';
-
+import 'package:turbo_response/turbo_response.dart';
 import 'package:turbo_template/turbo/constants/k_durations.dart';
 import 'package:turbo_template/turbo/constants/k_values.dart';
 import 'package:turbo_template/turbo/enums/step_result.dart';
-import 'package:turbo_template/turbo/extensions/feedback_response_extension.dart';
 import 'package:turbo_template/turbo/forms/form_field_config.dart';
 import 'package:turbo_template/turbo/globals/g_now.dart';
 import 'package:turbo_template/turbo/routing/core_router.dart';
-import '../../../local_storage/services/local_storage_service.dart';
+import 'package:turbo_template/turbo/services/toast_service.dart';
 import 'package:turbo_template/turbo/services/url_launcher_service.dart';
 import 'package:turbo_template/turbo/utils/min_duration_completer.dart';
 import 'package:turbo_template/turbo/utils/mutex.dart';
+import 'package:veto/veto.dart';
+
 import '../../../home/routing/home_router.dart';
+import '../../../local_storage/services/local_storage_service.dart';
 import '../../enums/auth_view_mode.dart';
 import '../../forms/login_form.dart';
 import '../../forms/register_form.dart';
@@ -31,6 +31,7 @@ import '../../services/email_service.dart';
 class AuthViewModel extends BaseViewModel with Loglytics, BusyServiceManagement {
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
 
+  final _toastService = ToastService.locate;
   final _urlLauncherService = UrlLauncherService.locate;
   final _emailService = EmailService.locate;
   final _authService = AuthService.locate;
@@ -187,15 +188,26 @@ class AuthViewModel extends BaseViewModel with Loglytics, BusyServiceManagement 
                   email: email,
                   password: password,
                 );
-                authResponse.showIf(
-                  context: context,
-                  ifSuccessTitle: 'Logged in',
-                  ifErrorTitle: 'Failed to log in',
-                  ifErrorMessage: authResponse.message,
+
+                authResponse.when(
+                  success: (response) {
+                    _toastService.showToast(
+                      context: context!,
+                      title: 'Logged in',
+                    );
+                  },
+                  fail: (response) {
+                    _toastService.showToast(
+                      context: context!,
+                      title: 'Failed to log in',
+                      subtitle: response.message,
+                    );
+                  },
                 );
+
                 if (authResponse.isSuccess) {
                   await _tryCreateUserDocAndNextView(
-                    userId: authResponse.result!.uid,
+                    userId: authResponse.result.uid,
                     email: email,
                   );
                 } else {
@@ -220,6 +232,14 @@ class AuthViewModel extends BaseViewModel with Loglytics, BusyServiceManagement 
             case AuthViewMode.register:
               _animationDurationCompleter.start();
               _authViewMode.update(AuthViewMode.login);
+
+              if (_loginForm.email.valueTrimIsEmpty) {
+                _loginForm.email.value = _registerForm.email.value;
+              }
+              if (_loginForm.password.valueTrimIsEmpty) {
+                _loginForm.password.value = _registerForm.password.value;
+              }
+
               await _animationDurationCompleter.future;
               break;
           }
@@ -270,11 +290,17 @@ class AuthViewModel extends BaseViewModel with Loglytics, BusyServiceManagement 
                         email: email,
                       );
                     }
-                    authResponse.showIf(
-                      context: context,
-                      ifSuccessTitle: 'Account created',
-                      ifErrorTitle: 'Account creation failed',
-                      ifErrorMessage: authResponse.message,
+                    authResponse.when(
+                      success: (response) {
+                        _toastService.showToast(context: context!, title: 'Account created');
+                      },
+                      fail: (response) {
+                        _toastService.showToast(
+                          context: context!,
+                          title: 'Account creation failed',
+                          subtitle: response.message,
+                        );
+                      },
                     );
                   } else {
                     WidgetsBinding.instance.addPostFrameCallback(
@@ -319,7 +345,7 @@ class AuthViewModel extends BaseViewModel with Loglytics, BusyServiceManagement 
     required String email,
   }) async {
     await _authService.isReady;
-    await _localStorageService.initialise();
+    await _localStorageService.isReady;
     await _authStepService.isReady;
     final result = await _authStepService.handleAuthStep(
       acceptedPrivacyAndTermsAt: acceptedPrivacyAndTermsAt,

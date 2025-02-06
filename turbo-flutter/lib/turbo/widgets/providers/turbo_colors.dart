@@ -13,14 +13,14 @@ class TurboColors {
 
   ThemeData get _themeData => _context.themeData;
   Typography get typography => _themeData.typography;
-  ColorScheme get _colorScheme => _themeData.colorScheme;
+  ColorScheme get scheme => _themeData.colorScheme;
 
   Color? get cardBorder => switch (themeMode) {
         TurboThemeMode.dark => null,
         TurboThemeMode.light => const Color(0xFFE4E4E7),
       };
   Color get formFieldPlaceholder => const Color(0xFF8D8D93);
-  Color get input => _colorScheme.input;
+  Color get input => scheme.input;
 
   // 📜 DEPRECATED ---------------------------------------------------------------------------- \\
 
@@ -98,7 +98,7 @@ class TurboColors {
         TurboThemeMode.dark => const Color(0xFFEDEBEB),
       };
 
-  Color get background => _colorScheme.background;
+  Color get background => scheme.background;
 
   Color get badge => switch (themeMode) {
         TurboThemeMode.light => const Color(0xFFE5E7EB),

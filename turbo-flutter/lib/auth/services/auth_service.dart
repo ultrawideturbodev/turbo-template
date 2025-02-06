@@ -1,4 +1,3 @@
-// Package imports
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,8 +7,8 @@ import 'package:informers/informer.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:turbo_response/turbo_response.dart';
-
-// Project imports
+import 'package:turbo_template/auth/enums/user_level.dart';
+import 'package:turbo_template/auth/mixins/firebase_auth_exception_handler.dart';
 import 'package:turbo_template/turbo/abstracts/sync_service.dart';
 import 'package:turbo_template/turbo/annotations/called_by_mutex.dart';
 import 'package:turbo_template/turbo/enums/environment.dart';
@@ -21,14 +20,11 @@ import 'package:turbo_template/turbo/extensions/string_extension.dart';
 import 'package:turbo_template/turbo/utils/debouncer.dart';
 import 'package:turbo_template/turbo/utils/mutex.dart';
 
-// Local imports
-import '../enums/user_level.dart';
-import '../mixins/firebase_auth_exception_handler.dart';
-
 class AuthService extends SyncService<User?> with Loglytics, FirebaseAuthExceptionHandler {
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
 
   static AuthService get locate => GetIt.I.get();
+  static AuthService Function() get lazyLocate => () => GetIt.I.get<AuthService>();
   static void registerLazySingleton() => GetIt.I.registerLazySingleton(AuthService.new);
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\

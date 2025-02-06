@@ -11,9 +11,9 @@ import 'package:turbo_template/turbo/exceptions/unexpected_null_exception.dart';
 import 'package:turbo_template/turbo/globals/g_now.dart';
 import 'package:turbo_template/turbo/globals/g_strings.dart';
 import 'package:turbo_template/turbo/routing/core_router.dart';
+import 'package:turbo_template/turbo/services/dialog_service.dart';
+import 'package:turbo_template/turbo/services/toast_service.dart';
 import 'package:turbo_template/turbo/services/url_launcher_service.dart';
-import 'package:turbo_template/feedback/globals/g_feedback.dart';
-import 'package:turbo_template/feedback/services/response_service.dart';
 import 'package:turbo_template/home/routing/home_router.dart';
 import 'package:veto/data/enums/busy_type.dart';
 import 'package:veto/data/mixins/busy_service_management.dart';
@@ -27,13 +27,14 @@ class AcceptPrivacyViewModel extends BaseViewModel with Loglytics, BusyServiceMa
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
 
+  final _toastService = ToastService.locate;
   final _authService = AuthService.locate;
   final _authStepService = AuthStepService.locate;
-  late final _feedbackService = ResponseService.locate;
   late final _urlLauncherService = UrlLauncherService.locate;
   late final _coreRouter = CoreRouter.locate;
   late final _homeRouter = HomeRouter.locate;
   final _userService = UserService.locate;
+  late final _dialogService = DialogService.locate;
 
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
   // 👂 LISTENERS ----------------------------------------------------------------------------- \\
@@ -59,9 +60,8 @@ class AcceptPrivacyViewModel extends BaseViewModel with Loglytics, BusyServiceMa
 
       await response.when(
         success: (response) async {
-          gShowNotification(
-            title: gStrings.privacyPolicyAndTermsOfServiceAccepted,
-          );
+          _toastService.showToast(
+              context: context!, title: gStrings.privacyPolicyAndTermsOfServiceAccepted);
           final result = await _authStepService.handleAuthStep(
             authStep: AuthStep.acceptPrivacy.next!,
           );
@@ -72,7 +72,8 @@ class AcceptPrivacyViewModel extends BaseViewModel with Loglytics, BusyServiceMa
               _homeRouter.goHomeView();
           }
         },
-        fail: (response) async => gShowNotification(
+        fail: (response) async => _toastService.showToast(
+          context: context!,
           title: gStrings.unableToAcceptPleaseTryAgainLater,
         ),
       );
@@ -119,7 +120,8 @@ class AcceptPrivacyViewModel extends BaseViewModel with Loglytics, BusyServiceMa
 
   Future<void> onBackPressed() async {
     try {
-      final shouldLogout = await _feedbackService.showOkCancelDialog(
+      final shouldLogout = await _dialogService.showOkCancelDialog(
+        context: context!,
         title: gStrings.logout,
         message: gStrings.areYouSureYouWantToLogout,
       );
@@ -129,11 +131,14 @@ class AcceptPrivacyViewModel extends BaseViewModel with Loglytics, BusyServiceMa
 
         response.when(
           success: (response) {
-            gShowNotification(title: 'Logged out');
+            _toastService.showToast(context: context!, title: 'Logged out');
             _coreRouter.goAuthView();
           },
           fail: (response) {
-            gShowNotification(title: 'We were unable to log you out. Please try again later.');
+            _toastService.showToast(
+              context: context!,
+              title: 'We were unable to log you out. Please try again later.',
+            );
           },
         );
       }

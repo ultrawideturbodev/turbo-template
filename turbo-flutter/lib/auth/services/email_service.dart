@@ -1,7 +1,7 @@
-import 'package:feedback_response/feedback_response.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
+import 'package:turbo_response/turbo_response.dart';
 
 import '../mixins/firebase_auth_exception_handler.dart';
 
@@ -25,7 +25,7 @@ class EmailService with Loglytics, FirebaseAuthExceptionHandler {
 
   // 🪄 MUTATORS ------------------------------------------------------------------------------ \\
 
-  Future<FeedbackResponse<User>> login({
+  Future<TurboResponse<User>> login({
     required String email,
     required String password,
   }) async {
@@ -38,17 +38,15 @@ class EmailService with Loglytics, FirebaseAuthExceptionHandler {
       final user = response.user;
       if (user != null) {
         log.info('Logging in user with email and password was successful!');
-        return FeedbackResponse.success(
+        return TurboResponse.success(
           title: 'Account created',
-          feedbackType: FeedbackType.notification,
           result: user,
         );
       } else {
         log.error('Logging in user with email and password failed!');
-        return FeedbackResponse.error(
+        return const TurboResponse.failAsBool(
           title: 'Login failed',
           message: 'An unknown error has occurred, please try again.',
-          feedbackType: FeedbackType.dialog,
         );
       }
     } on FirebaseAuthException catch (error) {
@@ -64,15 +62,14 @@ class EmailService with Loglytics, FirebaseAuthExceptionHandler {
         error: error,
         stackTrace: stackTrace,
       );
-      return FeedbackResponse.error(
+      return const TurboResponse.failAsBool(
         title: 'Login failed',
         message: 'An unknown error has occurred, please try again.',
-        feedbackType: FeedbackType.dialog,
       );
     }
   }
 
-  Future<FeedbackResponse<User>> register({
+  Future<TurboResponse<User>> register({
     required String email,
     required String password,
   }) async {
@@ -85,17 +82,15 @@ class EmailService with Loglytics, FirebaseAuthExceptionHandler {
       final user = response.user;
       if (user != null) {
         log.info('Registering user with email and password was successful!');
-        return FeedbackResponse.success(
+        return TurboResponse.success(
           title: 'Account created',
-          feedbackType: FeedbackType.notification,
           result: user,
         );
       } else {
         log.error('Registering user with email and password failed!');
-        return FeedbackResponse.error(
+        return const TurboResponse.failAsBool(
           title: 'Register failed',
           message: 'An unknown error has occurred, please try again.',
-          feedbackType: FeedbackType.dialog,
         );
       }
     } on FirebaseAuthException catch (error) {
@@ -111,13 +106,12 @@ class EmailService with Loglytics, FirebaseAuthExceptionHandler {
         error: error,
         stackTrace: stackTrace,
       );
-      return FeedbackResponse.error(
+      return const TurboResponse.failAsBool(
         title: 'Register failed',
         message: 'An unknown error has occurred, please try again.',
-        feedbackType: FeedbackType.dialog,
       );
     }
   }
 
-  // 🏗️ HELPERS ------------------------------------------------------------------------------- \\
+// 🏗️ HELPERS ------------------------------------------------------------------------------- \\
 }

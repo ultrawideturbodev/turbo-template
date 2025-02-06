@@ -16,18 +16,22 @@ import 'package:turbo_template/home/views/home/home_view.dart';
 import 'package:turbo_template/turbo/constants/k_durations.dart';
 import 'package:turbo_template/turbo/constants/k_keys.dart';
 import 'package:turbo_template/turbo/dtos/extra_arguments.dart';
+import 'package:turbo_template/turbo/enums/navigation_tab.dart';
 import 'package:turbo_template/turbo/extensions/object_extension.dart';
 import 'package:turbo_template/turbo/extensions/string_extension.dart';
+import 'package:turbo_template/turbo/services/navigation_tab_service.dart';
 import 'package:turbo_template/turbo/utils/transition_builders.dart';
 import 'package:turbo_template/turbo/views/oops/oops_view.dart';
+import 'package:turbo_template/turbo/views/placeholder/placeholder_arguments.dart';
+import 'package:turbo_template/turbo/views/placeholder/placeholder_origin.dart';
+import 'package:turbo_template/turbo/views/placeholder/placeholder_view.dart';
 import 'package:turbo_template/turbo/views/shell/shell_view.dart';
 
-/// Origins should be routers to determine which router to use for navigation
-/// Types should be used to determine logic
 class BaseRouter with Loglytics {
   BaseRouter() {
     coreRouter.routerDelegate.addListener(onRouteChanged);
   }
+
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
 
   static BaseRouter get locate => GetIt.I.get();
@@ -35,16 +39,40 @@ class BaseRouter with Loglytics {
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
+  // 👂 LISTENERS ----------------------------------------------------------------------------- \\
+
+  void onRouteChanged({String? location}) {
+    try {
+      if (location != null) {
+        _trySendScreenAnalytic(route: location);
+        return;
+      }
+      final RouteMatch lastMatch = coreRouter.routerDelegate.currentConfiguration.last;
+      final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
+          ? lastMatch.matches
+          : coreRouter.routerDelegate.currentConfiguration;
+      final route = matchList.uri.toString();
+      _trySendScreenAnalytic(route: route);
+    } catch (error, stackTrace) {
+      log.error(
+        'Unexpected ${error.runtimeType} caught while fetching location',
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+  }
+
+  // ⚡️ OVERRIDES ----------------------------------------------------------------------------- \\
   // 🎩 STATE --------------------------------------------------------------------------------- \\
 
   static final GlobalKey<NavigatorState> rootNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'root');
 
   String _route = '';
-  String get route => _route;
   bool didInitialLocation = false;
 
-  /// [CoreRouter]
+  // 🛣️ ROUTERS ------------------------------------------------------------------------------- \\
+
   final coreRouter = GoRouter(
     navigatorKey: rootNavigatorKey,
     initialLocation: AuthView.path,
@@ -58,6 +86,143 @@ class BaseRouter with Loglytics {
       shellView,
     ],
   );
+
+  static GoRoute homeRouter = GoRoute(
+    path: HomeView.path.asRootPath,
+    redirect: (context, state) => _onAuthAccess(
+      context: context,
+      state: state,
+      navigationTab: NavigationTab.home,
+    ),
+    pageBuilder: (context, state) => _buildPage(
+      child: const HomeView(),
+    ),
+    routes: const [],
+  );
+
+  static GoRoute placeholderRouter = GoRoute(
+    path: PlaceholderView.path.asRootPath,
+    redirect: (context, state) => _onAuthAccess(
+      context: context,
+      state: state,
+      navigationTab: NavigationTab.placeholder,
+    ),
+    pageBuilder: (context, state) => _buildPage(
+      child: PlaceholderView(
+        arguments: PlaceholderArguments(id: null),
+        origin: PlaceholderOrigin.core,
+      ),
+    ),
+    routes: const [],
+  );
+
+  // 🎭 VIEWS --------------------------------------------------------------------------------- \\
+
+  static StatefulShellRoute shellView = StatefulShellRoute.indexedStack(
+    pageBuilder: (context, state, navigationShell) => _buildPage(
+      child: ShellView(
+        statefulNavigationShell: navigationShell,
+      ),
+    ),
+    branches: [
+      StatefulShellBranch(
+        routes: [
+          homeRouter,
+        ],
+      ),
+      StatefulShellBranch(
+        routes: [
+          placeholderRouter,
+        ],
+      ),
+    ],
+  );
+
+  static GoRoute oopsView = GoRoute(
+    path: OopsView.path.asRootPath,
+    pageBuilder: (context, state) => const MaterialPage(
+      child: OopsView(),
+    ),
+  );
+
+  static GoRoute forgotPasswordView = GoRoute(
+    path: ForgotPasswordView.path.asRootPath,
+    pageBuilder: (context, state) => _buildPage(
+      child: const ForgotPasswordView(),
+    ),
+  );
+
+  static GoRoute authView = GoRoute(
+    path: AuthView.path.asRootPath,
+    pageBuilder: (context, state) => _buildPage(
+      child: const AuthView(),
+    ),
+  );
+
+  static GoRoute createUsernameView = GoRoute(
+    path: CreateUsernameView.path.asRootPath,
+    redirect: (context, state) {
+      if (!AuthService.locate.hasAuth.value) {
+        return AuthView.path.asRootPath;
+      }
+      return null;
+    },
+    pageBuilder: (context, state) => _buildPage(
+      child: const CreateUsernameView(),
+    ),
+  );
+
+  static GoRoute acceptPrivacyView = GoRoute(
+    path: AcceptPrivacyView.path.asRootPath,
+    redirect: (context, state) {
+      if (!AuthService.locate.hasAuth.value) {
+        return AuthView.path.asRootPath;
+      }
+      return null;
+    },
+    pageBuilder: (context, state) => _buildPage(
+      child: const AcceptPrivacyView(),
+    ),
+  );
+
+  static GoRoute verifyEmailView = GoRoute(
+    path: VerifyEmailView.path.asRootPath,
+    redirect: (context, state) {
+      if (!AuthService.locate.hasAuth.value) {
+        return AuthView.path.asRootPath;
+      }
+      return null;
+    },
+    pageBuilder: (context, state) => _buildPage(
+      child: const VerifyEmailView(),
+    ),
+  );
+
+  // 🛠 UTIL ---------------------------------------------------------------------------------- \\
+  // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
+
+  String get route => _route;
+  BuildContext get context => rootNavigatorKey.currentContext!;
+
+  // 🏗️ HELPERS ------------------------------------------------------------------------------- \\
+
+  static FutureOr<String?> _onAuthAccess({
+    required BuildContext context,
+    required GoRouterState state,
+    required NavigationTab? navigationTab,
+  }) async {
+    if (navigationTab != null) {
+      NavigationTabService.locate.onGo(navigationTab: navigationTab);
+    }
+    if (await AuthService.locate.hasReadyAuth) {
+      if (!BaseRouter.locate.didInitialLocation) {
+        BaseRouter.locate.didInitialLocation = true;
+      }
+      return null;
+    } else {
+      return AuthView.path.asRootPath;
+    }
+  }
 
   static Page<dynamic> _buildPage({required Widget child, bool fullscreenDialog = false}) {
     switch (defaultTargetPlatform) {
@@ -85,136 +250,6 @@ class BaseRouter with Loglytics {
     }
   }
 
-  static GoRoute get oopsView => GoRoute(
-        path: OopsView.path.asRootPath,
-        pageBuilder: (context, state) => const MaterialPage(
-          child: OopsView(),
-        ),
-      );
-
-  static GoRoute get forgotPasswordView => GoRoute(
-        path: ForgotPasswordView.path.asRootPath,
-        pageBuilder: (context, state) => _buildPage(
-          child: const ForgotPasswordView(),
-        ),
-      );
-
-  static GoRoute get authView => GoRoute(
-        path: AuthView.path.asRootPath,
-        pageBuilder: (context, state) => _buildPage(
-          child: const AuthView(),
-        ),
-      );
-
-  static GoRoute get createUsernameView => GoRoute(
-        path: CreateUsernameView.path.asRootPath,
-        redirect: (context, state) {
-          if (!AuthService.locate.hasAuth.value) {
-            return AuthView.path.asRootPath;
-          }
-          return null;
-        },
-        pageBuilder: (context, state) => _buildPage(
-          child: const CreateUsernameView(),
-        ),
-      );
-
-  static GoRoute get acceptPrivacyView => GoRoute(
-        path: AcceptPrivacyView.path.asRootPath,
-        redirect: (context, state) {
-          if (!AuthService.locate.hasAuth.value) {
-            return AuthView.path.asRootPath;
-          }
-          return null;
-        },
-        pageBuilder: (context, state) => _buildPage(
-          child: const AcceptPrivacyView(),
-        ),
-      );
-
-  static GoRoute get verifyEmailView => GoRoute(
-        path: VerifyEmailView.path.asRootPath,
-        redirect: (context, state) {
-          if (!AuthService.locate.hasAuth.value) {
-            return AuthView.path.asRootPath;
-          }
-          return null;
-        },
-        pageBuilder: (context, state) => _buildPage(
-          child: const VerifyEmailView(),
-        ),
-      );
-
-  /// Order of [StatefulShellBranch] is important.
-  static StatefulShellRoute get shellView => StatefulShellRoute.indexedStack(
-        pageBuilder: (context, state, navigationShell) => _buildPage(
-          child: ShellView(
-            statefulNavigationShell: navigationShell,
-          ),
-        ),
-        branches: [
-          StatefulShellBranch(
-            routes: [
-              homeRouter,
-            ],
-          ),
-        ],
-      );
-
-  static GoRoute get homeRouter => GoRoute(
-        path: HomeView.path.asRootPath,
-        redirect: (context, state) => _onHomeAccess(
-          context: context,
-          state: state,
-        ),
-        pageBuilder: (context, state) => _buildPage(
-          child: const HomeView(),
-        ),
-        routes: const [],
-      );
-
-  static FutureOr<String?> _onHomeAccess({
-    required BuildContext context,
-    required GoRouterState state,
-  }) async {
-    // if logged in go to home, otherwise onboarding
-    if (await AuthService.locate.hasReadyAuth) {
-      if (!BaseRouter.locate.didInitialLocation) {
-        BaseRouter.locate.didInitialLocation = true;
-      }
-
-      return null;
-    } else {
-      return AuthView.path.asRootPath;
-    }
-  }
-
-  // 🛠 UTIL ---------------------------------------------------------------------------------- \\
-  // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
-
-  BuildContext get context => rootNavigatorKey.currentContext!;
-
-  void onRouteChanged({String? location}) {
-    try {
-      if (location != null) {
-        _trySendScreenAnalytic(route: location);
-        return;
-      }
-      final RouteMatch lastMatch = coreRouter.routerDelegate.currentConfiguration.last;
-      final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
-          ? lastMatch.matches
-          : coreRouter.routerDelegate.currentConfiguration;
-      final route = matchList.uri.toString();
-      _trySendScreenAnalytic(route: route);
-    } catch (error, stackTrace) {
-      log.error(
-        'Unexpected ${error.runtimeType} caught while fetching location',
-        error: error,
-        stackTrace: stackTrace,
-      );
-    }
-  }
-
   void _trySendScreenAnalytic({required String route}) {
     if (_route != route) {
       analytics.service.screen(subject: route);
@@ -222,8 +257,7 @@ class BaseRouter with Loglytics {
     }
   }
 
-// 🏗️ HELPERS ------------------------------------------------------------------------------- \\
-// 🪄 MUTATORS ----------------------------  -------------------------------------------------- \\
+  // 🪄 MUTATORS ------------------------------------------------------------------------------ \\
 }
 
 extension on GoRouterState {

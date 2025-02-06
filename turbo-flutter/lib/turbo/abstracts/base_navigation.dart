@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loglytics/loglytics.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/turbo/abstracts/view_arguments.dart';
 import 'package:turbo_template/turbo/enums/navigation_tab.dart';
 import 'package:turbo_template/turbo/routing/base_router.dart';
@@ -25,10 +25,7 @@ abstract class BaseNavigation with Loglytics {
       cNavigationTab!.index,
       initialLocation: switch (cNavigationTab) {
         NavigationTab.home => initialLocation.isHome,
-        NavigationTab.theSecond => initialLocation.isTheSecond,
-        NavigationTab.theActionButton => initialLocation.isTheActionButton,
-        NavigationTab.theThird => initialLocation.isTheThird,
-        NavigationTab.theFourth => initialLocation.isTheFourth,
+        NavigationTab.placeholder => initialLocation.isPlaceholder,
       },
     );
   }
