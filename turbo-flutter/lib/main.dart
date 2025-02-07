@@ -9,6 +9,7 @@ import 'package:turbo_template/turbo/config/turbo_breakpoint_config.dart';
 import 'package:turbo_template/turbo/constants/k_durations.dart';
 import 'package:turbo_template/turbo/constants/k_sizes.dart';
 import 'package:turbo_template/turbo/enums/turbo_theme.dart';
+import 'package:turbo_template/turbo/enums/turbo_theme_mode.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';
 import 'package:turbo_template/turbo/routing/base_router.dart';
 import 'package:turbo_template/turbo/services/connection_service.dart';
@@ -68,7 +69,12 @@ class MyApp extends StatelessWidget {
                 ),
                 child: Theme(
                   data: context.theme.copyWith(
-                    typography: context.theme.typography.copyWith(),
+                    colorScheme: context.theme.colorScheme.copyWith(
+                      background: switch(turboThemeMode) {
+                        TurboThemeMode.dark => const Color(0xFF0F1111),
+                        TurboThemeMode.light => const Color(0xFFFBFBFB),
+                      },
+                    ),
                   ),
                   child: TurboProviderBuilder(
                     turboTheme: themeService.theme,

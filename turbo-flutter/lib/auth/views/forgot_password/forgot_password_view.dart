@@ -32,54 +32,56 @@ class ForgotPasswordView extends StatelessWidget {
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: TurboCard(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        gStrings.forgotPassword,
-                        textAlign: TextAlign.left,
-                        style: context.texts.cardTitle,
-                      ),
-                      const Gap(6),
-                      Text(
-                        gStrings.fillInYourEmailAddressAndWeWillSendYou,
-                        style: context.texts.cardSubtitle,
-                        textAlign: TextAlign.left,
-                      ),
-                      const TGap.section(),
-                      FormFieldText(
-                        formFieldConfig: model.emailField,
-                        leadingIcon: Icons.email_rounded,
-                        label: gStrings.email,
-                        hintText: gStrings.emailHint,
-                        onSubmitted: (_) => model.onEmailSubmitted(context: context),
-                      ),
-                      const TGap.section(),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Button.primary(
-                              child: const Text('Send'),
-                              onPressed: () => model.onSendEmailPressed(
-                                context: context,
+                  type: TurboChildCard(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          gStrings.forgotPassword,
+                          textAlign: TextAlign.left,
+                          style: context.texts.cardTitle,
+                        ),
+                        const Gap(6),
+                        Text(
+                          gStrings.fillInYourEmailAddressAndWeWillSendYou,
+                          style: context.texts.cardSubtitle,
+                          textAlign: TextAlign.left,
+                        ),
+                        const TGap.section(),
+                        FormFieldText(
+                          formFieldConfig: model.emailField,
+                          leadingIcon: Icons.email_rounded,
+                          label: gStrings.email,
+                          hintText: gStrings.emailHint,
+                          onSubmitted: (_) => model.onEmailSubmitted(context: context),
+                        ),
+                        const TGap.section(),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Button.primary(
+                                child: const Text('Send'),
+                                onPressed: () => model.onSendEmailPressed(
+                                  context: context,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      const TGap.element(),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Button.ghost(
-                              child: const Text('Back to login'),
-                              onPressed: () => model.onGoBackPressed(context: context),
+                          ],
+                        ),
+                        const TGap.element(),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Button.ghost(
+                                child: const Text('Back to login'),
+                                onPressed: () => model.onGoBackPressed(context: context),
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                    mainAxisSize: MainAxisSize.min,
+                          ],
+                        ),
+                      ],
+                      mainAxisSize: MainAxisSize.min,
+                    ),
                   ),
                 ),
               ),

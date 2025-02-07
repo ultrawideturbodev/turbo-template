@@ -7,7 +7,7 @@ enum TurboTheme {
   zinc,
   ;
 
-  static const defaultValue = TurboTheme.zinc;
+  static const defaultValue = TurboTheme.violet;
 
   ThemeData themeData({required TurboThemeMode themeMode}) {
     switch (this) {

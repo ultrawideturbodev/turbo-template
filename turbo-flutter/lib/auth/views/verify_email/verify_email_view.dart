@@ -30,36 +30,39 @@ class VerifyEmailView extends StatelessWidget {
               ),
               child: TurboScrollView(
                 child: TurboCard(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        'Verify Email',
-                        textAlign: TextAlign.left,
-                        style: context.texts.cardTitle,
-                      ),
-                      const TGap.subtitle(),
-                      Text(
-                        'Please verify your email address to continue.',
-                        style: context.texts.cardSubtitle,
-                        textAlign: TextAlign.left,
-                      ),
-                      const TGap.element(),
-                      Row(
-                        children: [
-                          Button.secondary(child: const Text('Skip'), onPressed: model.onSkipPressed),
-                          const Spacer(),
-                          ValueListenableBuilder<bool>(
-                            valueListenable: model.canCheckStatus,
-                            builder: (context, canCheckStatus, child) => Button.primary(
-                              child: const Text('Check Status'),
-                              onPressed: model.onCheckStatusPressed,
+                  type: TurboChildCard(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          'Verify Email',
+                          textAlign: TextAlign.left,
+                          style: context.texts.cardTitle,
+                        ),
+                        const TGap.subtitle(),
+                        Text(
+                          'Please verify your email address to continue.',
+                          style: context.texts.cardSubtitle,
+                          textAlign: TextAlign.left,
+                        ),
+                        const TGap.element(),
+                        Row(
+                          children: [
+                            Button.secondary(
+                                child: const Text('Skip'), onPressed: model.onSkipPressed),
+                            const Spacer(),
+                            ValueListenableBuilder<bool>(
+                              valueListenable: model.canCheckStatus,
+                              builder: (context, canCheckStatus, child) => Button.primary(
+                                child: const Text('Check Status'),
+                                onPressed: model.onCheckStatusPressed,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                    mainAxisSize: MainAxisSize.min,
+                          ],
+                        ),
+                      ],
+                      mainAxisSize: MainAxisSize.min,
+                    ),
                   ),
                 ),
               ),

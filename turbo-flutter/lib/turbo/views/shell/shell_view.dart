@@ -1,12 +1,13 @@
 import 'package:go_router/go_router.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/turbo/constants/k_sizes.dart';
 import 'package:turbo_template/turbo/constants/k_widgets.dart';
 import 'package:turbo_template/turbo/enums/navigation_tab.dart';
 import 'package:turbo_template/turbo/enums/turbo_device_type.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';
 import 'package:turbo_template/turbo/views/shell/shell_view_model.dart';
 import 'package:turbo_template/turbo/widgets/layout/turbo_scaffold.dart';
-import  'package:veto/data/models/base_view_model.dart';
+import 'package:veto/data/models/base_view_model.dart';
 
 class ShellView extends StatelessWidget {
   const ShellView({
@@ -56,12 +57,6 @@ class ShellView extends StatelessWidget {
                                 label: const Text('Menu'),
                                 onPressed: model.onHamburgerIconPressed,
                               ),
-                              const NavigationDivider(),
-                              NavigationLabel(
-                                child: Text('Core', style: context.texts.navigationLabel),
-                                alignment: Alignment.centerLeft,
-                                padding: const EdgeInsets.only(bottom: 6),
-                              ),
                               for (final tab in NavigationTab.values)
                                 NavigationItem(
                                   child: Icon(tab.icon),
@@ -69,7 +64,7 @@ class ShellView extends StatelessWidget {
                                   label: Text(tab.label),
                                   selectedStyle: const ButtonStyle.primaryIcon(),
                                 ),
-                              const NavigationDivider(),
+                              // const NavigationDivider(),
                             ],
                           ),
                         ),

@@ -18,8 +18,6 @@ class TurboSizes {
     }
   }
 
-  EdgeInsets get cardPadding => const EdgeInsets.all(kSizesCardPadding);
-
   double get formFieldBorderRadius => 10.0;
 
   double get labelFontSize => 14.0;

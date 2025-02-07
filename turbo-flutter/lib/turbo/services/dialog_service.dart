@@ -82,7 +82,6 @@ class DialogService with Loglytics {
     return showDialog<bool?>(
       context: pContext,
       builder: (context) => AlertDialog(
-        trailing: const Icon(Icons.info),
         barrierColor: const Color(0x42000000),
         title: Text(title),
         content: Text(message),
