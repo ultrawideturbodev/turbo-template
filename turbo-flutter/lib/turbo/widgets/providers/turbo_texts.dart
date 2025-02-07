@@ -87,7 +87,11 @@ class TurboTexts {
         fontWeight: fwSemiBold,
       );
 
-  TextStyle get cardSubtitle => _muted.copyWith(
+  TextStyle get listItemTitle => _large.copyWith(
+        fontWeight: fwSemiBold,
+      );
+
+  TextStyle get subtitle => _muted.copyWith(
         fontWeight: fwRegular,
       );
 

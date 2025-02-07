@@ -54,7 +54,7 @@ class AuthView extends StatelessWidget {
                           const TGap.subtitle(),
                           Text(
                             'Login to your Turbo account',
-                            style: context.texts.cardSubtitle,
+                            style: context.texts.subtitle,
                             textAlign: TextAlign.left,
                           ),
                           const TGap.section(),

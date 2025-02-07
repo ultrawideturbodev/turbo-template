@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/turbo/config/turbo_button_config.dart';
 import 'package:turbo_template/turbo/constants/k_sizes.dart';
-import 'package:turbo_template/turbo/widgets/ho_padding.dart';
 
 class TurboAppBar extends StatelessWidget {
   const TurboAppBar({
@@ -74,7 +73,6 @@ class TurboAppBar extends StatelessWidget {
               }
           ],
         ),
-        const HoPadding(child: NavigationDivider()),
       ],
     );
   }

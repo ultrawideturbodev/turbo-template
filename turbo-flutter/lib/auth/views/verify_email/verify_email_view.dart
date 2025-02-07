@@ -42,7 +42,7 @@ class VerifyEmailView extends StatelessWidget {
                         const TGap.subtitle(),
                         Text(
                           'Please verify your email address to continue.',
-                          style: context.texts.cardSubtitle,
+                          style: context.texts.subtitle,
                           textAlign: TextAlign.left,
                         ),
                         const TGap.element(),

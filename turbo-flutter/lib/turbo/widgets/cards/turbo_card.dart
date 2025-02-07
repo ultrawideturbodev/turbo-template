@@ -4,17 +4,11 @@ import 'package:turbo_template/turbo/constants/k_durations.dart';
 import 'package:turbo_template/turbo/extensions/context_extension.dart';
 import 'package:turbo_template/turbo/widgets/t_gap.dart';
 
-sealed class TurboCardType {
-  const TurboCardType({
-    this.maxWidth,
-  });
-  final double? maxWidth;
-}
+sealed class TurboCardType {}
 
 class TurboChildCard extends TurboCardType {
   TurboChildCard({
     required this.child,
-    super.maxWidth,
   });
 
   final Widget child;
@@ -26,7 +20,6 @@ class TurboCtaCard extends TurboCardType {
     required this.subtitle,
     required this.onPrimaryPressed,
     this.onSecondaryPressed,
-    super.maxWidth,
   });
 
   final String title;
@@ -56,7 +49,7 @@ class TurboCard extends StatelessWidget {
             children: [
               Text(title, style: context.texts.cardTitle),
               const TGap.subtitle(),
-              Text(subtitle, style: context.texts.cardSubtitle),
+              Text(subtitle, style: context.texts.subtitle),
               const TGap.element(),
               Row(
                 children: [
@@ -83,14 +76,6 @@ class TurboCard extends StatelessWidget {
       borderWidth: 1,
       borderColor: context.colors.cardBorder,
     );
-    return switch (type.maxWidth == null) {
-      true => card,
-      false => ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth: type.maxWidth!,
-          ),
-          child: card,
-        ),
-    };
+    return card;
   }
 }

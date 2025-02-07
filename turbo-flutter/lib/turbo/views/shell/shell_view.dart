@@ -1,6 +1,5 @@
 import 'package:go_router/go_router.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:turbo_template/turbo/constants/k_sizes.dart';
 import 'package:turbo_template/turbo/constants/k_widgets.dart';
 import 'package:turbo_template/turbo/enums/navigation_tab.dart';
 import 'package:turbo_template/turbo/enums/turbo_device_type.dart';
@@ -25,8 +24,38 @@ class ShellView extends StatelessWidget {
           if (!isInitialised) {
             return kWidgetsNothing;
           }
+          print(
+              '''[🐛] [PRINT] [🌟] [ShellView.build] [📞] context.data.deviceType: ${context.data.deviceType}''');
           switch (context.data.deviceType) {
             case TurboDeviceType.mobile:
+              return TurboScaffold(
+                child: statefulNavigationShell,
+                footers: [
+                  ValueListenableBuilder<NavigationTab>(
+                    valueListenable: model.currentNavigationTab,
+                    builder: (context, currentNavigationTab, child) => NavigationBar(
+                      backgroundColor: context.colors.shellBackground,
+                      labelType: NavigationLabelType.selected,
+                      onSelected: (int index) => model.onNavigationTap(
+                        NavigationTab.values[index],
+                        statefulNavigationShell: statefulNavigationShell,
+                        context: context,
+                      ),
+                      index: currentNavigationTab.index,
+                      children: NavigationTab.values
+                          .map(
+                            (bottomNavigationTab) => NavigationItem(
+                              style: const ButtonStyle.muted(density: ButtonDensity.icon),
+                              selectedStyle: const ButtonStyle.fixed(density: ButtonDensity.icon),
+                              label: Text(bottomNavigationTab.label),
+                              child: Icon(bottomNavigationTab.icon),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                ],
+              );
             case TurboDeviceType.tablet:
             case TurboDeviceType.desktop:
               return TurboScaffold(

@@ -44,7 +44,7 @@ class ForgotPasswordView extends StatelessWidget {
                         const Gap(6),
                         Text(
                           gStrings.fillInYourEmailAddressAndWeWillSendYou,
-                          style: context.texts.cardSubtitle,
+                          style: context.texts.subtitle,
                           textAlign: TextAlign.left,
                         ),
                         const TGap.section(),
