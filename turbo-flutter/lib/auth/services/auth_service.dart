@@ -9,16 +9,16 @@ import 'package:rxdart/rxdart.dart';
 import 'package:turbo_response/turbo_response.dart';
 import 'package:turbo_template/auth/enums/user_level.dart';
 import 'package:turbo_template/auth/mixins/firebase_auth_exception_handler.dart';
-import 'package:turbo_template/turbo/abstracts/sync_service.dart';
-import 'package:turbo_template/turbo/annotations/called_by_mutex.dart';
-import 'package:turbo_template/turbo/enums/environment.dart';
-import 'package:turbo_template/turbo/exceptions/unexpected_null_exception.dart';
-import 'package:turbo_template/turbo/exceptions/unexpected_state_exception.dart';
-import 'package:turbo_template/turbo/extensions/completer_extension.dart';
-import 'package:turbo_template/turbo/extensions/map_extension.dart';
-import 'package:turbo_template/turbo/extensions/string_extension.dart';
-import 'package:turbo_template/turbo/utils/debouncer.dart';
-import 'package:turbo_template/turbo/utils/mutex.dart';
+import 'package:turbo_template/state/abstracts/sync_service.dart';
+import 'package:turbo_template/state/annotations/called_by_mutex.dart';
+import 'package:turbo_template/environment/enums/environment.dart';
+import 'package:turbo_template/state/exceptions/unexpected_null_exception.dart';
+import 'package:turbo_template/state/exceptions/unexpected_state_exception.dart';
+import 'package:turbo_template/state/extensions/completer_extension.dart';
+import 'package:turbo_template/data/extensions/map_extension.dart';
+import 'package:turbo_template/data/extensions/string_extension.dart';
+import 'package:turbo_template/state/utils/debouncer.dart';
+import 'package:turbo_template/state/utils/mutex.dart';
 
 class AuthService extends SyncService<User?> with Loglytics, FirebaseAuthExceptionHandler {
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\

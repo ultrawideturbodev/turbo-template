@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:turbo_template/auth/dtos/user_dto.dart';
-import 'package:turbo_template/firestore/apis/turbo_api.dart';
-import 'package:turbo_template/firestore/enums/firestore_collection.dart';
+import 'package:turbo_template/firebase/firestore/apis/turbo_api.dart';
+import 'package:turbo_template/firebase/firestore/enums/firestore_collection.dart';
 
 class UsersApi extends TurboApi<UserDto> {
   UsersApi()

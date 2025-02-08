@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
 
-import 'package:turbo_template/turbo/extensions/completer_extension.dart';
-import 'package:turbo_template/turbo/utils/debouncer.dart';
-import 'package:turbo_template/turbo/utils/mutex.dart';
+import 'package:turbo_template/state/extensions/completer_extension.dart';
+import 'package:turbo_template/state/utils/debouncer.dart';
+import 'package:turbo_template/state/utils/mutex.dart';
 
 /// Enforces permissions for the current user based on our Firestore security rules.
 class PermissionsService extends ChangeNotifier with Loglytics {

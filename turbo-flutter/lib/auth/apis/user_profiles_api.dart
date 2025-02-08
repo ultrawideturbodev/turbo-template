@@ -2,17 +2,17 @@ import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:turbo_firestore_api/enums/turbo_search_term_type.dart';
 import 'package:turbo_response/turbo_response.dart';
-import 'package:turbo_template/turbo/constants/k_keys.dart';
+import 'package:turbo_template/data/constants/k_keys.dart';
 import 'package:turbo_template/auth/dtos/create_profile_request.dart';
 import 'package:turbo_template/auth/dtos/user_profile_dto.dart';
-import 'package:turbo_template/firestore/apis/turbo_api.dart';
-import 'package:turbo_template/firestore/enums/firestore_collection.dart';
+import 'package:turbo_template/firebase/firestore/apis/turbo_api.dart';
+import 'package:turbo_template/firebase/firestore/enums/firestore_collection.dart';
 
 class UserProfilesApi extends TurboApi<UserProfileDto> with Loglytics {
   UserProfilesApi()
       : super(
-    firestoreCollection: FirestoreCollection.userProfiles,
-  );
+          firestoreCollection: FirestoreCollection.userProfiles,
+        );
 
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
 

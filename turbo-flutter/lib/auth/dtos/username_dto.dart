@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:turbo_template/turbo/converters/document_reference_converter.dart';
-import 'package:turbo_template/turbo/converters/timestamp_converter.dart';
+import 'package:turbo_template/firebase/firestore/converters/document_reference_converter.dart';
+import 'package:turbo_template/firebase/firestore/converters/timestamp_converter.dart';
 
 part 'username_dto.g.dart';
 

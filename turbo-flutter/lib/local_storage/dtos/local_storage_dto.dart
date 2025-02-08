@@ -1,12 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:turbo_template/turbo/enums/auth_step.dart';
-import 'package:turbo_template/turbo/enums/navigation_tab.dart';
-import 'package:turbo_template/turbo/enums/supported_language.dart';
-import 'package:turbo_template/turbo/enums/turbo_theme.dart';
-import 'package:turbo_template/turbo/enums/turbo_theme_mode.dart';
-import 'package:turbo_template/turbo/globals/g_now.dart';
-import 'package:turbo_template/turbo/models/turbo_meta_vars.dart';
-import 'package:turbo_template/turbo/typedefs/current_value_updater.dart';
+import 'package:turbo_template/auth/enums/auth_step.dart';
+import 'package:turbo_template/data/globals/g_now.dart';
+import 'package:turbo_template/data/models/turbo_meta_vars.dart';
+import 'package:turbo_template/localizations/enums/supported_language.dart';
+import 'package:turbo_template/routing/enums/navigation_tab.dart';
+import 'package:turbo_template/state/typedefs/update_current_def.dart';
+import 'package:turbo_template/ui/enums/turbo_theme.dart';
+import 'package:turbo_template/ui/enums/turbo_theme_mode.dart';
+
+part 'local_storage_dto.g.dart';
 
 @JsonSerializable(includeIfNull: true, explicitToJson: true)
 class LocalStorageDto {
@@ -40,7 +42,7 @@ class LocalStorageDto {
 
   LocalStorageDto copyWith({
     NavigationTab? navigationTab,
-    CurrentValueUpdater<List<AuthStep>>? didHappen,
+    UpdateCurrentDef<List<AuthStep>>? didHappen,
     DateTime? skippedVerifyEmailDate,
     TurboThemeMode? turboThemeMode,
     SupportedLanguage? supportedLanguage,
@@ -61,4 +63,9 @@ class LocalStorageDto {
   String toString() {
     return 'LocalStorageDto{createdAt: $createdAt, updatedAt: $updatedAt, didHappen: $didHappen, navigationTab: $navigationTab, supportedLanguage: $supportedLanguage, turboThemeMode: $turboThemeMode, turboTheme: $turboTheme}';
   }
+
+  static const fromJsonFactory = _$LocalStorageDtoFromJson;
+  factory LocalStorageDto.fromJson(Map<String, dynamic> json) => _$LocalStorageDtoFromJson(json);
+  static const toJsonFactory = _$LocalStorageDtoToJson;
+  Map<String, dynamic> toJson() => _$LocalStorageDtoToJson(this);
 }

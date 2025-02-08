@@ -1,9 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 
-import 'package:turbo_template/turbo/extensions/context_extension.dart';
-import 'package:turbo_template/turbo/extensions/text_style_extension.dart';
-import 'package:turbo_template/turbo/globals/g_strings.dart';
+import 'package:turbo_template/state/extensions/context_extension.dart';
+import 'package:turbo_template/localizations/globals/g_strings.dart';
+import 'package:turbo_template/typography/extensions/text_style_extension.dart';
 
 class AcceptPrivacyText extends StatelessWidget {
   const AcceptPrivacyText({

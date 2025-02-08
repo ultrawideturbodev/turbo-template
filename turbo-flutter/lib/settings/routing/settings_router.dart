@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:turbo_template/turbo/abstracts/base_navigation.dart';
-import 'package:turbo_template/turbo/enums/navigation_tab.dart';
-import 'package:turbo_template/turbo/extensions/string_extension.dart';
+import 'package:turbo_template/routing/abstracts/base_navigation.dart';
+import 'package:turbo_template/routing/enums/navigation_tab.dart';
+import 'package:turbo_template/data/extensions/string_extension.dart';
 import 'package:turbo_template/settings/views/settings_view.dart';
 
 class SettingsRouter extends BaseNavigation {

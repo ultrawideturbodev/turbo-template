@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:turbo_template/auth/services/auth_service.dart';
-import 'package:turbo_template/busy/globals/g_busy.dart';
-import 'package:turbo_template/turbo/config/app_setup.dart';
-import 'package:turbo_template/turbo/routing/core_router.dart';
-import 'package:turbo_template/turbo/services/dialog_service.dart';
-import 'package:turbo_template/turbo/services/toast_service.dart';
+import 'package:turbo_template/state/globals/g_busy.dart';
+import 'package:turbo_template/state/config/app_setup.dart';
+import 'package:turbo_template/routing/routers/core_router.dart';
+import 'package:turbo_template/feedback/services/dialog_service.dart';
+import 'package:turbo_template/feedback/services/toast_service.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
 mixin LogoutManagement on BaseViewModel {
@@ -77,8 +77,7 @@ mixin LogoutManagement on BaseViewModel {
     }
   }
 
-  Future<void> onLogout() async {
-  }
+  Future<void> onLogout() async {}
 
   void navAfterLogout() => _coreRouter().goAuthView();
 }

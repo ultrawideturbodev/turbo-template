@@ -2,19 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:turbo_response/turbo_response.dart';
-import 'package:turbo_template/turbo/constants/k_keys.dart';
-import 'package:turbo_template/turbo/exceptions/unexpected_result_exception.dart';
+import 'package:turbo_template/data/constants/k_keys.dart';
+import 'package:turbo_template/state/exceptions/unexpected_result_exception.dart';
 import 'package:turbo_template/auth/dtos/username_dto.dart';
 import 'package:turbo_template/auth/requests/create_username_request.dart';
-import 'package:turbo_template/firestore/apis/turbo_api.dart';
-import 'package:turbo_template/firestore/enums/firestore_collection.dart';
-
+import 'package:turbo_template/firebase/firestore/apis/turbo_api.dart';
+import 'package:turbo_template/firebase/firestore/enums/firestore_collection.dart';
 
 class UsernamesApi extends TurboApi<UsernameDto> with Loglytics {
   UsernamesApi()
       : super(
-    firestoreCollection: FirestoreCollection.usernames,
-  );
+          firestoreCollection: FirestoreCollection.usernames,
+        );
 
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
 
@@ -36,7 +35,7 @@ class UsernamesApi extends TurboApi<UsernameDto> with Loglytics {
       );
 
       return await response.whenSuccess<String?>(
-            (response) async {
+        (response) async {
           final result = response.result;
           if ((result.length) > 1) {
             log.error(
@@ -107,7 +106,7 @@ class UsernamesApi extends TurboApi<UsernameDto> with Loglytics {
       );
 
       await response.whenSuccess(
-            (response) async {
+        (response) async {
           for (final oldUsername in response.result) {
             if (transaction == null) {
               await deleteDoc(id: oldUsername.id);

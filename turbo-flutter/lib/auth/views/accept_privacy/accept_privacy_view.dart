@@ -1,5 +1,5 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:turbo_template/turbo/constants/k_widgets.dart';
+import 'package:turbo_template/ui/constants/k_widgets.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
 import 'accept_privacy_view_model.dart';

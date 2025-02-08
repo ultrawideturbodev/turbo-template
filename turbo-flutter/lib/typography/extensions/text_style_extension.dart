@@ -1,7 +1,9 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:turbo_template/turbo/typedefs/update_current_def.dart';
+import 'package:turbo_template/state/typedefs/update_current_def.dart';
 
 extension TextStyleExtensionExtension on TextStyle {
+  TextStyle get bold => copyWith(fontWeight: FontWeight.bold);
+
   TextStyle copyWithCurrent({
     UpdateCurrentDef<Color>? color,
     UpdateCurrentDef<Color>? backgroundColor,

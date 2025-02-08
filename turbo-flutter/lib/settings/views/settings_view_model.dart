@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
-import 'package:turbo_template/turbo/models/origin_arguments.dart';
+import 'package:turbo_template/routing/models/origin_arguments.dart';
 import 'package:turbo_template/settings/views/settings_view_origin.dart';
 import 'package:veto/data/models/base_view_model.dart';
 

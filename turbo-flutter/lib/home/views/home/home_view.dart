@@ -1,17 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:turbo_template/turbo/config/turbo_button_config.dart';
-import 'package:turbo_template/turbo/constants/k_sizes.dart';
-import 'package:turbo_template/turbo/constants/k_widgets.dart';
-import 'package:turbo_template/turbo/extensions/wrapper_extensions.dart';
-import 'package:turbo_template/turbo/widgets/cards/turbo_card.dart';
-import 'package:turbo_template/turbo/widgets/cards/turbo_list_item.dart';
-import 'package:turbo_template/turbo/widgets/layout/turbo_app_bar.dart';
-import 'package:turbo_template/turbo/widgets/layout/turbo_bread_crumb.dart';
-import 'package:turbo_template/turbo/widgets/layout/turbo_bread_crumps.dart';
-import 'package:turbo_template/turbo/widgets/layout/turbo_scaffold.dart';
-import 'package:turbo_template/turbo/widgets/t_gap.dart';
-import 'package:turbo_template/turbo/widgets/turbo_scroll_view.dart';
+import 'package:shadcn_flutter/shadcn_flutter_extension.dart';
+import 'package:turbo_template/ui/abstracts/turbo_button_type.dart';
+import 'package:turbo_template/data/constants/k_sizes.dart';
+import 'package:turbo_template/ui/constants/k_widgets.dart';
+import 'package:turbo_template/state/extensions/context_extension.dart';
+import 'package:turbo_template/ui/extensions/wrapper_extensions.dart';
+import 'package:turbo_template/ui/widgets/turbo_card.dart';
+import 'package:turbo_template/ui/widgets/turbo_list_item.dart';
+import 'package:turbo_template/ui/widgets/turbo_app_bar.dart';
+import 'package:turbo_template/ui/widgets/turbo_bread_crumb.dart';
+import 'package:turbo_template/ui/widgets/turbo_bread_crumps.dart';
+import 'package:turbo_template/ui/widgets/turbo_scaffold.dart';
+import 'package:turbo_template/ui/widgets/turbo_gap.dart';
+import 'package:turbo_template/ui/widgets/turbo_scroll_view.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
 import 'home_view_model.dart';
@@ -32,7 +34,7 @@ class HomeView extends StatelessWidget {
           headers: [
             TurboAppBar(
               leading: [
-                TurboIconButtonConfig.goBack(
+                TIconButton.goBack(
                   context: context,
                   onFail: null,
                 ),
@@ -40,7 +42,11 @@ class HomeView extends StatelessWidget {
               title: model.title,
               subtitle: 'wow',
               trailing: [
-                TurboIconButtonConfig.logout(onPressed: model.onLogoutPressed),
+                TIconButton.theme(
+                  onPressed: model.onThemeModePressed,
+                  themeMode: context.turboProvider.themeMode,
+                ),
+                TIconButton.logout(onPressed: model.onLogoutPressed),
               ],
             ),
             TurboBreadCrumbs(
@@ -66,14 +72,14 @@ class HomeView extends StatelessWidget {
             child: Column(
               children: [
                 TurboCard(
-                  type: TurboCtaCard(
+                  type: TCtaCard(
                     title: 'wtf',
                     subtitle: 'cool',
-                    onPrimaryPressed: TurboTextButtonConfig(
+                    onPrimaryPressed: TTextButton(
                       text: 'damn',
                       onPressed: () {},
                     ),
-                    onSecondaryPressed: TurboTextButtonConfig(
+                    onSecondaryPressed: TTextButton(
                       text: 'damn',
                       onPressed: () {},
                     ),
@@ -83,15 +89,15 @@ class HomeView extends StatelessWidget {
                 Column(
                   children: [
                     TurboListItem(
-                      type: PlainTurboListItem(
+                      type: TPlainListItem(
                         title: 'wtf',
                         subtitle: 'nice',
                         trailing: [
-                          TurboIconButtonConfig.goBack(
+                          TIconButton.goBack(
                             context: context,
                             onFail: null,
                           ),
-                          TurboTextButtonConfig(
+                          TTextButton(
                             text: 'text',
                             onPressed: () {},
                           )
@@ -100,18 +106,18 @@ class HomeView extends StatelessWidget {
                     ).wrapHoPadding(),
                     const TGap.listItem(),
                     TurboListItem(
-                      type: AvatarListItem(
+                      type: TAvatarListItem(
                         avatar: Avatar(
                           initials: Avatar.getInitials('Brian Manuputty'),
                         ),
                         title: 'wtf',
                         subtitle: 'nice',
                         trailing: [
-                          TurboIconButtonConfig.goBack(
+                          TIconButton.goBack(
                             context: context,
                             onFail: null,
                           ),
-                          TurboTextButtonConfig(
+                          TTextButton(
                             text: 'text',
                             onPressed: () {},
                           )

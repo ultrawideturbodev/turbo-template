@@ -1,12 +1,12 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/routing/models/origin_arguments.dart';
 import 'package:turbo_template/settings/views/settings_view_arguments.dart';
-import 'package:turbo_template/turbo/constants/k_widgets.dart';
-import 'package:turbo_template/turbo/enums/emoji.dart';
-import 'package:turbo_template/turbo/models/origin_arguments.dart';
-import 'package:turbo_template/turbo/widgets/emoji_header.dart';
-import 'package:turbo_template/turbo/widgets/turbo_app_bar.dart';
 import 'package:turbo_template/settings/views/settings_view_model.dart';
 import 'package:turbo_template/settings/views/settings_view_origin.dart';
+import 'package:turbo_template/typography/widgets/emoji_header.dart';
+import 'package:turbo_template/ui/constants/k_widgets.dart';
+import 'package:turbo_template/ui/enums/emoji.dart';
+import 'package:turbo_template/ui/widgets/turbo_app_bar.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
 class SettingsView extends StatelessWidget {
@@ -28,17 +28,13 @@ class SettingsView extends StatelessWidget {
       argumentBuilder: () => OriginArguments(data: arguments, origin: origin),
       builder: (context, model, isInitialised, child) {
         if (!isInitialised) return kWidgetsNothing;
-        return Scaffold(
+        return const Scaffold(
           headers: [
             TurboAppBar(
-              context: context,
-              header: const EmojiHeader.scaffoldTitle(
-                emoji: Emoji.unicorn,
-                title: 'SettingsView',
-              ),
+              header: 'Settings',
             )
           ],
-          child: const SingleChildScrollView(
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [],

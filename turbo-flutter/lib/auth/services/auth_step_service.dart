@@ -10,18 +10,18 @@ import 'package:turbo_template/auth/dtos/user_dto.dart';
 import 'package:turbo_template/auth/routing/auth_step_router.dart';
 import 'package:turbo_template/auth/services/auth_service.dart';
 import 'package:turbo_template/auth/services/user_service.dart';
-import 'package:turbo_template/firestore/enums/firestore_collection.dart';
+import 'package:turbo_template/firebase/firestore/enums/firestore_collection.dart';
 import 'package:turbo_template/local_storage/services/local_storage_service.dart';
 import 'package:turbo_template/settings/apis/settings_api.dart';
 import 'package:turbo_template/settings/dtos/settings_dto.dart';
 import 'package:turbo_template/settings/services/settings_service.dart';
-import 'package:turbo_template/turbo/abstracts/initialisable.dart';
-import 'package:turbo_template/turbo/enums/auth_step.dart';
-import 'package:turbo_template/turbo/enums/step_result.dart';
-import 'package:turbo_template/turbo/exceptions/unexpected_null_exception.dart';
-import 'package:turbo_template/turbo/exceptions/unexpected_state_exception.dart';
-import 'package:turbo_template/turbo/extensions/date_time_extension.dart';
-import 'package:turbo_template/turbo/globals/g_user_id.dart';
+import 'package:turbo_template/state/abstracts/initialisable.dart';
+import 'package:turbo_template/auth/enums/auth_step.dart';
+import 'package:turbo_template/auth/enums/step_result.dart';
+import 'package:turbo_template/state/exceptions/unexpected_null_exception.dart';
+import 'package:turbo_template/state/exceptions/unexpected_state_exception.dart';
+import 'package:turbo_template/data/extensions/date_time_extension.dart';
+import 'package:turbo_template/data/globals/g_user_id.dart';
 
 class AuthStepService extends Initialisable with Loglytics {
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\

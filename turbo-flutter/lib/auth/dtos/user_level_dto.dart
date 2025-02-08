@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:turbo_template/turbo/converters/duration_days_converter.dart';
-import 'package:turbo_template/turbo/converters/timestamp_converter.dart';
-import 'package:turbo_template/turbo/globals/g_now.dart';
+import 'package:turbo_template/firebase/firestore/converters/duration_days_converter.dart';
+import 'package:turbo_template/firebase/firestore/converters/timestamp_converter.dart';
+import 'package:turbo_template/data/globals/g_now.dart';
 
 import '../enums/user_level.dart';
 

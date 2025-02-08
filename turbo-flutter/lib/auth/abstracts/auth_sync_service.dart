@@ -6,7 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:turbo_template/auth/mixins/firebase_auth_exception_handler.dart';
 import 'package:turbo_template/auth/services/auth_service.dart';
-import 'package:turbo_template/turbo/utils/block_debouncer.dart';
+import 'package:turbo_template/state/utils/block_debouncer.dart';
 
 abstract class AuthSyncService<StreamValue> with FirebaseAuthExceptionHandler {
   AuthSyncService({

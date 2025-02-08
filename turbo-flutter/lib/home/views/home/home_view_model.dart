@@ -3,8 +3,9 @@ import 'package:loglytics/loglytics.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/auth/mixins/logout_management.dart';
 import 'package:turbo_template/auth/services/auth_service.dart';
-import 'package:turbo_template/turbo/routing/core_router.dart';
-import 'package:turbo_template/turbo/services/dialog_service.dart';
+import 'package:turbo_template/routing/routers/core_router.dart';
+import 'package:turbo_template/feedback/services/dialog_service.dart';
+import 'package:turbo_template/ui/services/theme_service.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
 class HomeViewModel extends BaseViewModel with Loglytics, LogoutManagement {
@@ -20,7 +21,6 @@ class HomeViewModel extends BaseViewModel with Loglytics, LogoutManagement {
   final _dialogService = DialogService.lazyLocate;
   final _authService = AuthService.lazyLocate;
   final _coreRouter = CoreRouter.lazyLocate;
-
 
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
 
@@ -43,4 +43,8 @@ class HomeViewModel extends BaseViewModel with Loglytics, LogoutManagement {
   // 🏗 HELPERS ------------------------------------------------------------------------------- \\
   // 🪄 MUTATORS ------------------------------------------------------------------------------ \\
 
+  void onThemeModePressed() {
+    late final _themeService = ThemeService.lazyLocate;
+    _themeService().switchThemeMode();
+  }
 }

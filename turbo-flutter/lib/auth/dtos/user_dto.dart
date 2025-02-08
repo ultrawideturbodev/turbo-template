@@ -3,9 +3,9 @@ import 'package:turbo_firestore_api/abstracts/turbo_writeable.dart';
 import 'package:turbo_firestore_api/abstracts/turbo_writeable_id.dart';
 import 'package:turbo_firestore_api/models/turbo_auth_vars.dart';
 import 'package:turbo_template/auth/dtos/user_level_dto.dart';
-import 'package:turbo_template/turbo/converters/geo_point_converter.dart';
-import 'package:turbo_template/turbo/converters/timestamp_converter.dart';
-import 'package:turbo_template/turbo/globals/g_now.dart';
+import 'package:turbo_template/firebase/firestore/converters/geo_point_converter.dart';
+import 'package:turbo_template/firebase/firestore/converters/timestamp_converter.dart';
+import 'package:turbo_template/data/globals/g_now.dart';
 
 part 'user_dto.g.dart';
 

@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:turbo_template/turbo/extensions/list_extension.dart';
+import 'package:turbo_template/data/extensions/list_extension.dart';
 
 extension FontWeightExtensionExtension on FontWeight {
   List<FontWeight> get _values => FontWeight.values;

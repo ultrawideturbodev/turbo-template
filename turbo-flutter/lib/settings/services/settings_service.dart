@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:turbo_firestore_api/turbo_firestore_api.dart';
 import 'package:turbo_response/turbo_response.dart';
-import 'package:turbo_template/turbo/constants/k_keys.dart';
-import 'package:turbo_template/turbo/typedefs/lazy_locator.dart';
+import 'package:turbo_template/data/constants/k_keys.dart';
+import 'package:turbo_template/state/typedefs/lazy_locator_def.dart';
 import 'package:turbo_template/settings/apis/settings_api.dart';
 import 'package:turbo_template/settings/dtos/settings_dto.dart';
 
@@ -24,7 +24,7 @@ class SettingsService extends TurboDocumentService<SettingsDto, SettingsApi> {
   // ⚡️ OVERRIDES ----------------------------------------------------------------------------- \\
 
   @override
-  LazyLocator<SettingsDto> get initialValueLocator => () => SettingsDto.create(
+  LazyLocatorDef<SettingsDto> get initialValueLocator => () => SettingsDto.create(
         vars: turboVars(),
       );
 

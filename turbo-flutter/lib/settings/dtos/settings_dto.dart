@@ -2,8 +2,8 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:turbo_firestore_api/abstracts/turbo_writeable.dart';
 import 'package:turbo_firestore_api/abstracts/turbo_writeable_id.dart';
 import 'package:turbo_firestore_api/models/turbo_auth_vars.dart';
-import 'package:turbo_template/turbo/converters/timestamp_converter.dart';
-import 'package:turbo_template/turbo/globals/g_now.dart';
+import 'package:turbo_template/firebase/firestore/converters/timestamp_converter.dart';
+import 'package:turbo_template/data/globals/g_now.dart';
 
 part 'settings_dto.g.dart';
 
@@ -74,7 +74,6 @@ class UpdateSettingsDtoRequest extends TurboWriteable {
 
   @TimestampConverter()
   final DateTime? skippedVerifyEmailDate;
-
 
   static const fromJsonFactory = _$UpdateSettingsDtoRequestFromJson;
   factory UpdateSettingsDtoRequest.fromJson(Map<String, dynamic> json) =>

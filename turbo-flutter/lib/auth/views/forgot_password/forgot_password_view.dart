@@ -1,12 +1,12 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:turbo_template/turbo/constants/k_sizes.dart';
-import 'package:turbo_template/turbo/constants/k_widgets.dart';
-import 'package:turbo_template/turbo/extensions/context_extension.dart';
-import 'package:turbo_template/turbo/globals/g_strings.dart';
-import 'package:turbo_template/turbo/widgets/cards/turbo_card.dart';
-import 'package:turbo_template/turbo/widgets/form_field_text.dart';
-import 'package:turbo_template/turbo/widgets/layout/turbo_scaffold.dart';
-import 'package:turbo_template/turbo/widgets/t_gap.dart';
+import 'package:turbo_template/data/constants/k_sizes.dart';
+import 'package:turbo_template/ui/constants/k_widgets.dart';
+import 'package:turbo_template/state/extensions/context_extension.dart';
+import 'package:turbo_template/localizations/globals/g_strings.dart';
+import 'package:turbo_template/ui/widgets/turbo_card.dart';
+import 'package:turbo_template/forms/widgets/form_field_text.dart';
+import 'package:turbo_template/ui/widgets/turbo_scaffold.dart';
+import 'package:turbo_template/ui/widgets/turbo_gap.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
 import 'forgot_password_view_model.dart';
@@ -32,7 +32,7 @@ class ForgotPasswordView extends StatelessWidget {
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: TurboCard(
-                  type: TurboChildCard(
+                  type: TChildCard(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [

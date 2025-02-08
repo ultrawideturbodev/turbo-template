@@ -1,8 +1,8 @@
 import 'package:get_it/get_it.dart';
 
-import 'package:turbo_template/turbo/abstracts/base_navigation.dart';
-import 'package:turbo_template/turbo/enums/navigation_tab.dart';
-import 'package:turbo_template/turbo/extensions/string_extension.dart';
+import 'package:turbo_template/routing/abstracts/base_navigation.dart';
+import 'package:turbo_template/routing/enums/navigation_tab.dart';
+import 'package:turbo_template/data/extensions/string_extension.dart';
 import '../views/accept_privacy/accept_privacy_view.dart';
 import '../views/create_username/create_username_view.dart';
 import '../views/verify_email/verify_email_view.dart';

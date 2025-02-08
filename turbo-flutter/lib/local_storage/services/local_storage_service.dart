@@ -1,29 +1,26 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:turbo_firestore_api/extensions/completer_extension.dart';
 import 'package:turbo_response/turbo_response.dart';
+import 'package:turbo_template/auth/enums/auth_step.dart';
 import 'package:turbo_template/auth/services/auth_service.dart';
+import 'package:turbo_template/data/enums/hive_adapters.dart';
+import 'package:turbo_template/data/globals/g_meta_vars.dart';
+import 'package:turbo_template/data/globals/g_user_id.dart';
 import 'package:turbo_template/local_storage/dtos/local_storage_dto.dart';
 import 'package:turbo_template/local_storage/enums/box_type.dart';
-import 'package:turbo_template/turbo/annotations/called_by_mutex.dart';
-import 'package:turbo_template/turbo/constants/k_keys.dart';
-import 'package:turbo_template/turbo/enums/auth_step.dart';
-import 'package:turbo_template/turbo/enums/hive_adapters.dart';
-import 'package:turbo_template/turbo/enums/navigation_tab.dart';
-import 'package:turbo_template/turbo/enums/supported_language.dart';
-import 'package:turbo_template/turbo/enums/turbo_theme.dart';
-import 'package:turbo_template/turbo/enums/turbo_theme_mode.dart';
-import 'package:turbo_template/turbo/globals/g_meta_vars.dart';
-import 'package:turbo_template/turbo/globals/g_user_id.dart';
-import 'package:turbo_template/turbo/typedefs/current_value_updater.dart';
-import 'package:turbo_template/turbo/utils/mutex.dart';
+import 'package:turbo_template/localizations/enums/supported_language.dart';
+import 'package:turbo_template/routing/enums/navigation_tab.dart';
+import 'package:turbo_template/state/annotations/called_by_mutex.dart';
+import 'package:turbo_template/state/typedefs/update_current_def.dart';
+import 'package:turbo_template/state/utils/mutex.dart';
+import 'package:turbo_template/ui/enums/turbo_theme.dart';
+import 'package:turbo_template/ui/enums/turbo_theme_mode.dart';
 
 class LocalStorageService with Loglytics {
   LocalStorageService() {
@@ -39,9 +36,6 @@ class LocalStorageService with Loglytics {
       );
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
-
-  final FlutterSecureStorage _flutterSecureStorage = const FlutterSecureStorage();
-
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
 
   Future<void> _initialise() async {
@@ -120,25 +114,6 @@ class LocalStorageService with Loglytics {
     return box;
   }
 
-  Future<List<int>> get _encryptionKey async {
-    log.debug('Getting encryption key');
-    final encryptionKeyEncoded = await _flutterSecureStorage.read(
-      key: kKeysHiveEncryptionKey,
-    );
-    if (encryptionKeyEncoded == null) {
-      log.debug('Generating new encryption key');
-      final encryptionKey = Hive.generateSecureKey();
-      await _flutterSecureStorage.write(
-        key: kKeysHiveEncryptionKey,
-        value: base64UrlEncode(encryptionKey),
-      );
-      return encryptionKey;
-    } else {
-      log.debug('Using existing encryption key');
-      return base64Url.decode(encryptionKeyEncoded);
-    }
-  }
-
   // 🏗️ HELPERS ------------------------------------------------------------------------------- \\
 
   bool _hasBox({required BoxType hiveBox}) => _boxes.containsKey(hiveBox.id);
@@ -148,7 +123,6 @@ class LocalStorageService with Loglytics {
     log.debug('Opening box: ${hiveBox.id}');
     return await Hive.openBox<T>(
       hiveBox.id,
-      encryptionCipher: HiveAesCipher(await _encryptionKey),
     );
   }
 
@@ -214,7 +188,7 @@ class LocalStorageService with Loglytics {
   }
 
   Future<void> _updateLocalStorage(
-    CurrentValueUpdater<LocalStorageDto> dtoUpdater, {
+    UpdateCurrentDef<LocalStorageDto> dtoUpdater, {
     required String userId,
   }) async {
     log.info('Updating local device settings');

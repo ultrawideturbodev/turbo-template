@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:turbo_template/turbo/constants/k_durations.dart';
-import 'package:turbo_template/turbo/globals/g_vibrate.dart';
+import 'package:turbo_template/data/constants/k_durations.dart';
+import 'package:turbo_template/feedback/globals/g_vibrate.dart';
 
 class TurboButtonAnimation extends StatefulWidget {
   const TurboButtonAnimation({
@@ -83,18 +83,18 @@ class _TurboButtonAnimationState extends State<TurboButtonAnimation>
 
   @override
   Widget build(BuildContext context) => Listener(
-      onPointerDown: (_) => _handleTapDown(TapDownDetails(kind: PointerDeviceKind.touch)),
-      onPointerUp: (_) => _handleTapUp(TapUpDetails(kind: PointerDeviceKind.touch)),
-      onPointerCancel: _handlePointerCancel,
-      child: AnimatedBuilder(
-        animation: _controller,
-        builder: (context, child) => Transform.scale(
-          scale: _scaleAnimation.value,
-          child: Opacity(
-            opacity: _opacityAnimation.value,
-            child: widget.child,
+        onPointerDown: (_) => _handleTapDown(TapDownDetails(kind: PointerDeviceKind.touch)),
+        onPointerUp: (_) => _handleTapUp(TapUpDetails(kind: PointerDeviceKind.touch)),
+        onPointerCancel: _handlePointerCancel,
+        child: AnimatedBuilder(
+          animation: _controller,
+          builder: (context, child) => Transform.scale(
+            scale: _scaleAnimation.value,
+            child: Opacity(
+              opacity: _opacityAnimation.value,
+              child: widget.child,
+            ),
           ),
         ),
-      ),
-    );
+      );
 }

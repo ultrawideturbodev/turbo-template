@@ -8,10 +8,10 @@ import 'package:go_router/go_router.dart';
 import 'package:informers/informers.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:turbo_template/turbo/extensions/context_extension.dart';
-import 'package:turbo_template/turbo/forms/form_field_config.dart';
-import 'package:turbo_template/turbo/globals/g_strings.dart';
-import 'package:turbo_template/turbo/services/dialog_service.dart';
+import 'package:turbo_template/state/extensions/context_extension.dart';
+import 'package:turbo_template/forms/config/form_field_config.dart';
+import 'package:turbo_template/localizations/globals/g_strings.dart';
+import 'package:turbo_template/feedback/services/dialog_service.dart';
 import 'package:veto/data/mixins/busy_service_management.dart';
 import 'package:veto/data/models/base_view_model.dart';
 

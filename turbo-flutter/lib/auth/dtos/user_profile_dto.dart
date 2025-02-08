@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:turbo_template/turbo/abstracts/has_id.dart';
-import 'package:turbo_template/turbo/converters/timestamp_converter.dart';
-import 'package:turbo_template/turbo/enums/gender.dart';
-import 'package:turbo_template/turbo/globals/g_now.dart';
-import 'package:turbo_template/turbo/globals/g_user_id.dart';
+import 'package:turbo_template/data/abstracts/has_id.dart';
+import 'package:turbo_template/firebase/firestore/converters/timestamp_converter.dart';
+import 'package:turbo_template/data/enums/gender.dart';
+import 'package:turbo_template/data/globals/g_now.dart';
+import 'package:turbo_template/data/globals/g_user_id.dart';
 
 part 'user_profile_dto.g.dart';
 
@@ -37,7 +37,6 @@ class UserProfileDto extends HasId {
       birthDate: null,
       imageUrl: null,
       gender: null,
-
       username: username,
     );
   }
