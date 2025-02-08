@@ -1,0 +1,34 @@
+import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:{{packageName.snakeCase()}}/data/constants/k_sizes.dart';
+import 'package:{{packageName.snakeCase()}}/ui/widgets/turbo_card.dart';
+import 'package:{{packageName.snakeCase()}}/ui/widgets/ho_padding.dart';
+
+extension WrapperExtension on Widget {
+  Widget wrapCard() => TurboCard(
+        type: TChildCard(child: this),
+      );
+
+  Widget wrapHoPadding() => HoPadding(
+        child: this,
+      );
+
+  Widget wrapLeftElementGap() =>
+      wrapMargin(edgeInsets: const EdgeInsets.only(left: kSizesElementGap));
+
+  Widget wrapMargin({required EdgeInsets? edgeInsets}) => switch (edgeInsets == null) {
+        true => this,
+        false => Padding(
+            padding: edgeInsets!,
+            child: this,
+          ),
+      };
+
+  Widget wrapConstraints({required BoxConstraints? boxConstraints}) =>
+      switch (boxConstraints == null) {
+        true => this,
+        false => ConstrainedBox(
+            constraints: boxConstraints!,
+            child: this,
+          ),
+      };
+}
