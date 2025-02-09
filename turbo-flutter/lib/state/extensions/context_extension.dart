@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/ui/config/turbo_breakpoint_config.dart';
+import 'package:turbo_template/ui/enums/turbo_device_type.dart';
 import 'package:turbo_template/ui/enums/turbo_theme_mode.dart';
 import 'package:turbo_template/ui/models/turbo_data.dart';
 import 'package:turbo_template/ui/utils/turbo_tools.dart';
@@ -20,6 +21,7 @@ extension ContextExtension on BuildContext {
   TurboData get data => turboProvider.data;
   TurboThemeMode get themeMode => turboProvider.themeMode;
   TurboBreakpointConfig get breakpointConfig => turboProvider.breakpointConfig;
+  TurboDeviceType get deviceType => turboProvider.data.deviceType;
 
   ThemeData get themeData => Theme.of(this);
   TurboProvider get turboProvider => TurboProvider.of(this);
@@ -31,6 +33,8 @@ extension ContextExtension on BuildContext {
   ThemeData get theme => Theme.of(this);
   NavigatorState get navigator => Navigator.of(this);
   StatefulNavigationShell? get shell => StatefulNavigationShell.maybeOf(this)?.widget;
+  double get maxWidth => media.size.width;
+  double get maxHeight => media.size.height;
 
   void popNavigator<T>([T? result]) => navigator.pop(result);
 

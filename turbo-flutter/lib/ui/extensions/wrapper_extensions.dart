@@ -1,15 +1,10 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/data/constants/k_sizes.dart';
 import 'package:turbo_template/ui/widgets/turbo_card.dart';
-import 'package:turbo_template/ui/widgets/ho_padding.dart';
 
 extension WrapperExtension on Widget {
   Widget wrapCard() => TurboCard(
         type: TChildCard(child: this),
-      );
-
-  Widget wrapHoPadding() => HoPadding(
-        child: this,
       );
 
   Widget wrapLeftElementGap() =>

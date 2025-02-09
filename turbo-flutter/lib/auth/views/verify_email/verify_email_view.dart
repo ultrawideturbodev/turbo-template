@@ -1,12 +1,10 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:turbo_template/core/widgets/layout/left_padding.dart';
 import 'package:turbo_template/data/constants/k_sizes.dart';
 import 'package:turbo_template/state/extensions/context_extension.dart';
 import 'package:turbo_template/ui/constants/k_widgets.dart';
-import 'package:turbo_template/ui/extensions/widget_extension.dart';
 import 'package:turbo_template/ui/widgets/bottom_safe_area.dart';
-import 'package:turbo_template/ui/widgets/ho_padding.dart';
 import 'package:turbo_template/ui/widgets/leading_icon.dart';
+import 'package:turbo_template/ui/widgets/margin.dart';
 import 'package:turbo_template/ui/widgets/turbo_card.dart';
 import 'package:turbo_template/ui/widgets/turbo_gap.dart';
 import 'package:turbo_template/ui/widgets/turbo_scaffold.dart';
@@ -44,7 +42,7 @@ class VerifyEmailView extends StatelessWidget {
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             false => [],
           },
@@ -53,7 +51,7 @@ class VerifyEmailView extends StatelessWidget {
               maxWidth: kSizesDialogMaxWidth,
             ),
             child: TurboScrollView(
-              child: HoPadding(
+              child: Margin.horizontal(
                 child: Column(
                   children: [
                     TurboCard(
@@ -64,7 +62,7 @@ class VerifyEmailView extends StatelessWidget {
                             LeadingIcon(
                               iconData: BootstrapIcons.envelope,
                               size: 32,
-                              child: LeftPadding(
+                              child: Margin.left(
                                 child: Text(
                                   'Verify Email',
                                   textAlign: TextAlign.left,

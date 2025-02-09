@@ -28,6 +28,7 @@ class TurboProvider extends InheritedWidget {
     required this.data,
     required this.decorations,
     required this.texts,
+    required this.theme,
     required this.themeMode,
     required this.tools,
     required this.breakpointConfig,
@@ -40,13 +41,21 @@ class TurboProvider extends InheritedWidget {
   final TurboTexts texts;
   final TurboData data;
   final TurboThemeMode themeMode;
+  final TurboTheme theme;
   final TurboTools tools;
   final TurboBreakpointConfig breakpointConfig;
 
   static TurboProvider of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<TurboProvider>()!;
-
   @override
   bool updateShouldNotify(TurboProvider oldWidget) =>
-      tools != oldWidget.tools || data != oldWidget.data || themeMode != oldWidget.themeMode;
+      tools != oldWidget.tools ||
+      data != oldWidget.data ||
+      themeMode != oldWidget.themeMode ||
+      colors != oldWidget.colors ||
+      sizes != oldWidget.sizes ||
+      decorations != oldWidget.decorations ||
+      texts != oldWidget.texts ||
+      theme != oldWidget.theme ||
+      breakpointConfig != oldWidget.breakpointConfig;
 }

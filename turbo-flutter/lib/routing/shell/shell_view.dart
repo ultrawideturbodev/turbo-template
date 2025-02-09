@@ -1,11 +1,11 @@
 import 'package:go_router/go_router.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/data/constants/k_sizes.dart';
-import 'package:turbo_template/ui/constants/k_widgets.dart';
 import 'package:turbo_template/routing/enums/navigation_tab.dart';
-import 'package:turbo_template/ui/enums/turbo_device_type.dart';
-import 'package:turbo_template/state/extensions/context_extension.dart';
 import 'package:turbo_template/routing/shell/shell_view_model.dart';
+import 'package:turbo_template/state/extensions/context_extension.dart';
+import 'package:turbo_template/ui/constants/k_widgets.dart';
+import 'package:turbo_template/ui/enums/turbo_device_type.dart';
 import 'package:turbo_template/ui/widgets/turbo_scaffold.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
@@ -25,8 +25,6 @@ class ShellView extends StatelessWidget {
           if (!isInitialised) {
             return kWidgetsNothing;
           }
-          print(
-              '''[🐛] [PRINT] [🌟] [ShellView.build] [📞] context.data.deviceType: ${context.data.deviceType}''');
           switch (context.data.deviceType) {
             case TurboDeviceType.mobile:
               return TurboScaffold(
@@ -35,8 +33,7 @@ class ShellView extends StatelessWidget {
                   ValueListenableBuilder<NavigationTab>(
                     valueListenable: model.currentNavigationTab,
                     builder: (context, currentNavigationTab, child) => NavigationBar(
-                      backgroundColor: context.colors.shellBackground,
-                      labelType: NavigationLabelType.all,
+                      labelType: NavigationLabelType.selected,
                       onSelected: (int index) => model.onNavigationTap(
                         NavigationTab.values[index],
                         statefulNavigationShell: statefulNavigationShell,

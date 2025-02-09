@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/ui/config/turbo_breakpoint_config.dart';
 import 'package:turbo_template/localizations/enums/supported_language.dart';
+import 'package:turbo_template/ui/enums/turbo_device_type.dart';
 import 'package:turbo_template/ui/enums/turbo_theme.dart';
 import 'package:turbo_template/ui/enums/turbo_theme_mode.dart';
 import 'package:turbo_template/ui/extensions/box_constraints_extension.dart';
@@ -29,6 +30,7 @@ class TurboProviderBuilder extends StatelessWidget {
   final TurboTheme turboTheme;
   final SupportedLanguage supportedLanguage;
   final Widget Function(
+    TurboDeviceType deviceType,
     TurboThemeMode themeMode,
     TurboTheme theme,
     TurboTools tools,
@@ -84,18 +86,22 @@ class TurboProviderBuilder extends StatelessWidget {
             colors: colors,
             decorations: decorations,
             breakpointConfig: turboBreakpointConfig,
+            theme: turboTheme,
             child: Builder(
-              builder: (context) => builder(
-                turboThemeMode,
-                turboTheme,
-                tools,
-                data,
-                texts,
-                colors,
-                sizes,
-                decorations,
-                context,
-              ),
+              builder: (context) {
+                return builder(
+                  context.turboProvider.data.deviceType,
+                  context.turboProvider.themeMode,
+                  context.turboProvider.theme,
+                  context.turboProvider.tools,
+                  context.turboProvider.data,
+                  context.turboProvider.texts,
+                  context.turboProvider.colors,
+                  context.turboProvider.sizes,
+                  context.turboProvider.decorations,
+                  context,
+                );
+              },
             ),
             sizes: sizes,
           );

@@ -4,6 +4,7 @@ import 'package:informers/informer.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/local_storage/services/local_storage_service.dart';
+import 'package:turbo_template/ui/enums/turbo_device_type.dart';
 import 'package:turbo_template/ui/enums/turbo_theme.dart';
 import 'package:turbo_template/ui/enums/turbo_theme_mode.dart';
 
@@ -30,8 +31,14 @@ class ThemeService with Loglytics {
   // 🛠 UTIL ---------------------------------------------------------------------------------- \\
   // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
 
-  ThemeData get darkTheme => _theme.value.themeData(themeMode: TurboThemeMode.dark);
-  ThemeData get lightTheme => _theme.value.themeData(themeMode: TurboThemeMode.light);
+  ThemeData darkTheme({required TurboDeviceType deviceType}) => _theme.value.themeData(
+        themeMode: TurboThemeMode.dark,
+        deviceType: deviceType,
+      );
+  ThemeData lightTheme({required TurboDeviceType deviceType}) => _theme.value.themeData(
+        themeMode: TurboThemeMode.light,
+        deviceType: deviceType,
+      );
   TurboTheme get theme => _theme.value;
   TurboThemeMode get themeMode => _themeMode.value;
   ValueListenable<TurboTheme> get themeListenable => _theme;

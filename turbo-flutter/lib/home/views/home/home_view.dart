@@ -4,6 +4,7 @@ import 'package:turbo_template/state/extensions/context_extension.dart';
 import 'package:turbo_template/ui/abstracts/turbo_button_type.dart';
 import 'package:turbo_template/ui/constants/k_widgets.dart';
 import 'package:turbo_template/ui/extensions/wrapper_extensions.dart';
+import 'package:turbo_template/ui/widgets/margin.dart';
 import 'package:turbo_template/ui/widgets/turbo_app_bar.dart';
 import 'package:turbo_template/ui/widgets/turbo_bread_crumb.dart';
 import 'package:turbo_template/ui/widgets/turbo_bread_crumps.dart';
@@ -67,66 +68,70 @@ class HomeView extends StatelessWidget {
             ),
           ],
           child: TurboScrollView(
-            child: Column(
-              children: [
-                TurboCard(
-                  type: TCtaCard(
-                    title: 'wtf',
-                    subtitle: 'cool',
-                    onPrimaryPressed: TTextButton(
-                      text: 'damn',
-                      onPressed: () {},
-                    ),
-                    onSecondaryPressed: TTextButton(
-                      text: 'damn',
-                      onPressed: () {},
+            child: Margin.horizontal(
+              child: Column(
+                children: [
+                  TurboCard(
+                    type: TCtaCard(
+                      title: 'wtf',
+                      subtitle: 'cool',
+                      onPrimaryPressed: TTextButton(
+                        text: 'damn',
+                        onPressed: () {},
+                      ),
+                      onSecondaryPressed: TTextButton(
+                        text: 'damn',
+                        onPressed: () {},
+                      ),
                     ),
                   ),
-                ),
-                const TGap.section(),
-                Column(
-                  children: [
-                    TurboListItem(
-                      type: TPlainListItem(
-                        title: 'wtf',
-                        subtitle: 'nice',
-                        trailing: [
-                          TIconButton.goBack(
-                            context: context,
-                            onFail: null,
+                  const TGap.section(),
+                  Column(
+                    children: [
+                      Margin.horizontal(
+                        child: TurboListItem(
+                          type: TPlainListItem(
+                            title: 'wtf',
+                            subtitle: 'nice',
+                            trailing: [
+                              TIconButton.goBack(
+                                context: context,
+                                onFail: null,
+                              ),
+                              TTextButton(
+                                text: 'text',
+                                onPressed: () {},
+                              )
+                            ],
                           ),
-                          TTextButton(
-                            text: 'text',
-                            onPressed: () {},
-                          )
-                        ],
-                      ),
-                    ).wrapHoPadding(),
-                    const TGap.listItem(),
-                    TurboListItem(
-                      type: TAvatarListItem(
-                        avatar: Avatar(
-                          initials: Avatar.getInitials('Brian Manuputty'),
                         ),
-                        title: 'wtf',
-                        subtitle: 'nice',
-                        trailing: [
-                          TIconButton.goBack(
-                            context: context,
-                            onFail: null,
-                          ),
-                          TTextButton(
-                            text: 'text',
-                            onPressed: () {},
-                          )
-                        ],
                       ),
-                    ).wrapCard(),
-                  ],
-                ),
-                const TGap.section(),
-              ],
-            ).wrapHoPadding(),
+                      const TGap.listItem(),
+                      TurboListItem(
+                        type: TAvatarListItem(
+                          avatar: Avatar(
+                            initials: Avatar.getInitials('Brian Manuputty'),
+                          ),
+                          title: 'wtf',
+                          subtitle: 'nice',
+                          trailing: [
+                            TIconButton.goBack(
+                              context: context,
+                              onFail: null,
+                            ),
+                            TTextButton(
+                              text: 'text',
+                              onPressed: () {},
+                            )
+                          ],
+                        ),
+                      ).wrapCard(),
+                    ],
+                  ),
+                  const TGap.section(),
+                ],
+              ),
+            ),
           ),
         );
       },

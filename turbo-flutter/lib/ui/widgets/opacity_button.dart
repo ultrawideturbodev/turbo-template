@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../state/typedefs/context_def.dart';
+import '../../../state/typedefs/context_def.dart';
 
 class OpacityButton extends StatefulWidget {
   const OpacityButton({

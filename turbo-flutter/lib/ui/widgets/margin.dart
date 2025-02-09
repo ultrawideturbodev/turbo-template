@@ -11,6 +11,60 @@ class Margin extends StatelessWidget {
     this.top = kSizesAppPadding,
   }) : super(key: key);
 
+  const Margin.left({
+    Key? key,
+    required this.child,
+    this.left = kSizesAppPadding,
+    this.right = 0,
+    this.top = 0,
+    this.bottom = 0,
+  }) : super(key: key);
+
+  const Margin.right({
+    Key? key,
+    required this.child,
+    this.left = 0,
+    this.right = kSizesAppPadding,
+    this.top = 0,
+    this.bottom = 0,
+  }) : super(key: key);
+
+  const Margin.top({
+    Key? key,
+    required this.child,
+    this.left = 0,
+    this.right = 0,
+    this.top = kSizesAppPadding,
+    this.bottom = 0,
+  }) : super(key: key);
+
+  const Margin.bottom({
+    Key? key,
+    required this.child,
+    this.left = 0,
+    this.right = 0,
+    this.top = 0,
+    this.bottom = kSizesAppPadding,
+  }) : super(key: key);
+
+  const Margin.horizontal({
+    Key? key,
+    required this.child,
+    this.left = kSizesAppPadding,
+    this.right = kSizesAppPadding,
+    this.top = 0,
+    this.bottom = 0,
+  }) : super(key: key);
+
+  const Margin.vertical({
+    Key? key,
+    required this.child,
+    this.left = 0,
+    this.right = 0,
+    this.top = kSizesAppPadding,
+    this.bottom = kSizesAppPadding,
+  }) : super(key: key);
+
   final Widget child;
 
   final double bottom;

@@ -1,5 +1,7 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/ui/enums/turbo_device_type.dart';
 import 'package:turbo_template/ui/enums/turbo_theme_mode.dart';
+import 'package:turbo_template/ui/widgets/turbo_card.dart';
 
 enum TurboTheme {
   blue,
@@ -9,7 +11,10 @@ enum TurboTheme {
 
   static const defaultValue = TurboTheme.zinc;
 
-  ThemeData themeData({required TurboThemeMode themeMode}) {
+  ThemeData themeData({
+    required TurboThemeMode themeMode,
+    required TurboDeviceType deviceType,
+  }) {
     switch (this) {
       case TurboTheme.blue:
         switch (themeMode) {
@@ -46,7 +51,12 @@ enum TurboTheme {
             );
           case TurboThemeMode.light:
             return ThemeData(
-              colorScheme: ColorSchemes.lightZinc(),
+              colorScheme: ColorSchemes.lightZinc().copyWith(
+                background: switch (deviceType) {
+                  TurboDeviceType.mobile => Colors.white,
+                  TurboDeviceType.tablet || TurboDeviceType.desktop => const Color(0xFFFBFBFB),
+                },
+              ),
               radius: 0.8,
             );
         }
