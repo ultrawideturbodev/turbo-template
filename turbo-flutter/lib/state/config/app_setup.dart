@@ -12,6 +12,7 @@ import 'package:turbo_template/auth/views/accept_privacy/accept_privacy_view_mod
 import 'package:turbo_template/auth/views/create_username/create_username_view_model.dart';
 import 'package:turbo_template/auth/views/verify_email/verify_email_view_model.dart';
 import 'package:turbo_template/feedback/services/dialog_service.dart';
+import 'package:turbo_template/feedback/services/sheet_service.dart';
 import 'package:turbo_template/feedback/services/vibrate_service.dart';
 import 'package:turbo_template/home/routers/home_router.dart';
 import 'package:turbo_template/home/views/home/home_view_model.dart';

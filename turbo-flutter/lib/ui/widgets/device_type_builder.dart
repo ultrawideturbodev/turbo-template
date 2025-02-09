@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:turbo_template/state/extensions/context_extension.dart';
-import 'package:turbo_template/ui/enums/turbo_device_type.dart';
+import 'package:turbo_template/ui/enums/t_device_type.dart';
 
 class DeviceTypeBuilder extends StatelessWidget {
   const DeviceTypeBuilder({
@@ -12,21 +12,21 @@ class DeviceTypeBuilder extends StatelessWidget {
     this.deviceType,
   }) : super(key: key);
 
-  final Widget Function(BuildContext context, TurboDeviceType deviceType, Widget child) onDesktop;
-  final Widget Function(BuildContext context, TurboDeviceType deviceType, Widget child) onMobile;
-  final Widget Function(BuildContext context, TurboDeviceType deviceType, Widget child)? onTablet;
+  final Widget Function(BuildContext context, TDeviceType deviceType, Widget child) onDesktop;
+  final Widget Function(BuildContext context, TDeviceType deviceType, Widget child) onMobile;
+  final Widget Function(BuildContext context, TDeviceType deviceType, Widget child)? onTablet;
   final Widget child;
-  final TurboDeviceType? deviceType;
+  final TDeviceType? deviceType;
 
   @override
   Widget build(BuildContext context) {
     final deviceType = this.deviceType ?? context.data.deviceType;
     switch (deviceType) {
-      case TurboDeviceType.mobile:
+      case TDeviceType.mobile:
         return onMobile(context, deviceType, child);
-      case TurboDeviceType.tablet:
+      case TDeviceType.tablet:
         return onTablet?.call(context, deviceType, child) ?? onDesktop(context, deviceType, child);
-      case TurboDeviceType.desktop:
+      case TDeviceType.desktop:
         return onDesktop(context, deviceType, child);
     }
   }

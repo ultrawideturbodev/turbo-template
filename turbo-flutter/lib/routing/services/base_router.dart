@@ -6,26 +6,26 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/animations/widgets/transition_builders.dart';
 import 'package:turbo_template/auth/services/auth_service.dart';
 import 'package:turbo_template/auth/views/accept_privacy/accept_privacy_view.dart';
 import 'package:turbo_template/auth/views/auth/auth_view.dart';
 import 'package:turbo_template/auth/views/create_username/create_username_view.dart';
 import 'package:turbo_template/auth/views/forgot_password/forgot_password_view.dart';
 import 'package:turbo_template/auth/views/verify_email/verify_email_view.dart';
-import 'package:turbo_template/home/views/home/home_view.dart';
 import 'package:turbo_template/data/constants/k_durations.dart';
 import 'package:turbo_template/data/constants/k_keys.dart';
-import 'package:turbo_template/routing/models/extra_arguments.dart';
-import 'package:turbo_template/routing/enums/navigation_tab.dart';
 import 'package:turbo_template/data/extensions/object_extension.dart';
 import 'package:turbo_template/data/extensions/string_extension.dart';
+import 'package:turbo_template/home/views/home/home_view.dart';
+import 'package:turbo_template/routing/enums/navigation_tab.dart';
+import 'package:turbo_template/routing/models/extra_arguments.dart';
 import 'package:turbo_template/routing/services/navigation_tab_service.dart';
-import 'package:turbo_template/ui/config/transition_builders.dart';
+import 'package:turbo_template/routing/shell/shell_view.dart';
 import 'package:turbo_template/state/views/oops/oops_view.dart';
 import 'package:turbo_template/state/views/placeholder/placeholder_arguments.dart';
 import 'package:turbo_template/state/views/placeholder/placeholder_origin.dart';
 import 'package:turbo_template/state/views/placeholder/placeholder_view.dart';
-import 'package:turbo_template/routing/shell/shell_view.dart';
 
 class BaseRouter with Loglytics {
   BaseRouter() {

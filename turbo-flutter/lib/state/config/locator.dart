@@ -11,22 +11,23 @@ class Locator {
   static void _registerRouters() {
     AuthStepRouter.registerFactory();
     BaseRouterService.registerLazySingleton();
+    SheetService.registerFactory();
     CoreRouter.registerFactory();
     HomeRouter.registerFactory();
     PlaceholderRouter.registerFactory();
   }
 
   static void _registerViewModels() {
-    HomeViewModel.registerFactory();
-    SettingsViewModel.registerFactory();
     AcceptPrivacyViewModel.registerFactory();
     AuthViewModel.registerFactory();
     CreateUsernameViewModel.registerFactory();
     ForgotPasswordViewModel.registerFactory();
+    HomeViewModel.registerFactory();
     OopsViewModel.registerFactory();
+    PlaceholderViewModel.registerFactory();
+    SettingsViewModel.registerFactory();
     ShellViewModel.registerFactory();
     VerifyEmailViewModel.registerFactory();
-    PlaceholderViewModel.registerFactory();
   }
 
   static void _registerFactories() {

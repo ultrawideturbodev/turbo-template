@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:turbo_template/ui/enums/turbo_device.dart';
-import 'package:turbo_template/ui/enums/turbo_device_type.dart';
+import 'package:turbo_template/ui/enums/t_device_type.dart';
 
 extension TurboTargetPlatformExtensionExtension on TargetPlatform {
   TurboDevice get defaultDevice {
@@ -17,17 +17,17 @@ extension TurboTargetPlatformExtensionExtension on TargetPlatform {
     }
   }
 
-  TurboDeviceType get defaultDeviceType {
+  TDeviceType get defaultDeviceType {
     switch (this) {
       case TargetPlatform.android:
-        return TurboDeviceType.mobile;
+        return TDeviceType.mobile;
       case TargetPlatform.iOS:
-        return TurboDeviceType.mobile;
+        return TDeviceType.mobile;
       case TargetPlatform.fuchsia:
       case TargetPlatform.linux:
       case TargetPlatform.macOS:
       case TargetPlatform.windows:
-        return TurboDeviceType.desktop;
+        return TDeviceType.desktop;
     }
   }
 

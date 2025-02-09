@@ -20,7 +20,7 @@ import 'package:turbo_template/routing/enums/navigation_tab.dart';
 import 'package:turbo_template/data/extensions/object_extension.dart';
 import 'package:turbo_template/data/extensions/string_extension.dart';
 import 'package:turbo_template/routing/services/navigation_tab_service.dart';
-import 'package:turbo_template/ui/config/transition_builders.dart';
+import 'package:turbo_template/animations/widgets/transition_builders.dart';
 import 'package:turbo_template/state/views/oops/oops_view.dart';
 import 'package:turbo_template/state/views/placeholder/placeholder_arguments.dart';
 import 'package:turbo_template/state/views/placeholder/placeholder_origin.dart';

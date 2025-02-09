@@ -5,8 +5,8 @@ import 'package:turbo_template/routing/enums/navigation_tab.dart';
 import 'package:turbo_template/routing/shell/shell_view_model.dart';
 import 'package:turbo_template/state/extensions/context_extension.dart';
 import 'package:turbo_template/ui/constants/k_widgets.dart';
-import 'package:turbo_template/ui/enums/turbo_device_type.dart';
-import 'package:turbo_template/ui/widgets/turbo_scaffold.dart';
+import 'package:turbo_template/ui/enums/t_device_type.dart';
+import 'package:turbo_template/ui/widgets/t_scaffold.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
 class ShellView extends StatelessWidget {
@@ -26,8 +26,8 @@ class ShellView extends StatelessWidget {
             return kWidgetsNothing;
           }
           switch (context.data.deviceType) {
-            case TurboDeviceType.mobile:
-              return TurboScaffold(
+            case TDeviceType.mobile:
+              return TScaffold(
                 child: statefulNavigationShell,
                 footers: [
                   ValueListenableBuilder<NavigationTab>(
@@ -54,9 +54,9 @@ class ShellView extends StatelessWidget {
                   ),
                 ],
               );
-            case TurboDeviceType.tablet:
-            case TurboDeviceType.desktop:
-              return TurboScaffold(
+            case TDeviceType.tablet:
+            case TDeviceType.desktop:
+              return TScaffold(
                 child: ValueListenableBuilder<NavigationTab>(
                   valueListenable: model.currentNavigationTab,
                   builder: (context, currentNavigationTab, child) {

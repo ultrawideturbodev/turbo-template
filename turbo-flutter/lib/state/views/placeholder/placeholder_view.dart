@@ -4,8 +4,8 @@ import 'package:turbo_template/state/views/placeholder/placeholder_arguments.dar
 import 'package:turbo_template/state/views/placeholder/placeholder_origin.dart';
 import 'package:turbo_template/state/views/placeholder/placeholder_view_model.dart';
 import 'package:turbo_template/ui/constants/k_widgets.dart';
-import 'package:turbo_template/ui/widgets/turbo_scaffold.dart';
-import 'package:turbo_template/ui/widgets/turbo_scroll_view.dart';
+import 'package:turbo_template/ui/widgets/t_scaffold.dart';
+import 'package:turbo_template/ui/widgets/t_scroll_view.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
 class PlaceholderView extends StatelessWidget {
@@ -27,7 +27,7 @@ class PlaceholderView extends StatelessWidget {
       argumentBuilder: () => OriginArguments(data: arguments, origin: origin),
       builder: (context, model, isInitialised, child) {
         if (!isInitialised) return kWidgetsNothing;
-        return TurboScaffold(
+        return TScaffold(
           headers: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -79,7 +79,7 @@ class PlaceholderView extends StatelessWidget {
               ],
             ),
           ],
-          child: const TurboScrollView(
+          child: const TScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [],

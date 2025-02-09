@@ -16,9 +16,8 @@ LocalStorageDto _$LocalStorageDtoFromJson(Map<String, dynamic> json) =>
           .toList(),
       supportedLanguage:
           $enumDecode(_$SupportedLanguageEnumMap, json['supportedLanguage']),
-      turboThemeMode:
-          $enumDecode(_$TurboThemeModeEnumMap, json['turboThemeMode']),
-      turboTheme: $enumDecode(_$TurboThemeEnumMap, json['turboTheme']),
+      turboThemeMode: $enumDecode(_$TThemeModeEnumMap, json['turboThemeMode']),
+      turboTheme: $enumDecode(_$TThemeEnumMap, json['turboTheme']),
     );
 
 Map<String, dynamic> _$LocalStorageDtoToJson(LocalStorageDto instance) =>
@@ -30,8 +29,8 @@ Map<String, dynamic> _$LocalStorageDtoToJson(LocalStorageDto instance) =>
       'navigationTab': _$NavigationTabEnumMap[instance.navigationTab]!,
       'supportedLanguage':
           _$SupportedLanguageEnumMap[instance.supportedLanguage]!,
-      'turboThemeMode': _$TurboThemeModeEnumMap[instance.turboThemeMode]!,
-      'turboTheme': _$TurboThemeEnumMap[instance.turboTheme]!,
+      'turboThemeMode': _$TThemeModeEnumMap[instance.turboThemeMode]!,
+      'turboTheme': _$TThemeEnumMap[instance.turboTheme]!,
     };
 
 const _$NavigationTabEnumMap = {
@@ -53,13 +52,13 @@ const _$SupportedLanguageEnumMap = {
   SupportedLanguage.en: 'en',
 };
 
-const _$TurboThemeModeEnumMap = {
-  TurboThemeMode.dark: 'dark',
-  TurboThemeMode.light: 'light',
+const _$TThemeModeEnumMap = {
+  TThemeMode.dark: 'dark',
+  TThemeMode.light: 'light',
 };
 
-const _$TurboThemeEnumMap = {
-  TurboTheme.blue: 'blue',
-  TurboTheme.violet: 'violet',
-  TurboTheme.zinc: 'zinc',
+const _$TThemeEnumMap = {
+  TTheme.blue: 'blue',
+  TTheme.violet: 'violet',
+  TTheme.zinc: 'zinc',
 };

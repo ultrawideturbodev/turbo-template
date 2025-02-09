@@ -19,8 +19,8 @@ import 'package:turbo_template/routing/enums/navigation_tab.dart';
 import 'package:turbo_template/state/annotations/called_by_mutex.dart';
 import 'package:turbo_template/state/typedefs/update_current_def.dart';
 import 'package:turbo_template/state/utils/mutex.dart';
-import 'package:turbo_template/ui/enums/turbo_theme.dart';
-import 'package:turbo_template/ui/enums/turbo_theme_mode.dart';
+import 'package:turbo_template/ui/enums/t_theme.dart';
+import 'package:turbo_template/ui/enums/t_theme_mode.dart';
 
 class LocalStorageService with Loglytics {
   LocalStorageService() {
@@ -276,7 +276,7 @@ class LocalStorageService with Loglytics {
   }
 
   Future<TurboResponse> updateTheme({
-    required TurboTheme theme,
+    required TTheme theme,
   }) async {
     try {
       log.info('Updating theme: $theme');
@@ -296,7 +296,7 @@ class LocalStorageService with Loglytics {
   }
 
   Future<TurboResponse> updateThemeMode({
-    required TurboThemeMode themeMode,
+    required TThemeMode themeMode,
   }) async {
     try {
       log.info('Updating theme mode: $themeMode');

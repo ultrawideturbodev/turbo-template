@@ -5,8 +5,8 @@ import 'package:turbo_template/ui/enums/date_format.dart';
 import 'package:turbo_template/ui/enums/emoji.dart';
 import 'package:turbo_template/routing/enums/navigation_tab.dart';
 import 'package:turbo_template/localizations/enums/supported_language.dart';
-import 'package:turbo_template/ui/enums/turbo_theme.dart';
-import 'package:turbo_template/ui/enums/turbo_theme_mode.dart';
+import 'package:turbo_template/ui/enums/t_theme.dart';
+import 'package:turbo_template/ui/enums/t_theme_mode.dart';
 
 enum HiveAdapters {
   navigationTab,
@@ -71,15 +71,15 @@ class SupportedLanguageAdapter extends TypeAdapter<SupportedLanguage> {
   void write(BinaryWriter writer, SupportedLanguage obj) => writer.writeByte(obj.index);
 }
 
-class TurboThemeModeAdapter extends TypeAdapter<TurboThemeMode> {
+class TurboThemeModeAdapter extends TypeAdapter<TThemeMode> {
   @override
   final int typeId = HiveAdapters.turboThemeMode.index;
 
   @override
-  TurboThemeMode read(BinaryReader reader) => TurboThemeMode.values[reader.readByte()];
+  TThemeMode read(BinaryReader reader) => TThemeMode.values[reader.readByte()];
 
   @override
-  void write(BinaryWriter writer, TurboThemeMode obj) => writer.writeByte(obj.index);
+  void write(BinaryWriter writer, TThemeMode obj) => writer.writeByte(obj.index);
 }
 
 class AuthStepAdapter extends TypeAdapter<AuthStep> {
@@ -115,15 +115,15 @@ class DateFormatAdapter extends TypeAdapter<DateFormat> {
   void write(BinaryWriter writer, DateFormat obj) => writer.writeByte(obj.index);
 }
 
-class TurboThemeAdapter extends TypeAdapter<TurboTheme> {
+class TurboThemeAdapter extends TypeAdapter<TTheme> {
   @override
   final int typeId = HiveAdapters.turboTheme.index;
 
   @override
-  TurboTheme read(BinaryReader reader) => TurboTheme.values[reader.readByte()];
+  TTheme read(BinaryReader reader) => TTheme.values[reader.readByte()];
 
   @override
-  void write(BinaryWriter writer, TurboTheme obj) => writer.writeByte(obj.index);
+  void write(BinaryWriter writer, TTheme obj) => writer.writeByte(obj.index);
 }
 
 class LocalStorageDtoAdapter extends TypeAdapter<LocalStorageDto> {
@@ -142,8 +142,8 @@ class LocalStorageDtoAdapter extends TypeAdapter<LocalStorageDto> {
       navigationTab: fields[2] as NavigationTab,
       didHappen: (fields[3] as List).cast<AuthStep>(),
       supportedLanguage: fields[4] as SupportedLanguage,
-      turboThemeMode: fields[5] as TurboThemeMode,
-      turboTheme: fields[6] as TurboTheme,
+      turboThemeMode: fields[5] as TThemeMode,
+      turboTheme: fields[6] as TTheme,
     );
   }
 

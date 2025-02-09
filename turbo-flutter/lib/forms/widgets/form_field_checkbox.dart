@@ -3,7 +3,7 @@ import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/animations/widgets/animated_enabled.dart';
 import 'package:turbo_template/data/extensions/bool_extension.dart';
 import 'package:turbo_template/state/extensions/checkbox_state_extension.dart';
-import 'package:turbo_template/ui/widgets/turbo_button.dart';
+import 'package:turbo_template/ui/widgets/t_button.dart';
 
 import '../config/form_field_config.dart';
 import 'form_field_error.dart';
@@ -69,7 +69,7 @@ class _FormFieldCheckboxState extends State<FormFieldCheckbox> {
                   },
                 ),
               ),
-              TurboButton(
+              TButton(
                 child: widget.label,
                 scaleEnd: 1,
                 onPressed: () {

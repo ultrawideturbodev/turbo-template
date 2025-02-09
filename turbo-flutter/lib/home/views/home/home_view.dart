@@ -1,18 +1,20 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/data/constants/k_sizes.dart';
 import 'package:turbo_template/state/extensions/context_extension.dart';
-import 'package:turbo_template/ui/abstracts/turbo_button_type.dart';
+import 'package:turbo_template/ui/config/turbo_button_config.dart';
 import 'package:turbo_template/ui/constants/k_widgets.dart';
 import 'package:turbo_template/ui/extensions/wrapper_extensions.dart';
 import 'package:turbo_template/ui/widgets/margin.dart';
-import 'package:turbo_template/ui/widgets/turbo_app_bar.dart';
-import 'package:turbo_template/ui/widgets/turbo_bread_crumb.dart';
-import 'package:turbo_template/ui/widgets/turbo_bread_crumps.dart';
-import 'package:turbo_template/ui/widgets/turbo_card.dart';
-import 'package:turbo_template/ui/widgets/turbo_gap.dart';
-import 'package:turbo_template/ui/widgets/turbo_list_item.dart';
-import 'package:turbo_template/ui/widgets/turbo_scaffold.dart';
-import 'package:turbo_template/ui/widgets/turbo_scroll_view.dart';
+import 'package:turbo_template/ui/widgets/t_app_bar.dart';
+import 'package:turbo_template/ui/config/t_crumb_config.dart';
+import 'package:turbo_template/ui/widgets/t_crumbs.dart';
+import 'package:turbo_template/ui/widgets/t_card.dart';
+import 'package:turbo_template/ui/widgets/t_card_column.dart';
+import 'package:turbo_template/ui/widgets/t_gap.dart';
+import 'package:turbo_template/ui/widgets/t_row.dart';
+import 'package:turbo_template/ui/widgets/t_list_item.dart';
+import 'package:turbo_template/ui/widgets/t_scaffold.dart';
+import 'package:turbo_template/ui/widgets/t_scroll_view.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
 import 'home_view_model.dart';
@@ -29,11 +31,11 @@ class HomeView extends StatelessWidget {
     return ViewModelBuilder<HomeViewModel>(
       builder: (context, model, isInitialised, child) {
         if (!isInitialised) return kWidgetsNothing;
-        return TurboScaffold(
+        return TScaffold(
           headers: [
-            TurboAppBar(
+            TAppBar(
               leading: [
-                TIconButton.goBack(
+                TButtonIconConfig.goBack(
                   context: context,
                   onFail: null,
                 ),
@@ -41,24 +43,24 @@ class HomeView extends StatelessWidget {
               title: model.title,
               subtitle: 'wow',
               trailing: [
-                TIconButton.theme(
+                TButtonIconConfig.theme(
                   onPressed: model.onThemeModePressed,
                   themeMode: context.turboProvider.themeMode,
                 ),
-                TIconButton.logout(onPressed: model.onLogoutPressed),
+                TButtonIconConfig.logout(onPressed: model.onLogoutPressed),
               ],
             ),
-            TurboBreadCrumbs(
-              turboBreadCrumbs: [
-                TurboTextCrumb(
+            TCrumbs(
+              tCrumbs: [
+                TCrumbText(
                   text: 'Home',
                   onPressed: () {
                     print('wtf');
                   },
                 ),
-                const TurboMoreDotsCrumb(),
-                const TurboTextCrumb(text: 'wtf'),
-                const TurboTextCrumb(text: 'wtf'),
+                const TCrumbDots(),
+                const TCrumbText(text: 'wtf'),
+                const TCrumbText(text: 'wtf'),
               ],
             ).wrapMargin(
               edgeInsets: const EdgeInsets.only(
@@ -67,19 +69,19 @@ class HomeView extends StatelessWidget {
               ),
             ),
           ],
-          child: TurboScrollView(
+          child: TScrollView(
             child: Margin.horizontal(
               child: Column(
                 children: [
-                  TurboCard(
-                    type: TCtaCard(
+                  TCard(
+                    child: TCardColumn(
                       title: 'wtf',
                       subtitle: 'cool',
-                      onPrimaryPressed: TTextButton(
+                      onPrimaryPressed: TButtonTextConfig(
                         text: 'damn',
                         onPressed: () {},
                       ),
-                      onSecondaryPressed: TTextButton(
+                      onSecondaryPressed: TButtonTextConfig(
                         text: 'damn',
                         onPressed: () {},
                       ),
@@ -88,44 +90,25 @@ class HomeView extends StatelessWidget {
                   const TGap.section(),
                   Column(
                     children: [
-                      Margin.horizontal(
-                        child: TurboListItem(
-                          type: TPlainListItem(
+                      const Margin.horizontal(
+                        child: TCard(
+                          child: TListItem(
                             title: 'wtf',
                             subtitle: 'nice',
-                            trailing: [
-                              TIconButton.goBack(
-                                context: context,
-                                onFail: null,
-                              ),
-                              TTextButton(
-                                text: 'text',
-                                onPressed: () {},
-                              )
-                            ],
+                            trailing: [],
                           ),
                         ),
                       ),
                       const TGap.listItem(),
-                      TurboListItem(
-                        type: TAvatarListItem(
+                      TCard(
+                        child: TListItemAvatar(
                           avatar: Avatar(
                             initials: Avatar.getInitials('Brian Manuputty'),
                           ),
                           title: 'wtf',
                           subtitle: 'nice',
-                          trailing: [
-                            TIconButton.goBack(
-                              context: context,
-                              onFail: null,
-                            ),
-                            TTextButton(
-                              text: 'text',
-                              onPressed: () {},
-                            )
-                          ],
                         ),
-                      ).wrapCard(),
+                      ),
                     ],
                   ),
                   const TGap.section(),

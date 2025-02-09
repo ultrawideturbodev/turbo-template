@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart' as shad;
-import 'package:turbo_template/ui/abstracts/turbo_button_type.dart';
+import 'package:turbo_template/ui/config/turbo_button_config.dart';
 import 'package:turbo_template/state/globals/g_context.dart';
 import 'package:turbo_template/localizations/globals/g_strings.dart';
 
@@ -47,7 +47,7 @@ class ToastService with Loglytics {
     required shad.BuildContext? context,
     required String title,
     String? subtitle,
-    TTextButton? config,
+    TButtonTextConfig? config,
   }) {
     final pContext = context ?? gContext;
     if (pContext == null) {

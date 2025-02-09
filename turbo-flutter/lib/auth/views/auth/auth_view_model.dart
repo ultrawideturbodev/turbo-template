@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
@@ -7,27 +6,26 @@ import 'package:go_router/go_router.dart';
 import 'package:informers/informers.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:turbo_response/turbo_response.dart';
+import 'package:turbo_template/auth/enums/auth_view_mode.dart';
+import 'package:turbo_template/auth/enums/step_result.dart';
+import 'package:turbo_template/auth/forms/login_form.dart';
+import 'package:turbo_template/auth/forms/register_form.dart';
+import 'package:turbo_template/auth/services/auth_service.dart';
+import 'package:turbo_template/auth/services/auth_step_service.dart';
+import 'package:turbo_template/auth/services/email_service.dart';
 import 'package:turbo_template/data/constants/k_durations.dart';
 import 'package:turbo_template/data/constants/k_values.dart';
-import 'package:turbo_template/auth/enums/step_result.dart';
 import 'package:turbo_template/data/extensions/duration_extension.dart';
-import 'package:turbo_template/forms/config/form_field_config.dart';
 import 'package:turbo_template/data/globals/g_now.dart';
-import 'package:turbo_template/routing/routers/core_router.dart';
 import 'package:turbo_template/feedback/services/toast_service.dart';
+import 'package:turbo_template/forms/config/form_field_config.dart';
+import 'package:turbo_template/home/routers/home_router.dart';
 import 'package:turbo_template/http/services/url_launcher_service.dart';
+import 'package:turbo_template/local_storage/services/local_storage_service.dart';
+import 'package:turbo_template/routing/routers/core_router.dart';
 import 'package:turbo_template/state/utils/min_duration_completer.dart';
 import 'package:turbo_template/state/utils/mutex.dart';
 import 'package:veto/veto.dart';
-
-import '../../../home/routers/home_router.dart';
-import '../../../local_storage/services/local_storage_service.dart';
-import '../../enums/auth_view_mode.dart';
-import '../../forms/login_form.dart';
-import '../../forms/register_form.dart';
-import '../../services/auth_service.dart';
-import '../../services/auth_step_service.dart';
-import '../../services/email_service.dart';
 
 class AuthViewModel extends BaseViewModel with Loglytics, BusyServiceManagement {
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
@@ -371,7 +369,9 @@ class AuthViewModel extends BaseViewModel with Loglytics, BusyServiceManagement 
   void _restoreFocus() {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
-        await kDurationsAnimation.asFuture;
+        if (!kIsWeb) {
+          await kDurationsAnimation.asFuture;
+        }
         switch (authViewMode.value) {
           case AuthViewMode.login:
             if (_loginForm.email.valueTrimIsEmpty) {

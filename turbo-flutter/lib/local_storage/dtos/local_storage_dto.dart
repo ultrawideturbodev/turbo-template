@@ -5,8 +5,8 @@ import 'package:turbo_template/data/models/turbo_meta_vars.dart';
 import 'package:turbo_template/localizations/enums/supported_language.dart';
 import 'package:turbo_template/routing/enums/navigation_tab.dart';
 import 'package:turbo_template/state/typedefs/update_current_def.dart';
-import 'package:turbo_template/ui/enums/turbo_theme.dart';
-import 'package:turbo_template/ui/enums/turbo_theme_mode.dart';
+import 'package:turbo_template/ui/enums/t_theme.dart';
+import 'package:turbo_template/ui/enums/t_theme_mode.dart';
 
 part 'local_storage_dto.g.dart';
 
@@ -28,8 +28,8 @@ class LocalStorageDto {
         navigationTab: NavigationTab.defaultValue,
         didHappen: [],
         supportedLanguage: SupportedLanguage.defaultValue,
-        turboThemeMode: TurboThemeMode.defaultValue,
-        turboTheme: TurboTheme.defaultValue,
+        turboThemeMode: TThemeMode.defaultValue,
+        turboTheme: TTheme.defaultValue,
       );
 
   final DateTime createdAt;
@@ -37,16 +37,16 @@ class LocalStorageDto {
   final List<AuthStep> didHappen;
   final NavigationTab navigationTab;
   final SupportedLanguage supportedLanguage;
-  final TurboThemeMode turboThemeMode;
-  final TurboTheme turboTheme;
+  final TThemeMode turboThemeMode;
+  final TTheme turboTheme;
 
   LocalStorageDto copyWith({
     NavigationTab? navigationTab,
     UpdateCurrentDef<List<AuthStep>>? didHappen,
     DateTime? skippedVerifyEmailDate,
-    TurboThemeMode? turboThemeMode,
+    TThemeMode? turboThemeMode,
     SupportedLanguage? supportedLanguage,
-    TurboTheme? turboTheme,
+    TTheme? turboTheme,
   }) {
     return LocalStorageDto(
       createdAt: createdAt,

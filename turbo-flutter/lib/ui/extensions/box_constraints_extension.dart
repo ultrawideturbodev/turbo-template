@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:turbo_template/ui/config/turbo_breakpoint_config.dart';
-import 'package:turbo_template/ui/enums/turbo_device_type.dart';
+import 'package:turbo_template/ui/enums/t_device_type.dart';
 import 'package:turbo_template/ui/enums/turbo_orientation.dart';
 
 extension BoxConstraintsExtension on BoxConstraints {
@@ -18,17 +18,17 @@ extension BoxConstraintsExtension on BoxConstraints {
     return maxHeight > maxWidth ? TurboOrientation.portrait : TurboOrientation.landscape;
   }
 
-  TurboDeviceType turboDeviceType({
-    required TurboBreakpointConfig breakpointConfig,
+  TDeviceType turboDeviceType({
+    required TBreakpointConfig breakpointConfig,
   }) {
     if (maxWidth >= breakpointConfig.desktopBreakpointWidth ||
         maxHeight >= breakpointConfig.desktopBreakpointHeight) {
-      return TurboDeviceType.desktop;
+      return TDeviceType.desktop;
     }
     if (maxWidth >= breakpointConfig.tabletBreakpointWidth ||
         maxHeight >= breakpointConfig.tabletBreakpointHeight) {
-      return TurboDeviceType.tablet;
+      return TDeviceType.tablet;
     }
-    return TurboDeviceType.mobile;
+    return TDeviceType.mobile;
   }
 }

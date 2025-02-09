@@ -1,11 +1,8 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/data/constants/k_sizes.dart';
-import 'package:turbo_template/ui/widgets/turbo_card.dart';
+import 'package:turbo_template/ui/widgets/t_card.dart';
 
 extension WrapperExtension on Widget {
-  Widget wrapCard() => TurboCard(
-        type: TChildCard(child: this),
-      );
 
   Widget wrapLeftElementGap() =>
       wrapMargin(edgeInsets: const EdgeInsets.only(left: kSizesElementGap));

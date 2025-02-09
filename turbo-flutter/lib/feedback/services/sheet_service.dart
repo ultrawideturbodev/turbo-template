@@ -1,9 +1,7 @@
-import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
-
-import '../../state/extensions/context_extension.dart';
-import '../../routing/services/base_router_service.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/routing/services/base_router_service.dart';
 
 class SheetService with Loglytics {
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
@@ -17,14 +15,14 @@ class SheetService with Loglytics {
   // 🪄 MUTATORS ------------------------------------------------------------------------------ \\
 
   Future<T?> showCustomBottomSheet<T>({
-    BuildContext? context,
+    required BuildContext context,
     required Widget customBottomSheet,
+    OverlayPosition position = OverlayPosition.bottom,
   }) async {
     try {
-      final localContext = context ?? _baseRouter.context;
       return openSheet<T>(
-        context: localContext,
-        position: OverlayPosition.bottom,
+        context: context,
+        position: position,
         builder: (context) => customBottomSheet,
       );
     } catch (error, stackTrace) {
