@@ -6,7 +6,7 @@ import 'package:turbo_template/ui/constants/k_widgets.dart';
 import 'package:turbo_template/ui/enums/emoji.dart';
 import 'package:turbo_template/ui/widgets/bottom_safe_area.dart';
 import 'package:turbo_template/ui/widgets/t_leading.dart';
-import 'package:turbo_template/ui/widgets/margin.dart';
+import 'package:turbo_template/ui/widgets/t_margin.dart';
 import 'package:turbo_template/ui/widgets/t_card.dart';
 import 'package:turbo_template/ui/widgets/t_gap.dart';
 import 'package:turbo_template/ui/widgets/t_scaffold.dart';
@@ -86,7 +86,7 @@ class VerifyEmailView extends StatelessWidget {
                       textAlign: TextAlign.left,
                     ),
                     if (!context.deviceType.isMobile)
-                    Margin.top(
+                    TMargin.top(
                       child: Row(
                         spacing: kSizesAppPadding,
                         children: [

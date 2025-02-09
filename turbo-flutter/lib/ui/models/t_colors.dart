@@ -15,8 +15,13 @@ class TurboColors {
   Typography get typography => _themeData.typography;
   ColorScheme get scheme => _themeData.colorScheme;
 
+  Color get navigationRailBackground => switch (themeMode) {
+        TThemeMode.light => const Color(0xFFFAFAFA),
+        TThemeMode.dark => const Color(0xFF18181B),
+      };
+
   Color? get cardBorder => switch (themeMode) {
-        TThemeMode.dark => null,
+        TThemeMode.dark => const Color(0xFF27272A),
         TThemeMode.light => const Color(0xFFE4E4E7),
       };
   Color get formFieldPlaceholder => const Color(0xFF8D8D93);

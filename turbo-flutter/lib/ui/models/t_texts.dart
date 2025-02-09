@@ -84,7 +84,7 @@ class TTexts {
 
   TextStyle get cardTitle => typography.h3;
 
-  TextStyle get listItemTitle => _large.copyWith(
+  TextStyle get listItemTitle => typography.normal.copyWith(
         fontWeight: fwSemiBold,
       );
 

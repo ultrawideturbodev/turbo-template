@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:turbo_template/ui/widgets/margin.dart';
+import 'package:turbo_template/ui/widgets/t_margin.dart';
 
 class BottomSafeArea extends StatelessWidget {
   const BottomSafeArea({
@@ -11,6 +11,6 @@ class BottomSafeArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Margin(child: child));
+    return SafeArea(child: TMargin(child: child));
   }
 }

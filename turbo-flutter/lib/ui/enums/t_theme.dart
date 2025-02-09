@@ -46,16 +46,17 @@ enum TTheme {
         switch (themeMode) {
           case TThemeMode.dark:
             return ThemeData(
-              colorScheme: ColorSchemes.darkZinc(),
+              colorScheme: ColorSchemes.darkZinc().copyWith(
+                background: const Color(0xFF09090B),
+                border: const Color(0xFF27272A),
+              ),
               radius: 0.8,
             );
           case TThemeMode.light:
             return ThemeData(
               colorScheme: ColorSchemes.lightZinc().copyWith(
-                background: switch (deviceType) {
-                  TDeviceType.mobile => Colors.white,
-                  TDeviceType.tablet || TDeviceType.desktop => const Color(0xFFFBFBFB),
-                },
+                background: const Color(0xFFFFFFFF),
+                border: const Color(0xFFE4E4E7),
               ),
               radius: 0.8,
             );

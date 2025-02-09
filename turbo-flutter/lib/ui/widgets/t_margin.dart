@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:turbo_template/data/constants/k_sizes.dart';
 
-class Margin extends StatelessWidget {
-  const Margin({
+class TMargin extends StatelessWidget {
+  const TMargin({
     Key? key,
     required this.child,
     this.bottom = kSizesAppPadding,
@@ -11,7 +11,16 @@ class Margin extends StatelessWidget {
     this.top = kSizesAppPadding,
   }) : super(key: key);
 
-  const Margin.left({
+  const TMargin.only({
+    Key? key,
+    required this.child,
+    this.bottom = 0,
+    this.left = 0,
+    this.right = 0,
+    this.top = 0,
+  }) : super(key: key);
+
+  const TMargin.left({
     Key? key,
     required this.child,
     this.left = kSizesAppPadding,
@@ -20,7 +29,7 @@ class Margin extends StatelessWidget {
     this.bottom = 0,
   }) : super(key: key);
 
-  const Margin.right({
+  const TMargin.right({
     Key? key,
     required this.child,
     this.left = 0,
@@ -29,7 +38,7 @@ class Margin extends StatelessWidget {
     this.bottom = 0,
   }) : super(key: key);
 
-  const Margin.top({
+  const TMargin.top({
     Key? key,
     required this.child,
     this.left = 0,
@@ -38,7 +47,7 @@ class Margin extends StatelessWidget {
     this.bottom = 0,
   }) : super(key: key);
 
-  const Margin.bottom({
+  const TMargin.bottom({
     Key? key,
     required this.child,
     this.left = 0,
@@ -47,7 +56,7 @@ class Margin extends StatelessWidget {
     this.bottom = kSizesAppPadding,
   }) : super(key: key);
 
-  const Margin.horizontal({
+  const TMargin.horizontal({
     Key? key,
     required this.child,
     this.left = kSizesAppPadding,
@@ -56,7 +65,7 @@ class Margin extends StatelessWidget {
     this.bottom = 0,
   }) : super(key: key);
 
-  const Margin.vertical({
+  const TMargin.vertical({
     Key? key,
     required this.child,
     this.left = 0,

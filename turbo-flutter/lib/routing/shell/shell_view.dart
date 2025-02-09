@@ -66,6 +66,7 @@ class ShellView extends StatelessWidget {
                         ValueListenableBuilder<bool>(
                           valueListenable: model.menuIsExpanded,
                           builder: (context, menuIsExpanded, child) => NavigationRail(
+                            backgroundColor: context.texts.colors.navigationRailBackground,
                             padding: const EdgeInsets.only(
                               top: kSizesAppPadding / 1.5,
                               left: kSizesAppPadding / 1.5,

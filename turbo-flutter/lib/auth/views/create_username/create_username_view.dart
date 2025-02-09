@@ -21,7 +21,7 @@ import 'package:veto/data/models/base_view_model.dart';
 import 'package:veto/data/models/busy_model.dart';
 import 'package:turbo_template/ui/widgets/t_scaffold.dart';
 
-import '../../../ui/widgets/margin.dart';
+import '../../../ui/widgets/t_margin.dart';
 
 class CreateUsernameView extends StatelessWidget {
   const CreateUsernameView({
@@ -87,7 +87,7 @@ class CreateUsernameView extends StatelessWidget {
                                 alignment: Alignment.topLeft,
                                 child: Row(
                                   children: [
-                                    Margin.bottom(
+                                    TMargin.bottom(
                                       bottom: kSizesAppPadding * 0.5,
                                       child: Text(
                                         gStrings.whatNameSuitsYouBest,
@@ -155,7 +155,7 @@ class CreateUsernameView extends StatelessWidget {
                           ),
                         ),
                         if (!deviceType.isMobile)
-                          Margin.top(
+                          TMargin.top(
                             child: Button.primary(
                               child: Text(gStrings.save),
                               onPressed: () => model.save(context: context),

@@ -5,6 +5,7 @@ import 'package:turbo_template/auth/mixins/logout_management.dart';
 import 'package:turbo_template/auth/services/auth_service.dart';
 import 'package:turbo_template/routing/routers/core_router.dart';
 import 'package:turbo_template/feedback/services/dialog_service.dart';
+import 'package:turbo_template/ui/config/t_crumb_config.dart';
 import 'package:turbo_template/ui/services/theme_service.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
@@ -37,7 +38,6 @@ class HomeViewModel extends BaseViewModel with Loglytics, LogoutManagement {
   // 🎩 STATE --------------------------------------------------------------------------------- \\
   // 🛠 UTIL ---------------------------------------------------------------------------------- \\
   // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
-
   String get title => 'Home';
 
   // 🏗 HELPERS ------------------------------------------------------------------------------- \\

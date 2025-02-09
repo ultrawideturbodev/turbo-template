@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/state/extensions/context_extension.dart';
 import 'package:turbo_template/ui/config/turbo_button_config.dart';
 import 'package:turbo_template/data/constants/k_sizes.dart';
 
@@ -37,19 +38,19 @@ class TAppBar extends StatelessWidget {
           subtitle: subtitle == null ? null : Text(subtitle!),
           leading: [
             if (onBackPressed != null || (automaticallyImplyLeading && context.canPop()))
-              OutlineButton(
+              GhostButton(
                 density: ButtonDensity.icon,
                 onPressed: onBackPressed ?? () => context.pop(),
                 child: const Icon(Icons.arrow_back),
               ),
             for (final item in leading)
               switch (item) {
-                TButtonIconConfig() => OutlineButton(
+                TButtonIconConfig() => GhostButton(
                     density: ButtonDensity.icon,
                     onPressed: item.onPressed,
                     child: Icon(item.pIconData),
                   ),
-                TButtonTextConfig() => OutlineButton(
+                TButtonTextConfig() => GhostButton(
                     onPressed: item.onPressed,
                     child: Text(item.pText!),
                     density: ButtonDensity.icon,
@@ -59,12 +60,12 @@ class TAppBar extends StatelessWidget {
           trailing: [
             for (final item in trailing)
               switch (item) {
-                TButtonIconConfig() => OutlineButton(
+                TButtonIconConfig() => GhostButton(
                     density: ButtonDensity.icon,
                     onPressed: item.onPressed,
                     child: Icon(item.pIconData),
                   ),
-                TButtonTextConfig() => OutlineButton(
+                TButtonTextConfig() => GhostButton(
                     onPressed: item.onPressed,
                     child: Text(item.pText!),
                     density: ButtonDensity.icon,
@@ -72,6 +73,7 @@ class TAppBar extends StatelessWidget {
               }
           ],
         ),
+          const Divider(height: 0),
       ],
     );
   }

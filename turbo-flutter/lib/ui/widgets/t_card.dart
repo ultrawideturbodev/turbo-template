@@ -3,7 +3,7 @@ import 'package:turbo_template/data/constants/k_durations.dart';
 import 'package:turbo_template/data/constants/k_sizes.dart';
 import 'package:turbo_template/state/extensions/context_extension.dart';
 import 'package:turbo_template/ui/enums/t_device_type.dart';
-import 'package:turbo_template/ui/widgets/margin.dart';
+import 'package:turbo_template/ui/widgets/t_margin.dart';
 
 class TCard extends StatelessWidget {
   const TCard({super.key, required this.child});
@@ -31,8 +31,8 @@ class TCardFlex extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => switch (deviceType) {
-        TDeviceType.mobile => Margin(child: child),
-        TDeviceType.tablet || TDeviceType.desktop => Margin(
+        TDeviceType.mobile => TMargin(child: child),
+        TDeviceType.tablet || TDeviceType.desktop => TMargin(
             child: ConstrainedBox(
               constraints: const BoxConstraints(
                 maxWidth: kSizesDialogMaxWidth,

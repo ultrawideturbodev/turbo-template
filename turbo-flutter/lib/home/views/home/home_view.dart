@@ -4,9 +4,11 @@ import 'package:turbo_template/state/extensions/context_extension.dart';
 import 'package:turbo_template/ui/config/turbo_button_config.dart';
 import 'package:turbo_template/ui/constants/k_widgets.dart';
 import 'package:turbo_template/ui/extensions/wrapper_extensions.dart';
-import 'package:turbo_template/ui/widgets/margin.dart';
+import 'package:turbo_template/ui/widgets/t_logo.dart';
+import 'package:turbo_template/ui/widgets/t_margin.dart';
 import 'package:turbo_template/ui/widgets/t_app_bar.dart';
 import 'package:turbo_template/ui/config/t_crumb_config.dart';
+import 'package:turbo_template/ui/widgets/t_column.dart';
 import 'package:turbo_template/ui/widgets/t_crumbs.dart';
 import 'package:turbo_template/ui/widgets/t_card.dart';
 import 'package:turbo_template/ui/widgets/t_card_column.dart';
@@ -34,14 +36,7 @@ class HomeView extends StatelessWidget {
         return TScaffold(
           headers: [
             TAppBar(
-              leading: [
-                TButtonIconConfig.goBack(
-                  context: context,
-                  onFail: null,
-                ),
-              ],
               title: model.title,
-              subtitle: 'wow',
               trailing: [
                 TButtonIconConfig.theme(
                   onPressed: model.onThemeModePressed,
@@ -50,71 +45,35 @@ class HomeView extends StatelessWidget {
                 TButtonIconConfig.logout(onPressed: model.onLogoutPressed),
               ],
             ),
-            TCrumbs(
-              tCrumbs: [
-                TCrumbText(
-                  text: 'Home',
-                  onPressed: () {
-                    print('wtf');
-                  },
-                ),
-                const TCrumbDots(),
-                const TCrumbText(text: 'wtf'),
-                const TCrumbText(text: 'wtf'),
-              ],
-            ).wrapMargin(
-              edgeInsets: const EdgeInsets.only(
-                left: kSizesAppPadding,
-                bottom: kSizesAppPadding,
-              ),
-            ),
           ],
-          child: TScrollView(
-            child: Margin.horizontal(
-              child: Column(
-                children: [
-                  TCard(
-                    child: TCardColumn(
-                      title: 'wtf',
-                      subtitle: 'cool',
-                      onPrimaryPressed: TButtonTextConfig(
-                        text: 'damn',
-                        onPressed: () {},
-                      ),
-                      onSecondaryPressed: TButtonTextConfig(
-                        text: 'damn',
-                        onPressed: () {},
-                      ),
-                    ),
-                  ),
-                  const TGap.section(),
-                  Column(
+          child: const TScrollView(
+            child: TColumn(children: [
+              TMargin.horizontal(
+                top: kSizesAppPadding,
+                child: TCard(
+                  child: TCardColumn(
+                    trailingTitle: TLogo(),
+                    title: 'Shopping List Items',
+                    subtitle: 'Items in your shopping list',
                     children: [
-                      const Margin.horizontal(
-                        child: TCard(
-                          child: TListItem(
-                            title: 'wtf',
-                            subtitle: 'nice',
-                            trailing: [],
-                          ),
-                        ),
-                      ),
-                      const TGap.listItem(),
-                      TCard(
-                        child: TListItemAvatar(
-                          avatar: Avatar(
-                            initials: Avatar.getInitials('Brian Manuputty'),
-                          ),
-                          title: 'wtf',
-                          subtitle: 'nice',
-                        ),
-                      ),
+                      TListItem(title: 'Snoep', subtitle: 'Candy'),
                     ],
                   ),
-                  const TGap.section(),
-                ],
+                ),
               ),
-            ),
+              TMargin.horizontal(
+                child: TCard(
+                  child: TCardColumn(
+                    trailingTitle: TLogo(),
+                    title: 'Cleaning Schedule',
+                    subtitle: 'We need to clean the house. Let\'s make a schedule. Shall we?',
+                    children: [
+                      TListItem(title: 'Snoep', subtitle: 'Candy'),
+                    ],
+                  ),
+                ),
+              ),
+            ]),
           ),
         );
       },
