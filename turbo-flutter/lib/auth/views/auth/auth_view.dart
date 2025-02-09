@@ -1,26 +1,23 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/animations/extensions/animation_extension.dart';
+import 'package:turbo_template/animations/widgets/shrinks.dart';
 import 'package:turbo_template/auth/enums/auth_view_mode.dart';
 import 'package:turbo_template/auth/widgets/accept_privacy_text.dart';
 import 'package:turbo_template/data/constants/k_durations.dart';
 import 'package:turbo_template/data/constants/k_sizes.dart';
-import 'package:turbo_template/ui/constants/k_widgets.dart';
-import 'package:turbo_template/animations/extensions/animation_extension.dart';
-import 'package:turbo_template/state/extensions/context_extension.dart';
+import 'package:turbo_template/forms/widgets/form_field_checkbox.dart';
+import 'package:turbo_template/forms/widgets/form_field_text.dart';
 import 'package:turbo_template/localizations/globals/g_strings.dart';
-import 'package:turbo_template/ui/enums/turbo_device_type.dart';
+import 'package:turbo_template/state/extensions/context_extension.dart';
+import 'package:turbo_template/ui/constants/k_widgets.dart';
 import 'package:turbo_template/ui/widgets/device_type_builder.dart';
-import 'package:turbo_template/ui/widgets/leading.dart';
-import 'package:turbo_template/ui/widgets/margin.dart';
 import 'package:turbo_template/ui/widgets/trailing.dart';
 import 'package:turbo_template/ui/widgets/turbo_button.dart';
 import 'package:turbo_template/ui/widgets/turbo_card.dart';
-import 'package:turbo_template/forms/widgets/form_field_checkbox.dart';
-import 'package:turbo_template/forms/widgets/form_field_text.dart';
 import 'package:turbo_template/ui/widgets/turbo_focus_order.dart';
+import 'package:turbo_template/ui/widgets/turbo_gap.dart';
 import 'package:turbo_template/ui/widgets/turbo_logo.dart';
 import 'package:turbo_template/ui/widgets/turbo_scaffold.dart';
-import 'package:turbo_template/animations/widgets/shrinks.dart';
-import 'package:turbo_template/ui/widgets/turbo_gap.dart';
 import 'package:turbo_template/ui/widgets/turbo_scroll_view.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
@@ -169,7 +166,7 @@ class AuthView extends StatelessWidget {
                             // Top Login button: animate with VerticalShrink and remove from focus when hidden
                             VerticalShrink(
                               show: authViewMode.isLogin,
-                              hideChild: ExcludeFocus(child: Offstage()),
+                              hideChild: const ExcludeFocus(child: Offstage()),
                               child: TFocusOrder(
                                 order: 3,
                                 child: Padding(
@@ -247,7 +244,7 @@ class AuthView extends StatelessWidget {
                             // Bottom Login button for register mode: animate with VerticalShrink and remove from focus when hidden
                             VerticalShrink(
                               show: authViewMode.isRegister,
-                              hideChild: ExcludeFocus(child: Offstage()),
+                              hideChild: const ExcludeFocus(child: Offstage()),
                               child: TFocusOrder(
                                 order: 7,
                                 child: Padding(

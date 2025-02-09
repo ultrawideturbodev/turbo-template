@@ -58,7 +58,6 @@ class TurboTexts {
         color: _themeData.colorScheme.primary.onColor,
       );
 
-  TextStyle get viewTitle => _h1;
   TextStyle get h1 => _h2;
   TextStyle get h2 => _h3;
   TextStyle get h3 => _h4;

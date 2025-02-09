@@ -1,28 +1,28 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:informers/informer.dart';
 import 'package:loglytics/loglytics.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_firestore_api/apis/turbo_firestore_api.dart';
 import 'package:turbo_response/turbo_response.dart';
 import 'package:turbo_template/auth/apis/user_profiles_api.dart';
 import 'package:turbo_template/auth/apis/usernames_api.dart';
+import 'package:turbo_template/auth/enums/auth_step.dart';
+import 'package:turbo_template/auth/enums/step_result.dart';
 import 'package:turbo_template/auth/forms/create_username_form.dart';
 import 'package:turbo_template/auth/services/auth_service.dart';
 import 'package:turbo_template/auth/services/auth_step_service.dart';
 import 'package:turbo_template/data/constants/k_durations.dart';
-import 'package:turbo_template/auth/enums/auth_step.dart';
-import 'package:turbo_template/auth/enums/step_result.dart';
-import 'package:turbo_template/state/exceptions/unexpected_null_exception.dart';
 import 'package:turbo_template/data/extensions/string_extension.dart';
-import 'package:turbo_template/forms/config/form_field_config.dart';
-import 'package:turbo_template/localizations/globals/g_strings.dart';
 import 'package:turbo_template/feedback/globals/g_vibrate.dart';
 import 'package:turbo_template/feedback/services/dialog_service.dart';
-import 'package:turbo_template/state/utils/debouncer.dart';
+import 'package:turbo_template/forms/config/form_field_config.dart';
 import 'package:turbo_template/home/routers/home_router.dart';
+import 'package:turbo_template/localizations/globals/g_strings.dart';
+import 'package:turbo_template/state/exceptions/unexpected_null_exception.dart';
+import 'package:turbo_template/state/utils/debouncer.dart';
 import 'package:veto/data/mixins/busy_service_management.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
@@ -114,6 +114,8 @@ class CreateUsernameViewModel extends BaseViewModel with Loglytics, BusyServiceM
 
   /// Returns a stream of username availability status changes.
   ValueListenable<bool?> get usernameIsAvailable => _usernameIsAvailable;
+
+  bool get usernameIsValid => usernameField.isValidSilent;
 
   // 🏗️ HELPERS ------------------------------------------------------------------------------- \\
 

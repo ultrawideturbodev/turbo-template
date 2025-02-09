@@ -1,5 +1,5 @@
 const kSizesAppPadding = 16.0;
-const kSizesButtonHeight = 40.0;
+const kSizesButtonHeight = 48.0;
 const kSizesCardPadding = 24.0;
 const kSizesCardRadius = 12.0;
 const kSizesBorderWidth = 1;
@@ -13,7 +13,8 @@ const kSizesPrototypeHedight = 1440.0;
 const kSizesPrototypeWidth = 720.0;
 const kSizesSectionGap = 24.0;
 const kSizesSectionPadding = 10.0;
-const kSizesAppPaddingX0p5 = kSizesAppPadding / 2;
+const kSizesAppPaddingX0p5 = kSizesAppPadding * 0.5;
+const kSizesAppPaddingX0p75 = kSizesAppPadding * 0.75;
 const kSizesListItemMinHeight = 88.0;
 const kSizesElementGap = 16.0;
 const kSizesSubtitleGap = 6.0;

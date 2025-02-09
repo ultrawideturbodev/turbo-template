@@ -86,7 +86,7 @@
   "somethingWentWrongWhileDeletingOldUsernamesPleaseTryAgain": "Something went wrong while deleting old usernames, please try again.",
   "databaseFailure": "Database Failure",
   "somethingWentWrongWhileTryingToCreateYourProfilePlease": "Something went wrong while trying to create your profile, please try again.",
-  "helloUsername": "👋 Hello @{username}",
+  "helloUsername": "Hello @{username}",
   "whatNameSuitsYouBest": "What name suits you best?",
   "username": "Username",
   "save": "Save",

@@ -20,7 +20,7 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(username) => "👋 Hello @${username}";
+  static String m0(username) => "Hello @${username}";
 
   static String m1(email) =>
       "If ${email} is registered with us, a password reset email has been sent.";

@@ -220,6 +220,17 @@ class FormFieldConfig<T> extends ChangeNotifier with Loglytics {
 
   bool get isNotValid => !isValid;
 
+  bool get isValidSilent =>
+      switch (_formFieldType) {
+        FormFieldType.text => _valueValidator?.call(_value),
+        FormFieldType.dropDown => _valueValidator?.call(_value),
+        FormFieldType.checkbox => _valueValidator?.call(_value),
+        FormFieldType.counter => _valueValidator?.call(_value),
+        FormFieldType.dateTimePicker => _valueValidator?.call(_value),
+        FormFieldType.chipWrap => _valuesValidator?.call(_values),
+      } ==
+      null;
+
   bool get isValid {
     if (!_shouldValidate.value) {
       _shouldValidate.update(true, doNotifyListeners: false);

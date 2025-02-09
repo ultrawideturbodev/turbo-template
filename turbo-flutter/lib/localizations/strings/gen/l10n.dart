@@ -910,10 +910,10 @@ class Strings {
     );
   }
 
-  /// `👋 Hello @{username}`
+  /// `Hello @{username}`
   String helloUsername(Object username) {
     return Intl.message(
-      '👋 Hello @$username',
+      'Hello @$username',
       name: 'helloUsername',
       desc: '',
       args: [username],

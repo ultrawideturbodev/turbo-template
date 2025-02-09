@@ -58,7 +58,7 @@ class EmojiHeader extends StatelessWidget {
           minFontSize: 18,
           '${emoji.toString()}  $title',
           style: switch (type) {
-            EmojiHeaderType.scaffoldTitle => context.texts.viewTitle,
+            EmojiHeaderType.scaffoldTitle => context.texts.h2,
             EmojiHeaderType.h1 => context.texts.h1,
             EmojiHeaderType.h2 => context.texts.h2,
             EmojiHeaderType.h3 => context.texts.h3,
