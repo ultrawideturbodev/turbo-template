@@ -1,10 +1,15 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/core/widgets/layout/left_padding.dart';
 import 'package:turbo_template/data/constants/k_sizes.dart';
-import 'package:turbo_template/ui/constants/k_widgets.dart';
 import 'package:turbo_template/state/extensions/context_extension.dart';
+import 'package:turbo_template/ui/constants/k_widgets.dart';
+import 'package:turbo_template/ui/extensions/widget_extension.dart';
+import 'package:turbo_template/ui/widgets/bottom_safe_area.dart';
+import 'package:turbo_template/ui/widgets/ho_padding.dart';
+import 'package:turbo_template/ui/widgets/leading_icon.dart';
 import 'package:turbo_template/ui/widgets/turbo_card.dart';
-import 'package:turbo_template/ui/widgets/turbo_scaffold.dart';
 import 'package:turbo_template/ui/widgets/turbo_gap.dart';
+import 'package:turbo_template/ui/widgets/turbo_scaffold.dart';
 import 'package:turbo_template/ui/widgets/turbo_scroll_view.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
@@ -23,47 +28,62 @@ class VerifyEmailView extends StatelessWidget {
       builder: (context, model, isInitialised, child) {
         if (!isInitialised) return kWidgetsNothing;
         return TurboScaffold(
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: kSizesDialogMaxWidth,
-              ),
-              child: TurboScrollView(
-                child: TurboCard(
-                  type: TChildCard(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          'Verify Email',
-                          textAlign: TextAlign.left,
-                          style: context.texts.cardTitle,
+          footers: switch (context.data.isMobile) {
+            true => [
+                BottomSafeArea(
+                  child: Row(
+                    children: [
+                      Button.secondary(child: const Text('Skip'), onPressed: model.onSkipPressed),
+                      const Spacer(),
+                      ValueListenableBuilder<bool>(
+                        valueListenable: model.canCheckStatus,
+                        builder: (context, canCheckStatus, child) => Button.primary(
+                          child: const Text('Check Status'),
+                          onPressed: model.onCheckStatusPressed,
                         ),
-                        const TGap.subtitle(),
-                        Text(
-                          'Please verify your email address to continue.',
-                          style: context.texts.subtitle,
-                          textAlign: TextAlign.left,
-                        ),
-                        const TGap.element(),
-                        Row(
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            false => [],
+          },
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: kSizesDialogMaxWidth,
+            ),
+            child: TurboScrollView(
+              child: HoPadding(
+                child: Column(
+                  children: [
+                    TurboCard(
+                      type: TChildCard(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Button.secondary(
-                                child: const Text('Skip'), onPressed: model.onSkipPressed),
-                            const Spacer(),
-                            ValueListenableBuilder<bool>(
-                              valueListenable: model.canCheckStatus,
-                              builder: (context, canCheckStatus, child) => Button.primary(
-                                child: const Text('Check Status'),
-                                onPressed: model.onCheckStatusPressed,
+                            LeadingIcon(
+                              iconData: BootstrapIcons.envelope,
+                              size: 32,
+                              child: LeftPadding(
+                                child: Text(
+                                  'Verify Email',
+                                  textAlign: TextAlign.left,
+                                  style: context.texts.cardTitle,
+                                ),
                               ),
                             ),
+                            const TGap.subtitle(),
+                            Text(
+                              'Please verify your email address to continue.',
+                              style: context.texts.subtitle,
+                              textAlign: TextAlign.left,
+                            ),
                           ],
+                          mainAxisSize: MainAxisSize.min,
                         ),
-                      ],
-                      mainAxisSize: MainAxisSize.min,
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ),

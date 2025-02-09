@@ -10,6 +10,7 @@ import 'package:turbo_response/turbo_response.dart';
 import 'package:turbo_template/data/constants/k_durations.dart';
 import 'package:turbo_template/data/constants/k_values.dart';
 import 'package:turbo_template/auth/enums/step_result.dart';
+import 'package:turbo_template/data/extensions/duration_extension.dart';
 import 'package:turbo_template/forms/config/form_field_config.dart';
 import 'package:turbo_template/data/globals/g_now.dart';
 import 'package:turbo_template/routing/routers/core_router.dart';
@@ -125,7 +126,7 @@ class AuthViewModel extends BaseViewModel with Loglytics, BusyServiceManagement 
 
   void _onAuthViewModeChanged() {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
+      (_) async {
         switch (_authViewMode.value) {
           case AuthViewMode.login:
             loginButtonFocusNode.skipTraversal = false;
@@ -368,26 +369,31 @@ class AuthViewModel extends BaseViewModel with Loglytics, BusyServiceManagement 
       );
 
   void _restoreFocus() {
-    switch (authViewMode.value) {
-      case AuthViewMode.login:
-        if (_loginForm.email.valueTrimIsEmpty) {
-          _loginForm.email.requestFocus();
-        } else if (_loginForm.password.valueTrimIsEmpty) {
-          _loginForm.password.requestFocus();
-        } else {
-          loginButtonFocusNode.requestFocus();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        await kDurationsAnimation.asFuture;
+        switch (authViewMode.value) {
+          case AuthViewMode.login:
+            if (_loginForm.email.valueTrimIsEmpty) {
+              _loginForm.email.requestFocus();
+            } else if (_loginForm.password.valueTrimIsEmpty) {
+              _loginForm.password.requestFocus();
+            } else {
+              loginButtonFocusNode.requestFocus();
+            }
+          case AuthViewMode.register:
+            if (_registerForm.email.valueTrimIsEmpty) {
+              _registerForm.email.requestFocus();
+            } else if (_registerForm.password.valueTrimIsEmpty) {
+              _registerForm.password.requestFocus();
+            } else if (_registerForm.confirmPassword.valueTrimIsEmpty) {
+              _registerForm.confirmPassword.requestFocus();
+            } else {
+              registerButtonFocusNode.requestFocus();
+            }
         }
-      case AuthViewMode.register:
-        if (_registerForm.email.valueTrimIsEmpty) {
-          _registerForm.email.requestFocus();
-        } else if (_registerForm.password.valueTrimIsEmpty) {
-          _registerForm.password.requestFocus();
-        } else if (_registerForm.confirmPassword.valueTrimIsEmpty) {
-          _registerForm.confirmPassword.requestFocus();
-        } else {
-          registerButtonFocusNode.requestFocus();
-        }
-    }
+      },
+    );
   }
 
   // 🏗 HELPERS ---------------------------dis---------------------------------------------------- \\

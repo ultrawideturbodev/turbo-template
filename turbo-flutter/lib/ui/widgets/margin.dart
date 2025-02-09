@@ -1,15 +1,14 @@
 import 'package:flutter/widgets.dart';
+import 'package:turbo_template/data/constants/k_sizes.dart';
 
-import '../../data/constants/k_sizes.dart';
-
-class RightPadding extends StatelessWidget {
-  const RightPadding({
+class Margin extends StatelessWidget {
+  const Margin({
     Key? key,
     required this.child,
-    this.bottom = 0,
-    this.left = 0,
+    this.bottom = kSizesAppPadding,
+    this.left = kSizesAppPadding,
     this.right = kSizesAppPadding,
-    this.top = 0,
+    this.top = kSizesAppPadding,
   }) : super(key: key);
 
   final Widget child;

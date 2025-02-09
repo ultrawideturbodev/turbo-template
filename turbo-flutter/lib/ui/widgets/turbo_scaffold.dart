@@ -15,11 +15,12 @@ class TurboScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final safeChild = SafeArea(child: child);
+    final safeChild = SafeArea(child: child, bottom: false);
     return Scaffold(
       headers: headers,
       footers: footers,
       child: safeChild,
+      floatingFooter: true,
     );
   }
 }

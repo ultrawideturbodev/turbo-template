@@ -7,7 +7,7 @@ class LeftPadding extends StatelessWidget {
     Key? key,
     required this.child,
     this.bottom = 0,
-    this.left = kSizesAppPadding,
+    this.left = kSizesItemGap,
     this.right = 0,
     this.top = 0,
   }) : super(key: key);

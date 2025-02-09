@@ -17,7 +17,7 @@ class TGap extends gap_package.Gap {
   const TGap.listItemTitleCaption({super.key, double multiplier = 1})
       : super(kSizesListItemTitleCaption * multiplier);
   const TGap.inlineText({super.key, double multiplier = 1}) : super(kSizesTextGap * multiplier);
-  const TGap.label({super.key, double multiplier = 1}) : super(kSizesLabelGap * multiplier);
+  const TGap.label({super.key, double multiplier = 1}) : super(kSizesItemGap * multiplier);
   const TGap.listItem({super.key, double multiplier = 1}) : super(kSizesListItemGap * multiplier);
   const TGap.scaffoldTitle({super.key, double multiplier = 1}) : super(kSizesTitleGap * multiplier);
   const TGap.section({super.key, double multiplier = 1}) : super(kSizesSectionGap * multiplier);

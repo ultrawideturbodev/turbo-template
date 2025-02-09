@@ -83,9 +83,7 @@ class TurboTexts {
   TextStyle get paragraph => _p;
   TextStyle get acceptPrivacy => _xMuted;
 
-  TextStyle get cardTitle => _x2Large.copyWith(
-        fontWeight: fwSemiBold,
-      );
+  TextStyle get cardTitle => typography.h3;
 
   TextStyle get listItemTitle => _large.copyWith(
         fontWeight: fwSemiBold,
