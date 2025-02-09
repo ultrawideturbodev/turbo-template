@@ -20,7 +20,7 @@ class Leading extends StatelessWidget {
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.mainAxisSize = MainAxisSize.max,
     this.crossAxisAlignment = CrossAxisAlignment.center,
-    this.spacing = kSizesAppPadding,
+    this.spacing = kSizesAppPaddingX0p5,
   }) : direction = Axis.horizontal;
 
   const Leading.vertical({
@@ -30,7 +30,7 @@ class Leading extends StatelessWidget {
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.mainAxisSize = MainAxisSize.max,
     this.crossAxisAlignment = CrossAxisAlignment.center,
-    this.spacing = kSizesAppPadding,
+    this.spacing = kSizesAppPaddingX0p5,
   }) : direction = Axis.vertical;
 
   final Axis direction;
