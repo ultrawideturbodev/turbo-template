@@ -76,6 +76,8 @@ class TTexts {
         fontWeight: fwMedium,
       );
 
+  TextStyle get formFieldSubLabel => subtitle;
+
   TextStyle get trailingFormFieldLabel => _xMuted.copyWithCurrent(
         fontSize: (cValue) => cValue * 0.9,
       );

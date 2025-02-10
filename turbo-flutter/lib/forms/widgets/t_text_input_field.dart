@@ -8,6 +8,7 @@ import 'package:turbo_template/state/extensions/context_extension.dart';
 class TTextInputField extends StatefulWidget {
   const TTextInputField({
     required this.formFieldConfig,
+    super.key,
     this.crossAxisAlignment = CrossAxisAlignment.start,
     this.hintText,
     this.keyboardType,
@@ -20,14 +21,13 @@ class TTextInputField extends StatefulWidget {
     this.onTap,
     this.trailing,
     this.trailingLabel,
-    super.key,
   });
 
   final CrossAxisAlignment crossAxisAlignment;
-  final TFieldConfig<String> formFieldConfig;
   final IconData? leadingIcon;
   final String? hintText;
   final String? label;
+  final TFieldConfig<String> formFieldConfig;
   final TextInputType? keyboardType;
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onSubmitted;
@@ -42,7 +42,6 @@ class TTextInputField extends StatefulWidget {
 }
 
 class _TTextInputFieldState extends State<TTextInputField> {
-
   @override
   void initState() {
     assert(widget.formFieldConfig.fieldType.isTextInput);
@@ -71,14 +70,17 @@ class _TTextInputFieldState extends State<TTextInputField> {
     final formFieldConfig = widget.formFieldConfig;
     final formFieldTextStyle = context.texts.formField;
     final formFieldLabelStyle = context.texts.formFieldLabel;
-    final isDisabled = formFieldConfig.isReadOnly || !formFieldConfig.isEnabled;
+
     final label = widget.label;
     final hintText = widget.hintText;
+
+    final isReadyOnly = formFieldConfig.isReadOnly;
+    final isEnabled = formFieldConfig.isEnabled;
     return AnimatedOpacity(
       duration: kDurationsAnimation,
-      opacity: formFieldConfig.isEnabled ? 1 : kSizesOpacityDisabled,
+      opacity: isEnabled ? 1 : kSizesOpacityDisabled,
       child: IgnorePointer(
-        ignoring: isDisabled,
+        ignoring: !isEnabled || isReadyOnly,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -130,7 +132,7 @@ class _TTextInputFieldState extends State<TTextInputField> {
                           }
                           widget.onChanged?.call(value);
                         },
-                        readOnly: formFieldConfig.isReadOnly,
+                        readOnly: isReadyOnly,
                         focusNode: formFieldConfig.focusNode,
                         inputFormatters: formFieldConfig.inputFormatters,
                         obscureText: formFieldConfig.obscureText,
