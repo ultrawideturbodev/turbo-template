@@ -43,6 +43,13 @@ class SettingsView extends StatelessWidget {
                   label: 'Text Input Example',
                   hintText: 'Enter some text...',
                 ),
+                const Gap(16),
+                TTextInputField(
+                  formFieldConfig: model.searchForm.search,
+                  label: 'Search Example',
+                  hintText: 'Search...',
+                  leadingIcon: Icons.search,
+                ),
               ],
             ),
           ),

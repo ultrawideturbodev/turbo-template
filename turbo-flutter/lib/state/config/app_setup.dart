@@ -14,6 +14,7 @@ import 'package:turbo_template/auth/views/verify_email/verify_email_view_model.d
 import 'package:turbo_template/feedback/services/dialog_service.dart';
 import 'package:turbo_template/feedback/services/sheet_service.dart';
 import 'package:turbo_template/feedback/services/vibrate_service.dart';
+import 'package:turbo_template/forms/forms/t_search_form.dart';
 import 'package:turbo_template/home/routers/home_router.dart';
 import 'package:turbo_template/home/views/home/home_view_model.dart';
 import 'package:turbo_template/localizations/strings/gen/l10n.dart';

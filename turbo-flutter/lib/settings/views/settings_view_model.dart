@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
+import 'package:turbo_template/forms/forms/t_search_form.dart';
 import 'package:turbo_template/routing/models/origin_arguments.dart';
 import 'package:turbo_template/settings/forms/t_example_form.dart';
 import 'package:turbo_template/settings/views/settings_view_origin.dart';
@@ -20,6 +21,7 @@ class SettingsViewModel
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
 
   late final _form = TExampleForm.locate(initialValue: null);
+  late final _searchForm = TSearchForm.locate;
 
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
 
@@ -31,6 +33,7 @@ class SettingsViewModel
   @override
   Future<void> dispose() async {
     _form.dispose();
+    _searchForm.dispose();
     super.dispose();
   }
 
@@ -43,6 +46,7 @@ class SettingsViewModel
   SettingsViewOrigin get origin => arguments.origin;
   SettingsViewArguments get args => arguments.data;
   TExampleForm get form => _form;
+  TSearchForm get searchForm => _searchForm;
 
   // 🏗 HELPERS ------------------------------------------------------------------------------- \\
   // 🪄 MUTATORS ------------------------------------------------------------------------------ \\

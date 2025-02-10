@@ -2,6 +2,7 @@ import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/state/extensions/context_extension.dart';
 import 'package:turbo_template/ui/config/turbo_button_config.dart';
 import 'package:turbo_template/ui/widgets/t_column.dart';
+import 'package:turbo_template/ui/widgets/t_flex.dart';
 import 'package:turbo_template/ui/widgets/t_gap.dart';
 import 'package:turbo_template/ui/widgets/t_row.dart';
 import 'package:turbo_template/ui/widgets/t_wrap.dart';
@@ -52,7 +53,8 @@ class TCardColumn extends StatelessWidget {
           ],
         ),
         if (children.isNotEmpty)
-          TWrap(
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: children,
           ),
         Row(

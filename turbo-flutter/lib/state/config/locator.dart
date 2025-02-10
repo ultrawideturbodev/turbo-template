@@ -55,6 +55,7 @@ class Locator {
   static void _registerSingletons() {}
 
   static void _registerForms() {
+    TSearchForm.registerFactory();
     TExampleForm.registerFactoryParam();
     ForgotPasswordForm.registerFactory();
     LoginForm.registerFactory();

@@ -20,6 +20,7 @@ const kSizesElementGap = 16.0;
 const kSizesSubtitleGap = 4.0;
 const kSizesItemGap = 12.0;
 const kSizesTitleGap = 16.0;
+const kSizesWrapMinChildWidth = 320.0;
 const kSizesListItemTitleCaption = 6.0;
 const kSizesHeaderTitleGap = 16.0;
 const kSizesTextGap = 8.0;
