@@ -31,6 +31,7 @@ class TAppBar extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         AppBar(
+          backgroundColor: context.colors.appBar,
           leadingGap: kSizesElementGap,
           trailingGap: kSizesElementGap,
           title: title == null ? null : Text(title!),

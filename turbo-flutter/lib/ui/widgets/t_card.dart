@@ -16,6 +16,8 @@ class TCard extends StatelessWidget {
         child: child,
         borderWidth: 1,
         borderColor: context.colors.cardBorder,
+        filled: true,
+        fillColor: context.colors.cardBackground,
       );
 }
 

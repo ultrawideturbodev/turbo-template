@@ -93,13 +93,21 @@ class ShellView extends StatelessWidget {
                             },
                             children: [
                               for (final tab
-                                  in NavigationTab.navigationTabs(deviceType: deviceType))
+                                  in NavigationTab.navigationTabs(deviceType: deviceType)) ...[
+                                    if (!tab.isSettings)
                                 NavigationItem(
                                   child: Icon(tab.icon),
                                   alignment: Alignment.centerLeft,
                                   label: Text(tab.label),
                                   selectedStyle: const ButtonStyle.primaryIcon(),
                                 ),
+                              ],
+                              NavigationItem(
+                                child: Icon(NavigationTab.settings.icon),
+                                alignment: Alignment.centerLeft,
+                                label: Text(NavigationTab.settings.label),
+                                selectedStyle: const ButtonStyle.primaryIcon(),
+                              ),
                             ],
                           ),
                         ),

@@ -2,13 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:informers/informer.dart';
 import 'package:loglytics/loglytics.dart';
-import 'package:turbo_template/home/views/home/home_view.dart';
-import 'package:turbo_template/routing/enums/navigation_tab.dart';
 import 'package:turbo_template/auth/services/auth_service.dart';
-import 'package:turbo_template/local_storage/services/local_storage_service.dart';
 import 'package:turbo_template/data/extensions/string_extension.dart';
-import 'package:turbo_template/state/views/placeholder/placeholder_view.dart';
+import 'package:turbo_template/home/views/home/home_view.dart';
+import 'package:turbo_template/local_storage/services/local_storage_service.dart';
+import 'package:turbo_template/routing/enums/navigation_tab.dart';
 import 'package:turbo_template/settings/views/settings_view.dart';
+import 'package:turbo_template/state/views/placeholder/placeholder_view.dart';
 
 class NavigationTabService with Loglytics {
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
