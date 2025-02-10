@@ -73,7 +73,7 @@ class TTexts {
       );
   TextStyle get formFieldLabel => _xSmall.copyWith(
         color: colors.background.onColor,
-        fontWeight: fwMedium,
+        fontWeight: fwSemiBold,
       );
 
   TextStyle get formFieldSubLabel => subtitle;

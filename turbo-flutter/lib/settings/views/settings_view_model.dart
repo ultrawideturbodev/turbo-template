@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:turbo_template/routing/models/origin_arguments.dart';
+import 'package:turbo_template/settings/forms/t_example_form.dart';
 import 'package:turbo_template/settings/views/settings_view_origin.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
@@ -17,6 +18,9 @@ class SettingsViewModel
   static void registerFactory() => GetIt.I.registerFactory(() => SettingsViewModel());
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
+
+  late final _form = TExampleForm.locate(initialValue: null);
+
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
 
   @override
@@ -26,6 +30,7 @@ class SettingsViewModel
 
   @override
   Future<void> dispose() async {
+    _form.dispose();
     super.dispose();
   }
 
@@ -37,6 +42,7 @@ class SettingsViewModel
 
   SettingsViewOrigin get origin => arguments.origin;
   SettingsViewArguments get args => arguments.data;
+  TExampleForm get form => _form;
 
   // 🏗 HELPERS ------------------------------------------------------------------------------- \\
   // 🪄 MUTATORS ------------------------------------------------------------------------------ \\

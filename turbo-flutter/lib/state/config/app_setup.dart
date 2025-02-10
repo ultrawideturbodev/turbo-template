@@ -18,6 +18,7 @@ import 'package:turbo_template/home/routers/home_router.dart';
 import 'package:turbo_template/home/views/home/home_view_model.dart';
 import 'package:turbo_template/localizations/strings/gen/l10n.dart';
 import 'package:turbo_template/settings/apis/settings_api.dart';
+import 'package:turbo_template/settings/forms/t_example_form.dart';
 import 'package:turbo_template/settings/routing/settings_router.dart';
 import 'package:turbo_template/settings/services/settings_service.dart';
 import 'package:turbo_template/settings/views/settings_view_model.dart';

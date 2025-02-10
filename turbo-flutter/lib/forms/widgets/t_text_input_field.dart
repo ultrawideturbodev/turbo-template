@@ -1,8 +1,6 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:turbo_template/data/constants/k_durations.dart';
-import 'package:turbo_template/data/constants/k_sizes.dart';
 import 'package:turbo_template/forms/config/t_field_config.dart';
-import 'package:turbo_template/forms/widgets/t_error_label.dart';
+import 'package:turbo_template/forms/widgets/t_form_field.dart';
 import 'package:turbo_template/state/extensions/context_extension.dart';
 
 class TTextInputField extends StatefulWidget {
@@ -69,87 +67,56 @@ class _TTextInputFieldState extends State<TTextInputField> {
   Widget build(BuildContext context) {
     final formFieldConfig = widget.formFieldConfig;
     final formFieldTextStyle = context.texts.formField;
-    final formFieldLabelStyle = context.texts.formFieldLabel;
-
-    final label = widget.label;
     final hintText = widget.hintText;
+    final isReadOnly = formFieldConfig.isReadOnly;
 
-    final isReadyOnly = formFieldConfig.isReadOnly;
-    final isEnabled = formFieldConfig.isEnabled;
-    return AnimatedOpacity(
-      duration: kDurationsAnimation,
-      opacity: isEnabled ? 1 : kSizesOpacityDisabled,
-      child: IgnorePointer(
-        ignoring: !isEnabled || isReadyOnly,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (label != null) ...[
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      label,
-                      style: formFieldLabelStyle,
-                    ),
-                  ),
-                  if (widget.trailingLabel != null) ...[
-                    const Gap(8),
-                    widget.trailingLabel!,
-                    const Gap(8),
-                  ],
-                ],
-              ),
-              const Gap(8),
-            ],
-            Row(
-              crossAxisAlignment: widget.crossAxisAlignment,
+    return TFormField(
+      formFieldConfig: formFieldConfig,
+      label: widget.label,
+      trailingLabel: widget.trailingLabel,
+      child: Row(
+        crossAxisAlignment: widget.crossAxisAlignment,
+        children: [
+          Expanded(
+            child: Column(
               children: [
-                if (widget.leading != null) widget.leading!,
-                Expanded(
-                  child: Column(
-                    children: [
-                      TextField(
-                        leading: widget.leading ??
-                            StatedWidget.builder(
-                              builder: (context, states) {
-                                if (states.focused) {
-                                  return Icon(widget.leadingIcon);
-                                } else {
-                                  return Icon(widget.leadingIcon, color: context.colors.input);
-                                }
-                              },
-                            ),
-                        trailing: widget.trailing,
-                        hintText: hintText,
-                        keyboardType: widget.keyboardType,
-                        onTap: widget.onTap,
-                        controller: formFieldConfig.textEditingController,
-                        onChanged: (value) {
-                          formFieldConfig.silentUpdateValue(value);
-                          if (formFieldConfig.shouldValidate.value) {
-                            formFieldConfig.isValid;
-                          }
-                          widget.onChanged?.call(value);
-                        },
-                        readOnly: isReadyOnly,
-                        focusNode: formFieldConfig.focusNode,
-                        inputFormatters: formFieldConfig.inputFormatters,
-                        obscureText: formFieldConfig.obscureText,
-                        style: formFieldTextStyle,
-                        onSubmitted: widget.onSubmitted,
-                      ),
-                    ],
-                  ),
+                TextField(
+                  leading: widget.leading ??
+                      switch (widget.leadingIcon != null) {
+                        true => StatedWidget.builder(
+                            builder: (context, states) {
+                              if (states.focused) {
+                                return Icon(widget.leadingIcon);
+                              } else {
+                                return Icon(widget.leadingIcon, color: context.colors.input);
+                              }
+                            },
+                          ),
+                        false => null,
+                      },
+                  trailing: widget.trailing,
+                  hintText: hintText,
+                  keyboardType: widget.keyboardType,
+                  onTap: widget.onTap,
+                  controller: formFieldConfig.textEditingController,
+                  onChanged: (value) {
+                    formFieldConfig.silentUpdateValue(value);
+                    if (formFieldConfig.shouldValidate.value) {
+                      formFieldConfig.isValid;
+                    }
+                    widget.onChanged?.call(value);
+                  },
+                  readOnly: isReadOnly,
+                  focusNode: formFieldConfig.focusNode,
+                  inputFormatters: formFieldConfig.inputFormatters,
+                  obscureText: formFieldConfig.obscureText,
+                  style: formFieldTextStyle,
+                  onSubmitted: widget.onSubmitted,
                 ),
               ],
             ),
-            TErrorLabel(
-              errorText: formFieldConfig.errorText,
-              shouldValidate: formFieldConfig.shouldValidate,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
