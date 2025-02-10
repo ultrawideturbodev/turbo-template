@@ -40,6 +40,8 @@ class TTextInputField extends StatefulWidget {
 }
 
 class _TTextInputFieldState extends State<TTextInputField> {
+  List<String> _currentSuggestions = [];
+
   @override
   void initState() {
     assert(widget.formFieldConfig.fieldType.isTextInput);
@@ -53,6 +55,20 @@ class _TTextInputFieldState extends State<TTextInputField> {
   void _onFocusChanged() => widget.onFocusChanged?.call(widget.formFieldConfig.focusNode.hasFocus);
 
   void _rebuild() => setState(() {});
+
+  void _updateSuggestions(String value) {
+    if (value.isEmpty || widget.formFieldConfig.autoCompleteValues == null) {
+      setState(() {
+        _currentSuggestions = [];
+      });
+      return;
+    }
+    setState(() {
+      _currentSuggestions = widget.formFieldConfig.autoCompleteValues!
+          .where((element) => element.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+    });
+  }
 
   @override
   void dispose() {
@@ -80,44 +96,77 @@ class _TTextInputFieldState extends State<TTextInputField> {
           Expanded(
             child: Column(
               children: [
-                TextField(
-                  leading: widget.leading ??
-                      switch (widget.leadingIcon != null) {
-                        true => StatedWidget.builder(
-                            builder: (context, states) {
-                              if (states.focused) {
-                                return Icon(widget.leadingIcon);
-                              } else {
-                                return Icon(widget.leadingIcon, color: context.colors.input);
-                              }
-                            },
-                          ),
-                        false => null,
-                      },
-                  trailing: widget.trailing,
-                  hintText: hintText,
-                  keyboardType: widget.keyboardType,
-                  onTap: widget.onTap,
-                  controller: formFieldConfig.textEditingController,
-                  onChanged: (value) {
-                    formFieldConfig.silentUpdateValue(value);
-                    if (formFieldConfig.shouldValidate.value) {
-                      formFieldConfig.isValid;
-                    }
-                    widget.onChanged?.call(value);
-                  },
-                  readOnly: isReadOnly,
-                  focusNode: formFieldConfig.focusNode,
-                  inputFormatters: formFieldConfig.inputFormatters,
-                  obscureText: formFieldConfig.obscureText,
-                  style: formFieldTextStyle,
-                  onSubmitted: widget.onSubmitted,
-                ),
+                if (formFieldConfig.autoCompleteValues != null)
+                  AutoComplete(
+                    controller: formFieldConfig.textEditingController,
+                    suggestions: _currentSuggestions,
+                    onChanged: (value) {
+                      _onChanged(formFieldConfig, value);
+                      _updateSuggestions(value);
+                    },
+                    leading: _leading(),
+                    trailing: widget.trailing,
+                    hintText: hintText,
+                    keyboardType: widget.keyboardType,
+                    onTap: widget.onTap,
+                    readOnly: isReadOnly,
+                    focusNode: formFieldConfig.focusNode,
+                    obscureText: formFieldConfig.obscureText,
+                    style: formFieldTextStyle,
+                    onSubmitted: widget.onSubmitted,
+                    onAcceptSuggestion: (value) {
+                      final suggestion = _currentSuggestions[value];
+                      formFieldConfig.textEditingController.text = suggestion;
+                      formFieldConfig.silentUpdateValue(suggestion);
+                      setState(() {
+                        _currentSuggestions = [];
+                      });
+                    },
+                  )
+                else
+                  TextField(
+                    leading: _leading(),
+                    trailing: widget.trailing,
+                    hintText: hintText,
+                    keyboardType: widget.keyboardType,
+                    onTap: widget.onTap,
+                    controller: formFieldConfig.textEditingController,
+                    onChanged: (value) => _onChanged(formFieldConfig, value),
+                    readOnly: isReadOnly,
+                    focusNode: formFieldConfig.focusNode,
+                    inputFormatters: formFieldConfig.inputFormatters,
+                    obscureText: formFieldConfig.obscureText,
+                    style: formFieldTextStyle,
+                    onSubmitted: widget.onSubmitted,
+                  ),
               ],
             ),
           ),
         ],
       ),
     );
+  }
+
+  Widget? _leading() =>
+      widget.leading ??
+      switch (widget.leadingIcon != null) {
+        true => StatedWidget.builder(
+            builder: (context, states) {
+              if (states.focused) {
+                return Icon(widget.leadingIcon);
+              } else {
+                return Icon(widget.leadingIcon, color: context.colors.input);
+              }
+            },
+          ),
+        false => null,
+      };
+
+  void _onChanged(TFieldConfig<String> formFieldConfig, String value) {
+    formFieldConfig.silentUpdateValue(value);
+    if (formFieldConfig.shouldValidate.value) {
+      formFieldConfig.isValid;
+    }
+    widget.onChanged?.call(value);
   }
 }

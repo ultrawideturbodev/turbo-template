@@ -24,11 +24,29 @@ class TSearchForm extends FormConfig {
   // ⚡️ OVERRIDES ----------------------------------------------------------------------------- \\
   // 🎩 STATE --------------------------------------------------------------------------------- \\
 
+  static const List<String> _suggestions = [
+    'Apple',
+    'Banana',
+    'Cherry',
+    'Date',
+    'Grape',
+    'Kiwi',
+    'Lemon',
+    'Mango',
+    'Orange',
+    'Peach',
+    'Pear',
+    'Pineapple',
+    'Strawberry',
+    'Watermelon',
+  ];
+
   @override
   late final Map<Enum, TFieldConfig> formFieldConfigs = {
     TSearchFormField.search: TFieldConfig<String>(
       id: TSearchFormField.search,
       fieldType: TFieldType.textInput,
+      autoCompleteValues: _suggestions,
       valueValidator: kValueValidatorsMultiple(
         [
           kValueValidatorsMaxLength(

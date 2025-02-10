@@ -15,6 +15,7 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
     List<T>? initialValues,
     List<T>? items,
     List<TextInputFormatter>? inputFormatters,
+    List<String>? autoCompleteValues,
     T? initialValue,
     ValuesValidatorDef<T>? valuesValidator,
     bool isEnabled = true,
@@ -31,6 +32,7 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
         _initialValue = initialValue,
         _initialValues = initialValues,
         _inputFormatters = inputFormatters,
+        _autoCompleteValues = autoCompleteValues,
         _isEnabled = isEnabled,
         _isReadOnly = isReadOnly,
         _isVisible = isVisible,
@@ -38,7 +40,8 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
         _obscureText = obscureText,
         _value = initialValue,
         _valueValidator = valueValidator,
-        _valuesValidator = valuesValidator;
+        _valuesValidator = valuesValidator,
+        _formFieldType = fieldType;
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
 
@@ -47,6 +50,7 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
   List<T>? _items;
   List<T>? _values;
   List<TextInputFormatter>? _inputFormatters;
+  List<String>? _autoCompleteValues;
   T? _initialValue;
   T? _value;
   final ValuesValidatorDef<T>? _valuesValidator;
@@ -61,6 +65,7 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
   final num maxValue;
   final num minValue;
   final String Function(T value)? labelBuilder;
+  final TFieldType _formFieldType;
 
   // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
 
@@ -116,6 +121,7 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
   List<T>? get initialValues => _initialValues;
   List<T>? get items => _items;
   List<TextInputFormatter>? get inputFormatters => _inputFormatters;
+  List<String>? get autoCompleteValues => _autoCompleteValues;
   Set<T> get valuesAsSet => values?.toSet() ?? {};
   T? get initialValue => _initialValue;
   ValueListenable<String?> get errorText => _errorText;
