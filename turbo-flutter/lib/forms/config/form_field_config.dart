@@ -1,13 +1,13 @@
 import 'package:flutter/foundation.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:informers/informer.dart';
 import 'package:loglytics/loglytics.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 
-import '../enums/form_field_type.dart';
-import '../../state/exceptions/unexpected_state_exception.dart';
 import '../../data/extensions/string_extension.dart';
+import '../../state/exceptions/unexpected_state_exception.dart';
+import '../enums/form_field_type.dart';
 import '../typedefs/values_validator_def.dart';
 
 class FormFieldConfig<T> extends ChangeNotifier with Loglytics {
