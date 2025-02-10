@@ -5,12 +5,12 @@ class TPngImage extends StatelessWidget {
   const TPngImage({
     Key? key,
     required this.png,
-    this.height,
+    this.height = 64,
     this.width,
   }) : super(key: key);
 
   final TPng png;
-  final double? height;
+  final double height;
   final double? width;
 
   @override

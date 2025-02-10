@@ -4,6 +4,7 @@ import 'package:turbo_template/ui/config/turbo_button_config.dart';
 import 'package:turbo_template/ui/widgets/t_column.dart';
 import 'package:turbo_template/ui/widgets/t_gap.dart';
 import 'package:turbo_template/ui/widgets/t_row.dart';
+import 'package:turbo_template/ui/widgets/t_wrap.dart';
 
 class TCardColumn extends StatelessWidget {
   const TCardColumn({
@@ -50,7 +51,10 @@ class TCardColumn extends StatelessWidget {
             ],
           ],
         ),
-        ...children,
+        if (children.isNotEmpty)
+          TWrap(
+            children: children,
+          ),
         Row(
           children: [
             if (hasSecondary) ...[

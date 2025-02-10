@@ -1,5 +1,6 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/data/constants/k_sizes.dart';
+import 'package:turbo_template/data/enums/t_png.dart';
 import 'package:turbo_template/state/extensions/context_extension.dart';
 import 'package:turbo_template/ui/config/turbo_button_config.dart';
 import 'package:turbo_template/ui/constants/k_widgets.dart';
@@ -13,6 +14,7 @@ import 'package:turbo_template/ui/widgets/t_crumbs.dart';
 import 'package:turbo_template/ui/widgets/t_card.dart';
 import 'package:turbo_template/ui/widgets/t_card_column.dart';
 import 'package:turbo_template/ui/widgets/t_gap.dart';
+import 'package:turbo_template/ui/widgets/t_png_image.dart';
 import 'package:turbo_template/ui/widgets/t_row.dart';
 import 'package:turbo_template/ui/widgets/t_list_item.dart';
 import 'package:turbo_template/ui/widgets/t_scaffold.dart';
@@ -52,10 +54,12 @@ class HomeView extends StatelessWidget {
                 top: kSizesAppPadding,
                 child: TCard(
                   child: TCardColumn(
-                    trailingTitle: TLogo(),
-                    title: 'Shopping List Items',
+                    trailingTitle: TPngImage(png: TPng.shoppingBags),
+                    title: 'Shopping List',
                     subtitle: 'Items in your shopping list',
                     children: [
+                      TListItem(title: 'Snoep', subtitle: 'Candy'),
+                      TListItem(title: 'Snoep', subtitle: 'Candy'),
                       TListItem(title: 'Snoep', subtitle: 'Candy'),
                     ],
                   ),
@@ -64,7 +68,7 @@ class HomeView extends StatelessWidget {
               TMargin.horizontal(
                 child: TCard(
                   child: TCardColumn(
-                    trailingTitle: TLogo(),
+                    trailingTitle: TPngImage(png: TPng.soap),
                     title: 'Cleaning Schedule',
                     subtitle: 'We need to clean the house. Let\'s make a schedule. Shall we?',
                     children: [
