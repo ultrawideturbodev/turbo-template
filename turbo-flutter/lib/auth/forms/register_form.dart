@@ -1,9 +1,9 @@
 import 'package:get_it/get_it.dart';
 
 import 'package:turbo_template/forms/constants/k_value_validators.dart';
-import 'package:turbo_template/forms/enums/form_field_type.dart';
+import 'package:turbo_template/forms/enums/t_field_type.dart';
 import 'package:turbo_template/forms/abstracts/form_config.dart';
-import 'package:turbo_template/forms/config/form_field_config.dart';
+import 'package:turbo_template/forms/config/t_field_config.dart';
 import 'package:turbo_template/localizations/globals/g_strings.dart';
 
 enum _RegisterFormField {
@@ -17,17 +17,17 @@ class RegisterForm extends FormConfig {
   static RegisterForm get locate => GetIt.I.get();
   static void registerFactory() => GetIt.I.registerFactory(RegisterForm.new);
 
-  FormFieldConfig<String> get email => formFieldConfig(_RegisterFormField.email);
-  FormFieldConfig<String> get password => formFieldConfig(_RegisterFormField.password);
-  FormFieldConfig<bool> get agreePrivacy => formFieldConfig(_RegisterFormField.agreePrivacy);
-  FormFieldConfig<String> get confirmPassword =>
+  TFieldConfig<String> get email => formFieldConfig(_RegisterFormField.email);
+  TFieldConfig<String> get password => formFieldConfig(_RegisterFormField.password);
+  TFieldConfig<bool> get agreePrivacy => formFieldConfig(_RegisterFormField.agreePrivacy);
+  TFieldConfig<String> get confirmPassword =>
       formFieldConfig(_RegisterFormField.confirmPassword);
 
   @override
   late final formFieldConfigs = {
-    _RegisterFormField.email: FormFieldConfig<String>(
+    _RegisterFormField.email: TFieldConfig<String>(
       id: _RegisterFormField.email,
-      formFieldType: FormFieldType.textInput,
+      fieldType: TFieldType.textInput,
       valueValidator: kValueValidatorsMultiple(
         [
           kValueValidatorsRequired(errorText: () => gStrings.enterYourEmail),
@@ -35,9 +35,9 @@ class RegisterForm extends FormConfig {
         ],
       ),
     ),
-    _RegisterFormField.password: FormFieldConfig<String>(
+    _RegisterFormField.password: TFieldConfig<String>(
       id: _RegisterFormField.password,
-      formFieldType: FormFieldType.textInput,
+      fieldType: TFieldType.textInput,
       obscureText: true,
       valueValidator: kValueValidatorsMultiple(
         [
@@ -49,9 +49,9 @@ class RegisterForm extends FormConfig {
         ],
       ),
     ),
-    _RegisterFormField.confirmPassword: FormFieldConfig<String>(
+    _RegisterFormField.confirmPassword: TFieldConfig<String>(
       id: _RegisterFormField.confirmPassword,
-      formFieldType: FormFieldType.textInput,
+      fieldType: TFieldType.textInput,
       obscureText: true,
       valueValidator: kValueValidatorsMultiple(
         [
@@ -63,9 +63,9 @@ class RegisterForm extends FormConfig {
         ],
       ),
     ),
-    _RegisterFormField.agreePrivacy: FormFieldConfig<bool>(
+    _RegisterFormField.agreePrivacy: TFieldConfig<bool>(
       id: _RegisterFormField.agreePrivacy,
-      formFieldType: FormFieldType.checkbox,
+      fieldType: TFieldType.checkbox,
       valueValidator: kValueValidatorsMultiple(
         [
           kValueValidatorsIsTrue(errorText: () => gStrings.pleaseReadAndAcceptOurPrivacyPolicy),

@@ -9,7 +9,7 @@ import 'package:informers/informers.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/state/extensions/context_extension.dart';
-import 'package:turbo_template/forms/config/form_field_config.dart';
+import 'package:turbo_template/forms/config/t_field_config.dart';
 import 'package:turbo_template/localizations/globals/g_strings.dart';
 import 'package:turbo_template/feedback/services/dialog_service.dart';
 import 'package:veto/data/mixins/busy_service_management.dart';
@@ -69,7 +69,7 @@ class ForgotPasswordViewModel extends BaseViewModel with Loglytics, BusyServiceM
   // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
 
   ValueListenable<bool> get canSendEmail => _canSendEmail;
-  FormFieldConfig<String> get emailField => _forgotPasswordForm.email;
+  TFieldConfig<String> get emailField => _forgotPasswordForm.email;
 
   // 🏗 HELPERS ------------------------------------------------------------------------------- \\
   // 🪄 MUTATORS ------------------------------------------------------------------------------ \\

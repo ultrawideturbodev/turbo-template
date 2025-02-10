@@ -18,7 +18,7 @@ import 'package:turbo_template/data/constants/k_values.dart';
 import 'package:turbo_template/data/extensions/duration_extension.dart';
 import 'package:turbo_template/data/globals/g_now.dart';
 import 'package:turbo_template/feedback/services/toast_service.dart';
-import 'package:turbo_template/forms/config/form_field_config.dart';
+import 'package:turbo_template/forms/config/t_field_config.dart';
 import 'package:turbo_template/home/routers/home_router.dart';
 import 'package:turbo_template/http/services/url_launcher_service.dart';
 import 'package:turbo_template/local_storage/services/local_storage_service.dart';
@@ -96,7 +96,7 @@ class AuthViewModel extends BaseViewModel with Loglytics, BusyServiceManagement 
   ValueListenable<bool> get showAgreeToPrivacyCheckBox => _showAgreeToPrivacyCheckBox;
   ValueListenable<AuthViewMode> get authViewMode => _authViewMode;
 
-  FormFieldConfig<String> get emailField {
+  TFieldConfig<String> get emailField {
     switch (_authViewMode.value) {
       case AuthViewMode.login:
         return _loginForm.email;
@@ -105,7 +105,7 @@ class AuthViewModel extends BaseViewModel with Loglytics, BusyServiceManagement 
     }
   }
 
-  FormFieldConfig<String> get passwordField {
+  TFieldConfig<String> get passwordField {
     switch (_authViewMode.value) {
       case AuthViewMode.login:
         return _loginForm.password;
@@ -114,8 +114,8 @@ class AuthViewModel extends BaseViewModel with Loglytics, BusyServiceManagement 
     }
   }
 
-  FormFieldConfig<String> get confirmPasswordField => _registerForm.confirmPassword;
-  FormFieldConfig<bool> get agreePrivacyField => _registerForm.agreePrivacy;
+  TFieldConfig<String> get confirmPasswordField => _registerForm.confirmPassword;
+  TFieldConfig<bool> get agreePrivacyField => _registerForm.agreePrivacy;
 
   // 🪄 MUTATORS ------------------------------------------------------------------------------ \\
 

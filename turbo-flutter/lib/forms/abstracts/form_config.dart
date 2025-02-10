@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
-import '../config/form_field_config.dart';
+import '../config/t_field_config.dart';
 
 abstract class FormConfig {
   @protected
-  Map<Enum, FormFieldConfig> get formFieldConfigs;
+  Map<Enum, TFieldConfig> get formFieldConfigs;
 
-  FormFieldConfig<T> formFieldConfig<T>(Enum id) => formFieldConfigs[id] as FormFieldConfig<T>;
+  TFieldConfig<T> formFieldConfig<T>(Enum id) => formFieldConfigs[id] as TFieldConfig<T>;
 
   bool get isValid {
     bool formIsValid = true;

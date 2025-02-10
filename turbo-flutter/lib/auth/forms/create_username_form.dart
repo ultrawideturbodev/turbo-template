@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
-import 'package:turbo_template/forms/constants/k_value_validators.dart';
-import 'package:turbo_template/forms/enums/form_field_type.dart';
 import 'package:turbo_template/forms/abstracts/form_config.dart';
-import 'package:turbo_template/forms/config/form_field_config.dart';
+import 'package:turbo_template/forms/config/t_field_config.dart';
+import 'package:turbo_template/forms/constants/k_value_validators.dart';
+import 'package:turbo_template/forms/enums/t_field_type.dart';
 
 enum _CreateUsernameField {
   username,
@@ -22,10 +22,10 @@ class CreateUsernameForm extends FormConfig {
   // 🎩 STATE --------------------------------------------------------------------------------- \\
 
   @override
-  late final Map<Enum, FormFieldConfig> formFieldConfigs = {
-    _CreateUsernameField.username: FormFieldConfig<String>(
+  late final Map<Enum, TFieldConfig> formFieldConfigs = {
+    _CreateUsernameField.username: TFieldConfig<String>(
       id: _CreateUsernameField.username,
-      formFieldType: FormFieldType.textInput,
+      fieldType: TFieldType.textInput,
       valueValidator: CreateUsernameForm.usernameValidator,
     ),
   };
@@ -33,7 +33,7 @@ class CreateUsernameForm extends FormConfig {
   // 🛠 UTIL ---------------------------------------------------------------------------------- \\
   // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
 
-  FormFieldConfig<String> get username => formFieldConfig(_CreateUsernameField.username);
+  TFieldConfig<String> get username => formFieldConfig(_CreateUsernameField.username);
   static FormFieldValidator get usernameValidator => kValueValidatorsMultiple(
         [
           kValueValidatorsRequired(

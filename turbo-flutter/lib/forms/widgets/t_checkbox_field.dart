@@ -2,27 +2,26 @@ import 'package:flutter/services.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/animations/widgets/animated_enabled.dart';
 import 'package:turbo_template/data/extensions/bool_extension.dart';
+import 'package:turbo_template/forms/config/t_field_config.dart';
+import 'package:turbo_template/forms/widgets/t_error_label.dart';
 import 'package:turbo_template/state/extensions/checkbox_state_extension.dart';
 import 'package:turbo_template/ui/widgets/t_button.dart';
 
-import '../config/form_field_config.dart';
-import 'form_field_error.dart';
-
-class FormFieldCheckbox extends StatefulWidget {
-  const FormFieldCheckbox({
+class TCheckboxField extends StatefulWidget {
+  const TCheckboxField({
     super.key,
     required this.formFieldConfig,
     required this.label,
   });
 
-  final FormFieldConfig<bool> formFieldConfig;
+  final TFieldConfig<bool> formFieldConfig;
   final Widget label;
 
   @override
-  State<FormFieldCheckbox> createState() => _FormFieldCheckboxState();
+  State<TCheckboxField> createState() => _TCheckboxFieldState();
 }
 
-class _FormFieldCheckboxState extends State<FormFieldCheckbox> {
+class _TCheckboxFieldState extends State<TCheckboxField> {
   @override
   void initState() {
     widget.formFieldConfig.addListener(_rebuild);
@@ -82,7 +81,7 @@ class _FormFieldCheckboxState extends State<FormFieldCheckbox> {
             ],
           ),
         ),
-        FormFieldError(
+        TErrorLabel(
           errorText: formFieldConfig.errorText,
           shouldValidate: formFieldConfig.shouldValidate,
           leftPadding: 0,

@@ -1,16 +1,17 @@
-import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:informers/informer.dart';
-import '../../data/constants/k_sizes.dart';
-import '../config/form_field_config.dart';
-import '../../localizations/globals/g_strings.dart';
-import 'form_field_text.dart';
-import '../../ui/widgets/opacity_button.dart';
-import '../../animations/widgets/shrinks.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 
-class FormFieldSearch extends StatefulWidget {
-  const FormFieldSearch({
+import '../../animations/widgets/shrinks.dart';
+import '../../data/constants/k_sizes.dart';
+import '../../localizations/globals/g_strings.dart';
+import '../../ui/widgets/opacity_button.dart';
+import '../config/t_field_config.dart';
+import 't_text_input_field.dart';
+
+class TSearchField extends StatefulWidget {
+  const TSearchField({
     super.key,
-    required this.formFieldConfig,
+    required this.fieldConfig,
     this.onChanged,
     this.hintText,
     this.onFocusChanged,
@@ -19,7 +20,7 @@ class FormFieldSearch extends StatefulWidget {
     this.onCloseSearchPressed,
   });
 
-  final FormFieldConfig<String> formFieldConfig;
+  final TFieldConfig<String> fieldConfig;
   final ValueChanged<String>? onChanged;
   final String? hintText;
   final ValueChanged<bool>? onFocusChanged;
@@ -28,15 +29,15 @@ class FormFieldSearch extends StatefulWidget {
   final VoidCallback? onCloseSearchPressed;
 
   @override
-  State<FormFieldSearch> createState() => _FormFieldSearchState();
+  State<TSearchField> createState() => _TSearchFieldState();
 }
 
-class _FormFieldSearchState extends State<FormFieldSearch> {
+class _TSearchFieldState extends State<TSearchField> {
   final _showCloseButton = Informer<bool>(false);
 
   @override
-  Widget build(BuildContext context) => FormFieldText(
-        formFieldConfig: widget.formFieldConfig,
+  Widget build(BuildContext context) => TTextInputField(
+        formFieldConfig: widget.fieldConfig,
         crossAxisAlignment: CrossAxisAlignment.center,
         leadingIcon: Icons.search_rounded,
         onChanged: (value) {
@@ -58,11 +59,11 @@ class _FormFieldSearchState extends State<FormFieldSearch> {
               ),
               onPressed: () {
                 if (widget.onCloseSearchPressed != null &&
-                    (widget.formFieldConfig.value?.isEmpty ?? true)) {
+                    (widget.fieldConfig.value?.isEmpty ?? true)) {
                   widget.onCloseSearchPressed!();
                   return;
                 }
-                widget.formFieldConfig.silentReset();
+                widget.fieldConfig.silentReset();
                 widget.onChanged?.call('');
                 _showCloseButton.update(false);
               },

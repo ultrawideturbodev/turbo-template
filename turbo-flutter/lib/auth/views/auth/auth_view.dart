@@ -5,8 +5,8 @@ import 'package:turbo_template/auth/enums/auth_view_mode.dart';
 import 'package:turbo_template/auth/widgets/accept_privacy_text.dart';
 import 'package:turbo_template/data/constants/k_durations.dart';
 import 'package:turbo_template/data/constants/k_sizes.dart';
-import 'package:turbo_template/forms/widgets/form_field_checkbox.dart';
-import 'package:turbo_template/forms/widgets/form_field_text.dart';
+import 'package:turbo_template/forms/widgets/t_checkbox_field.dart';
+import 'package:turbo_template/forms/widgets/t_text_input_field.dart';
 import 'package:turbo_template/localizations/globals/g_strings.dart';
 import 'package:turbo_template/state/extensions/context_extension.dart';
 import 'package:turbo_template/ui/constants/k_widgets.dart';
@@ -75,7 +75,7 @@ class AuthView extends StatelessWidget {
                           const TGap.section(),
                           TFocusOrder(
                             order: 1,
-                            child: FormFieldText(
+                            child: TTextInputField(
                               key: ValueKey(authViewMode.name + 'email'),
                               formFieldConfig: model.emailField,
                               leadingIcon: Icons.email_rounded,
@@ -87,7 +87,7 @@ class AuthView extends StatelessWidget {
                           const TGap.element(),
                           TFocusOrder(
                             order: 2,
-                            child: FormFieldText(
+                            child: TTextInputField(
                               key: ValueKey(authViewMode.name + 'password'),
                               formFieldConfig: model.passwordField,
                               leadingIcon: Icons.lock_open_rounded,
@@ -123,7 +123,7 @@ class AuthView extends StatelessWidget {
                                 children: [
                                   TFocusOrder(
                                     order: authViewMode.isRegister ? 3 : null,
-                                    child: FormFieldText(
+                                    child: TTextInputField(
                                       formFieldConfig: model.confirmPasswordField,
                                       leadingIcon: Icons.lock_rounded,
                                       label: 'Confirm Password',
@@ -144,7 +144,7 @@ class AuthView extends StatelessWidget {
                                           show: showAgreeToPrivacyCheckBox,
                                           child: Padding(
                                             padding: const EdgeInsets.only(top: kSizesElementGap),
-                                            child: FormFieldCheckbox(
+                                            child: TCheckboxField(
                                               formFieldConfig: model.agreePrivacyField,
                                               label: MouseRegion(
                                                 cursor: SystemMouseCursors.click,

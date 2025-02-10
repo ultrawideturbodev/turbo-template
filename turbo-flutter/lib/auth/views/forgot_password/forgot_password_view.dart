@@ -4,7 +4,7 @@ import 'package:turbo_template/ui/constants/k_widgets.dart';
 import 'package:turbo_template/state/extensions/context_extension.dart';
 import 'package:turbo_template/localizations/globals/g_strings.dart';
 import 'package:turbo_template/ui/widgets/t_card.dart';
-import 'package:turbo_template/forms/widgets/form_field_text.dart';
+import 'package:turbo_template/forms/widgets/t_text_input_field.dart';
 import 'package:turbo_template/ui/widgets/t_scaffold.dart';
 import 'package:turbo_template/ui/widgets/t_gap.dart';
 import 'package:veto/data/models/base_view_model.dart';
@@ -47,7 +47,7 @@ class ForgotPasswordView extends StatelessWidget {
                         textAlign: TextAlign.left,
                       ),
                       const TGap.section(),
-                      FormFieldText(
+                      TTextInputField(
                         formFieldConfig: model.emailField,
                         leadingIcon: Icons.email_rounded,
                         label: gStrings.email,

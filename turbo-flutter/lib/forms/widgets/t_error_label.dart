@@ -6,8 +6,8 @@ import '../../state/extensions/context_extension.dart';
 import '../../state/widgets/multi_listenable_builder.dart';
 import '../../animations/widgets/shrinks.dart';
 
-class FormFieldError extends StatelessWidget {
-  const FormFieldError({
+class TErrorLabel extends StatelessWidget {
+  const TErrorLabel({
     required ValueListenable<String?> errorText,
     required ValueListenable<bool> shouldValidate,
     this.leftPadding = 8,

@@ -4,7 +4,7 @@ import 'package:turbo_template/animations/widgets/animated_enabled.dart';
 import 'package:turbo_template/animations/widgets/shrinks.dart';
 import 'package:turbo_template/auth/views/create_username/create_username_view_model.dart';
 import 'package:turbo_template/data/constants/k_sizes.dart';
-import 'package:turbo_template/forms/widgets/form_field_text.dart';
+import 'package:turbo_template/forms/widgets/t_text_input_field.dart';
 import 'package:turbo_template/localizations/globals/g_strings.dart';
 import 'package:turbo_template/state/extensions/context_extension.dart';
 import 'package:turbo_template/typography/extensions/text_style_extension.dart';
@@ -102,7 +102,7 @@ class CreateUsernameView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Expanded(
-                                    child: FormFieldText(
+                                    child: TTextInputField(
                                       formFieldConfig: model.usernameField,
                                       leadingIcon: Icons.badge_rounded,
                                       hintText: gStrings.username,

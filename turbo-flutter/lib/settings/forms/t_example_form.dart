@@ -1,8 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:turbo_template/forms/abstracts/form_config.dart';
-import 'package:turbo_template/forms/config/form_field_config.dart';
+import 'package:turbo_template/forms/config/t_field_config.dart';
 import 'package:turbo_template/forms/constants/k_value_validators.dart';
-import 'package:turbo_template/forms/enums/form_field_type.dart';
+import 'package:turbo_template/forms/enums/t_field_type.dart';
 import 'package:turbo_template/localizations/globals/g_strings.dart';
 import 'package:turbo_template/state/constants/k_limits.dart';
 
@@ -90,12 +90,12 @@ class TExampleForm extends FormConfig {
   // ⚡️ OVERRIDES ----------------------------------------------------------------------------- \\
   // 🎩 STATE --------------------------------------------------------------------------------- \\
   @override
-  late final Map<Enum, FormFieldConfig> formFieldConfigs = {
-    for (final formFieldType in FormFieldType.values)
-      formFieldType: switch (formFieldType) {
-        FormFieldType.textInput => FormFieldConfig<String>(
-            id: formFieldType,
-            formFieldType: FormFieldType.textInput,
+  late final Map<Enum, TFieldConfig> formFieldConfigs = {
+    for (final fieldType in TFieldType.values)
+      fieldType: switch (fieldType) {
+        TFieldType.textInput => TFieldConfig<String>(
+            id: fieldType,
+            fieldType: TFieldType.textInput,
             initialValue: _initialValue?.text,
             valueValidator: kValueValidatorsMultiple(
               [
@@ -114,105 +114,105 @@ class TExampleForm extends FormConfig {
               ],
             ),
           ),
-        FormFieldType.checkbox => FormFieldConfig<bool>(
-            id: formFieldType,
-            formFieldType: FormFieldType.checkbox,
+        TFieldType.checkbox => TFieldConfig<bool>(
+            id: fieldType,
+            fieldType: TFieldType.checkbox,
             initialValue: _initialValue?.checkbox,
           ),
-        FormFieldType.chipInput => FormFieldConfig<String>(
-            id: formFieldType,
-            formFieldType: FormFieldType.chipInput,
+        TFieldType.chipInput => TFieldConfig<String>(
+            id: fieldType,
+            fieldType: TFieldType.chipInput,
             initialValues: ['Chip 1', 'Chip 2'],
           ),
-        FormFieldType.colorPicker => FormFieldConfig<String>(
-            id: formFieldType,
-            formFieldType: FormFieldType.colorPicker,
+        TFieldType.colorPicker => TFieldConfig<String>(
+            id: fieldType,
+            fieldType: TFieldType.colorPicker,
             initialValue: _initialValue?.colorPicker,
           ),
-        FormFieldType.datePicker => FormFieldConfig<DateTime>(
-            id: formFieldType,
-            formFieldType: FormFieldType.datePicker,
+        TFieldType.datePicker => TFieldConfig<DateTime>(
+            id: fieldType,
+            fieldType: TFieldType.datePicker,
             initialValue: _initialValue?.datePicker,
           ),
-        FormFieldType.filePickerPath => FormFieldConfig<String>(
-            id: formFieldType,
-            formFieldType: FormFieldType.filePickerPath,
+        TFieldType.filePickerPath => TFieldConfig<String>(
+            id: fieldType,
+            fieldType: TFieldType.filePickerPath,
             initialValue: _initialValue?.filePicker,
           ),
-        FormFieldType.numberInput => FormFieldConfig<num>(
-            id: formFieldType,
-            formFieldType: FormFieldType.numberInput,
+        TFieldType.numberInput => TFieldConfig<num>(
+            id: fieldType,
+            fieldType: TFieldType.numberInput,
             initialValue: _initialValue?.numberInput,
             minValue: 0,
             maxValue: 100,
           ),
-        FormFieldType.phoneInput => FormFieldConfig<String>(
-            id: formFieldType,
-            formFieldType: FormFieldType.phoneInput,
+        TFieldType.phoneInput => TFieldConfig<String>(
+            id: fieldType,
+            fieldType: TFieldType.phoneInput,
             initialValue: _initialValue?.phoneInput,
           ),
-        FormFieldType.radioCard => FormFieldConfig<String>(
-            id: formFieldType,
-            formFieldType: FormFieldType.radioCard,
+        TFieldType.radioCard => TFieldConfig<String>(
+            id: fieldType,
+            fieldType: TFieldType.radioCard,
             initialValue: _initialValue?.radioCard,
             items: ['Option 1', 'Option 2', 'Option 3'],
           ),
-        FormFieldType.radioGroup => FormFieldConfig<String>(
-            id: formFieldType,
-            formFieldType: FormFieldType.radioGroup,
+        TFieldType.radioGroup => TFieldConfig<String>(
+            id: fieldType,
+            fieldType: TFieldType.radioGroup,
             initialValue: _initialValue?.radioGroup,
             items: ['Group 1', 'Group 2', 'Group 3'],
           ),
-        FormFieldType.select => FormFieldConfig<String>(
-            id: formFieldType,
-            formFieldType: FormFieldType.select,
+        TFieldType.select => TFieldConfig<String>(
+            id: fieldType,
+            fieldType: TFieldType.select,
             initialValue: _initialValue?.select,
             items: ['Select 1', 'Select 2', 'Select 3'],
           ),
-        FormFieldType.selectMulti => FormFieldConfig<TMultiExample>(
-            id: formFieldType,
-            formFieldType: FormFieldType.selectMulti,
+        TFieldType.selectMulti => TFieldConfig<TMultiExample>(
+            id: fieldType,
+            fieldType: TFieldType.selectMulti,
             initialValues: _initialValue?.selectMulti,
             items: TMultiExample.values,
           ),
-        FormFieldType.slider => FormFieldConfig<double>(
-            id: formFieldType,
-            formFieldType: FormFieldType.slider,
+        TFieldType.slider => TFieldConfig<double>(
+            id: fieldType,
+            fieldType: TFieldType.slider,
             initialValue: _initialValue?.slider,
             minValue: 0,
             maxValue: 100,
           ),
-        FormFieldType.starRating => FormFieldConfig<int>(
-            id: formFieldType,
-            formFieldType: FormFieldType.starRating,
+        TFieldType.starRating => TFieldConfig<int>(
+            id: fieldType,
+            fieldType: TFieldType.starRating,
             initialValue: _initialValue?.starRating,
             minValue: 0,
             maxValue: 5,
           ),
-        FormFieldType.textArea => FormFieldConfig<String>(
-            id: formFieldType,
-            formFieldType: FormFieldType.textArea,
+        TFieldType.textArea => TFieldConfig<String>(
+            id: fieldType,
+            fieldType: TFieldType.textArea,
             initialValue: _initialValue?.textArea,
           ),
-        FormFieldType.timePicker => FormFieldConfig<DateTime>(
-            id: formFieldType,
-            formFieldType: FormFieldType.timePicker,
+        TFieldType.timePicker => TFieldConfig<DateTime>(
+            id: fieldType,
+            fieldType: TFieldType.timePicker,
             initialValue: _initialValue?.timePicker,
           ),
-        FormFieldType.toggleGroup => FormFieldConfig<String>(
-            id: formFieldType,
-            formFieldType: FormFieldType.toggleGroup,
+        TFieldType.toggleGroup => TFieldConfig<String>(
+            id: fieldType,
+            fieldType: TFieldType.toggleGroup,
             initialValue: _initialValue?.toggleGroup,
             items: ['Toggle 1', 'Toggle 2', 'Toggle 3'],
           ),
-        FormFieldType.toggleSwitch => FormFieldConfig<bool>(
-            id: formFieldType,
-            formFieldType: FormFieldType.toggleSwitch,
+        TFieldType.toggleSwitch => TFieldConfig<bool>(
+            id: fieldType,
+            fieldType: TFieldType.toggleSwitch,
             initialValue: _initialValue?.toggleSwitch,
           ),
-        FormFieldType.cameraPath => FormFieldConfig<String>(
-            id: formFieldType,
-            formFieldType: FormFieldType.cameraPath,
+        TFieldType.cameraPath => TFieldConfig<String>(
+            id: fieldType,
+            fieldType: TFieldType.cameraPath,
             initialValue: null,
           ),
       },
@@ -220,25 +220,25 @@ class TExampleForm extends FormConfig {
 
   // 🛠 UTIL ---------------------------------------------------------------------------------- \\
   // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
-  FormFieldConfig<String> get textInput => formFieldConfig(FormFieldType.textInput);
-  FormFieldConfig<String> get select => formFieldConfig(FormFieldType.select);
-  FormFieldConfig<bool> get checkbox => formFieldConfig(FormFieldType.checkbox);
-  FormFieldConfig<String> get cameraPath => formFieldConfig(FormFieldType.cameraPath);
-  FormFieldConfig<String> get chipInput => formFieldConfig(FormFieldType.chipInput);
-  FormFieldConfig<String> get colorPicker => formFieldConfig(FormFieldType.colorPicker);
-  FormFieldConfig<DateTime> get datePicker => formFieldConfig(FormFieldType.datePicker);
-  FormFieldConfig<String> get filePickerPath => formFieldConfig(FormFieldType.filePickerPath);
-  FormFieldConfig<int> get numberInput => formFieldConfig(FormFieldType.numberInput);
-  FormFieldConfig<String> get phoneInput => formFieldConfig(FormFieldType.phoneInput);
-  FormFieldConfig<String> get radioCard => formFieldConfig(FormFieldType.radioCard);
-  FormFieldConfig<String> get radioGroup => formFieldConfig(FormFieldType.radioGroup);
-  FormFieldConfig<String> get selectMulti => formFieldConfig(FormFieldType.selectMulti);
-  FormFieldConfig<double> get slider => formFieldConfig(FormFieldType.slider);
-  FormFieldConfig<int> get starRating => formFieldConfig(FormFieldType.starRating);
-  FormFieldConfig<String> get textArea => formFieldConfig(FormFieldType.textArea);
-  FormFieldConfig<DateTime> get timePicker => formFieldConfig(FormFieldType.timePicker);
-  FormFieldConfig<String> get toggleGroup => formFieldConfig(FormFieldType.toggleGroup);
-  FormFieldConfig<bool> get toggleSwitch => formFieldConfig(FormFieldType.toggleSwitch);
+  TFieldConfig<String> get textInput => formFieldConfig(TFieldType.textInput);
+  TFieldConfig<String> get select => formFieldConfig(TFieldType.select);
+  TFieldConfig<bool> get checkbox => formFieldConfig(TFieldType.checkbox);
+  TFieldConfig<String> get cameraPath => formFieldConfig(TFieldType.cameraPath);
+  TFieldConfig<String> get chipInput => formFieldConfig(TFieldType.chipInput);
+  TFieldConfig<String> get colorPicker => formFieldConfig(TFieldType.colorPicker);
+  TFieldConfig<DateTime> get datePicker => formFieldConfig(TFieldType.datePicker);
+  TFieldConfig<String> get filePickerPath => formFieldConfig(TFieldType.filePickerPath);
+  TFieldConfig<int> get numberInput => formFieldConfig(TFieldType.numberInput);
+  TFieldConfig<String> get phoneInput => formFieldConfig(TFieldType.phoneInput);
+  TFieldConfig<String> get radioCard => formFieldConfig(TFieldType.radioCard);
+  TFieldConfig<String> get radioGroup => formFieldConfig(TFieldType.radioGroup);
+  TFieldConfig<String> get selectMulti => formFieldConfig(TFieldType.selectMulti);
+  TFieldConfig<double> get slider => formFieldConfig(TFieldType.slider);
+  TFieldConfig<int> get starRating => formFieldConfig(TFieldType.starRating);
+  TFieldConfig<String> get textArea => formFieldConfig(TFieldType.textArea);
+  TFieldConfig<DateTime> get timePicker => formFieldConfig(TFieldType.timePicker);
+  TFieldConfig<String> get toggleGroup => formFieldConfig(TFieldType.toggleGroup);
+  TFieldConfig<bool> get toggleSwitch => formFieldConfig(TFieldType.toggleSwitch);
 
   // 🪄 MUTATORS ------------------------------------------------------------------------------ \\
 

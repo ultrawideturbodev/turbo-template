@@ -18,7 +18,7 @@ import 'package:turbo_template/data/constants/k_durations.dart';
 import 'package:turbo_template/data/extensions/string_extension.dart';
 import 'package:turbo_template/feedback/globals/g_vibrate.dart';
 import 'package:turbo_template/feedback/services/dialog_service.dart';
-import 'package:turbo_template/forms/config/form_field_config.dart';
+import 'package:turbo_template/forms/config/t_field_config.dart';
 import 'package:turbo_template/home/routers/home_router.dart';
 import 'package:turbo_template/localizations/globals/g_strings.dart';
 import 'package:turbo_template/state/exceptions/unexpected_null_exception.dart';
@@ -104,7 +104,7 @@ class CreateUsernameViewModel extends BaseViewModel with Loglytics, BusyServiceM
   // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
 
   /// Returns the form field configuration for username input.
-  FormFieldConfig<String> get usernameField => _createUsernameForm.username;
+  TFieldConfig<String> get usernameField => _createUsernameForm.username;
 
   /// Returns the default username placeholder text.
   String get usernamePlaceholder => gStrings.stranger;

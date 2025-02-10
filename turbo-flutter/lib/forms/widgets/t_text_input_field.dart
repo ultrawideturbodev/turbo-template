@@ -1,13 +1,12 @@
-import 'package:gap/gap.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/data/constants/k_durations.dart';
 import 'package:turbo_template/data/constants/k_sizes.dart';
+import 'package:turbo_template/forms/config/t_field_config.dart';
+import 'package:turbo_template/forms/widgets/t_error_label.dart';
 import 'package:turbo_template/state/extensions/context_extension.dart';
-import 'package:turbo_template/forms/config/form_field_config.dart';
-import 'package:turbo_template/forms/widgets/form_field_error.dart';
 
-class FormFieldText extends StatefulWidget {
-  const FormFieldText({
+class TTextInputField extends StatefulWidget {
+  const TTextInputField({
     required this.formFieldConfig,
     this.crossAxisAlignment = CrossAxisAlignment.start,
     this.hintText,
@@ -25,7 +24,7 @@ class FormFieldText extends StatefulWidget {
   });
 
   final CrossAxisAlignment crossAxisAlignment;
-  final FormFieldConfig<String> formFieldConfig;
+  final TFieldConfig<String> formFieldConfig;
   final IconData? leadingIcon;
   final String? hintText;
   final String? label;
@@ -39,12 +38,14 @@ class FormFieldText extends StatefulWidget {
   final Widget? trailingLabel;
 
   @override
-  State<FormFieldText> createState() => _FormFieldTextState();
+  State<TTextInputField> createState() => _TTextInputFieldState();
 }
 
-class _FormFieldTextState extends State<FormFieldText> {
+class _TTextInputFieldState extends State<TTextInputField> {
+
   @override
   void initState() {
+    assert(widget.formFieldConfig.fieldType.isTextInput);
     widget.formFieldConfig.addListener(_rebuild);
     if (widget.onFocusChanged != null) {
       widget.formFieldConfig.focusNode.addListener(_onFocusChanged);
@@ -141,7 +142,7 @@ class _FormFieldTextState extends State<FormFieldText> {
                 ),
               ],
             ),
-            FormFieldError(
+            TErrorLabel(
               errorText: formFieldConfig.errorText,
               shouldValidate: formFieldConfig.shouldValidate,
             ),
