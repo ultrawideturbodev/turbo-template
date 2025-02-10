@@ -22,7 +22,7 @@ class LoginForm extends FormConfig {
   late final Map<Enum, FormFieldConfig> formFieldConfigs = {
     _LoginFormField.email: FormFieldConfig<String>(
       id: _LoginFormField.email,
-      formFieldType: FormFieldType.text,
+      formFieldType: FormFieldType.textInput,
       valueValidator: kValueValidatorsMultiple(
         [
           kValueValidatorsRequired(errorText: () => gStrings.enterYourEmail),
@@ -32,7 +32,7 @@ class LoginForm extends FormConfig {
     ),
     _LoginFormField.password: FormFieldConfig<String>(
       id: _LoginFormField.password,
-      formFieldType: FormFieldType.text,
+      formFieldType: FormFieldType.textInput,
       obscureText: true,
       valueValidator: kValueValidatorsRequired(errorText: () => gStrings.enterYourPassword),
     ),

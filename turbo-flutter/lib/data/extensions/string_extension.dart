@@ -24,7 +24,7 @@ extension StringExtension on String {
 
   String get capitalized => '${this[0].toUpperCase()}${substring(1)}';
   bool get isValidUsername {
-    if (length < kLimitsMinUsernameLength || length > kLimitsMaxUsernameLength) return false;
+    if (length < kLimitsMinUsernameLength || length > kLimitsMaxNameLength) return false;
     return _validUsernameRegExp.hasMatch(this);
   }
 

@@ -165,5 +165,7 @@
   "userNotFound": "Gebruiker niet gevonden",
   "create": "Aanmaken",
   "createShoppingList": "Boodschappenlijst aanmaken",
-  "enterTheNameForTheNewShoppingList": "Voer de naam in voor de nieuwe boodschappenlijst. Dit zal zichtbaar zijn voor alle leden."
+  "enterTheNameForTheNewShoppingList": "Voer de naam in voor de nieuwe boodschappenlijst. Dit zal zichtbaar zijn voor alle leden.",
+  "titleMustBeAtLeast1CharacterLong": "Title must be at least 1 character long.",
+  "nameCanBeAtMostKlimitsmaxnamelengthCharactersLong": "Name can be at most {kLimitsMaxNameLength} characters long."
 }

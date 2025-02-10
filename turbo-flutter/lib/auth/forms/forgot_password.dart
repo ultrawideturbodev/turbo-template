@@ -24,7 +24,7 @@ class ForgotPasswordForm extends FormConfig {
   late final Map<Enum, FormFieldConfig> formFieldConfigs = {
     _ForgotPasswordFormField.email: FormFieldConfig<String>(
       id: _ForgotPasswordFormField.email,
-      formFieldType: FormFieldType.text,
+      formFieldType: FormFieldType.textInput,
       valueValidator: kValueValidatorsMultiple(
         [
           kValueValidatorsRequired(errorText: () => gStrings.fillInYourEmail),

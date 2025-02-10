@@ -4,11 +4,11 @@ import 'package:flutter/widgets.dart';
 import 'package:informers/informer.dart';
 import 'package:loglytics/loglytics.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/data/extensions/string_extension.dart';
+import 'package:turbo_template/forms/enums/form_field_type.dart';
+import 'package:turbo_template/forms/typedefs/values_validator_def.dart';
+import 'package:turbo_template/state/exceptions/unexpected_state_exception.dart';
 
-import '../../data/extensions/string_extension.dart';
-import '../../state/exceptions/unexpected_state_exception.dart';
-import '../enums/form_field_type.dart';
-import '../typedefs/values_validator_def.dart';
 
 class FormFieldConfig<T> extends ChangeNotifier with Loglytics {
   FormFieldConfig({
@@ -44,14 +44,14 @@ class FormFieldConfig<T> extends ChangeNotifier with Loglytics {
 
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
 
-  FormFieldValidator<T>? _valueValidator;
+  final FormFieldValidator<T>? _valueValidator;
   List<T>? _initialValues;
   List<T>? _items;
   List<T>? _values;
   List<TextInputFormatter>? _inputFormatters;
   T? _initialValue;
   T? _value;
-  ValuesValidatorDef<T>? _valuesValidator;
+  final ValuesValidatorDef<T>? _valuesValidator;
   bool _isEnabled;
   bool _isReadOnly;
   bool _isVisible;
@@ -70,14 +70,27 @@ class FormFieldConfig<T> extends ChangeNotifier with Loglytics {
   void dispose() {
     log.info('Disposing $_formFieldType with id: $_id..');
     switch (_formFieldType) {
-      case FormFieldType.text:
-      case FormFieldType.counter:
+      case FormFieldType.textInput:
+      case FormFieldType.textArea:
         textEditingController.dispose();
         break;
-      case FormFieldType.dropDown:
+      case FormFieldType.select:
       case FormFieldType.checkbox:
-      case FormFieldType.chipWrap:
-      case FormFieldType.dateTimePicker:
+      case FormFieldType.cameraPath:
+      case FormFieldType.colorPicker:
+      case FormFieldType.datePicker:
+      case FormFieldType.filePickerPath:
+      case FormFieldType.numberInput:
+      case FormFieldType.phoneInput:
+      case FormFieldType.radioCard:
+      case FormFieldType.radioGroup:
+      case FormFieldType.slider:
+      case FormFieldType.starRating:
+      case FormFieldType.timePicker:
+      case FormFieldType.toggleGroup:
+      case FormFieldType.toggleSwitch:
+      case FormFieldType.chipInput:
+      case FormFieldType.selectMulti:
         break;
     }
     _errorText.dispose();
@@ -157,18 +170,31 @@ class FormFieldConfig<T> extends ChangeNotifier with Loglytics {
   void requestFocus() {
     _focusNode.requestFocus();
     switch (_formFieldType) {
-      case FormFieldType.text:
-      case FormFieldType.counter:
+      case FormFieldType.textInput:
+      case FormFieldType.textArea:
         // select the entire text
         textEditingController.selection = TextSelection(
           baseOffset: 0,
           extentOffset: textEditingController.text.length,
         );
         break;
-      case FormFieldType.dropDown:
+      case FormFieldType.select:
       case FormFieldType.checkbox:
-      case FormFieldType.dateTimePicker:
-      case FormFieldType.chipWrap:
+      case FormFieldType.cameraPath:
+      case FormFieldType.colorPicker:
+      case FormFieldType.datePicker:
+      case FormFieldType.filePickerPath:
+      case FormFieldType.numberInput:
+      case FormFieldType.phoneInput:
+      case FormFieldType.radioCard:
+      case FormFieldType.radioGroup:
+      case FormFieldType.slider:
+      case FormFieldType.starRating:
+      case FormFieldType.timePicker:
+      case FormFieldType.toggleGroup:
+      case FormFieldType.toggleSwitch:
+      case FormFieldType.chipInput:
+      case FormFieldType.selectMulti:
         break;
     }
     log.info('Requested focus for $_formFieldType with id: $_id!');
@@ -176,36 +202,52 @@ class FormFieldConfig<T> extends ChangeNotifier with Loglytics {
 
   void unfocus() => _focusNode.unfocus();
 
+  void _tryValidate() {
+    if (shouldValidate.value) {
+      isValid;
+    }
+  }
+
+  void _resetShouldValidate() {
+    _shouldValidate.update(false, doNotifyListeners: false);
+    _errorText.update(null);
+  }
+
   void silentReset() {
+    _resetShouldValidate();
     switch (_formFieldType) {
-      case FormFieldType.text:
-      case FormFieldType.counter:
+      case FormFieldType.textInput:
+      case FormFieldType.textArea:
         textEditingController.text = _initialValue as String? ?? '';
         _value = _initialValue;
         break;
-      case FormFieldType.dropDown:
+      case FormFieldType.select:
       case FormFieldType.checkbox:
-      case FormFieldType.dateTimePicker:
+      case FormFieldType.cameraPath:
+      case FormFieldType.colorPicker:
+      case FormFieldType.datePicker:
+      case FormFieldType.filePickerPath:
+      case FormFieldType.numberInput:
+      case FormFieldType.phoneInput:
+      case FormFieldType.radioCard:
+      case FormFieldType.radioGroup:
+      case FormFieldType.slider:
+      case FormFieldType.starRating:
+      case FormFieldType.timePicker:
+      case FormFieldType.toggleGroup:
+      case FormFieldType.toggleSwitch:
         _value = _initialValue;
         break;
-      case FormFieldType.chipWrap:
+      case FormFieldType.chipInput:
+      case FormFieldType.selectMulti:
         _values = _initialValues;
     }
-    _shouldValidate.update(false, doNotifyListeners: false);
-    _errorText.update(null);
     log.info('Reset $_formFieldType with id: $_id!');
   }
 
-  void silentUpdateValue(T? value) {
-    _value = value;
-  }
-
-  void silentUpdateValues(List<T>? values) {
-    _values = values;
-  }
-
+  void silentUpdateValue(T? value) => _value = value;
+  void silentUpdateValues(List<T>? values) => _values = values;
   void updateCurrentValue(T? Function(T? value) current) => value = current(value);
-
   void updateCurrentValues(List<T>? Function(List<T>? values) current) => values = current(values);
 
   void addValue(T value) {
@@ -222,12 +264,25 @@ class FormFieldConfig<T> extends ChangeNotifier with Loglytics {
 
   bool get isValidSilent =>
       switch (_formFieldType) {
-        FormFieldType.text => _valueValidator?.call(_value),
-        FormFieldType.dropDown => _valueValidator?.call(_value),
+        FormFieldType.textInput => _valueValidator?.call(_value),
+        FormFieldType.select => _valueValidator?.call(_value),
         FormFieldType.checkbox => _valueValidator?.call(_value),
-        FormFieldType.counter => _valueValidator?.call(_value),
-        FormFieldType.dateTimePicker => _valueValidator?.call(_value),
-        FormFieldType.chipWrap => _valuesValidator?.call(_values),
+        FormFieldType.cameraPath => _valueValidator?.call(_value),
+        FormFieldType.chipInput => _valuesValidator?.call(_values),
+        FormFieldType.colorPicker => _valueValidator?.call(_value),
+        FormFieldType.datePicker => _valueValidator?.call(_value),
+        FormFieldType.filePickerPath => _valueValidator?.call(_value),
+        FormFieldType.numberInput => _valueValidator?.call(_value),
+        FormFieldType.phoneInput => _valueValidator?.call(_value),
+        FormFieldType.radioCard => _valueValidator?.call(_value),
+        FormFieldType.radioGroup => _valueValidator?.call(_value),
+        FormFieldType.selectMulti => _valuesValidator?.call(_values),
+        FormFieldType.slider => _valueValidator?.call(_value),
+        FormFieldType.starRating => _valueValidator?.call(_value),
+        FormFieldType.textArea => _valueValidator?.call(_value),
+        FormFieldType.timePicker => _valueValidator?.call(_value),
+        FormFieldType.toggleGroup => _valueValidator?.call(_value),
+        FormFieldType.toggleSwitch => _valueValidator?.call(_value),
       } ==
       null;
 
@@ -235,14 +290,26 @@ class FormFieldConfig<T> extends ChangeNotifier with Loglytics {
     if (!_shouldValidate.value) {
       _shouldValidate.update(true, doNotifyListeners: false);
     }
-
     final errorText = switch (_formFieldType) {
-      FormFieldType.text => _valueValidator?.call(_value),
-      FormFieldType.dropDown => _valueValidator?.call(_value),
+      FormFieldType.textInput => _valueValidator?.call(_value),
+      FormFieldType.select => _valueValidator?.call(_value),
       FormFieldType.checkbox => _valueValidator?.call(_value),
-      FormFieldType.counter => _valueValidator?.call(_value),
-      FormFieldType.dateTimePicker => _valueValidator?.call(_value),
-      FormFieldType.chipWrap => _valuesValidator?.call(_values),
+      FormFieldType.cameraPath => _valueValidator?.call(_value),
+      FormFieldType.chipInput => _valuesValidator?.call(_values),
+      FormFieldType.colorPicker => _valueValidator?.call(_value),
+      FormFieldType.datePicker => _valueValidator?.call(_value),
+      FormFieldType.filePickerPath => _valueValidator?.call(_value),
+      FormFieldType.numberInput => _valueValidator?.call(_value),
+      FormFieldType.phoneInput => _valueValidator?.call(_value),
+      FormFieldType.radioCard => _valueValidator?.call(_value),
+      FormFieldType.radioGroup => _valueValidator?.call(_value),
+      FormFieldType.selectMulti => _valuesValidator?.call(_values),
+      FormFieldType.slider => _valueValidator?.call(_value),
+      FormFieldType.starRating => _valueValidator?.call(_value),
+      FormFieldType.textArea => _valueValidator?.call(_value),
+      FormFieldType.timePicker => _valueValidator?.call(_value),
+      FormFieldType.toggleGroup => _valueValidator?.call(_value),
+      FormFieldType.toggleSwitch => _valueValidator?.call(_value),
     };
     _errorText.update(errorText);
     final isValid = errorText == null;
@@ -253,6 +320,7 @@ class FormFieldConfig<T> extends ChangeNotifier with Loglytics {
   set initialValue(T? value) {
     _initialValue = value;
     _value = value;
+    _tryValidate();
     notifyListeners();
     log.info('Set initialValue to $value for $_formFieldType with id: $_id!');
   }
@@ -260,32 +328,44 @@ class FormFieldConfig<T> extends ChangeNotifier with Loglytics {
   set initialValues(List<T>? values) {
     _initialValues = values;
     _values = values;
+    _tryValidate();
     notifyListeners();
     log.info('Set initialValues to $values for $_formFieldType with id: $_id!');
   }
 
   set items(List<T>? value) {
     _items = value;
+    _tryValidate();
     notifyListeners();
     log.info('Set items to $value for $_formFieldType with id: $_id!');
   }
 
   set isReadOnly(bool value) {
     _isReadOnly = value;
+    if (value) {
+      _tryValidate();
+    } else {
+      _resetShouldValidate();
+    }
     notifyListeners();
     log.info('Set isReadOnly to $value for $_formFieldType with id: $_id!');
   }
 
   set isVisible(bool value) {
     _isVisible = value;
+    if (value) {
+      _tryValidate();
+    } else {
+      _resetShouldValidate();
+    }
     notifyListeners();
     log.info('Set isVisible to $value for $_formFieldType with id: $_id!');
   }
 
   set value(T? value) {
     switch (_formFieldType) {
-      case FormFieldType.text:
-      case FormFieldType.counter:
+      case FormFieldType.textInput:
+      case FormFieldType.textArea:
         _value = value;
         final textValue = (_value as String?) ?? '';
         final oldCursorPos = textEditingController.selection.baseOffset;
@@ -308,69 +388,92 @@ class FormFieldConfig<T> extends ChangeNotifier with Loglytics {
         textEditingController.selection =
             TextSelection.fromPosition(TextPosition(offset: newCursorPos));
         break;
-      case FormFieldType.dropDown:
+      case FormFieldType.select:
       case FormFieldType.checkbox:
-      case FormFieldType.dateTimePicker:
+      case FormFieldType.cameraPath:
+      case FormFieldType.colorPicker:
+      case FormFieldType.datePicker:
+      case FormFieldType.filePickerPath:
+      case FormFieldType.numberInput:
+      case FormFieldType.phoneInput:
+      case FormFieldType.radioCard:
+      case FormFieldType.radioGroup:
+      case FormFieldType.slider:
+      case FormFieldType.starRating:
+      case FormFieldType.timePicker:
+      case FormFieldType.toggleGroup:
+      case FormFieldType.toggleSwitch:
         _value = value;
         break;
-      case FormFieldType.chipWrap:
+      case FormFieldType.chipInput:
+      case FormFieldType.selectMulti:
         if (value != null) {
           _values = [value];
         }
     }
+    _tryValidate();
     notifyListeners();
   }
 
   set values(List<T>? values) {
     switch (_formFieldType) {
-      case FormFieldType.text:
-      case FormFieldType.counter:
-      case FormFieldType.dropDown:
+      case FormFieldType.textArea:
+      case FormFieldType.textInput:
+      case FormFieldType.select:
       case FormFieldType.checkbox:
-      case FormFieldType.dateTimePicker:
+      case FormFieldType.cameraPath:
+      case FormFieldType.colorPicker:
+      case FormFieldType.datePicker:
+      case FormFieldType.filePickerPath:
+      case FormFieldType.numberInput:
+      case FormFieldType.phoneInput:
+      case FormFieldType.radioCard:
+      case FormFieldType.radioGroup:
+      case FormFieldType.slider:
+      case FormFieldType.starRating:
+      case FormFieldType.timePicker:
+      case FormFieldType.toggleGroup:
+      case FormFieldType.toggleSwitch:
         throw const UnexpectedStateException(
           reason: 'Should not set values, '
               'instead set value (single) when formFieldType is text, counter, dropDown or checkbox',
         );
-      case FormFieldType.chipWrap:
+      case FormFieldType.chipInput:
+      case FormFieldType.selectMulti:
         _values = values;
     }
-    notifyListeners();
-  }
-
-  set valuesValidator(ValuesValidatorDef<T>? value) {
-    _valuesValidator = value;
-    notifyListeners();
-    log.info('Set valuesValidator to $value for $_formFieldType with id: $_id!');
-  }
-
-  set validator(FormFieldValidator<T>? value) {
-    _valueValidator = value;
+    _tryValidate();
     notifyListeners();
     log.info('Set validator to $value for $_formFieldType with id: $_id!');
   }
 
   set isEnabled(bool value) {
     _isEnabled = value;
+    if (value) {
+      _tryValidate();
+    } else {
+      _resetShouldValidate();
+    }
     notifyListeners();
     log.info('Set isEnabled to $value for $_formFieldType with id: $_id!');
   }
 
   set inputFormatters(List<TextInputFormatter>? value) {
     _inputFormatters = value;
+    _tryValidate();
     notifyListeners();
     log.info('Set inputFormatters to $value for $_formFieldType with id: $_id!');
   }
 
   set obscureText(bool value) {
     _obscureText = value;
+    _tryValidate();
     notifyListeners();
     log.info('Set obscureText to $value for $_formFieldType with id: $_id!');
   }
 
-// 🏗️ HELPERS ------------------------------------------------------------------------------- \\
-
-// 📍 LOCATOR ------------------------------------------------------------------------------- \\
+  // 🏗️ HELPERS ------------------------------------------------------------------------------- \\
+  // 📍 LOCATOR ------------------------------------------------------------------------------- \\
 }
 
 extension FormFieldConfigStringExtension on FormFieldConfig<String> {

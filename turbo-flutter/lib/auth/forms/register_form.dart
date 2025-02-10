@@ -27,7 +27,7 @@ class RegisterForm extends FormConfig {
   late final formFieldConfigs = {
     _RegisterFormField.email: FormFieldConfig<String>(
       id: _RegisterFormField.email,
-      formFieldType: FormFieldType.text,
+      formFieldType: FormFieldType.textInput,
       valueValidator: kValueValidatorsMultiple(
         [
           kValueValidatorsRequired(errorText: () => gStrings.enterYourEmail),
@@ -37,7 +37,7 @@ class RegisterForm extends FormConfig {
     ),
     _RegisterFormField.password: FormFieldConfig<String>(
       id: _RegisterFormField.password,
-      formFieldType: FormFieldType.text,
+      formFieldType: FormFieldType.textInput,
       obscureText: true,
       valueValidator: kValueValidatorsMultiple(
         [
@@ -51,7 +51,7 @@ class RegisterForm extends FormConfig {
     ),
     _RegisterFormField.confirmPassword: FormFieldConfig<String>(
       id: _RegisterFormField.confirmPassword,
-      formFieldType: FormFieldType.text,
+      formFieldType: FormFieldType.textInput,
       obscureText: true,
       valueValidator: kValueValidatorsMultiple(
         [

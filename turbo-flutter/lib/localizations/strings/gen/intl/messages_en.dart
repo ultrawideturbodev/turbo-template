@@ -25,7 +25,10 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m1(email) =>
       "If ${email} is registered with us, a password reset email has been sent.";
 
-  static String m2(username) => "${username}\'s Household";
+  static String m2(kLimitsMaxNameLength) =>
+      "Name can be at most ${kLimitsMaxNameLength} characters long.";
+
+  static String m3(username) => "${username}\'s Household";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -167,6 +170,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "monday": MessageLookupByLibrary.simpleMessage("monday"),
         "myHousehold": MessageLookupByLibrary.simpleMessage("My Household"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "nameCanBeAtMostKlimitsmaxnamelengthCharactersLong": m2,
         "noResultsPlaceholderAnEmptyList": MessageLookupByLibrary.simpleMessage(
             "An empty list is a prompt for new perspectives."),
         "noResultsPlaceholderConsiderADifferent":
@@ -262,6 +266,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("This field is required"),
         "thu": MessageLookupByLibrary.simpleMessage("thu"),
         "thursday": MessageLookupByLibrary.simpleMessage("thursday"),
+        "titleMustBeAtLeast1CharacterLong":
+            MessageLookupByLibrary.simpleMessage(
+                "Title must be at least 1 character long."),
         "tue": MessageLookupByLibrary.simpleMessage("tue"),
         "tuesday": MessageLookupByLibrary.simpleMessage("tuesday"),
         "unableToAcceptPleaseTryAgainLater":
@@ -283,7 +290,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Username is already in use, please choose a different one."),
         "usernameIsAlreadyTaken":
             MessageLookupByLibrary.simpleMessage("Username is already taken."),
-        "usernamesHousehold": m2,
+        "usernamesHousehold": m3,
         "verificationEmailSent":
             MessageLookupByLibrary.simpleMessage("Verification email sent"),
         "verifyEmail": MessageLookupByLibrary.simpleMessage("Verify Email"),

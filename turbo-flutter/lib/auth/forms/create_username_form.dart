@@ -25,7 +25,7 @@ class CreateUsernameForm extends FormConfig {
   late final Map<Enum, FormFieldConfig> formFieldConfigs = {
     _CreateUsernameField.username: FormFieldConfig<String>(
       id: _CreateUsernameField.username,
-      formFieldType: FormFieldType.text,
+      formFieldType: FormFieldType.textInput,
       valueValidator: CreateUsernameForm.usernameValidator,
     ),
   };

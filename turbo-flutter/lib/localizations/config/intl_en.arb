@@ -166,5 +166,7 @@
   "userNotFound": "User not found",
   "create": "Create",
   "createShoppingList": "Create Shopping List",
-  "enterTheNameForTheNewShoppingList": "Enter the name for the new shopping list. This will be visible to all members."
+  "enterTheNameForTheNewShoppingList": "Enter the name for the new shopping list. This will be visible to all members.",
+  "titleMustBeAtLeast1CharacterLong": "Title must be at least 1 character long.",
+  "nameCanBeAtMostKlimitsmaxnamelengthCharactersLong": "Name can be at most {kLimitsMaxNameLength} characters long."
 }

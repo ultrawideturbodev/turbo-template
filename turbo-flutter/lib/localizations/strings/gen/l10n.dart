@@ -1719,6 +1719,27 @@ class Strings {
       args: [],
     );
   }
+
+  /// `Title must be at least 1 character long.`
+  String get titleMustBeAtLeast1CharacterLong {
+    return Intl.message(
+      'Title must be at least 1 character long.',
+      name: 'titleMustBeAtLeast1CharacterLong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name can be at most {kLimitsMaxNameLength} characters long.`
+  String nameCanBeAtMostKlimitsmaxnamelengthCharactersLong(
+      Object kLimitsMaxNameLength) {
+    return Intl.message(
+      'Name can be at most $kLimitsMaxNameLength characters long.',
+      name: 'nameCanBeAtMostKlimitsmaxnamelengthCharactersLong',
+      desc: '',
+      args: [kLimitsMaxNameLength],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<Strings> {

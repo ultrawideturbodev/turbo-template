@@ -1,2 +1,2 @@
 const kLimitsMinUsernameLength = 3;
-const kLimitsMaxUsernameLength = 30;
+const kLimitsMaxNameLength = 30;
