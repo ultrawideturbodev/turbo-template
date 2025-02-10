@@ -4,19 +4,14 @@ import 'package:turbo_template/data/enums/t_png.dart';
 import 'package:turbo_template/state/extensions/context_extension.dart';
 import 'package:turbo_template/ui/config/turbo_button_config.dart';
 import 'package:turbo_template/ui/constants/k_widgets.dart';
-import 'package:turbo_template/ui/extensions/wrapper_extensions.dart';
-import 'package:turbo_template/ui/widgets/t_logo.dart';
-import 'package:turbo_template/ui/widgets/t_margin.dart';
+import 'package:turbo_template/ui/enums/t_device_type.dart';
 import 'package:turbo_template/ui/widgets/t_app_bar.dart';
-import 'package:turbo_template/ui/config/t_crumb_config.dart';
-import 'package:turbo_template/ui/widgets/t_column.dart';
-import 'package:turbo_template/ui/widgets/t_crumbs.dart';
 import 'package:turbo_template/ui/widgets/t_card.dart';
 import 'package:turbo_template/ui/widgets/t_card_column.dart';
-import 'package:turbo_template/ui/widgets/t_gap.dart';
-import 'package:turbo_template/ui/widgets/t_png_image.dart';
-import 'package:turbo_template/ui/widgets/t_row.dart';
+import 'package:turbo_template/ui/widgets/t_column.dart';
 import 'package:turbo_template/ui/widgets/t_list_item.dart';
+import 'package:turbo_template/ui/widgets/t_margin.dart';
+import 'package:turbo_template/ui/widgets/t_png_image.dart';
 import 'package:turbo_template/ui/widgets/t_scaffold.dart';
 import 'package:turbo_template/ui/widgets/t_scroll_view.dart';
 import 'package:veto/data/models/base_view_model.dart';
@@ -40,6 +35,8 @@ class HomeView extends StatelessWidget {
             TAppBar(
               title: model.title,
               trailing: [
+                if (context.data.deviceType == TDeviceType.mobile)
+                  TButtonIconConfig.settings(onPressed: model.onSettingsPressed),
                 TButtonIconConfig.theme(
                   onPressed: model.onThemeModePressed,
                   themeMode: context.turboProvider.themeMode,

@@ -25,32 +25,37 @@ class ShellView extends StatelessWidget {
           if (!isInitialised) {
             return kWidgetsNothing;
           }
-          switch (context.data.deviceType) {
+          final deviceType = context.data.deviceType;
+          switch (deviceType) {
             case TDeviceType.mobile:
               return TScaffold(
                 child: statefulNavigationShell,
                 footers: [
                   ValueListenableBuilder<NavigationTab>(
                     valueListenable: model.currentNavigationTab,
-                    builder: (context, currentNavigationTab, child) => NavigationBar(
-                      labelType: NavigationLabelType.selected,
-                      onSelected: (int index) => model.onNavigationTap(
-                        NavigationTab.values[index],
-                        statefulNavigationShell: statefulNavigationShell,
-                        context: context,
-                      ),
-                      index: currentNavigationTab.index,
-                      children: NavigationTab.values
-                          .map(
-                            (bottomNavigationTab) => NavigationItem(
-                              style: const ButtonStyle.muted(density: ButtonDensity.icon),
-                              selectedStyle: const ButtonStyle.fixed(density: ButtonDensity.icon),
-                              label: Text(bottomNavigationTab.label),
-                              child: Icon(bottomNavigationTab.icon),
-                            ),
-                          )
-                          .toList(),
-                    ),
+                    builder: (context, currentNavigationTab, child) {
+                      final navigationTabs =
+                          NavigationTab.navigationTabs(deviceType: TDeviceType.mobile);
+                      return NavigationBar(
+                        labelType: NavigationLabelType.selected,
+                        onSelected: (int index) => model.onNavigationTap(
+                          navigationTabs[index],
+                          statefulNavigationShell: statefulNavigationShell,
+                          context: context,
+                        ),
+                        index: navigationTabs.indexOf(currentNavigationTab),
+                        children: navigationTabs
+                            .map(
+                              (bottomNavigationTab) => NavigationItem(
+                                style: const ButtonStyle.muted(density: ButtonDensity.icon),
+                                selectedStyle: const ButtonStyle.fixed(density: ButtonDensity.icon),
+                                label: Text(bottomNavigationTab.label),
+                                child: Icon(bottomNavigationTab.icon),
+                              ),
+                            )
+                            .toList(),
+                      );
+                    },
                   ),
                 ],
               );
@@ -77,20 +82,24 @@ class ShellView extends StatelessWidget {
                             alignment: NavigationRailAlignment.start,
                             expanded: menuIsExpanded,
                             index: currentNavigationTab.index,
-                            onSelected: (index) => model.onNavigationTap(
-                              NavigationTab.values[index],
-                              context: context,
-                              statefulNavigationShell: statefulNavigationShell,
-                            ),
+                            onSelected: (index) {
+                              final navigationTabs =
+                                  NavigationTab.navigationTabs(deviceType: deviceType);
+                              model.onNavigationTap(
+                                navigationTabs[index],
+                                context: context,
+                                statefulNavigationShell: statefulNavigationShell,
+                              );
+                            },
                             children: [
-                              for (final tab in NavigationTab.values)
+                              for (final tab
+                                  in NavigationTab.navigationTabs(deviceType: deviceType))
                                 NavigationItem(
                                   child: Icon(tab.icon),
                                   alignment: Alignment.centerLeft,
                                   label: Text(tab.label),
                                   selectedStyle: const ButtonStyle.primaryIcon(),
                                 ),
-                              // const NavigationDivider(),
                             ],
                           ),
                         ),

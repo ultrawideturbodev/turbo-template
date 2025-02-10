@@ -15,6 +15,7 @@ class Locator {
     CoreRouter.registerFactory();
     HomeRouter.registerFactory();
     PlaceholderRouter.registerFactory();
+    SettingsRouter.registerFactory();
   }
 
   static void _registerViewModels() {

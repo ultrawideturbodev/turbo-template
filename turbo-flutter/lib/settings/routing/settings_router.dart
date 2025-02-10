@@ -7,15 +7,27 @@ import 'package:turbo_template/data/extensions/string_extension.dart';
 import 'package:turbo_template/settings/views/settings_view.dart';
 
 class SettingsRouter extends BaseNavigation {
+  // 📍 LOCATOR ------------------------------------------------------------------------------- \\
+
+  static SettingsRouter Function() get lazyLocate => () => GetIt.I.get();
+  static SettingsRouter get locate => GetIt.I.get();
+  static void registerFactory() => GetIt.I.registerFactory(SettingsRouter.new);
+
   // 🧩 DEPENDENCIES -------------------------------------------------------------------------- \\
-  // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
+  // 🎬 INIT & DISPOSE ------------------------------------------------------------------------ \\
+  // 👂 LISTENERS ----------------------------------------------------------------------------- \\
+  // ⚡️ OVERRIDES ----------------------------------------------------------------------------- \\
 
   @override
-  NavigationTab? get navigationTab => null;
+  NavigationTab? get navigationTab => NavigationTab.settings;
 
   @override
   String get root => SettingsView.path.asRootPath;
 
+  // 🎩 STATE --------------------------------------------------------------------------------- \\
+  // 🛠 UTIL ---------------------------------------------------------------------------------- \\
+  // 🧲 FETCHERS ------------------------------------------------------------------------------ \\
+  // 🏗️ HELPERS ------------------------------------------------------------------------------- \\
   // 🪄 MUTATORS ------------------------------------------------------------------------------ \\
 
   void goSettingsView({
@@ -39,7 +51,4 @@ class SettingsRouter extends BaseNavigation {
       );
     }
   }
-
-  static SettingsRouter get locate => GetIt.I.get();
-  static void registerFactory() => GetIt.I.registerFactory(SettingsRouter.new);
 }

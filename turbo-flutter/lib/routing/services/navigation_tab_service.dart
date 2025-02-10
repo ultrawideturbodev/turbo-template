@@ -8,6 +8,7 @@ import 'package:turbo_template/auth/services/auth_service.dart';
 import 'package:turbo_template/local_storage/services/local_storage_service.dart';
 import 'package:turbo_template/data/extensions/string_extension.dart';
 import 'package:turbo_template/state/views/placeholder/placeholder_view.dart';
+import 'package:turbo_template/settings/views/settings_view.dart';
 
 class NavigationTabService with Loglytics {
   // 📍 LOCATOR ------------------------------------------------------------------------------- \\
@@ -47,6 +48,8 @@ class NavigationTabService with Loglytics {
         return HomeView.path.asRootPath;
       case NavigationTab.placeholder:
         return PlaceholderView.path.asRootPath;
+      case NavigationTab.settings:
+        return SettingsView.path.asRootPath;
     }
   }
 

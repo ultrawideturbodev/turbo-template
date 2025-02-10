@@ -26,6 +26,7 @@ abstract class BaseNavigation with Loglytics {
       initialLocation: switch (cNavigationTab) {
         NavigationTab.home => initialLocation.isHome,
         NavigationTab.placeholder => initialLocation.isPlaceholder,
+        NavigationTab.settings => initialLocation.isSettings,
       },
     );
   }

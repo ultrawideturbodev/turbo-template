@@ -14,6 +14,7 @@ import 'package:turbo_template/routing/enums/navigation_tab.dart';
 import 'package:turbo_template/routing/routers/core_router.dart';
 import 'package:turbo_template/feedback/services/dialog_service.dart';
 import 'package:turbo_template/routing/services/navigation_tab_service.dart';
+import 'package:turbo_template/settings/routing/settings_router.dart';
 import 'package:veto/data/mixins/busy_service_management.dart';
 import 'package:veto/data/models/base_view_model.dart';
 
@@ -28,6 +29,7 @@ class ShellViewModel extends BaseViewModel with Loglytics, BusyServiceManagement
   final _homeRouter = HomeRouter.locate;
   final _placeholderRouter = PlaceholderRouter.locate;
   final _navigationTabService = NavigationTabService.locate;
+  final _settingsRouter = SettingsRouter.locate;
   late final _authService = AuthService.locate;
   late final _coreRouter = CoreRouter.locate;
 
@@ -99,6 +101,11 @@ class ShellViewModel extends BaseViewModel with Loglytics, BusyServiceManagement
         break;
       case NavigationTab.placeholder:
         _placeholderRouter.goPlaceholderView(
+          statefulNavigationShell: statefulNavigationShell,
+        );
+        break;
+      case NavigationTab.settings:
+        _settingsRouter.goSettingsView(
           statefulNavigationShell: statefulNavigationShell,
         );
         break;

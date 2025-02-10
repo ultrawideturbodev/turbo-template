@@ -48,6 +48,14 @@ class TButtonIconConfig extends TButtonConfig {
         onPressed: onPressed,
       );
 
+  factory TButtonIconConfig.settings({
+    required VoidCallback onPressed,
+  }) =>
+      TButtonIconConfig(
+        iconData: Icons.settings,
+        onPressed: onPressed,
+      );
+
   final IconData iconData;
 }
 

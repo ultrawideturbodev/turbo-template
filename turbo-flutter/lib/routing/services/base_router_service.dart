@@ -26,6 +26,9 @@ import 'package:turbo_template/state/views/placeholder/placeholder_arguments.dar
 import 'package:turbo_template/state/views/placeholder/placeholder_origin.dart';
 import 'package:turbo_template/state/views/placeholder/placeholder_view.dart';
 import 'package:turbo_template/routing/shell/shell_view.dart';
+import 'package:turbo_template/settings/views/settings_view.dart';
+import 'package:turbo_template/settings/views/settings_view_arguments.dart';
+import 'package:turbo_template/settings/views/settings_view_origin.dart';
 
 class BaseRouterService with Loglytics {
   BaseRouterService() {
@@ -116,6 +119,22 @@ class BaseRouterService with Loglytics {
     routes: const [],
   );
 
+  static GoRoute settingsRouter = GoRoute(
+    path: SettingsView.path.asRootPath,
+    redirect: (context, state) => _onAuthAccess(
+      context: context,
+      state: state,
+      navigationTab: NavigationTab.settings,
+    ),
+    pageBuilder: (context, state) => _buildPage(
+      child: SettingsView(
+        arguments: SettingsViewArguments(),
+        origin: SettingsViewOrigin.core,
+      ),
+    ),
+    routes: const [],
+  );
+
   // 🎭 VIEWS --------------------------------------------------------------------------------- \\
 
   static StatefulShellRoute shellView = StatefulShellRoute.indexedStack(
@@ -133,6 +152,11 @@ class BaseRouterService with Loglytics {
       StatefulShellBranch(
         routes: [
           placeholderRouter,
+        ],
+      ),
+      StatefulShellBranch(
+        routes: [
+          settingsRouter,
         ],
       ),
     ],
