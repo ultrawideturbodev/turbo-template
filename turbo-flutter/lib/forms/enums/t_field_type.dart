@@ -1,7 +1,6 @@
 enum TFieldType {
   cameraPath,
   checkbox,
-  chipInput,
   colorPicker,
   datePicker,
   filePickerPath,
@@ -22,7 +21,6 @@ enum TFieldType {
 
   bool get isCameraPath => this == TFieldType.cameraPath;
   bool get isCheckbox => this == TFieldType.checkbox;
-  bool get isChipInput => this == TFieldType.chipInput;
   bool get isColorPicker => this == TFieldType.colorPicker;
   bool get isDatePicker => this == TFieldType.datePicker;
   bool get isFilePickerPath => this == TFieldType.filePickerPath;

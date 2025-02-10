@@ -40,7 +40,7 @@ extension StringExtension on String {
   /// ```dart
   /// 'Hello   World...   Test'.lowerCaseMaxOneSpace // 'hello world... test'
   /// ```
-  String get normalizedForNlp => replaceAll(RegExp(r'\s+'), ' ').trim();
+  String get normalized => replaceAll(RegExp(r'\s+'), ' ').trim();
 
   static final RegExp _validUsernameRegExp =
       RegExp(r'^[a-zA-Z\d](?:[a-zA-Z\d_-]{1,28}[a-zA-Z\d])?$');

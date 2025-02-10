@@ -119,11 +119,6 @@ class TExampleForm extends FormConfig {
             fieldType: TFieldType.checkbox,
             initialValue: _initialValue?.checkbox,
           ),
-        TFieldType.chipInput => TFieldConfig<String>(
-            id: fieldType,
-            fieldType: TFieldType.chipInput,
-            initialValues: ['Chip 1', 'Chip 2'],
-          ),
         TFieldType.colorPicker => TFieldConfig<String>(
             id: fieldType,
             fieldType: TFieldType.colorPicker,
@@ -224,7 +219,6 @@ class TExampleForm extends FormConfig {
   TFieldConfig<String> get select => formFieldConfig(TFieldType.select);
   TFieldConfig<bool> get checkbox => formFieldConfig(TFieldType.checkbox);
   TFieldConfig<String> get cameraPath => formFieldConfig(TFieldType.cameraPath);
-  TFieldConfig<String> get chipInput => formFieldConfig(TFieldType.chipInput);
   TFieldConfig<String> get colorPicker => formFieldConfig(TFieldType.colorPicker);
   TFieldConfig<DateTime> get datePicker => formFieldConfig(TFieldType.datePicker);
   TFieldConfig<String> get filePickerPath => formFieldConfig(TFieldType.filePickerPath);
@@ -246,7 +240,6 @@ class TExampleForm extends FormConfig {
   void updateSelect(String? value) => select.value = value;
   void updateCheckbox(bool? value) => checkbox.value = value;
   void updateCameraPath(String? value) => cameraPath.value = value;
-  void updateChipInput(String? value) => chipInput.value = value;
   void updateColorPicker(String? value) => colorPicker.value = value;
   void updateDatePicker(DateTime? value) => datePicker.value = value;
   void updateFilePickerPath(String? value) => filePickerPath.value = value;

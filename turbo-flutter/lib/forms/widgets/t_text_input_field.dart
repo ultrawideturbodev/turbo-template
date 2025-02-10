@@ -1,4 +1,5 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/data/extensions/string_extension.dart';
 import 'package:turbo_template/forms/config/t_field_config.dart';
 import 'package:turbo_template/forms/widgets/t_form_field.dart';
 import 'package:turbo_template/state/extensions/context_extension.dart';
@@ -57,15 +58,16 @@ class _TTextInputFieldState extends State<TTextInputField> {
   void _rebuild() => setState(() {});
 
   void _updateSuggestions(String value) {
-    if (value.isEmpty || widget.formFieldConfig.autoCompleteValues == null) {
+    final autoCompleteValues = widget.formFieldConfig.autoCompleteValues;
+    if (value.isEmpty || autoCompleteValues == null) {
       setState(() {
         _currentSuggestions = [];
       });
       return;
     }
     setState(() {
-      _currentSuggestions = widget.formFieldConfig.autoCompleteValues!
-          .where((element) => element.toLowerCase().contains(value.toLowerCase()))
+      _currentSuggestions = autoCompleteValues
+          .where((element) => element.normalized.contains(value.normalized))
           .toList();
     });
   }

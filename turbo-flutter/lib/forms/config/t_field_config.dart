@@ -92,7 +92,6 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
       case TFieldType.timePicker:
       case TFieldType.toggleGroup:
       case TFieldType.toggleSwitch:
-      case TFieldType.chipInput:
       case TFieldType.selectMulti:
         break;
     }
@@ -197,7 +196,6 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
       case TFieldType.timePicker:
       case TFieldType.toggleGroup:
       case TFieldType.toggleSwitch:
-      case TFieldType.chipInput:
       case TFieldType.selectMulti:
         break;
     }
@@ -242,7 +240,6 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
       case TFieldType.toggleSwitch:
         _value = _initialValue;
         break;
-      case TFieldType.chipInput:
       case TFieldType.selectMulti:
         _values = _initialValues;
     }
@@ -272,7 +269,6 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
         TFieldType.select => _valueValidator?.call(_value),
         TFieldType.checkbox => _valueValidator?.call(_value),
         TFieldType.cameraPath => _valueValidator?.call(_value),
-        TFieldType.chipInput => _valuesValidator?.call(_values),
         TFieldType.colorPicker => _valueValidator?.call(_value),
         TFieldType.datePicker => _valueValidator?.call(_value),
         TFieldType.filePickerPath => _valueValidator?.call(_value),
@@ -299,7 +295,6 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
       TFieldType.select => _valueValidator?.call(_value),
       TFieldType.checkbox => _valueValidator?.call(_value),
       TFieldType.cameraPath => _valueValidator?.call(_value),
-      TFieldType.chipInput => _valuesValidator?.call(_values),
       TFieldType.colorPicker => _valueValidator?.call(_value),
       TFieldType.datePicker => _valueValidator?.call(_value),
       TFieldType.filePickerPath => _valueValidator?.call(_value),
@@ -409,7 +404,6 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
       case TFieldType.toggleSwitch:
         _value = value;
         break;
-      case TFieldType.chipInput:
       case TFieldType.selectMulti:
         if (value != null) {
           _values = [value];
@@ -441,7 +435,6 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
         throw UnexpectedStateException(
           reason: 'Cannot set values for $fieldType with id: $_id',
         );
-      case TFieldType.chipInput:
       case TFieldType.selectMulti:
         _values = values;
     }
