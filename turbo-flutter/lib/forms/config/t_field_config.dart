@@ -50,7 +50,7 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
   List<T>? _items;
   List<T>? _values;
   List<TextInputFormatter>? _inputFormatters;
-  List<String>? _autoCompleteValues;
+  final List<String>? _autoCompleteValues;
   T? _initialValue;
   T? _value;
   final ValuesValidatorDef<T>? _valuesValidator;

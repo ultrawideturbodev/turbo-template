@@ -49,6 +49,7 @@ enum TTheme {
               colorScheme: ColorSchemes.darkZinc().copyWith(
                 background: const Color(0xFF09090B),
                 border: const Color(0xFF27272A),
+                card: const Color(0xFF0D1117),
               ),
               radius: 0.8,
             );
@@ -57,6 +58,7 @@ enum TTheme {
               colorScheme: ColorSchemes.lightZinc().copyWith(
                 background: const Color(0xFFFFFFFF),
                 border: const Color(0xFFE4E4E7),
+                card: const Color(0xFFFAFAFA),
               ),
               radius: 0.8,
             );

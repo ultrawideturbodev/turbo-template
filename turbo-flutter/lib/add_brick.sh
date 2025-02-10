@@ -1,3 +1,4 @@
+
 d#!/bin/bash
 
 # Script to add current brick folder globally
