@@ -1,5 +1,6 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/forms/widgets/t_text_input_field.dart';
+import 'package:turbo_template/forms/widgets/t_checkbox_field.dart';
 import 'package:turbo_template/routing/models/origin_arguments.dart';
 import 'package:turbo_template/settings/views/settings_view_arguments.dart';
 import 'package:turbo_template/settings/views/settings_view_model.dart';
@@ -49,6 +50,11 @@ class SettingsView extends StatelessWidget {
                   label: 'Search Example',
                   hintText: 'Search...',
                   leadingIcon: Icons.search,
+                ),
+                const Gap(16),
+                TCheckboxField(
+                  formFieldConfig: model.form.checkbox,
+                  trailing: const Text('Checkbox Example'),
                 ),
               ],
             ),

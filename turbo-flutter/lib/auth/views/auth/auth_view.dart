@@ -146,7 +146,7 @@ class AuthView extends StatelessWidget {
                                             padding: const EdgeInsets.only(top: kSizesElementGap),
                                             child: TCheckboxField(
                                               formFieldConfig: model.agreePrivacyField,
-                                              label: MouseRegion(
+                                              trailing: MouseRegion(
                                                 cursor: SystemMouseCursors.click,
                                                 child: AcceptPrivacyText(
                                                   onPrivacyPolicyTap: model.onPrivacyPolicyPressed,

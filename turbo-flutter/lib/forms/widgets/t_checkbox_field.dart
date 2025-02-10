@@ -11,11 +11,13 @@ class TCheckboxField extends StatefulWidget {
   const TCheckboxField({
     super.key,
     required this.formFieldConfig,
-    required this.label,
+     this.trailing,
+    this.leading,
   });
 
   final TFieldConfig<bool> formFieldConfig;
-  final Widget label;
+  final Widget? trailing;
+  final Widget? leading;
 
   @override
   State<TCheckboxField> createState() => _TCheckboxFieldState();
@@ -66,17 +68,9 @@ class _TCheckboxFieldState extends State<TCheckboxField> {
                       formFieldConfig.isValid;
                     }
                   },
+                  leading: widget.leading,
+                  trailing: widget.trailing,
                 ),
-              ),
-              TButton(
-                child: widget.label,
-                scaleEnd: 1,
-                onPressed: () {
-                  formFieldConfig.value = !(formFieldConfig.value ?? false);
-                  if (formFieldConfig.shouldValidate.value) {
-                    formFieldConfig.isValid;
-                  }
-                },
               ),
             ],
           ),
