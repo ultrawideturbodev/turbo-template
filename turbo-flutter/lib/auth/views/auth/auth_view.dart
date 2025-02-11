@@ -77,7 +77,7 @@ class AuthView extends StatelessWidget {
                             order: 1,
                             child: TTextInputField(
                               key: ValueKey(authViewMode.name + 'email'),
-                              formFieldConfig: model.emailField,
+                              fieldConfig: model.emailField,
                               leadingIcon: Icons.email_rounded,
                               label: gStrings.email,
                               hintText: gStrings.emailHint,
@@ -89,7 +89,7 @@ class AuthView extends StatelessWidget {
                             order: 2,
                             child: TTextInputField(
                               key: ValueKey(authViewMode.name + 'password'),
-                              formFieldConfig: model.passwordField,
+                              fieldConfig: model.passwordField,
                               leadingIcon: Icons.lock_open_rounded,
                               hintText: '••••••••',
                               label: gStrings.password,
@@ -124,7 +124,7 @@ class AuthView extends StatelessWidget {
                                   TFocusOrder(
                                     order: authViewMode.isRegister ? 3 : null,
                                     child: TTextInputField(
-                                      formFieldConfig: model.confirmPasswordField,
+                                      fieldConfig: model.confirmPasswordField,
                                       leadingIcon: Icons.lock_rounded,
                                       label: 'Confirm Password',
                                       hintText: '••••••••',

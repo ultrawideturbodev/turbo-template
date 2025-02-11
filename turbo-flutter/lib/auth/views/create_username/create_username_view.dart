@@ -103,7 +103,7 @@ class CreateUsernameView extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: TTextInputField(
-                                      formFieldConfig: model.usernameField,
+                                      fieldConfig: model.usernameField,
                                       leadingIcon: Icons.badge_rounded,
                                       hintText: gStrings.username,
                                       onSubmitted: (_) => model.save(context: context),

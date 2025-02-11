@@ -6,7 +6,7 @@ import 'package:turbo_template/state/extensions/context_extension.dart';
 
 class TTextInputField extends StatefulWidget {
   const TTextInputField({
-    required this.formFieldConfig,
+    required this.fieldConfig,
     super.key,
     this.crossAxisAlignment = CrossAxisAlignment.start,
     this.hintText,
@@ -26,7 +26,7 @@ class TTextInputField extends StatefulWidget {
   final IconData? leadingIcon;
   final String? hintText;
   final String? label;
-  final TFieldConfig<String> formFieldConfig;
+  final TFieldConfig<String> fieldConfig;
   final TextInputType? keyboardType;
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onSubmitted;
@@ -45,21 +45,22 @@ class _TTextInputFieldState extends State<TTextInputField> {
 
   @override
   void initState() {
-    assert(widget.formFieldConfig.fieldType.isTextInput);
-    widget.formFieldConfig.addListener(_rebuild);
+    assert(widget.fieldConfig.fieldType.isTextInput);
+    widget.fieldConfig.addListener(_rebuild);
     if (widget.onFocusChanged != null) {
-      widget.formFieldConfig.focusNode.addListener(_onFocusChanged);
+      widget.fieldConfig.focusNode.addListener(_onFocusChanged);
     }
     super.initState();
   }
 
-  void _onFocusChanged() => widget.onFocusChanged?.call(widget.formFieldConfig.focusNode.hasFocus);
+  void _onFocusChanged() => widget.onFocusChanged?.call(widget.fieldConfig.focusNode.hasFocus);
 
   void _rebuild() => setState(() {});
 
   void _updateSuggestions(String value) {
-    final autoCompleteValues = widget.formFieldConfig.autoCompleteValues;
+    final autoCompleteValues = widget.fieldConfig.autoCompleteValues;
     if (value.isEmpty || autoCompleteValues == null) {
+      if (_currentSuggestions.isEmpty) return;
       setState(() {
         _currentSuggestions = [];
       });
@@ -67,23 +68,23 @@ class _TTextInputFieldState extends State<TTextInputField> {
     }
     setState(() {
       _currentSuggestions = autoCompleteValues
-          .where((element) => element.normalized.contains(value.normalized))
+          .where((element) => element.naked.contains(value.naked))
           .toList();
     });
   }
 
   @override
   void dispose() {
-    widget.formFieldConfig.removeListener(_rebuild);
+    widget.fieldConfig.removeListener(_rebuild);
     if (widget.onFocusChanged != null) {
-      widget.formFieldConfig.focusNode.removeListener(_onFocusChanged);
+      widget.fieldConfig.focusNode.removeListener(_onFocusChanged);
     }
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final formFieldConfig = widget.formFieldConfig;
+    final formFieldConfig = widget.fieldConfig;
     final formFieldTextStyle = context.texts.formField;
     final hintText = widget.hintText;
     final isReadOnly = formFieldConfig.isReadOnly;

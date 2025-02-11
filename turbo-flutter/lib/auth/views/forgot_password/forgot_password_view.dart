@@ -48,7 +48,7 @@ class ForgotPasswordView extends StatelessWidget {
                       ),
                       const TGap.section(),
                       TTextInputField(
-                        formFieldConfig: model.emailField,
+                        fieldConfig: model.emailField,
                         leadingIcon: Icons.email_rounded,
                         label: gStrings.email,
                         hintText: gStrings.emailHint,

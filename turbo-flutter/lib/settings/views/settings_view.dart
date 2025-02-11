@@ -1,4 +1,5 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/forms/widgets/t_search_field.dart';
 import 'package:turbo_template/forms/widgets/t_text_input_field.dart';
 import 'package:turbo_template/forms/widgets/t_checkbox_field.dart';
 import 'package:turbo_template/routing/models/origin_arguments.dart';
@@ -40,13 +41,13 @@ class SettingsView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 TTextInputField(
-                  formFieldConfig: model.form.textInput,
+                  fieldConfig: model.form.textInput,
                   label: 'Text Input Example',
                   hintText: 'Enter some text...',
                 ),
                 const Gap(16),
-                TTextInputField(
-                  formFieldConfig: model.searchForm.search,
+                TSearchField(
+                  fieldConfig: model.searchForm.search,
                   label: 'Search Example',
                   hintText: 'Search...',
                   leadingIcon: Icons.search,
