@@ -152,6 +152,9 @@
       <excludeFolder url="file://$MODULE_DIR$/turbo-flutter-tmeplate/ios/.symlinks/plugins/url_launcher_ios/example/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/turbo-flutter-tmeplate/ios/.symlinks/plugins/url_launcher_ios/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/turbo-flutter-tmeplate/ios/.symlinks/plugins/url_launcher_ios/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/turbo-flutter/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/turbo-flutter/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/turbo-flutter/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

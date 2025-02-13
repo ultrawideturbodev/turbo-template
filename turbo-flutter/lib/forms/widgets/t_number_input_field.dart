@@ -55,6 +55,7 @@ class _TNumberInputFieldState extends State<TNumberInputField> {
   @override
   Widget build(BuildContext context) {
     final formFieldConfig = widget.formFieldConfig;
+    final formFieldTextStyle = context.texts.formField;
 
     return TFormField(
       formFieldConfig: formFieldConfig,
@@ -64,12 +65,24 @@ class _TNumberInputFieldState extends State<TNumberInputField> {
         crossAxisAlignment: widget.crossAxisAlignment,
         children: [
           Expanded(
-            child: SizedBox(
-              width: 100,
-              child: NumberInput(
-                initialValue: formFieldConfig.value ?? 0,
-                onChanged: (value) => _onChanged(formFieldConfig, value),
-              ),
+            child: NumberInput(
+              initialValue: formFieldConfig.initialValue ?? 0,
+              onChanged: (value) => _onChanged(formFieldConfig, value),
+              onEditingComplete: () {
+                // ensure min / max are enforced
+                final min = formFieldConfig.minValue;
+                final max = formFieldConfig.maxValue;
+                // clamp
+                final pValue = formFieldConfig.value;
+                if (pValue == null) return;
+                if (pValue < min) {
+                  _onChanged(formFieldConfig, min.toDouble());
+                } else if (pValue > max) {
+                  _onChanged(formFieldConfig, max.toDouble());
+                }
+              },
+              style: formFieldTextStyle,
+              showButtons: true,
             ),
           ),
           if (widget.trailing != null) widget.trailing!,

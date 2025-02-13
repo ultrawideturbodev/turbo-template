@@ -53,7 +53,7 @@ class TExampleDto {
   final String colorPicker;
   final DateTime datePicker;
   final String filePicker;
-  final num numberInput;
+  final double numberInput;
   final String phoneInput;
   final String radioCard;
   final String radioGroup;
@@ -134,7 +134,7 @@ class TExampleForm extends FormConfig {
             fieldType: TFieldType.filePickerPath,
             initialValue: _initialValue?.filePicker,
           ),
-        TFieldType.numberInput => TFieldConfig<num>(
+        TFieldType.numberInput => TFieldConfig<double>(
             id: fieldType,
             fieldType: TFieldType.numberInput,
             initialValue: _initialValue?.numberInput,
@@ -222,7 +222,7 @@ class TExampleForm extends FormConfig {
   TFieldConfig<String> get colorPicker => formFieldConfig(TFieldType.colorPicker);
   TFieldConfig<DateTime> get datePicker => formFieldConfig(TFieldType.datePicker);
   TFieldConfig<String> get filePickerPath => formFieldConfig(TFieldType.filePickerPath);
-  TFieldConfig<int> get numberInput => formFieldConfig(TFieldType.numberInput);
+  TFieldConfig<double> get numberInput => formFieldConfig(TFieldType.numberInput);
   TFieldConfig<String> get phoneInput => formFieldConfig(TFieldType.phoneInput);
   TFieldConfig<String> get radioCard => formFieldConfig(TFieldType.radioCard);
   TFieldConfig<String> get radioGroup => formFieldConfig(TFieldType.radioGroup);
@@ -243,7 +243,7 @@ class TExampleForm extends FormConfig {
   void updateColorPicker(String? value) => colorPicker.value = value;
   void updateDatePicker(DateTime? value) => datePicker.value = value;
   void updateFilePickerPath(String? value) => filePickerPath.value = value;
-  void updateNumberInput(int? value) => numberInput.value = value;
+  void updateNumberInput(double? value) => numberInput.value = value;
   void updatePhoneInput(String? value) => phoneInput.value = value;
   void updateRadioCard(String? value) => radioCard.value = value;
   void updateRadioGroup(String? value) => radioGroup.value = value;
