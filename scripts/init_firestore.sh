@@ -1,0 +1,2 @@
+cd ..
+firebase init firestore
