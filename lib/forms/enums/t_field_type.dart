@@ -3,6 +3,7 @@ enum TFieldType {
   checkbox,
   colorPicker,
   datePicker,
+  dateRangePicker,
   filePickerPath,
   numberInput,
   phoneInput,
@@ -23,6 +24,7 @@ enum TFieldType {
   bool get isCheckbox => this == TFieldType.checkbox;
   bool get isColorPicker => this == TFieldType.colorPicker;
   bool get isDatePicker => this == TFieldType.datePicker;
+  bool get isDateRangePicker => this == TFieldType.dateRangePicker;
   bool get isFilePickerPath => this == TFieldType.filePickerPath;
   bool get isNumberInput => this == TFieldType.numberInput;
   bool get isPhoneInput => this == TFieldType.phoneInput;

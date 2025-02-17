@@ -1,9 +1,12 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/forms/widgets/t_checkbox_field.dart';
 import 'package:turbo_template/forms/widgets/t_color_picker_field.dart';
-import 'package:turbo_template/forms/widgets/t_number_input_field.dart';
-import 'package:turbo_template/forms/widgets/t_search_field.dart';
+import 'package:turbo_template/forms/widgets/t_date_picker_field.dart';
+import 'package:turbo_template/forms/widgets/t_date_range_picker_field.dart';
 import 'package:turbo_template/forms/widgets/t_dropdown_field.dart';
+import 'package:turbo_template/forms/widgets/t_number_input_field.dart';
+import 'package:turbo_template/forms/widgets/t_phone_input_field.dart';
+import 'package:turbo_template/forms/widgets/t_search_field.dart';
 import 'package:turbo_template/forms/widgets/t_text_area_field.dart';
 import 'package:turbo_template/forms/widgets/t_text_input_field.dart';
 import 'package:turbo_template/routing/models/origin_arguments.dart';
@@ -58,6 +61,20 @@ class SettingsView extends StatelessWidget {
                   hintText: 'Pick a color...',
                   onChanged: (value) => model.form.updateColorPicker(value),
                 ),
+                TDatePickerField(
+                  fieldConfig: model.form.datePicker,
+                  label: 'Date Picker Example',
+                  subLabel: 'Select a single date',
+                  hintText: 'Pick a date...',
+                  onChanged: (value) => model.form.updateDatePicker(value),
+                ),
+                TDateRangePickerField(
+                  fieldConfig: model.form.dateRangePicker,
+                  label: 'Date Range Picker Example',
+                  subLabel: 'Select a date range',
+                  hintText: 'Pick a date range...',
+                  onChanged: (value) => model.form.updateDateRangePicker(value),
+                ),
                 TSearchField(
                   fieldConfig: model.searchForm.search,
                   label: 'Search Example',
@@ -86,6 +103,13 @@ class SettingsView extends StatelessWidget {
                   subLabel: 'Enter multiple lines of text',
                   hintText: 'Enter multiple lines of text...',
                 ),
+                TPhoneInputField(
+                  fieldConfig: model.form.phoneInput,
+                  label: 'Phone Input Example',
+                  subLabel: 'Enter your phone number with country code',
+                  hintText: 'Enter phone number...',
+                  onChanged: (value) => model.form.updatePhoneInput(value),
+                ),
               ],
             ),
           ),
@@ -95,3 +119,4 @@ class SettingsView extends StatelessWidget {
     );
   }
 }
+

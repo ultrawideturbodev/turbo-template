@@ -82,6 +82,7 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
       case TFieldType.cameraPath:
       case TFieldType.colorPicker:
       case TFieldType.datePicker:
+      case TFieldType.dateRangePicker:
       case TFieldType.filePickerPath:
       case TFieldType.numberInput:
       case TFieldType.phoneInput:
@@ -186,6 +187,7 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
       case TFieldType.cameraPath:
       case TFieldType.colorPicker:
       case TFieldType.datePicker:
+      case TFieldType.dateRangePicker:
       case TFieldType.filePickerPath:
       case TFieldType.numberInput:
       case TFieldType.phoneInput:
@@ -228,6 +230,7 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
       case TFieldType.cameraPath:
       case TFieldType.colorPicker:
       case TFieldType.datePicker:
+      case TFieldType.dateRangePicker:
       case TFieldType.filePickerPath:
       case TFieldType.numberInput:
       case TFieldType.phoneInput:
@@ -271,6 +274,7 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
         TFieldType.cameraPath => _valueValidator?.call(_value),
         TFieldType.colorPicker => _valueValidator?.call(_value),
         TFieldType.datePicker => _valueValidator?.call(_value),
+        TFieldType.dateRangePicker => _valueValidator?.call(_value),
         TFieldType.filePickerPath => _valueValidator?.call(_value),
         TFieldType.numberInput => _valueValidator?.call(_value),
         TFieldType.phoneInput => _valueValidator?.call(_value),
@@ -297,6 +301,7 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
       TFieldType.cameraPath => _valueValidator?.call(_value),
       TFieldType.colorPicker => _valueValidator?.call(_value),
       TFieldType.datePicker => _valueValidator?.call(_value),
+      TFieldType.dateRangePicker => _valueValidator?.call(_value),
       TFieldType.filePickerPath => _valueValidator?.call(_value),
       TFieldType.numberInput => _valueValidator?.call(_value),
       TFieldType.phoneInput => _valueValidator?.call(_value),
@@ -392,6 +397,7 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
       case TFieldType.cameraPath:
       case TFieldType.colorPicker:
       case TFieldType.datePicker:
+      case TFieldType.dateRangePicker:
       case TFieldType.filePickerPath:
       case TFieldType.numberInput:
       case TFieldType.phoneInput:
@@ -422,6 +428,7 @@ class TFieldConfig<T> extends ChangeNotifier with Loglytics {
       case TFieldType.cameraPath:
       case TFieldType.colorPicker:
       case TFieldType.datePicker:
+      case TFieldType.dateRangePicker:
       case TFieldType.filePickerPath:
       case TFieldType.numberInput:
       case TFieldType.phoneInput:

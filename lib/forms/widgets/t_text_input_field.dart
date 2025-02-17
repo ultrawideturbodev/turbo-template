@@ -4,28 +4,6 @@ import 'package:turbo_template/forms/config/t_field_config.dart';
 import 'package:turbo_template/forms/widgets/t_form_field.dart';
 import 'package:turbo_template/state/extensions/context_extension.dart';
 
-class LeadingIcon extends StatelessWidget {
-  final IconData? icon;
-  final bool focused;
-  final BuildContext context;
-
-  const LeadingIcon({
-    super.key,
-    required this.icon,
-    required this.focused,
-    required this.context,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    if (icon == null) return const SizedBox.shrink();
-    return Icon(
-      icon,
-      color: focused ? null : context.colors.input,
-    );
-  }
-}
-
 class TTextInputField extends StatefulWidget {
   const TTextInputField({
     required this.fieldConfig,
@@ -117,84 +95,72 @@ class _TTextInputFieldState extends State<TTextInputField> {
       label: widget.label,
       subLabel: widget.subLabel,
       trailingLabel: widget.trailingLabel,
-      child: Row(
-        crossAxisAlignment: widget.crossAxisAlignment,
-        children: [
-          Expanded(
-            child: Column(
-              children: [
-                if (formFieldConfig.autoCompleteValues != null)
-                  AutoComplete(
-                    controller: formFieldConfig.textEditingController,
-                    suggestions: _currentSuggestions,
-                    onChanged: (value) {
-                      _onChanged(formFieldConfig, value);
-                      _updateSuggestions(value);
-                    },
-                    leading: widget.leading ??
-                        (widget.leadingIcon == null
-                            ? null
-                            : StatedWidget.builder(
-                                builder: (context, states) => Padding(
-                                  padding: const EdgeInsets.only(left: 8),
-                                  child: LeadingIcon(
-                                    icon: widget.leadingIcon,
-                                    focused: states.focused,
-                                    context: context,
-                                  ),
-                                ),
-                              )),
-                    trailing: widget.trailing,
-                    hintText: hintText,
-                    keyboardType: widget.keyboardType,
-                    onTap: widget.onTap,
-                    readOnly: isReadOnly,
-                    focusNode: formFieldConfig.focusNode,
-                    obscureText: formFieldConfig.obscureText,
-                    style: formFieldTextStyle,
-                    onSubmitted: widget.onSubmitted,
-                    onAcceptSuggestion: (value) {
-                      final suggestion = _currentSuggestions[value];
-                      formFieldConfig.textEditingController.text = suggestion;
-                      formFieldConfig.silentUpdateValue(suggestion);
-                      setState(() {
-                        _currentSuggestions = [];
-                      });
-                    },
-                  )
-                else
-                  TextField(
-                    leading: widget.leading ??
-                        (widget.leadingIcon == null
-                            ? null
-                            : StatedWidget.builder(
-                                builder: (context, states) => Padding(
-                                  padding: const EdgeInsets.only(left: 8),
-                                  child: LeadingIcon(
-                                    icon: widget.leadingIcon,
-                                    focused: states.focused,
-                                    context: context,
-                                  ),
-                                ),
-                              )),
-                    trailing: widget.trailing,
-                    hintText: hintText,
-                    keyboardType: widget.keyboardType,
-                    onTap: widget.onTap,
-                    controller: formFieldConfig.textEditingController,
-                    onChanged: (value) => _onChanged(formFieldConfig, value),
-                    readOnly: isReadOnly,
-                    focusNode: formFieldConfig.focusNode,
-                    inputFormatters: formFieldConfig.inputFormatters,
-                    obscureText: formFieldConfig.obscureText,
-                    style: formFieldTextStyle,
-                    onSubmitted: widget.onSubmitted,
-                  ),
-              ],
+      child: formFieldConfig.autoCompleteValues != null
+          ? AutoComplete(
+              controller: formFieldConfig.textEditingController,
+              suggestions: _currentSuggestions,
+              onChanged: (value) {
+                _onChanged(formFieldConfig, value);
+                _updateSuggestions(value);
+              },
+              leading: widget.leading ??
+                  (widget.leadingIcon == null
+                      ? null
+                      : StatedWidget.builder(
+                          builder: (context, states) => Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: _LeadingIcon(
+                              icon: widget.leadingIcon,
+                              focused: states.focused,
+                              context: context,
+                            ),
+                          ),
+                        )),
+              trailing: widget.trailing,
+              hintText: hintText,
+              keyboardType: widget.keyboardType,
+              onTap: widget.onTap,
+              readOnly: isReadOnly,
+              focusNode: formFieldConfig.focusNode,
+              obscureText: formFieldConfig.obscureText,
+              style: formFieldTextStyle,
+              onSubmitted: widget.onSubmitted,
+              onAcceptSuggestion: (value) {
+                final suggestion = _currentSuggestions[value];
+                formFieldConfig.textEditingController.text = suggestion;
+                formFieldConfig.silentUpdateValue(suggestion);
+                setState(() {
+                  _currentSuggestions = [];
+                });
+              },
+            )
+          : TextField(
+              leading: widget.leading ??
+                  (widget.leadingIcon == null
+                      ? null
+                      : StatedWidget.builder(
+                          builder: (context, states) => Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: _LeadingIcon(
+                              icon: widget.leadingIcon,
+                              focused: states.focused,
+                              context: context,
+                            ),
+                          ),
+                        )),
+              trailing: widget.trailing,
+              hintText: hintText,
+              keyboardType: widget.keyboardType,
+              onTap: widget.onTap,
+              controller: formFieldConfig.textEditingController,
+              onChanged: (value) => _onChanged(formFieldConfig, value),
+              readOnly: isReadOnly,
+              focusNode: formFieldConfig.focusNode,
+              inputFormatters: formFieldConfig.inputFormatters,
+              obscureText: formFieldConfig.obscureText,
+              style: formFieldTextStyle,
+              onSubmitted: widget.onSubmitted,
             ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -204,5 +170,26 @@ class _TTextInputFieldState extends State<TTextInputField> {
       formFieldConfig.isValid;
     }
     widget.onChanged?.call(value);
+  }
+}
+
+class _LeadingIcon extends StatelessWidget {
+  final IconData? icon;
+  final bool focused;
+  final BuildContext context;
+
+  const _LeadingIcon({
+    required this.icon,
+    required this.focused,
+    required this.context,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (icon == null) return const SizedBox.shrink();
+    return Icon(
+      icon,
+      color: focused ? null : context.colors.input,
+    );
   }
 }

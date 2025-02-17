@@ -32,6 +32,7 @@ class TExampleDto {
     required this.checkbox,
     required this.colorPicker,
     required this.datePicker,
+    required this.dateRangePicker,
     required this.filePicker,
     required this.numberInput,
     required this.phoneInput,
@@ -53,9 +54,10 @@ class TExampleDto {
   final bool checkbox;
   final ColorDerivative colorPicker;
   final DateTime datePicker;
+  final DateTimeRange dateRangePicker;
   final String filePicker;
   final double numberInput;
-  final String phoneInput;
+  final PhoneNumber phoneInput;
   final String radioCard;
   final String radioGroup;
   final String select;
@@ -130,6 +132,11 @@ class TExampleForm extends FormConfig {
             fieldType: TFieldType.datePicker,
             initialValue: _initialValue?.datePicker,
           ),
+        TFieldType.dateRangePicker => TFieldConfig<DateTimeRange>(
+            id: fieldType,
+            fieldType: TFieldType.dateRangePicker,
+            initialValue: _initialValue?.dateRangePicker,
+          ),
         TFieldType.filePickerPath => TFieldConfig<String>(
             id: fieldType,
             fieldType: TFieldType.filePickerPath,
@@ -142,10 +149,23 @@ class TExampleForm extends FormConfig {
             minValue: 0,
             maxValue: 100,
           ),
-        TFieldType.phoneInput => TFieldConfig<String>(
+        TFieldType.phoneInput => TFieldConfig<PhoneNumber>(
             id: fieldType,
             fieldType: TFieldType.phoneInput,
             initialValue: _initialValue?.phoneInput,
+            valueValidator: kValueValidatorsMultiple([
+              kValueValidatorsRequired(
+                errorText: () => gStrings.thisFieldIsRequired,
+              ),
+              (dynamic value) {
+                if (value == null) return null;
+                if (value is! PhoneNumber) return 'Invalid phone number format';
+                if (value.number.length < 6) {
+                  return 'Phone number must be at least 6 digits';
+                }
+                return null;
+              },
+            ]),
           ),
         TFieldType.radioCard => TFieldConfig<String>(
             id: fieldType,
@@ -222,9 +242,10 @@ class TExampleForm extends FormConfig {
   TFieldConfig<String> get cameraPath => formFieldConfig(TFieldType.cameraPath);
   TFieldConfig<ColorDerivative> get colorPicker => formFieldConfig(TFieldType.colorPicker);
   TFieldConfig<DateTime> get datePicker => formFieldConfig(TFieldType.datePicker);
+  TFieldConfig<DateTimeRange> get dateRangePicker => formFieldConfig(TFieldType.dateRangePicker);
   TFieldConfig<String> get filePickerPath => formFieldConfig(TFieldType.filePickerPath);
   TFieldConfig<double> get numberInput => formFieldConfig(TFieldType.numberInput);
-  TFieldConfig<String> get phoneInput => formFieldConfig(TFieldType.phoneInput);
+  TFieldConfig<PhoneNumber> get phoneInput => formFieldConfig(TFieldType.phoneInput);
   TFieldConfig<String> get radioCard => formFieldConfig(TFieldType.radioCard);
   TFieldConfig<String> get radioGroup => formFieldConfig(TFieldType.radioGroup);
   TFieldConfig<String> get selectMulti => formFieldConfig(TFieldType.selectMulti);
@@ -243,9 +264,10 @@ class TExampleForm extends FormConfig {
   void updateCameraPath(String? value) => cameraPath.value = value;
   void updateColorPicker(ColorDerivative? value) => colorPicker.value = value;
   void updateDatePicker(DateTime? value) => datePicker.value = value;
+  void updateDateRangePicker(DateTimeRange? value) => dateRangePicker.value = value;
   void updateFilePickerPath(String? value) => filePickerPath.value = value;
   void updateNumberInput(double? value) => numberInput.value = value;
-  void updatePhoneInput(String? value) => phoneInput.value = value;
+  void updatePhoneInput(PhoneNumber? value) => phoneInput.value = value;
   void updateRadioCard(String? value) => radioCard.value = value;
   void updateRadioGroup(String? value) => radioGroup.value = value;
   void updateSelectMulti(String? value) => selectMulti.value = value;

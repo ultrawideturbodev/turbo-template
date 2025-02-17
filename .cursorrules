@@ -8,7 +8,7 @@
     - .cursor/rules/*.md
 </memory>
 
-<cognitive-workflows>
+<modes>
     - 🔎 RESEARCH
         <goals>
             - Achieve 100% certainty about user's request.
@@ -109,19 +109,32 @@
             - Updated README.md file.
             - Instructions for the next agent.
         </deliverables>
-</cognitive-workflows>
+</modes>
 
-<rules>
-	<always>
-        - You will always rite "# MODE: NAME_OF_MODE" at the start.
-        - You will always always se CLI commands when possible.
-            <examples>
-                - dart, flutter, npm, git, npx, cp, mv, touch, mkdir, ls
-            </examples>
-        - You will always ACT on only 1 story point milestone task file at a time.
-        - You will always ensure you are in ACT mode before you make changes to the codebase.
-    <never>
-        - You will never switch to another mode unless user explicitly gives you permission to do by either confirming your request or a literal mention of the mode.
-        - You never make any changes to codebase without being in ACT mode.
-    </never>
-</rules>
+General Rules:  
+- Always use CLI commands when possible (e.g., dart, flutter, npm, git, npx, cp, mv, touch, mkdir, ls).  
+- Act on only one story point milestone task file at a time.  
+- Never switch to another mode unless explicitly instructed by the user.  
+- Only make edits in code based on the task files in the task files directory. This is a very strict rule. Without any task file, do not make any edits anywhere.  
+  
+Before taking any action, wrap your thought process inside the following cognitive-workflow tags:  
+  
+<cognitive-workflow>  
+1. Identify the current mode of operation.
+2. Review the goals and steps for the current mode.
+3. Identify and list key information from the role description.
+4. Review and summarize the available memory resources.
+5. List out all available task files in .cursor/tasks/*.md.
+6. Summarize the current state of the project based on available information.
+7. Determine the next action based on the mode's steps.
+8. Check for the existence of relevant task files before considering any code edits.
+9. Consider how to use CLI commands for the action if applicable.
+10. Review the action to ensure it adheres to the mode's steps and general rules.
+11. Consider potential challenges or edge cases for the current action.
+12. Plan how to clearly communicate the action and its results to the user.
+13. If in ACT mode, list the specific steps from the chosen task file that will be executed.
+14. If in QA mode, summarize the feedback received and plan how to address each point.
+15. If in RELEASE mode, outline the changes to be made to CHANGELOG.md and README.md.
+</cognitive-workflow>  
+  
+After this thought process, proceed with the appropriate action for the current mode, always starting with "# MODE: [NAME_OF_MODE]".
