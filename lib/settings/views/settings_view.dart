@@ -1,5 +1,6 @@
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/forms/widgets/t_checkbox_field.dart';
+import 'package:turbo_template/forms/widgets/t_color_picker_field.dart';
 import 'package:turbo_template/forms/widgets/t_number_input_field.dart';
 import 'package:turbo_template/forms/widgets/t_search_field.dart';
 import 'package:turbo_template/forms/widgets/t_dropdown_field.dart';
@@ -49,6 +50,13 @@ class SettingsView extends StatelessWidget {
                   label: 'Text Input Example',
                   subLabel: 'Enter any text you want to store',
                   hintText: 'Enter some text...',
+                ),
+                TColorPickerField(
+                  fieldConfig: model.form.colorPicker,
+                  label: 'Color Picker Example',
+                  subLabel: 'Choose your favorite color',
+                  hintText: 'Pick a color...',
+                  onChanged: (value) => model.form.updateColorPicker(value),
                 ),
                 TSearchField(
                   fieldConfig: model.searchForm.search,

@@ -5,6 +5,7 @@ import 'package:turbo_template/forms/constants/k_value_validators.dart';
 import 'package:turbo_template/forms/enums/t_field_type.dart';
 import 'package:turbo_template/localizations/globals/g_strings.dart';
 import 'package:turbo_template/state/constants/k_limits.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 
 enum TMultiExample {
   one,
@@ -50,7 +51,7 @@ class TExampleDto {
   final String text;
   final String dropDown;
   final bool checkbox;
-  final String colorPicker;
+  final ColorDerivative colorPicker;
   final DateTime datePicker;
   final String filePicker;
   final double numberInput;
@@ -119,7 +120,7 @@ class TExampleForm extends FormConfig {
             fieldType: TFieldType.checkbox,
             initialValue: _initialValue?.checkbox,
           ),
-        TFieldType.colorPicker => TFieldConfig<String>(
+        TFieldType.colorPicker => TFieldConfig<ColorDerivative>(
             id: fieldType,
             fieldType: TFieldType.colorPicker,
             initialValue: _initialValue?.colorPicker,
@@ -219,7 +220,7 @@ class TExampleForm extends FormConfig {
   TFieldConfig<String> get select => formFieldConfig(TFieldType.select);
   TFieldConfig<bool> get checkbox => formFieldConfig(TFieldType.checkbox);
   TFieldConfig<String> get cameraPath => formFieldConfig(TFieldType.cameraPath);
-  TFieldConfig<String> get colorPicker => formFieldConfig(TFieldType.colorPicker);
+  TFieldConfig<ColorDerivative> get colorPicker => formFieldConfig(TFieldType.colorPicker);
   TFieldConfig<DateTime> get datePicker => formFieldConfig(TFieldType.datePicker);
   TFieldConfig<String> get filePickerPath => formFieldConfig(TFieldType.filePickerPath);
   TFieldConfig<double> get numberInput => formFieldConfig(TFieldType.numberInput);
@@ -240,7 +241,7 @@ class TExampleForm extends FormConfig {
   void updateSelect(String? value) => select.value = value;
   void updateCheckbox(bool? value) => checkbox.value = value;
   void updateCameraPath(String? value) => cameraPath.value = value;
-  void updateColorPicker(String? value) => colorPicker.value = value;
+  void updateColorPicker(ColorDerivative? value) => colorPicker.value = value;
   void updateDatePicker(DateTime? value) => datePicker.value = value;
   void updateFilePickerPath(String? value) => filePickerPath.value = value;
   void updateNumberInput(double? value) => numberInput.value = value;
