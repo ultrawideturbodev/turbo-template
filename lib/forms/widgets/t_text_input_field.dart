@@ -42,12 +42,14 @@ class TTextInputField extends StatefulWidget {
     this.onTap,
     this.trailing,
     this.trailingLabel,
+    this.subLabel,
   });
 
   final CrossAxisAlignment crossAxisAlignment;
   final IconData? leadingIcon;
   final String? hintText;
   final String? label;
+  final String? subLabel;
   final TFieldConfig<String> fieldConfig;
   final TextInputType? keyboardType;
   final ValueChanged<String>? onChanged;
@@ -113,6 +115,7 @@ class _TTextInputFieldState extends State<TTextInputField> {
     return TFormField(
       formFieldConfig: formFieldConfig,
       label: widget.label,
+      subLabel: widget.subLabel,
       trailingLabel: widget.trailingLabel,
       child: Row(
         crossAxisAlignment: widget.crossAxisAlignment,
@@ -165,15 +168,15 @@ class _TTextInputFieldState extends State<TTextInputField> {
                         (widget.leadingIcon == null
                             ? null
                             : StatedWidget.builder(
-                          builder: (context, states) => Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: LeadingIcon(
-                              icon: widget.leadingIcon,
-                              focused: states.focused,
-                              context: context,
-                            ),
-                          ),
-                        )),
+                                builder: (context, states) => Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: LeadingIcon(
+                                    icon: widget.leadingIcon,
+                                    focused: states.focused,
+                                    context: context,
+                                  ),
+                                ),
+                              )),
                     trailing: widget.trailing,
                     hintText: hintText,
                     keyboardType: widget.keyboardType,

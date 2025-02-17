@@ -26,12 +26,14 @@ class TSearchField extends StatefulWidget {
     this.leading,
     this.trailing,
     this.trailingLabel,
+    this.subLabel,
   });
 
   final CrossAxisAlignment crossAxisAlignment;
   final IconData? leadingIcon;
   final String? hintText;
   final String? label;
+  final String? subLabel;
   final TFieldConfig<String> fieldConfig;
   final TextInputType? keyboardType;
   final ValueChanged<String>? onChanged;
@@ -54,39 +56,40 @@ class _TSearchFieldState extends State<TSearchField> {
 
   @override
   Widget build(BuildContext context) => TTrailing.horizontal(
-    spacing: 0,
-    trailing: Padding(
-      padding: const EdgeInsets.only(top: 20),
-      child: ValueListenableBuilder<bool>(
-        valueListenable: _showCloseButton,
-        builder: (context, showCloseButton, child) => HorizontalShrink(
-          alignment: Alignment.centerRight,
-          show: widget.showCloseButton ?? showCloseButton,
-          child: OpacityButton(
-            hitTestBehavior: HitTestBehavior.translucent,
-            child: Container(
-              child: const Icon(Icons.close_rounded),
-              height: kSizesButtonHeight,
-              width: kSizesButtonHeight,
+        spacing: 0,
+        trailing: Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: ValueListenableBuilder<bool>(
+            valueListenable: _showCloseButton,
+            builder: (context, showCloseButton, child) => HorizontalShrink(
+              alignment: Alignment.centerRight,
+              show: widget.showCloseButton ?? showCloseButton,
+              child: OpacityButton(
+                hitTestBehavior: HitTestBehavior.translucent,
+                child: Container(
+                  child: const Icon(Icons.close_rounded),
+                  height: kSizesButtonHeight,
+                  width: kSizesButtonHeight,
+                ),
+                onPressed: () {
+                  if (widget.onCloseSearchPressed != null &&
+                      (widget.fieldConfig.value?.isEmpty ?? true)) {
+                    widget.onCloseSearchPressed!();
+                    return;
+                  }
+                  widget.fieldConfig.silentReset();
+                  widget.onChanged?.call('');
+                  _showCloseButton.update(false);
+                },
+              ),
             ),
-            onPressed: () {
-              if (widget.onCloseSearchPressed != null &&
-                  (widget.fieldConfig.value?.isEmpty ?? true)) {
-                widget.onCloseSearchPressed!();
-                return;
-              }
-              widget.fieldConfig.silentReset();
-              widget.onChanged?.call('');
-              _showCloseButton.update(false);
-            },
           ),
         ),
-      ),
-    ),
-    child: Expanded(
-      child: TTextInputField(
+        child: Expanded(
+          child: TTextInputField(
             fieldConfig: widget.fieldConfig,
             label: widget.label,
+            subLabel: widget.subLabel,
             onTap: widget.onTap,
             leading: widget.leading,
             keyboardType: widget.keyboardType,
@@ -102,6 +105,6 @@ class _TSearchFieldState extends State<TSearchField> {
             hintText: widget.hintText ?? gStrings.search,
             onFocusChanged: widget.onFocusChanged,
           ),
-    ),
-  );
+        ),
+      );
 }

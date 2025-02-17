@@ -6,8 +6,8 @@ import 'package:turbo_template/forms/config/t_field_config.dart';
 import 'package:turbo_template/forms/widgets/t_form_field.dart';
 import 'package:turbo_template/state/extensions/context_extension.dart';
 
-class TSelectField<T> extends StatefulWidget {
-  const TSelectField({
+class TDropdownField<T> extends StatefulWidget {
+  const TDropdownField({
     required this.fieldConfig,
     super.key,
     this.crossAxisAlignment = CrossAxisAlignment.start,
@@ -18,11 +18,13 @@ class TSelectField<T> extends StatefulWidget {
     this.onTap,
     this.trailing,
     this.trailingLabel,
+    this.subLabel,
   });
 
   final CrossAxisAlignment crossAxisAlignment;
   final String? hintText;
   final String? label;
+  final String? subLabel;
   final TFieldConfig<T> fieldConfig;
   final ValueChanged<T>? onChanged;
   final ValueChanged<bool>? onFocusChanged;
@@ -31,10 +33,10 @@ class TSelectField<T> extends StatefulWidget {
   final Widget? trailingLabel;
 
   @override
-  State<TSelectField<T>> createState() => _TSelectFieldState<T>();
+  State<TDropdownField<T>> createState() => _TDropdownFieldState<T>();
 }
 
-class _TSelectFieldState<T> extends State<TSelectField<T>> {
+class _TDropdownFieldState<T> extends State<TDropdownField<T>> {
   @override
   void initState() {
     assert(widget.fieldConfig.fieldType.isSelect);
@@ -69,6 +71,7 @@ class _TSelectFieldState<T> extends State<TSelectField<T>> {
     return TFormField(
       formFieldConfig: formFieldConfig,
       label: widget.label,
+      subLabel: widget.subLabel,
       trailingLabel: widget.trailingLabel,
       child: Row(
         crossAxisAlignment: widget.crossAxisAlignment,

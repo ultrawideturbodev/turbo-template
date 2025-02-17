@@ -90,8 +90,9 @@ class TTexts {
         fontWeight: fwSemiBold,
       );
 
-  TextStyle get subtitle => _muted.copyWith(
-        fontWeight: fwRegular,
+  TextStyle get subtitle => _muted.copyWithCurrent(
+        fontWeight: (_) => fwRegular,
+        color: (cValue) => cValue.lighten(20),
       );
 
   TextStyle get navigationLabel => _xMuted.copyWith(

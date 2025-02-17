@@ -21,7 +21,7 @@ extension TextStyleExtensionExtension on TextStyle {
       color: color?.call(this.color!),
       backgroundColor: backgroundColor?.call(this.backgroundColor!),
       fontSize: fontSize?.call(this.fontSize!),
-      fontWeight: fontWeight?.call(this.fontWeight!),
+      fontWeight: fontWeight?.call(this.fontWeight ?? FontWeight.normal),
       fontStyle: fontStyle?.call(this.fontStyle!),
       letterSpacing: letterSpacing?.call(this.letterSpacing!),
       wordSpacing: wordSpacing?.call(this.wordSpacing!),

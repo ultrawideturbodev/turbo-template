@@ -2,7 +2,7 @@ import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:turbo_template/forms/widgets/t_checkbox_field.dart';
 import 'package:turbo_template/forms/widgets/t_number_input_field.dart';
 import 'package:turbo_template/forms/widgets/t_search_field.dart';
-import 'package:turbo_template/forms/widgets/t_select_field.dart';
+import 'package:turbo_template/forms/widgets/t_dropdown_field.dart';
 import 'package:turbo_template/forms/widgets/t_text_area_field.dart';
 import 'package:turbo_template/forms/widgets/t_text_input_field.dart';
 import 'package:turbo_template/routing/models/origin_arguments.dart';
@@ -47,11 +47,13 @@ class SettingsView extends StatelessWidget {
                 TTextInputField(
                   fieldConfig: model.form.textInput,
                   label: 'Text Input Example',
+                  subLabel: 'Enter any text you want to store',
                   hintText: 'Enter some text...',
                 ),
                 TSearchField(
                   fieldConfig: model.searchForm.search,
                   label: 'Search Example',
+                  subLabel: 'Search through your content',
                   hintText: 'Search...',
                   leadingIcon: Icons.search,
                 ),
@@ -62,15 +64,18 @@ class SettingsView extends StatelessWidget {
                 TNumberInputField(
                   formFieldConfig: model.form.numberInput,
                   label: 'Number Input Example',
+                  subLabel: 'Enter a numeric value',
                 ),
-                TSelectField<String>(
+                TDropdownField<String>(
                   fieldConfig: model.form.select,
                   label: 'Select Example',
+                  subLabel: 'Choose from predefined options',
                   hintText: 'Choose an option...',
                 ),
                 TTextAreaField(
                   fieldConfig: model.form.textArea,
                   label: 'Text Area Example',
+                  subLabel: 'Enter multiple lines of text',
                   hintText: 'Enter multiple lines of text...',
                 ),
               ],

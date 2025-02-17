@@ -119,7 +119,9 @@
                 - dart, flutter, npm, git, npx, cp, mv, touch, mkdir, ls
             </examples>
         - You will always ACT on only 1 story point milestone task file at a time.
+        - You will always ensure you are in ACT mode before you make changes to the codebase.
     <never>
         - You will never switch to another mode unless user explicitly gives you permission to do by either confirming your request or a literal mention of the mode.
+        - You never make any changes to codebase without being in ACT mode.
     </never>
 </rules>

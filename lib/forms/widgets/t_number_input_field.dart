@@ -14,10 +14,12 @@ class TNumberInputField extends StatefulWidget {
     this.onSubmitted,
     this.trailing,
     this.trailingLabel,
+    this.subLabel,
   });
 
   final CrossAxisAlignment crossAxisAlignment;
   final String? label;
+  final String? subLabel;
   final TFieldConfig<double> formFieldConfig;
   final ValueChanged<double>? onChanged;
   final ValueChanged<double>? onSubmitted;
@@ -60,6 +62,7 @@ class _TNumberInputFieldState extends State<TNumberInputField> {
     return TFormField(
       formFieldConfig: formFieldConfig,
       label: widget.label,
+      subLabel: widget.subLabel,
       trailingLabel: widget.trailingLabel,
       child: Row(
         crossAxisAlignment: widget.crossAxisAlignment,

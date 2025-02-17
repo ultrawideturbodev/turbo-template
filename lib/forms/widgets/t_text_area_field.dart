@@ -18,11 +18,13 @@ class TTextAreaField extends StatefulWidget {
     this.onTap,
     this.trailing,
     this.trailingLabel,
+    this.subLabel,
   });
 
   final CrossAxisAlignment crossAxisAlignment;
   final String? hintText;
   final String? label;
+  final String? subLabel;
   final TFieldConfig<String> fieldConfig;
   final int? maxLines;
   final int? minLines;
@@ -71,6 +73,7 @@ class _TTextAreaFieldState extends State<TTextAreaField> {
     return TFormField(
       formFieldConfig: formFieldConfig,
       label: widget.label,
+      subLabel: widget.subLabel,
       trailingLabel: widget.trailingLabel,
       child: Row(
         crossAxisAlignment: widget.crossAxisAlignment,
