@@ -4,6 +4,28 @@ import 'package:turbo_template/forms/config/t_field_config.dart';
 import 'package:turbo_template/forms/widgets/t_form_field.dart';
 import 'package:turbo_template/state/extensions/context_extension.dart';
 
+class LeadingIcon extends StatelessWidget {
+  final IconData? icon;
+  final bool focused;
+  final BuildContext context;
+
+  const LeadingIcon({
+    super.key,
+    required this.icon,
+    required this.focused,
+    required this.context,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (icon == null) return const SizedBox.shrink();
+    return Icon(
+      icon,
+      color: focused ? null : context.colors.input,
+    );
+  }
+}
+
 class TTextInputField extends StatefulWidget {
   const TTextInputField({
     required this.fieldConfig,
@@ -67,9 +89,8 @@ class _TTextInputFieldState extends State<TTextInputField> {
       return;
     }
     setState(() {
-      _currentSuggestions = autoCompleteValues
-          .where((element) => element.naked.contains(value.naked))
-          .toList();
+      _currentSuggestions =
+          autoCompleteValues.where((element) => element.naked.contains(value.naked)).toList();
     });
   }
 
@@ -107,7 +128,17 @@ class _TTextInputFieldState extends State<TTextInputField> {
                       _onChanged(formFieldConfig, value);
                       _updateSuggestions(value);
                     },
-                    leading: _leading(),
+                    leading: widget.leading ??
+                        StatedWidget.builder(
+                          builder: (context, states) => Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: LeadingIcon(
+                              icon: widget.leadingIcon,
+                              focused: states.focused,
+                              context: context,
+                            ),
+                          ),
+                        ),
                     trailing: widget.trailing,
                     hintText: hintText,
                     keyboardType: widget.keyboardType,
@@ -128,7 +159,14 @@ class _TTextInputFieldState extends State<TTextInputField> {
                   )
                 else
                   TextField(
-                    leading: _leading(),
+                    leading: widget.leading ??
+                        StatedWidget.builder(
+                          builder: (context, states) => LeadingIcon(
+                            icon: widget.leadingIcon,
+                            focused: states.focused,
+                            context: context,
+                          ),
+                        ),
                     trailing: widget.trailing,
                     hintText: hintText,
                     keyboardType: widget.keyboardType,
@@ -149,21 +187,6 @@ class _TTextInputFieldState extends State<TTextInputField> {
       ),
     );
   }
-
-  Widget? _leading() =>
-      widget.leading ??
-      switch (widget.leadingIcon != null) {
-        true => StatedWidget.builder(
-            builder: (context, states) {
-              if (states.focused) {
-                return Icon(widget.leadingIcon);
-              } else {
-                return Icon(widget.leadingIcon, color: context.colors.input);
-              }
-            },
-          ),
-        false => null,
-      };
 
   void _onChanged(TFieldConfig<String> formFieldConfig, String value) {
     formFieldConfig.silentUpdateValue(value);

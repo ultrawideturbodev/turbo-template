@@ -5,7 +5,6 @@ import 'package:turbo_template/data/constants/k_sizes.dart';
 import 'package:turbo_template/forms/config/t_field_config.dart';
 import 'package:turbo_template/forms/widgets/t_text_input_field.dart';
 import 'package:turbo_template/localizations/globals/g_strings.dart';
-import 'package:turbo_template/ui/extensions/widget_extension.dart';
 import 'package:turbo_template/ui/widgets/opacity_button.dart';
 import 'package:turbo_template/ui/widgets/t_trailing.dart';
 

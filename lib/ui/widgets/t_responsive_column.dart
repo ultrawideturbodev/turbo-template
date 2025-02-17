@@ -38,7 +38,6 @@ class TResponsiveColumn extends StatelessWidget {
       builder: (context, constraints) {
         final width = constraints.maxWidth;
         final columnCount = _calculateColumnCount(width);
-        print('''[🐛] [PRINT] [🌟] [TResponsiveColumn.build] [📞] columnCount: ${columnCount}''');
         final content = columnCount == 1
             ? Column(
                 crossAxisAlignment: crossAxisAlignment,

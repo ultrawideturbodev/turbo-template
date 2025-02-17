@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ButtonStyle;
 import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:turbo_template/data/constants/k_sizes.dart';
+import 'package:turbo_template/data/extensions/string_extension.dart';
 import 'package:turbo_template/forms/config/t_field_config.dart';
 import 'package:turbo_template/forms/widgets/t_form_field.dart';
 import 'package:turbo_template/state/extensions/context_extension.dart';
@@ -70,6 +72,7 @@ class _TSelectFieldState<T> extends State<TSelectField<T>> {
       trailingLabel: widget.trailingLabel,
       child: Row(
         crossAxisAlignment: widget.crossAxisAlignment,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Expanded(
             child: Select<T>(
@@ -81,14 +84,17 @@ class _TSelectFieldState<T> extends State<TSelectField<T>> {
               ),
               placeholder: hintText != null ? Text(hintText, style: formFieldTextStyle) : null,
               onChanged: isReadOnly ? null : (value) => _onChanged(formFieldConfig, value),
+              disableHoverEffect: false,
               children: items
-                  .map((item) => SelectItemButton<T>(
-                        value: item,
-                        child: Text(
-                          formFieldConfig.labelBuilder?.call(item) ?? item.toString(),
-                          style: formFieldTextStyle,
-                        ),
-                      ))
+                  .map(
+                    (item) => SelectItemButton<T>(
+                      value: item,
+                      child: Text(
+                        formFieldConfig.labelBuilder?.call(item) ?? item.toString(),
+                        style: formFieldTextStyle,
+                      ),
+                    ),
+                  )
                   .toList(),
             ),
           ),
@@ -104,10 +110,13 @@ class _TSelectFieldState<T> extends State<TSelectField<T>> {
 
   void _onChanged(TFieldConfig<T> formFieldConfig, T? value) {
     if (value == null) return;
-    formFieldConfig.silentUpdateValue(value);
+
+    formFieldConfig.value = value;
+
     if (formFieldConfig.shouldValidate.value) {
       formFieldConfig.isValid;
     }
+
     widget.onChanged?.call(value);
   }
 }
