@@ -77,7 +77,7 @@ class _TTextAreaFieldState extends State<TTextAreaField> {
         children: [
           Expanded(
             child: TextField(
-              maxLines: widget.maxLines ?? null,
+              maxLines: widget.maxLines,
               minLines: widget.minLines ?? 3,
               keyboardType: TextInputType.multiline,
               trailing: widget.trailing,

@@ -129,16 +129,18 @@ class _TTextInputFieldState extends State<TTextInputField> {
                       _updateSuggestions(value);
                     },
                     leading: widget.leading ??
-                        StatedWidget.builder(
-                          builder: (context, states) => Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: LeadingIcon(
-                              icon: widget.leadingIcon,
-                              focused: states.focused,
-                              context: context,
-                            ),
-                          ),
-                        ),
+                        (widget.leadingIcon == null
+                            ? null
+                            : StatedWidget.builder(
+                                builder: (context, states) => Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: LeadingIcon(
+                                    icon: widget.leadingIcon,
+                                    focused: states.focused,
+                                    context: context,
+                                  ),
+                                ),
+                              )),
                     trailing: widget.trailing,
                     hintText: hintText,
                     keyboardType: widget.keyboardType,
@@ -160,13 +162,18 @@ class _TTextInputFieldState extends State<TTextInputField> {
                 else
                   TextField(
                     leading: widget.leading ??
-                        StatedWidget.builder(
-                          builder: (context, states) => LeadingIcon(
-                            icon: widget.leadingIcon,
-                            focused: states.focused,
-                            context: context,
+                        (widget.leadingIcon == null
+                            ? null
+                            : StatedWidget.builder(
+                          builder: (context, states) => Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: LeadingIcon(
+                              icon: widget.leadingIcon,
+                              focused: states.focused,
+                              context: context,
+                            ),
                           ),
-                        ),
+                        )),
                     trailing: widget.trailing,
                     hintText: hintText,
                     keyboardType: widget.keyboardType,

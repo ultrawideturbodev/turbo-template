@@ -3,6 +3,7 @@ import 'package:turbo_template/forms/widgets/t_checkbox_field.dart';
 import 'package:turbo_template/forms/widgets/t_number_input_field.dart';
 import 'package:turbo_template/forms/widgets/t_search_field.dart';
 import 'package:turbo_template/forms/widgets/t_select_field.dart';
+import 'package:turbo_template/forms/widgets/t_text_area_field.dart';
 import 'package:turbo_template/forms/widgets/t_text_input_field.dart';
 import 'package:turbo_template/routing/models/origin_arguments.dart';
 import 'package:turbo_template/settings/views/settings_view_arguments.dart';
@@ -37,7 +38,7 @@ class SettingsView extends StatelessWidget {
           headers: const [
             TAppBar(
               title: 'Settings',
-            )
+            ),
           ],
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
@@ -66,6 +67,11 @@ class SettingsView extends StatelessWidget {
                   fieldConfig: model.form.select,
                   label: 'Select Example',
                   hintText: 'Choose an option...',
+                ),
+                TTextAreaField(
+                  fieldConfig: model.form.textArea,
+                  label: 'Text Area Example',
+                  hintText: 'Enter multiple lines of text...',
                 ),
               ],
             ),
