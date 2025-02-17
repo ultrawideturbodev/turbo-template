@@ -83,10 +83,11 @@ class _TColorPickerFieldState extends State<TColorPickerField> {
             child: ColorInput(
               color: formFieldConfig.value ?? ColorDerivative.fromColor(Colors.black),
               onChanged: isReadOnly ? null : (value) => _onChanged(formFieldConfig, value),
-              showAlpha: widget.showAlpha,
+              showAlpha: false,
               pickerMode: widget.mode,
               allowPickFromScreen: widget.allowPickFromScreen,
               showLabel: true,
+              mode: PromptMode.popover,
               placeholder: hintText != null ? Text(hintText, style: formFieldTextStyle) : null,
             ),
           ),
